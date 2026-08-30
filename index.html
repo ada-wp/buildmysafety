@@ -19,9 +19,12 @@
     <meta property="og:image" content="https://buildmysafety.com/assets/safety-blocks-hero.png">
     <link rel="canonical" href="https://buildmysafety.com/">
     <link rel="stylesheet" href="styles.css">
+    <script src="site.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="scroll-rail" aria-hidden="true"><span></span></div>
 
     <header class="site-header" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="Build My Safety home">
@@ -37,7 +40,7 @@
 
     <main id="main">
       <section class="hero" id="top">
-        <div class="hero-copy">
+        <div class="hero-copy reveal">
           <p class="eyebrow">Safety as agency</p>
           <h1>Build a life you can rely on.</h1>
           <p class="hero-text">
@@ -50,8 +53,13 @@
             <a class="button secondary" href="#map">Preview the Safety Map</a>
           </div>
           <p class="microcopy">A few minutes. No fear score. No giant checklist.</p>
+          <div class="hero-cues" aria-label="Build My Safety principles">
+            <span>Know</span>
+            <span>Act</span>
+            <span>Trust</span>
+          </div>
         </div>
-        <div class="hero-visual" aria-label="Abstract building block sculpture suggesting gentle strength">
+        <div class="hero-visual reveal" aria-label="Abstract building block sculpture suggesting gentle strength">
           <img
             src="assets/safety-blocks-hero.png"
             alt="Warm sculptural blocks forming an abstract elephant-like shape"
@@ -59,7 +67,7 @@
         </div>
       </section>
 
-      <section class="statement">
+      <section class="statement reveal">
         <div>
           <p class="eyebrow">A different way to think about safety</p>
           <h2>We are creating, not defending.</h2>
@@ -72,28 +80,28 @@
         </p>
       </section>
 
-      <section class="process" id="how">
+      <section class="process reveal" id="how">
         <div class="section-heading">
           <p class="eyebrow">How it works</p>
           <h2>Know what matters. Handle one real thing.</h2>
         </div>
         <div class="steps" aria-label="How Build My Safety works">
-          <article>
+          <article class="reveal">
             <span>01</span>
             <h3>See your blind spots.</h3>
             <p>A short scan looks at the practical systems around your life.</p>
           </article>
-          <article>
+          <article class="reveal">
             <span>02</span>
             <h3>Get your Safety Map.</h3>
             <p>See what is already strong and what may be worth strengthening.</p>
           </article>
-          <article>
+          <article class="reveal">
             <span>03</span>
             <h3>Build your first block.</h3>
             <p>Choose one small action that makes your real life more resilient.</p>
           </article>
-          <article>
+          <article class="reveal">
             <span>04</span>
             <h3>Keep building.</h3>
             <p>Gentle check-ins help you come back to what still matters.</p>
@@ -101,8 +109,8 @@
         </div>
       </section>
 
-      <section class="map-section" id="map">
-        <div class="map-copy">
+      <section class="map-section reveal" id="map">
+        <div class="map-copy reveal">
           <p class="eyebrow">The Safety Map</p>
           <h2>A practical view of the net around your life.</h2>
           <p>
@@ -118,7 +126,7 @@
           </p>
         </div>
 
-        <article class="safety-map" aria-label="Example Safety Map preview">
+        <article class="safety-map reveal" aria-label="Example Safety Map preview">
           <div class="map-header">
             <p>Your Safety Map</p>
             <span>Preview</span>
@@ -154,7 +162,7 @@
         </article>
       </section>
 
-      <section class="checkins">
+      <section class="checkins reveal">
         <div class="section-heading">
           <p class="eyebrow">Weekly check-ins</p>
           <h2>Quiet support, no pressure loop.</h2>
@@ -170,8 +178,8 @@
         </div>
       </section>
 
-      <section class="scan" id="scan">
-        <div class="scan-copy">
+      <section class="scan reveal" id="scan">
+        <div class="scan-copy reveal">
           <p class="eyebrow">Start with one block</p>
           <h2>Take the free Safety Scan.</h2>
           <p>
@@ -180,7 +188,7 @@
             see one small block you can put in place this week.
           </p>
         </div>
-        <div class="scan-form" aria-label="Safety Scan call to action">
+        <div class="scan-form reveal" aria-label="Safety Scan call to action">
           <h3>Five questions. One first block.</h3>
           <p>
             No fear score. The scan is designed to help you notice what is worth

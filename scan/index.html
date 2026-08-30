@@ -12,9 +12,12 @@
     <link rel="canonical" href="https://buildmysafety.com/scan/">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="scan.css">
+    <script src="../site.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#scan-app">Skip to scan</a>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="scroll-rail" aria-hidden="true"><span></span></div>
 
     <header class="site-header scan-header" aria-label="Scan navigation">
       <a class="brand" href="../index.html" aria-label="Build My Safety home">
@@ -28,7 +31,7 @@
     </header>
 
     <main class="scan-page" id="scan-app">
-      <section class="scan-intro" aria-labelledby="scan-title">
+      <section class="scan-intro reveal" aria-labelledby="scan-title">
         <p class="eyebrow">Free Safety Scan</p>
         <h1 id="scan-title">Find one thing to make more solid.</h1>
         <p>
@@ -36,9 +39,14 @@
           answer five questions, add your email, then see a Safety Map with one
           first block to build from.
         </p>
+        <div class="scan-notes" aria-label="Scan principles">
+          <span>No score</span>
+          <span>Five questions</span>
+          <span>One next step</span>
+        </div>
       </section>
 
-      <section class="quiz-shell" aria-live="polite">
+      <section class="quiz-shell reveal" aria-live="polite">
         <div class="quiz-progress" aria-label="Scan progress">
           <span id="progressLabel">Question 1 of 5</span>
           <div class="progress-track" aria-hidden="true">
