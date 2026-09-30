@@ -12,6 +12,8 @@ Consolidated 29 September 2026 from local source and prior connection records. T
 
 ## Pilot details worth preserving
 
+September 30 design update: Ada confirmed email sign-in. The [connected flow preview](../design/app/v0-flow/README.md) now simulates email-code screens, task changes, empty/all-done lists, recoverable generation and growth. All authentication and generation in that preview are synthetic; no identity/email provider was configured and no real account was created.
+
 The saved `_worker.js` has `/api/scans` and `/api/generate`, `env.OPENAI_API_KEY`, request validation, structured output, `store: false`, a 45-second timeout, result caching and D1 `scans`/`daily_limits`. The current saved limits are 100 submissions and five total generations per day, not a production capacity promise. A failed generation cannot be retried through the ordinary flow; fix that before reuse. API billing/key setup was completed earlier according to the task, not re-verified here. Never copy secrets into client code or Git.
 
 The last located connection note records the seven-day change on September 20. Preserve the source as a recovery reference; reconcile it with the actual live deployment before treating it as an exact production snapshot. No D1 data, account records or credentials are included in this repository collection.

@@ -1,6 +1,6 @@
 # Current product — My Safety V0
 
-Decision snapshot: 30 September 2026, updated with the approved V1 generation prompt. This is the current implementation reference. Dated research and archived proposals do not override it. Product flow is agreed; the new sick-day list and growth preview awaits founder visual review.
+Decision snapshot: 30 September 2026, updated with the approved V1 generation prompt and Ada's confirmed email sign-in requirement. This is the current implementation reference. Dated research and archived proposals do not override it. Product flow is agreed; the latest connected screen treatments await founder visual review.
 
 ## Purpose
 
@@ -40,7 +40,7 @@ Warm ivory, restrained lavender and deep ink; Instrument Serif + Inter; flat min
 
 Start with a free mobile-friendly web product, using a focused custom React interface and the existing Cloudflare/OpenAI investment. Reuse accessible UI primitives, not a whole task-manager application. GitHub holds portable code, content, decisions and original assets.
 
-Account provider and task database are still an engineering decision. The assessment recommends evaluating managed identity/storage before a returning-user beta; no provider has been connected. Do not implement two task databases. Device-only saving is acceptable for this clearly labeled design prototype, not a claim of durable account sync.
+**Email sign-in is required for V0**, confirmed by Ada on September 30. The [five-part design preview](../design/app/v0-flow/README.md) proposes a passwordless code, first-save continuation and returning-user behavior. It does not send email or verify real accounts. Account provider and task database are still an engineering decision. The assessment recommends evaluating managed identity/storage before a returning-user beta; no provider has been connected. Do not implement two task databases. Device-only saving is acceptable for this clearly labeled design prototype, not a claim of durable account sync.
 
 Defer payments, memberships, App Store releases, community, social integrations, advanced recurrence, complex animation and push delivery until the core loop proves useful. The historical $29 four-week offer, Tally/Make setup, fixed-only content and seven-day map are earlier experiments, not V0 requirements. No Figma subscription upgrade is needed for implementation.
 
