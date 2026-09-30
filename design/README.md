@@ -4,6 +4,7 @@ There are two distinct design assets: the approved ivory/lavender app direction 
 
 ## App journey
 
+- [Task detail options A, B and C](app/task-detail-options/README.md): the next screen after opening a saved task; alternatives awaiting selection.
 - [Interactive sick-day preview and Figma reference](app/README.md): the next list/completion/growth views, plus links to seven editable onboarding frames.
 - [My list](app/screens/03-my-list.png) and [first elephant growth](app/screens/04-first-growth.png).
 - [Current concern choices](app/concern-content.json): five categories, five choices each, mapped to research IDs.
