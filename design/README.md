@@ -4,6 +4,7 @@ There are two distinct design assets: the approved ivory/lavender app direction 
 
 ## App journey
 
+- [Completion and elephant-growth proposal](app/completion-feedback-proposal.md): research-informed next-screen behavior under discussion; fun, gentle feedback after either completion entry point.
 - [Approved task detail](app/task-detail/README.md): Option A as shown in Ada's screenshot, with visible steps and collapsed optional link/purchase rows. The [three-option comparison](app/task-detail-options/README.md) is retained as design history.
 - [Interactive sick-day preview and Figma reference](app/README.md): the next list/completion/growth views, plus links to seven editable onboarding frames.
 - [My list](app/screens/03-my-list.png) and [first elephant growth](app/screens/04-first-growth.png).
