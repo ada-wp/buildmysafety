@@ -1,0 +1,910 @@
+{
+  "consolidatedOn": "2026-09-29",
+  "records": [
+    {
+      "source": "branding-project/docs/Founder-Voice.md",
+      "destination": "docs/founder-voice.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "4818b651c1f5c2413eb32c9e915c33db110fadccbd3b7bd7bece2366aba1bde5",
+      "sha256": "d2a53c27a22efecb4c25027e635c9163d6fe23b07fc81effe5582a63dae6f0fd",
+      "destination_sha256": "d2a53c27a22efecb4c25027e635c9163d6fe23b07fc81effe5582a63dae6f0fd",
+      "git_blob_sha256": "dfcae2b5d99b5c328960d99090f71b554a3ca92a960770b9264da261eda17b0c"
+    },
+    {
+      "source": "work/safety-research-20260923/combined.json",
+      "destination": "research/data/concerns-resources-evidence.json",
+      "handling": "unchanged copy",
+      "sha256": "27689a30558aa919c4fa4b4067939ef9843b41e259f11be7ad08b697224757ea",
+      "destination_sha256": "27689a30558aa919c4fa4b4067939ef9843b41e259f11be7ad08b697224757ea",
+      "git_blob_sha256": "27689a30558aa919c4fa4b4067939ef9843b41e259f11be7ad08b697224757ea"
+    },
+    {
+      "source": "outputs/safety-research-20260923/Safety_Concerns_and_Solutions.xlsx",
+      "destination": "research/Safety_Concerns_and_Solutions.xlsx",
+      "handling": "unchanged copy",
+      "sha256": "f98cded3eec16b97da02e0e50b0cab776db944a37f84dc71b2eec9727a7c9c2d",
+      "destination_sha256": "f98cded3eec16b97da02e0e50b0cab776db944a37f84dc71b2eec9727a7c9c2d",
+      "git_blob_sha256": "f98cded3eec16b97da02e0e50b0cab776db944a37f84dc71b2eec9727a7c9c2d"
+    },
+    {
+      "source": "outputs/safety-market-20260923/Safety_Market_Research_and_Go_No_Go.md",
+      "destination": "research/market-research.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "68bc9ff0f52e875e807dec4265adad581bf9f9c068c84b9cc49c6ae15abd28b7",
+      "sha256": "2e245c35e078d63423456aaf78b5d69fa0bd68c7d4b4dcf5efe7a5dd10d33d05",
+      "destination_sha256": "b3177a0fce7f4c5fc290a81643abf81befdc21818a496b158928bbf0e13ca876",
+      "git_blob_sha256": "a12cba7d32209989c11e5a19cb9d138eebaec0365c3b8864beb9844a65c1c583"
+    },
+    {
+      "source": "outputs/safety-preventive-20260923/Preventive_Solution_Framework.md",
+      "destination": "research/preventive-solutions.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "3b219f1442e9476ded893822ad52a40374944a096af8db3ac2d34737fe7d72db",
+      "sha256": "5128328e3f13a5be928ae8c97e59723c0821dc18eedd222f6200e4b79fd02d76",
+      "destination_sha256": "14512e263226355759e5aeee427382d2d46554808ebe46b11e11b0b116a167d4",
+      "git_blob_sha256": "6d4d6740d189d119d7b2e283e53c958cd8eac0a8617190d89d8e2a2618c602b7"
+    },
+    {
+      "source": "work/safety-market-20260923/social/findings.md",
+      "destination": "research/social-findings.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "19573b54af787b41fc95263e896b592cd201506b683ed7d6374592bf8e3a24a3",
+      "sha256": "06978ee0071313af40d38384d201be9a6c9e546b899f15a3efaf62b1c927965b",
+      "destination_sha256": "06978ee0071313af40d38384d201be9a6c9e546b899f15a3efaf62b1c927965b",
+      "git_blob_sha256": "d356e94639727abeeb8ffa20753b04b810037b9f5908cb1461e4caf76615f42b"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/_agency-adjacent.md",
+      "destination": "research/competitors/agency-adjacent.md",
+      "handling": "unchanged copy",
+      "sha256": "9fced6774b1a1454369bd47d24932ad723d9acfcb3ca0871d21f1874bf6efa6b",
+      "destination_sha256": "6b087edf59555da97db586420d631b9679cd54b174c2ca55074f3cfc3f08d949",
+      "git_blob_sha256": "f154e3a4ecfee92dd46ea84992565eb20c013d636b0a7c328fa9841a4f011033"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/apple-checkin.md",
+      "destination": "research/competitors/apple-checkin.md",
+      "handling": "unchanged copy",
+      "sha256": "9630e2a18f4757be0fe286c1e9287f8b2c68d6c657279ff6638b023273bc8db1",
+      "destination_sha256": "d247bccccb07d8243745677d629266aa05a01dec3ffa8203dd8a3c1806082225",
+      "git_blob_sha256": "8e93d3809a4bf1909b224d563650f01984008785bb98b013dd890ee89c8a82f0"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/everplans.md",
+      "destination": "research/competitors/everplans.md",
+      "handling": "unchanged copy",
+      "sha256": "a2f9dc962dabc2c8925a4ced07c6d501552ccc8ee29f58ad8ef19cecf8bc94d8",
+      "destination_sha256": "94d63966c1f95bc46befc55633a39f2f3fbeea63e435b1495642e15cbdd3408e",
+      "git_blob_sha256": "6b2eb4bbdefb8feb68e10d4567333e5fb69962df56b8dd57d39edc7d98a1672b"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/get-your-shit-together.md",
+      "destination": "research/competitors/get-your-shit-together.md",
+      "handling": "unchanged copy",
+      "sha256": "5cc51c2f2cac64c793bc7a80f828d5a36330676a7d3a6107403d810d473ac568",
+      "destination_sha256": "4693dd0b677807e79b754a885e95a653c7e59e58494659809591748d22ad40f4",
+      "git_blob_sha256": "5837f0e6daf0beb8aa6170d06001878c476e6a13c47063db5f33ff6dee04a5e2"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/hollieguard.md",
+      "destination": "research/competitors/hollieguard.md",
+      "handling": "unchanged copy",
+      "sha256": "0b86cc3a684a8ac533ba42fed74dd9622251ccdca29d373a442327a11c467873",
+      "destination_sha256": "19066500585823c52d10e083eb4839f358122f34aec8b4cbde2498c5de072864",
+      "git_blob_sha256": "268f82fde422f33c171c439066df52d8fe5fdf505a1372bd3a017e89c859c4bf"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/incasebinder.md",
+      "destination": "research/competitors/incasebinder.md",
+      "handling": "unchanged copy",
+      "sha256": "4158f473e66b59f4bafac3fd4fa3d7b126008f8272053f623c58f118b5285ecb",
+      "destination_sha256": "380fcd722524d2cd95ed1c787186f338a75dfeae94b1c0ada12229fb3a3c3589",
+      "git_blob_sha256": "fba950fc281c4f958aff68f324da501f5b234e87d0acfe048366b6e8d9284179"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/invisawear.md",
+      "destination": "research/competitors/invisawear.md",
+      "handling": "unchanged copy",
+      "sha256": "f41a1e27b426ab5ee2bf3518d2c03884639762f4528ddf3a8209bbc0b43e62fb",
+      "destination_sha256": "63b0d5149f8a78c77c23a20049f4956d21de18582d2ce4da1c5d838db6ad8ad6",
+      "git_blob_sha256": "2f11fe452c4bcad8ffcff05d229fc5542fb6b857b8dedc918b3196c7929c0c44"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/life360.md",
+      "destination": "research/competitors/life360.md",
+      "handling": "unchanged copy",
+      "sha256": "00d78972505010345cdece968d1e42eec50f4b9124c4517a5c835e3e29cb3462",
+      "destination_sha256": "2e2a85fdf82a8cff3fa47b16a6de4f4c21ac2cdcb104fff646fd1951ff9ece98",
+      "git_blob_sha256": "632fac5186ec5316515fda467ff5660dcd466b80ec5692bad61410f1c3b9797f"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/nokbox.md",
+      "destination": "research/competitors/nokbox.md",
+      "handling": "unchanged copy",
+      "sha256": "e06a24268268635365931acb167cf7b1f435c97949eb10bf0feced9443c9f63d",
+      "destination_sha256": "a15e37713716807b213b0e4c0b6d77b64bcf7df847b8456afca753273ba28f71",
+      "git_blob_sha256": "921d2934711c1a929b5c48516ad074198699c2b7f3d3d62aa775215d80e25452"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/noonlight.md",
+      "destination": "research/competitors/noonlight.md",
+      "handling": "unchanged copy",
+      "sha256": "baa2a6460bfa8a603381b43959cf5d33cbbadd075128b6b84880f93595cabf9b",
+      "destination_sha256": "0a5c1ee5d9337efcc6f88b6766de5c14a018c72c0a98e6f9fa6f852445123b1a",
+      "git_blob_sha256": "58242b56e521c217b064bc41d9325b6586f5f07fd065eab900bcbe174d1ebfea"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/plansafe.md",
+      "destination": "research/competitors/plansafe.md",
+      "handling": "unchanged copy",
+      "sha256": "0f8824a9df36970b671c467c67d04df5a9356ef97d2aa3a07bfd0c4a9bc5c92d",
+      "destination_sha256": "76602edf35d0795bb3d730c413c6e3e92ae1fda781eeb90d062780e1ceafb941",
+      "git_blob_sha256": "5704208cb10696a9b3b26b435f7e89866bf23dfa97b5446b8350ca25388fadf8"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/safe-binder.md",
+      "destination": "research/competitors/safe-binder.md",
+      "handling": "unchanged copy",
+      "sha256": "d5384a0de722f59dcf5ed27e56f1e2a3385711225df1880a2929e15882a3cf64",
+      "destination_sha256": "e1c9d1f0ba9bbf6106a1e9106a6635f9dddd27a506b111d20391107db2e7f436",
+      "git_blob_sha256": "462035ca09b5fa0db7e362e10d927041fba2eafdd9c9b747270f6192c0a49ff4"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/snug.md",
+      "destination": "research/competitors/snug.md",
+      "handling": "unchanged copy",
+      "sha256": "4be78f443751a04f1ecfce3b0c6a429753b232a2b02085effb117639d59b00ab",
+      "destination_sha256": "8c3b48f7a88d7b951e91ac26f89d6b2088ad750f0a574e146618180c3afc728b",
+      "git_blob_sha256": "59fcdf01676eda57c5c9048fbba713b2169c7e7446268c4ba5533895c274e67b"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/solo-woman-binder.md",
+      "destination": "research/competitors/solo-woman-binder.md",
+      "handling": "unchanged copy",
+      "sha256": "3985a221980552770dbd6709f99cb510496e016e36c07abd4e30f45b9e984976",
+      "destination_sha256": "32336f12d3099cd3b9a1cd727b12f8f108bd901aaf37840cda093512fedf86e2",
+      "git_blob_sha256": "1aa5b5d5cd4a59355b8a2f0d4d25503af98030ef766949437484dac88b10f79b"
+    },
+    {
+      "source": "work/safety-market-20260923/competitor-profiles/trustworthy.md",
+      "destination": "research/competitors/trustworthy.md",
+      "handling": "unchanged copy",
+      "sha256": "e1da7b5678495d8fc6e26d08e071009ce18584b3b2eb09aa371c5b1adba56403",
+      "destination_sha256": "e4b85909124dd21527dff7e8b1db992c91811e821ffeebdaf530d5b8e9b87410",
+      "git_blob_sha256": "29174d41122c602f5bcde3e9dc555d3226ff2d82062eb625d50df8ef2622de56"
+    },
+    {
+      "source": "outputs/safety-open-source-20260929/Product_Engineering_Decision.md",
+      "destination": "research/open-source/decision.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "7e187d9e64fd30ef18dfa644bbf1778de691aefd8a66b943ab6021ff095ca0ad",
+      "sha256": "47b4a3af2a8071d4dbbec716a6732527d56f06567f9b9b93885da3d4c5f0d7ba",
+      "destination_sha256": "47b4a3af2a8071d4dbbec716a6732527d56f06567f9b9b93885da3d4c5f0d7ba",
+      "git_blob_sha256": "562a2d0e22bb897c6463680041b122017f5e4322fc24281ba4f69376d245bb86"
+    },
+    {
+      "source": "outputs/safety-open-source-20260929/Reuse_Recommendation.md",
+      "destination": "research/open-source/decision.md",
+      "handling": "unique comparisons and live evidence merged; superseded recommendation removed",
+      "source_sha256": "8d883940e620705d59606b4f6e4cb49b52950f8933f2753f089db95bc3accbd6",
+      "destination_sha256": "47b4a3af2a8071d4dbbec716a6732527d56f06567f9b9b93885da3d4c5f0d7ba",
+      "git_blob_sha256": "562a2d0e22bb897c6463680041b122017f5e4322fc24281ba4f69376d245bb86"
+    },
+    {
+      "source": "outputs/safety-open-source-20260929/Second_Search_and_Live_Test.md",
+      "destination": "research/open-source/decision.md",
+      "handling": "unique comparisons and live evidence merged; superseded recommendation removed",
+      "source_sha256": "cbe2d2ac56118206eb707c850895461fec6d7f15ce0067ef6ab6953c26eddb79",
+      "destination_sha256": "47b4a3af2a8071d4dbbec716a6732527d56f06567f9b9b93885da3d4c5f0d7ba",
+      "git_blob_sha256": "562a2d0e22bb897c6463680041b122017f5e4322fc24281ba4f69376d245bb86"
+    },
+    {
+      "source": "outputs/safety-figma-20260927/concern-content.json",
+      "destination": "design/app/concern-content.json",
+      "handling": "unchanged copy",
+      "sha256": "27281b61d358b27eb029a4b7b09d4d88079d4e50081be8c62c8cd867a6f39229",
+      "destination_sha256": "27281b61d358b27eb029a4b7b09d4d88079d4e50081be8c62c8cd867a6f39229",
+      "git_blob_sha256": "27281b61d358b27eb029a4b7b09d4d88079d4e50081be8c62c8cd867a6f39229"
+    },
+    {
+      "source": "conversation-design/safety-sick-day-journey.html",
+      "destination": "design/app/source/sick-day-journey.fragment.html",
+      "handling": "unchanged copy",
+      "sha256": "1eea9d5f8a7fcff8b9e65750edcdabe391fad34e36784a60f47b6c0e22f3b4b4",
+      "destination_sha256": "1eea9d5f8a7fcff8b9e65750edcdabe391fad34e36784a60f47b6c0e22f3b4b4",
+      "git_blob_sha256": "61be201c1bbf77b398588a2b6bbc705d8ea9e021e2466f2e81b9033f4188d2c7"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/preview.html",
+      "destination": "design/app/sick-day-journey.html",
+      "handling": "unchanged copy",
+      "sha256": "d9f5634e113b25406aa786ebd3c2f1cdd12fa7c68d15ffaa5bed4b0f702bd8d2",
+      "destination_sha256": "d9f5634e113b25406aa786ebd3c2f1cdd12fa7c68d15ffaa5bed4b0f702bd8d2",
+      "git_blob_sha256": "d9f5634e113b25406aa786ebd3c2f1cdd12fa7c68d15ffaa5bed4b0f702bd8d2"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/check-preview.cjs",
+      "destination": "design/app/tools/check-preview.cjs",
+      "handling": "consolidated / references updated",
+      "source_sha256": "bd498ec63ffd11ea0d69649fd03c896934fcebdfc58b21040fc0a2fce413a023",
+      "sha256": "f7e38880923746e55c13fb79d542a7a679002c0d888dd76c6fbb9e6e1b78f7d0",
+      "destination_sha256": "f7e38880923746e55c13fb79d542a7a679002c0d888dd76c6fbb9e6e1b78f7d0",
+      "git_blob_sha256": "9948d5fabebdd19ec65afdbb9005439d94500c8b1474e380c01fa8ffaa1a941e"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/01-suggestions.png",
+      "destination": "design/app/screens/01-suggestions.png",
+      "handling": "unchanged copy",
+      "sha256": "1ce6dbece59e59bd634d4ba0a2b93537fb6138b07252c773cb4f33e8c7259c90",
+      "destination_sha256": "1ce6dbece59e59bd634d4ba0a2b93537fb6138b07252c773cb4f33e8c7259c90",
+      "git_blob_sha256": "1ce6dbece59e59bd634d4ba0a2b93537fb6138b07252c773cb4f33e8c7259c90"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/02-expanded.png",
+      "destination": "design/app/screens/02-expanded.png",
+      "handling": "unchanged copy",
+      "sha256": "bac0ed2c05c92a7218f91fd6bf40cecd6abd8e80ed9e7a2535f5dbaff213bf8e",
+      "destination_sha256": "bac0ed2c05c92a7218f91fd6bf40cecd6abd8e80ed9e7a2535f5dbaff213bf8e",
+      "git_blob_sha256": "bac0ed2c05c92a7218f91fd6bf40cecd6abd8e80ed9e7a2535f5dbaff213bf8e"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/03-my-list.png",
+      "destination": "design/app/screens/03-my-list.png",
+      "handling": "unchanged copy",
+      "sha256": "2f6cd27c9f5aabb9f89af4e7ad9059b11093d836f93926cb126a34a26bcc4dcb",
+      "destination_sha256": "2f6cd27c9f5aabb9f89af4e7ad9059b11093d836f93926cb126a34a26bcc4dcb",
+      "git_blob_sha256": "2f6cd27c9f5aabb9f89af4e7ad9059b11093d836f93926cb126a34a26bcc4dcb"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/04-first-growth.png",
+      "destination": "design/app/screens/04-first-growth.png",
+      "handling": "unchanged copy",
+      "sha256": "629c215cf0686b5a22761f060ad665f13349c707d5367cf573fe8d91d1c6e1ca",
+      "destination_sha256": "629c215cf0686b5a22761f060ad665f13349c707d5367cf573fe8d91d1c6e1ca",
+      "git_blob_sha256": "629c215cf0686b5a22761f060ad665f13349c707d5367cf573fe8d91d1c6e1ca"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/05-completed-list.png",
+      "destination": "design/app/screens/05-completed-list.png",
+      "handling": "unchanged copy",
+      "sha256": "392dbd586d27557b97432b316f8ee44626fbbab45c33ff84630eff76f7d67993",
+      "destination_sha256": "392dbd586d27557b97432b316f8ee44626fbbab45c33ff84630eff76f7d67993",
+      "git_blob_sha256": "392dbd586d27557b97432b316f8ee44626fbbab45c33ff84630eff76f7d67993"
+    },
+    {
+      "source": "outputs/safety-sick-day-design-20260929/06-concerns.png",
+      "destination": "design/app/screens/06-concerns.png",
+      "handling": "unchanged copy",
+      "sha256": "65cdd98c6c26a3403f75e3711c161247c63503523a50401d86e8944ec1497026",
+      "destination_sha256": "65cdd98c6c26a3403f75e3711c161247c63503523a50401d86e8944ec1497026",
+      "git_blob_sha256": "65cdd98c6c26a3403f75e3711c161247c63503523a50401d86e8944ec1497026"
+    },
+    {
+      "source": "outputs/safety-elephant-mockups-20260927/04-meet-your-protector-minimal.png",
+      "destination": "design/assets/meet-your-protector-minimal.png",
+      "handling": "unchanged copy",
+      "sha256": "a03b942d7bb15e1a4239a9beb6954ee4aebbba93a0401414648c0ba4523c1143",
+      "destination_sha256": "a03b942d7bb15e1a4239a9beb6954ee4aebbba93a0401414648c0ba4523c1143",
+      "git_blob_sha256": "a03b942d7bb15e1a4239a9beb6954ee4aebbba93a0401414648c0ba4523c1143"
+    },
+    {
+      "source": "outputs/safety-elephant-mockups-20260927/minimal-revision-prompt.md",
+      "destination": "design/assets/minimal-revision-prompt.md",
+      "handling": "unchanged copy",
+      "sha256": "a055c28abc5ac553d359098a697d653ab22a5c37a82eb0b9da28b1c4741aabfb",
+      "destination_sha256": "28e1437182dc73b1ab9059f3855288f225e44b8920607a3e8c8733d8f9a01f41",
+      "git_blob_sha256": "84185f063aed642d0a5026396a4f1e42a375024cfd4dcdd7d45874d8a31e8331"
+    },
+    {
+      "source": "outputs/safety-figma-20260927/README.md",
+      "destination": "design/app/README.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "3e8455c7fea6a4f46f882ddf19f7e97f4fd716168b1434a3de1415b0fc174225",
+      "sha256": "c833eada71460b44d47fad5167885c2bc1d4edb53d74f55c6228fd82d423c930",
+      "destination_sha256": "0874c119ff0cff04fc893d7c19f3bbfb56b6fcd752f753213605074eb59289fa",
+      "git_blob_sha256": "6c7e158df448866d88cc569f0271cd649307d3591c9340adc9d8c50941e81e72"
+    },
+    {
+      "source": "branding-project/site/.gitignore",
+      "destination": "design/website-preview/.gitignore",
+      "handling": "unchanged copy",
+      "sha256": "dfbc87ac8f50c190f2400cd7568af966c6d58c4c73fcfda61f73fd69651453f6",
+      "destination_sha256": "dfbc87ac8f50c190f2400cd7568af966c6d58c4c73fcfda61f73fd69651453f6",
+      "git_blob_sha256": "dfbc87ac8f50c190f2400cd7568af966c6d58c4c73fcfda61f73fd69651453f6"
+    },
+    {
+      "source": "branding-project/site/index.html",
+      "destination": "design/website-preview/index.html",
+      "handling": "unchanged copy",
+      "sha256": "3a7750023d01e3dc25acccd14db4b1686d58c20159b08d59ce930af1086ed3de",
+      "destination_sha256": "3a7750023d01e3dc25acccd14db4b1686d58c20159b08d59ce930af1086ed3de",
+      "git_blob_sha256": "3a7750023d01e3dc25acccd14db4b1686d58c20159b08d59ce930af1086ed3de"
+    },
+    {
+      "source": "branding-project/site/package-lock.json",
+      "destination": "design/website-preview/package-lock.json",
+      "handling": "unchanged copy",
+      "sha256": "b260db30a3457a06f21eae895610984265174d265cb82a774e01d089e534ca7f",
+      "destination_sha256": "b260db30a3457a06f21eae895610984265174d265cb82a774e01d089e534ca7f",
+      "git_blob_sha256": "b260db30a3457a06f21eae895610984265174d265cb82a774e01d089e534ca7f"
+    },
+    {
+      "source": "branding-project/site/package.json",
+      "destination": "design/website-preview/package.json",
+      "handling": "unchanged copy",
+      "sha256": "50b11957b9944d9986af325e334909616cefdfca68a3414a8b38bc2d0b9a5b2f",
+      "destination_sha256": "50b11957b9944d9986af325e334909616cefdfca68a3414a8b38bc2d0b9a5b2f",
+      "git_blob_sha256": "50b11957b9944d9986af325e334909616cefdfca68a3414a8b38bc2d0b9a5b2f"
+    },
+    {
+      "source": "branding-project/site/public/favicon.svg",
+      "destination": "design/website-preview/public/favicon.svg",
+      "handling": "unchanged copy",
+      "sha256": "800164ba4a6b886e09f8a79e560d09602ad197c15cc762acf5c8c7c2d83eeedd",
+      "destination_sha256": "800164ba4a6b886e09f8a79e560d09602ad197c15cc762acf5c8c7c2d83eeedd",
+      "git_blob_sha256": "800164ba4a6b886e09f8a79e560d09602ad197c15cc762acf5c8c7c2d83eeedd"
+    },
+    {
+      "source": "branding-project/site/public/media/my-safety-woman.png",
+      "destination": "design/website-preview/public/media/my-safety-woman.png",
+      "handling": "unchanged copy",
+      "sha256": "62dcd3e78ca0bd3163ce1f5f5474fca272ddca886ee5f8b01fd4a7341384d439",
+      "destination_sha256": "62dcd3e78ca0bd3163ce1f5f5474fca272ddca886ee5f8b01fd4a7341384d439",
+      "git_blob_sha256": "62dcd3e78ca0bd3163ce1f5f5474fca272ddca886ee5f8b01fd4a7341384d439"
+    },
+    {
+      "source": "branding-project/site/README.md",
+      "destination": "design/website-preview/README.md",
+      "handling": "unchanged copy",
+      "sha256": "965846a2692593e8a394390c888d9d5402698d1efee05e03a8bc545bc2e70dd6",
+      "destination_sha256": "75ad358954f0d8d1839fabf8194087f0b539d2d42ca3ef9fd3dad005de45bfd2",
+      "git_blob_sha256": "6951e961c8a607588c5ddb0db65eb1043c0ae0e8ea949fb7a2bfc656ee588ed1"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/cta.tsx",
+      "destination": "design/website-preview/src/components/velorah/cta.tsx",
+      "handling": "unchanged copy",
+      "sha256": "5c3cea2844fc87d74654578ec7734686df23dd98acd927ec7a61521b0b2a5dad",
+      "destination_sha256": "5c3cea2844fc87d74654578ec7734686df23dd98acd927ec7a61521b0b2a5dad",
+      "git_blob_sha256": "5c3cea2844fc87d74654578ec7734686df23dd98acd927ec7a61521b0b2a5dad"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/feature.tsx",
+      "destination": "design/website-preview/src/components/velorah/feature.tsx",
+      "handling": "unchanged copy",
+      "sha256": "da2be3547e80cee6f7f939bf88df2c7807d74f8946f3d5752d55a70dce8989a8",
+      "destination_sha256": "da2be3547e80cee6f7f939bf88df2c7807d74f8946f3d5752d55a70dce8989a8",
+      "git_blob_sha256": "da2be3547e80cee6f7f939bf88df2c7807d74f8946f3d5752d55a70dce8989a8"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/fonts.ts",
+      "destination": "design/website-preview/src/components/velorah/fonts.ts",
+      "handling": "unchanged copy",
+      "sha256": "68d5d8ba4957d0218b4c675e2ce2623aac443fdc4d36486775b902b0c649c82c",
+      "destination_sha256": "68d5d8ba4957d0218b4c675e2ce2623aac443fdc4d36486775b902b0c649c82c",
+      "git_blob_sha256": "68d5d8ba4957d0218b4c675e2ce2623aac443fdc4d36486775b902b0c649c82c"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/footer.tsx",
+      "destination": "design/website-preview/src/components/velorah/footer.tsx",
+      "handling": "unchanged copy",
+      "sha256": "a7d9216c6603d7f8fe7fba8596ea8ac04b8b63826e412b00d5356b11765f38e7",
+      "destination_sha256": "a7d9216c6603d7f8fe7fba8596ea8ac04b8b63826e412b00d5356b11765f38e7",
+      "git_blob_sha256": "a7d9216c6603d7f8fe7fba8596ea8ac04b8b63826e412b00d5356b11765f38e7"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/hero.tsx",
+      "destination": "design/website-preview/src/components/velorah/hero.tsx",
+      "handling": "unchanged copy",
+      "sha256": "837b5debe029155d121d81727b5cb76f9a9b43a67d91af0f1f3e52c7b77aab38",
+      "destination_sha256": "837b5debe029155d121d81727b5cb76f9a9b43a67d91af0f1f3e52c7b77aab38",
+      "git_blob_sha256": "837b5debe029155d121d81727b5cb76f9a9b43a67d91af0f1f3e52c7b77aab38"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/hls-video.tsx",
+      "destination": "design/website-preview/src/components/velorah/hls-video.tsx",
+      "handling": "unchanged copy",
+      "sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e",
+      "destination_sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e",
+      "git_blob_sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/navbar.tsx",
+      "destination": "design/website-preview/src/components/velorah/navbar.tsx",
+      "handling": "unchanged copy",
+      "sha256": "0f27bda116044c542980681eb3dab02d26e36aae32b380c101aa5d9cc6b6934c",
+      "destination_sha256": "0f27bda116044c542980681eb3dab02d26e36aae32b380c101aa5d9cc6b6934c",
+      "git_blob_sha256": "0f27bda116044c542980681eb3dab02d26e36aae32b380c101aa5d9cc6b6934c"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/primitives.tsx",
+      "destination": "design/website-preview/src/components/velorah/primitives.tsx",
+      "handling": "unchanged copy",
+      "sha256": "9457bb505d7cc07813c9fe87c1d1522a38b75e7c8734bbacb243aa45fc9b9bcf",
+      "destination_sha256": "9457bb505d7cc07813c9fe87c1d1522a38b75e7c8734bbacb243aa45fc9b9bcf",
+      "git_blob_sha256": "9457bb505d7cc07813c9fe87c1d1522a38b75e7c8734bbacb243aa45fc9b9bcf"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/quiet-scene.tsx",
+      "destination": "design/website-preview/src/components/velorah/quiet-scene.tsx",
+      "handling": "unchanged copy",
+      "sha256": "4def5f6d860e418e83f9ac85d7bb6e1eb09d26dd7eaffd4ae7b5c5f6388969ac",
+      "destination_sha256": "4def5f6d860e418e83f9ac85d7bb6e1eb09d26dd7eaffd4ae7b5c5f6388969ac",
+      "git_blob_sha256": "4def5f6d860e418e83f9ac85d7bb6e1eb09d26dd7eaffd4ae7b5c5f6388969ac"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/statement.tsx",
+      "destination": "design/website-preview/src/components/velorah/statement.tsx",
+      "handling": "unchanged copy",
+      "sha256": "122c59d7737115e34c7aab11e6b46e3ce0264ab452fd862d23d22950166c67bd",
+      "destination_sha256": "122c59d7737115e34c7aab11e6b46e3ce0264ab452fd862d23d22950166c67bd",
+      "git_blob_sha256": "122c59d7737115e34c7aab11e6b46e3ce0264ab452fd862d23d22950166c67bd"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/styles.tsx",
+      "destination": "design/website-preview/src/components/velorah/styles.tsx",
+      "handling": "unchanged copy",
+      "sha256": "594f335682c777a4b102547416d192faeeeb019a25e287593366144b02eb52f8",
+      "destination_sha256": "594f335682c777a4b102547416d192faeeeb019a25e287593366144b02eb52f8",
+      "git_blob_sha256": "594f335682c777a4b102547416d192faeeeb019a25e287593366144b02eb52f8"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/tagline.tsx",
+      "destination": "design/website-preview/src/components/velorah/tagline.tsx",
+      "handling": "unchanged copy",
+      "sha256": "8cec7bf9ae0f013df5ea6ff669050c190e95b5e6fdb15d1a74e4ac3ee7aa7bc1",
+      "destination_sha256": "8cec7bf9ae0f013df5ea6ff669050c190e95b5e6fdb15d1a74e4ac3ee7aa7bc1",
+      "git_blob_sha256": "8cec7bf9ae0f013df5ea6ff669050c190e95b5e6fdb15d1a74e4ac3ee7aa7bc1"
+    },
+    {
+      "source": "branding-project/site/src/components/velorah/velorah.tsx",
+      "destination": "design/website-preview/src/components/velorah/velorah.tsx",
+      "handling": "unchanged copy",
+      "sha256": "ed6cb568a3318ce5c1d3d82d752c802cafd3b0cb4ea3c2c3b6e552aa32fb5ff9",
+      "destination_sha256": "ed6cb568a3318ce5c1d3d82d752c802cafd3b0cb4ea3c2c3b6e552aa32fb5ff9",
+      "git_blob_sha256": "ed6cb568a3318ce5c1d3d82d752c802cafd3b0cb4ea3c2c3b6e552aa32fb5ff9"
+    },
+    {
+      "source": "branding-project/site/src/content/aboutContent.ts",
+      "destination": "design/website-preview/src/content/aboutContent.ts",
+      "handling": "unchanged copy",
+      "sha256": "e8644a7b6407ec0f3a42948eaa2357954b67baef5e31562e33e2a6851eaebe14",
+      "destination_sha256": "e8644a7b6407ec0f3a42948eaa2357954b67baef5e31562e33e2a6851eaebe14",
+      "git_blob_sha256": "e8644a7b6407ec0f3a42948eaa2357954b67baef5e31562e33e2a6851eaebe14"
+    },
+    {
+      "source": "branding-project/site/src/content/siteContent.ts",
+      "destination": "design/website-preview/src/content/siteContent.ts",
+      "handling": "unchanged copy",
+      "sha256": "fe137f31f0ec011cded733f2a5f3335a3b09a0f2319aba7a01c5586383dee26d",
+      "destination_sha256": "fe137f31f0ec011cded733f2a5f3335a3b09a0f2319aba7a01c5586383dee26d",
+      "git_blob_sha256": "fe137f31f0ec011cded733f2a5f3335a3b09a0f2319aba7a01c5586383dee26d"
+    },
+    {
+      "source": "branding-project/site/src/lib/utils.ts",
+      "destination": "design/website-preview/src/lib/utils.ts",
+      "handling": "unchanged copy",
+      "sha256": "0c97f5ec0478867d5369a4369f811e1b779c7f2548f671ef252f1503a6392d9d",
+      "destination_sha256": "0c97f5ec0478867d5369a4369f811e1b779c7f2548f671ef252f1503a6392d9d",
+      "git_blob_sha256": "0c97f5ec0478867d5369a4369f811e1b779c7f2548f671ef252f1503a6392d9d"
+    },
+    {
+      "source": "branding-project/site/src/main.tsx",
+      "destination": "design/website-preview/src/main.tsx",
+      "handling": "unchanged copy",
+      "sha256": "551435d751872e468265365a502b2dfb4e92fe2c9e89157719fa1e26b182327f",
+      "destination_sha256": "551435d751872e468265365a502b2dfb4e92fe2c9e89157719fa1e26b182327f",
+      "git_blob_sha256": "551435d751872e468265365a502b2dfb4e92fe2c9e89157719fa1e26b182327f"
+    },
+    {
+      "source": "branding-project/site/src/pages/about.tsx",
+      "destination": "design/website-preview/src/pages/about.tsx",
+      "handling": "unchanged copy",
+      "sha256": "495c3eaafa5066bcf96e9650a911c8ad5a7104ebdf2496f879937a74e0e69bbf",
+      "destination_sha256": "495c3eaafa5066bcf96e9650a911c8ad5a7104ebdf2496f879937a74e0e69bbf",
+      "git_blob_sha256": "495c3eaafa5066bcf96e9650a911c8ad5a7104ebdf2496f879937a74e0e69bbf"
+    },
+    {
+      "source": "branding-project/site/src/registry/hirael/bases/radix/ui/toggle-group.tsx",
+      "destination": "design/website-preview/src/registry/hirael/bases/radix/ui/toggle-group.tsx",
+      "handling": "unchanged copy",
+      "sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de",
+      "destination_sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de",
+      "git_blob_sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de"
+    },
+    {
+      "source": "branding-project/site/src/registry/hirael/bases/radix/ui/toggle.tsx",
+      "destination": "design/website-preview/src/registry/hirael/bases/radix/ui/toggle.tsx",
+      "handling": "unchanged copy",
+      "sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e",
+      "destination_sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e",
+      "git_blob_sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e"
+    },
+    {
+      "source": "branding-project/site/src/styles/site.css",
+      "destination": "design/website-preview/src/styles/site.css",
+      "handling": "unchanged copy",
+      "sha256": "4c4e13b87ab650cf6a8be54765fa08b2dfbfd70a2b9cf3fd511bd4e483722fcb",
+      "destination_sha256": "4c4e13b87ab650cf6a8be54765fa08b2dfbfd70a2b9cf3fd511bd4e483722fcb",
+      "git_blob_sha256": "4c4e13b87ab650cf6a8be54765fa08b2dfbfd70a2b9cf3fd511bd4e483722fcb"
+    },
+    {
+      "source": "branding-project/site/src/styles/theme.css",
+      "destination": "design/website-preview/src/styles/theme.css",
+      "handling": "unchanged copy",
+      "sha256": "e9eef3078e6f2d60e15884960f93e84377be0394b5149808d881223158b27967",
+      "destination_sha256": "e9eef3078e6f2d60e15884960f93e84377be0394b5149808d881223158b27967",
+      "git_blob_sha256": "e9eef3078e6f2d60e15884960f93e84377be0394b5149808d881223158b27967"
+    },
+    {
+      "source": "branding-project/site/THIRD_PARTY_LICENSES.txt",
+      "destination": "design/website-preview/THIRD_PARTY_LICENSES.txt",
+      "handling": "unchanged copy",
+      "sha256": "e9b13618167519b16a11835608cc885cb47110a04537f54359bf177b177e812f",
+      "destination_sha256": "1292bf74a88bad8c4145fec3891cfa009a599c465e24bc7195faf2bc09575ca9",
+      "git_blob_sha256": "af654389faba4eddd494ab18a858e7b624d8098062763b9c9e8caa14f73be38c"
+    },
+    {
+      "source": "branding-project/site/tools/check-preview.cjs",
+      "destination": "design/website-preview/tools/check-preview.cjs",
+      "handling": "unchanged copy",
+      "sha256": "98d9514c88b7eda7f6080806311ab2abcdbb06a1bf2fbb8825f963291d43035a",
+      "destination_sha256": "98d9514c88b7eda7f6080806311ab2abcdbb06a1bf2fbb8825f963291d43035a",
+      "git_blob_sha256": "98d9514c88b7eda7f6080806311ab2abcdbb06a1bf2fbb8825f963291d43035a"
+    },
+    {
+      "source": "branding-project/site/tools/prerender-about.mjs",
+      "destination": "design/website-preview/tools/prerender-about.mjs",
+      "handling": "unchanged copy",
+      "sha256": "42d65008818ca6083114438d3bdb12e975c1e699dfec913cb3a27e7f9b64b1bf",
+      "destination_sha256": "42d65008818ca6083114438d3bdb12e975c1e699dfec913cb3a27e7f9b64b1bf",
+      "git_blob_sha256": "42d65008818ca6083114438d3bdb12e975c1e699dfec913cb3a27e7f9b64b1bf"
+    },
+    {
+      "source": "branding-project/site/tsconfig.json",
+      "destination": "design/website-preview/tsconfig.json",
+      "handling": "unchanged copy",
+      "sha256": "44e9b39f7a5dfcc6ee6cd6652c5c871bf0525c0571ae2676195dcd889c52ebd5",
+      "destination_sha256": "44e9b39f7a5dfcc6ee6cd6652c5c871bf0525c0571ae2676195dcd889c52ebd5",
+      "git_blob_sha256": "44e9b39f7a5dfcc6ee6cd6652c5c871bf0525c0571ae2676195dcd889c52ebd5"
+    },
+    {
+      "source": "branding-project/site/vite.config.ts",
+      "destination": "design/website-preview/vite.config.ts",
+      "handling": "unchanged copy",
+      "sha256": "b9fbdebebcdd4df67f44bee3a26c422afff71b502add9bbbee5aa4c377a4682b",
+      "destination_sha256": "b9fbdebebcdd4df67f44bee3a26c422afff71b502add9bbbee5aa4c377a4682b",
+      "git_blob_sha256": "b9fbdebebcdd4df67f44bee3a26c422afff71b502add9bbbee5aa4c377a4682b"
+    },
+    {
+      "source": "branding-project/vendor/asme/LICENSE",
+      "destination": "design/vendor/asme/LICENSE",
+      "handling": "unchanged copy",
+      "sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3",
+      "destination_sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3",
+      "git_blob_sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3"
+    },
+    {
+      "source": "branding-project/vendor/asme/PROVENANCE.json",
+      "destination": "design/vendor/asme/PROVENANCE.json",
+      "handling": "unchanged copy",
+      "sha256": "3f5371db23e8108816565b5548624cb0b2799b86cb10b07139b7fba241b6a59d",
+      "destination_sha256": "3f5371db23e8108816565b5548624cb0b2799b86cb10b07139b7fba241b6a59d",
+      "git_blob_sha256": "3f5371db23e8108816565b5548624cb0b2799b86cb10b07139b7fba241b6a59d"
+    },
+    {
+      "source": "branding-project/vendor/asme/upstream/about.tsx",
+      "destination": "design/vendor/asme/upstream/about.tsx",
+      "handling": "unchanged copy",
+      "sha256": "9d15a66d1ccfdf7a2ea237f38b01a9787cf551a7be99aa5e5ebdb7470c8470e5",
+      "destination_sha256": "9d15a66d1ccfdf7a2ea237f38b01a9787cf551a7be99aa5e5ebdb7470c8470e5",
+      "git_blob_sha256": "9d15a66d1ccfdf7a2ea237f38b01a9787cf551a7be99aa5e5ebdb7470c8470e5"
+    },
+    {
+      "source": "branding-project/vendor/asme/upstream/philosophy.tsx",
+      "destination": "design/vendor/asme/upstream/philosophy.tsx",
+      "handling": "unchanged copy",
+      "sha256": "efe875e035ff7453d22fa062d421436a5732f2c67084ea736182230d7eb516e1",
+      "destination_sha256": "efe875e035ff7453d22fa062d421436a5732f2c67084ea736182230d7eb516e1",
+      "git_blob_sha256": "efe875e035ff7453d22fa062d421436a5732f2c67084ea736182230d7eb516e1"
+    },
+    {
+      "source": "branding-project/vendor/velorah/current-controls/PROVENANCE.json",
+      "destination": "design/vendor/velorah/current-controls/PROVENANCE.json",
+      "handling": "unchanged copy",
+      "sha256": "f9024e8a5a9498bb9568339b7065bad53a6c4d54ef7395f20e5d93a2465a75bd",
+      "destination_sha256": "f9024e8a5a9498bb9568339b7065bad53a6c4d54ef7395f20e5d93a2465a75bd",
+      "git_blob_sha256": "f9024e8a5a9498bb9568339b7065bad53a6c4d54ef7395f20e5d93a2465a75bd"
+    },
+    {
+      "source": "branding-project/vendor/velorah/current-controls/toggle-group.tsx",
+      "destination": "design/vendor/velorah/current-controls/toggle-group.tsx",
+      "handling": "unchanged copy",
+      "sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de",
+      "destination_sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de",
+      "git_blob_sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de"
+    },
+    {
+      "source": "branding-project/vendor/velorah/current-controls/toggle.tsx",
+      "destination": "design/vendor/velorah/current-controls/toggle.tsx",
+      "handling": "unchanged copy",
+      "sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e",
+      "destination_sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e",
+      "git_blob_sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e"
+    },
+    {
+      "source": "branding-project/vendor/velorah/CURRENT-REFERENCE.json",
+      "destination": "design/vendor/velorah/CURRENT-REFERENCE.json",
+      "handling": "unchanged copy",
+      "sha256": "0f9d182ebc1e9c40696673216180fdbad57ad434e8a343732ff7064aaa711bef",
+      "destination_sha256": "0f9d182ebc1e9c40696673216180fdbad57ad434e8a343732ff7064aaa711bef",
+      "git_blob_sha256": "0f9d182ebc1e9c40696673216180fdbad57ad434e8a343732ff7064aaa711bef"
+    },
+    {
+      "source": "branding-project/vendor/velorah/LICENSE",
+      "destination": "design/vendor/velorah/LICENSE",
+      "handling": "unchanged copy",
+      "sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3",
+      "destination_sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3",
+      "git_blob_sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3"
+    },
+    {
+      "source": "branding-project/vendor/velorah/PROVENANCE.json",
+      "destination": "design/vendor/velorah/PROVENANCE.json",
+      "handling": "unchanged copy",
+      "sha256": "5bbe64175f3668f47ae0157774aa4a09d2296aaa0cfd73bdefe438adff5ed279",
+      "destination_sha256": "5bbe64175f3668f47ae0157774aa4a09d2296aaa0cfd73bdefe438adff5ed279",
+      "git_blob_sha256": "5bbe64175f3668f47ae0157774aa4a09d2296aaa0cfd73bdefe438adff5ed279"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/cta.tsx",
+      "destination": "design/vendor/velorah/upstream/cta.tsx",
+      "handling": "unchanged copy",
+      "sha256": "2c85de3ef5d13ac00b23375657e9c8c90cbb108e167062e11c5308816d8415bc",
+      "destination_sha256": "2c85de3ef5d13ac00b23375657e9c8c90cbb108e167062e11c5308816d8415bc",
+      "git_blob_sha256": "2c85de3ef5d13ac00b23375657e9c8c90cbb108e167062e11c5308816d8415bc"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/feature.tsx",
+      "destination": "design/vendor/velorah/upstream/feature.tsx",
+      "handling": "unchanged copy",
+      "sha256": "c8b4dcfc09d9a62ed7dd185c4b8236d9e8581512a4e64908508574597270ba7b",
+      "destination_sha256": "c8b4dcfc09d9a62ed7dd185c4b8236d9e8581512a4e64908508574597270ba7b",
+      "git_blob_sha256": "c8b4dcfc09d9a62ed7dd185c4b8236d9e8581512a4e64908508574597270ba7b"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/fonts.ts",
+      "destination": "design/vendor/velorah/upstream/fonts.ts",
+      "handling": "unchanged copy",
+      "sha256": "38487c65f0ffb140430a63ac551e6eb6e98c7aaf74a73e1896bfe8ee9d0d98aa",
+      "destination_sha256": "38487c65f0ffb140430a63ac551e6eb6e98c7aaf74a73e1896bfe8ee9d0d98aa",
+      "git_blob_sha256": "38487c65f0ffb140430a63ac551e6eb6e98c7aaf74a73e1896bfe8ee9d0d98aa"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/footer.tsx",
+      "destination": "design/vendor/velorah/upstream/footer.tsx",
+      "handling": "unchanged copy",
+      "sha256": "1071b86119c500105c7754ea4b7b67855faef9a10f1c51b60b1601b366c3a4da",
+      "destination_sha256": "1071b86119c500105c7754ea4b7b67855faef9a10f1c51b60b1601b366c3a4da",
+      "git_blob_sha256": "1071b86119c500105c7754ea4b7b67855faef9a10f1c51b60b1601b366c3a4da"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/hero.tsx",
+      "destination": "design/vendor/velorah/upstream/hero.tsx",
+      "handling": "unchanged copy",
+      "sha256": "ce2bd792ce4281545b251064a439e1d7063d98473a676feec0bd6c6e0d1d001b",
+      "destination_sha256": "ce2bd792ce4281545b251064a439e1d7063d98473a676feec0bd6c6e0d1d001b",
+      "git_blob_sha256": "ce2bd792ce4281545b251064a439e1d7063d98473a676feec0bd6c6e0d1d001b"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/hls-video.tsx",
+      "destination": "design/vendor/velorah/upstream/hls-video.tsx",
+      "handling": "unchanged copy",
+      "sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e",
+      "destination_sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e",
+      "git_blob_sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/navbar.tsx",
+      "destination": "design/vendor/velorah/upstream/navbar.tsx",
+      "handling": "unchanged copy",
+      "sha256": "e8c2d8af67a0a13e55b5864d3601475b8320e75fc920af557c94af551c5a9e48",
+      "destination_sha256": "e8c2d8af67a0a13e55b5864d3601475b8320e75fc920af557c94af551c5a9e48",
+      "git_blob_sha256": "e8c2d8af67a0a13e55b5864d3601475b8320e75fc920af557c94af551c5a9e48"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/primitives.tsx",
+      "destination": "design/vendor/velorah/upstream/primitives.tsx",
+      "handling": "unchanged copy",
+      "sha256": "bfae5ced7ceeae9a4e46fd9a963f13755326f69253ad05d676e6563c6ee60812",
+      "destination_sha256": "bfae5ced7ceeae9a4e46fd9a963f13755326f69253ad05d676e6563c6ee60812",
+      "git_blob_sha256": "bfae5ced7ceeae9a4e46fd9a963f13755326f69253ad05d676e6563c6ee60812"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/statement.tsx",
+      "destination": "design/vendor/velorah/upstream/statement.tsx",
+      "handling": "unchanged copy",
+      "sha256": "90084c9de8fa65e94e0a227eb78e3a365c3ebd5840726c0bee35b6ecda651946",
+      "destination_sha256": "90084c9de8fa65e94e0a227eb78e3a365c3ebd5840726c0bee35b6ecda651946",
+      "git_blob_sha256": "90084c9de8fa65e94e0a227eb78e3a365c3ebd5840726c0bee35b6ecda651946"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/styles.tsx",
+      "destination": "design/vendor/velorah/upstream/styles.tsx",
+      "handling": "unchanged copy",
+      "sha256": "36a09742f61d5a59e7595921e4c2289653d05ff08e59c72c3e2fb85e9a7fd6d0",
+      "destination_sha256": "36a09742f61d5a59e7595921e4c2289653d05ff08e59c72c3e2fb85e9a7fd6d0",
+      "git_blob_sha256": "36a09742f61d5a59e7595921e4c2289653d05ff08e59c72c3e2fb85e9a7fd6d0"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/tagline.tsx",
+      "destination": "design/vendor/velorah/upstream/tagline.tsx",
+      "handling": "unchanged copy",
+      "sha256": "c47bfdd028a2011e5b69ad831048bd40595d71ea4586424f2753f4a2bfd9938b",
+      "destination_sha256": "c47bfdd028a2011e5b69ad831048bd40595d71ea4586424f2753f4a2bfd9938b",
+      "git_blob_sha256": "c47bfdd028a2011e5b69ad831048bd40595d71ea4586424f2753f4a2bfd9938b"
+    },
+    {
+      "source": "branding-project/vendor/velorah/upstream/velorah.tsx",
+      "destination": "design/vendor/velorah/upstream/velorah.tsx",
+      "handling": "unchanged copy",
+      "sha256": "b037bb2bcd2049b175a15cd1586083f11dcd5c7c2487307ea1bd6cb4e8666762",
+      "destination_sha256": "b037bb2bcd2049b175a15cd1586083f11dcd5c7c2487307ea1bd6cb4e8666762",
+      "git_blob_sha256": "b037bb2bcd2049b175a15cd1586083f11dcd5c7c2487307ea1bd6cb4e8666762"
+    },
+    {
+      "source": "branding-project/vendor/velorah/velorah.registry.json",
+      "destination": "design/vendor/velorah/velorah.registry.json",
+      "handling": "unchanged copy",
+      "sha256": "d68324924f87e52a6d31c2959e5b1503dbb501b447b569f51dd4ba5edc7095d9",
+      "destination_sha256": "d68324924f87e52a6d31c2959e5b1503dbb501b447b569f51dd4ba5edc7095d9",
+      "git_blob_sha256": "d68324924f87e52a6d31c2959e5b1503dbb501b447b569f51dd4ba5edc7095d9"
+    },
+    {
+      "source": "branding-project/site/artifacts/about-desktop.png",
+      "destination": "design/website-preview/artifacts/about-desktop.png",
+      "handling": "unchanged copy",
+      "sha256": "700f1a89305938f52aea5b76d2e099dd70f84f74bd69079fed26091135d6fe61",
+      "destination_sha256": "700f1a89305938f52aea5b76d2e099dd70f84f74bd69079fed26091135d6fe61",
+      "git_blob_sha256": "700f1a89305938f52aea5b76d2e099dd70f84f74bd69079fed26091135d6fe61"
+    },
+    {
+      "source": "branding-project/site/artifacts/about-mobile.png",
+      "destination": "design/website-preview/artifacts/about-mobile.png",
+      "handling": "unchanged copy",
+      "sha256": "ae08cb07cc5e3990329bd01946d49629a9f97000635305076f154b612f9874c1",
+      "destination_sha256": "ae08cb07cc5e3990329bd01946d49629a9f97000635305076f154b612f9874c1",
+      "git_blob_sha256": "ae08cb07cc5e3990329bd01946d49629a9f97000635305076f154b612f9874c1"
+    },
+    {
+      "source": "branding-project/site/artifacts/free-scene-mobile.png",
+      "destination": "design/website-preview/artifacts/free-scene-mobile.png",
+      "handling": "unchanged copy",
+      "sha256": "619a8bff2620d7b4f8a8d64f2286533c0e6fb60d1e111bd51f3cfc38ef4c9c9b",
+      "destination_sha256": "619a8bff2620d7b4f8a8d64f2286533c0e6fb60d1e111bd51f3cfc38ef4c9c9b",
+      "git_blob_sha256": "619a8bff2620d7b4f8a8d64f2286533c0e6fb60d1e111bd51f3cfc38ef4c9c9b"
+    },
+    {
+      "source": "early-pilot/work/spec.txt",
+      "destination": "archive/early-v0/spec.txt",
+      "handling": "unchanged copy",
+      "sha256": "17f3145ec8e9a247335d39cdbc69b61d0e540c4b65f7f7fd072e3753da05ea32",
+      "destination_sha256": "78ac5e88484befbe0daa43a8ea2a93ee4cdd6de290c2acc90987391d1d333765",
+      "git_blob_sha256": "17f3145ec8e9a247335d39cdbc69b61d0e540c4b65f7f7fd072e3753da05ea32"
+    },
+    {
+      "source": "early-pilot/work/setup_guide.txt",
+      "destination": "archive/early-v0/setup-guide.txt",
+      "handling": "unchanged copy",
+      "sha256": "c6e7812ff31418156dc60287fdb4256c2766f067a6748d96bff91dbf8b4894ce",
+      "destination_sha256": "ba1c3c09330058a579886d5c81b6de9186ae34b8293f2fabb9905b53e16fbc92",
+      "git_blob_sha256": "1fe49c23c32da38bcf759796c0b1b4b12529792ec82df5e7e918059e7037cf22"
+    },
+    {
+      "source": "early-pilot/outputs/Safety_Pilot_Current_Plan.md",
+      "destination": "archive/early-v0/pilot-plan.md",
+      "handling": "unchanged copy",
+      "sha256": "93c3718089900478d5c2c76bc18bd149c1df91ae5fbaea3a08c3d6feccf581d3",
+      "destination_sha256": "3345896e7cb2e4daff80aa8ea5d812bce2653ef9a154182d589fb197f621f273",
+      "git_blob_sha256": "93c3718089900478d5c2c76bc18bd149c1df91ae5fbaea3a08c3d6feccf581d3"
+    },
+    {
+      "source": "early-pilot/outputs/Connection_Status.md",
+      "destination": "archive/deployed-pilot/connection-record.md",
+      "handling": "consolidated / references updated",
+      "source_sha256": "393f69b250f4a7d369ef2448f0c8a2b0df65161c31465d5e728e37052ba72387",
+      "sha256": "ed519d3c648c2980ce54abd21cbe362aaa274a3f73f24070230955284eb08928",
+      "destination_sha256": "ed519d3c648c2980ce54abd21cbe362aaa274a3f73f24070230955284eb08928",
+      "git_blob_sha256": "2d33235c620f5e55f7d05a025aa8c9db63c08d6ce56deb2eef1153d1585775d6"
+    },
+    {
+      "source": "early-pilot/outputs/Seven_Day_Example.json",
+      "destination": "archive/deployed-pilot/seven-day-example.json",
+      "handling": "unchanged copy",
+      "sha256": "7983f24c5613d66530c9bb67ac7e648c6ccb00a6496223160a3ae47b5bd578c7",
+      "destination_sha256": "7983f24c5613d66530c9bb67ac7e648c6ccb00a6496223160a3ae47b5bd578c7",
+      "git_blob_sha256": "7983f24c5613d66530c9bb67ac7e648c6ccb00a6496223160a3ae47b5bd578c7"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/_worker.js",
+      "destination": "archive/deployed-pilot/_worker.js",
+      "handling": "unchanged copy",
+      "sha256": "a8464d3991e8a82044499f239af2f340c5b37edda688915348c4a8673f0e3bc1",
+      "destination_sha256": "a8464d3991e8a82044499f239af2f340c5b37edda688915348c4a8673f0e3bc1",
+      "git_blob_sha256": "a8464d3991e8a82044499f239af2f340c5b37edda688915348c4a8673f0e3bc1"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/_headers",
+      "destination": "archive/deployed-pilot/_headers",
+      "handling": "unchanged copy",
+      "sha256": "298f97754a2053aa779e1d86968504311b960fa5cb94c117f6b11846d327a73d",
+      "destination_sha256": "298f97754a2053aa779e1d86968504311b960fa5cb94c117f6b11846d327a73d",
+      "git_blob_sha256": "298f97754a2053aa779e1d86968504311b960fa5cb94c117f6b11846d327a73d"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/_routes.json",
+      "destination": "archive/deployed-pilot/_routes.json",
+      "handling": "unchanged copy",
+      "sha256": "360e860744356015a17e9e78ab59916576d7d31cea7a05e72d66a850bf17b56a",
+      "destination_sha256": "360e860744356015a17e9e78ab59916576d7d31cea7a05e72d66a850bf17b56a",
+      "git_blob_sha256": "360e860744356015a17e9e78ab59916576d7d31cea7a05e72d66a850bf17b56a"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/schema.sql",
+      "destination": "archive/deployed-pilot/schema.sql",
+      "handling": "unchanged copy",
+      "sha256": "4cb9557792bfc2893009b9e7e5e1d3c099801fe9a06362259f81491ecf632784",
+      "destination_sha256": "4cb9557792bfc2893009b9e7e5e1d3c099801fe9a06362259f81491ecf632784",
+      "git_blob_sha256": "4cb9557792bfc2893009b9e7e5e1d3c099801fe9a06362259f81491ecf632784"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/index.html",
+      "destination": "archive/deployed-pilot/index.html",
+      "handling": "unchanged copy",
+      "sha256": "dd882324573f68d2cab7ccadb9a712ab708650e5c26458f55b6ac31ef288cd20",
+      "destination_sha256": "dd882324573f68d2cab7ccadb9a712ab708650e5c26458f55b6ac31ef288cd20",
+      "git_blob_sha256": "dd882324573f68d2cab7ccadb9a712ab708650e5c26458f55b6ac31ef288cd20"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/site.js",
+      "destination": "archive/deployed-pilot/site.js",
+      "handling": "unchanged copy",
+      "sha256": "a9d728331d6d4abbad03b02bf04753f1fd0e69a8e922862a67f22b1cdb573e0c",
+      "destination_sha256": "a9d728331d6d4abbad03b02bf04753f1fd0e69a8e922862a67f22b1cdb573e0c",
+      "git_blob_sha256": "a9d728331d6d4abbad03b02bf04753f1fd0e69a8e922862a67f22b1cdb573e0c"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/styles.css",
+      "destination": "archive/deployed-pilot/styles.css",
+      "handling": "unchanged copy",
+      "sha256": "500de8f155f6386811c01bb64795835233a8d25e5b762119649438f05eaa07ba",
+      "destination_sha256": "500de8f155f6386811c01bb64795835233a8d25e5b762119649438f05eaa07ba",
+      "git_blob_sha256": "500de8f155f6386811c01bb64795835233a8d25e5b762119649438f05eaa07ba"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/scan/index.html",
+      "destination": "archive/deployed-pilot/scan/index.html",
+      "handling": "unchanged copy",
+      "sha256": "3878c0966f18b24379d245a50f07def340db0a4d24c3fcda46e2c49f2e49a6ff",
+      "destination_sha256": "3878c0966f18b24379d245a50f07def340db0a4d24c3fcda46e2c49f2e49a6ff",
+      "git_blob_sha256": "3878c0966f18b24379d245a50f07def340db0a4d24c3fcda46e2c49f2e49a6ff"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/scan/scan.css",
+      "destination": "archive/deployed-pilot/scan/scan.css",
+      "handling": "unchanged copy",
+      "sha256": "50f03d34fa11863486b1ddce105cfe22c32c4b424ef9050907c1e424c5c66a42",
+      "destination_sha256": "50f03d34fa11863486b1ddce105cfe22c32c4b424ef9050907c1e424c5c66a42",
+      "git_blob_sha256": "50f03d34fa11863486b1ddce105cfe22c32c4b424ef9050907c1e424c5c66a42"
+    },
+    {
+      "source": "early-pilot/work/buildmysafety/scan/scan.js",
+      "destination": "archive/deployed-pilot/scan/scan.js",
+      "handling": "unchanged copy",
+      "sha256": "3a3434a9bee3df493144e5ccbdf958eae0d2284ef4cc1e29dbc4dd167f412ee3",
+      "destination_sha256": "3a3434a9bee3df493144e5ccbdf958eae0d2284ef4cc1e29dbc4dd167f412ee3",
+      "git_blob_sha256": "3a3434a9bee3df493144e5ccbdf958eae0d2284ef4cc1e29dbc4dd167f412ee3"
+    }
+  ],
+  "hashNotes": "Source and destination SHA-256 fields refer to original and consolidated local bytes. git_blob_sha256 refers to staged Git bytes after newline normalization."
+}

@@ -1,0 +1,85 @@
+{
+  "template": "Velorah",
+  "repository": "https://github.com/MohammadShehadeh/hirael",
+  "commit": "85b198f0ab19238ac3bdfe410cd9766d065b1974",
+  "downloadedAt": "2026-09-24T01:50:33.371Z",
+  "license": "MIT",
+  "sourcePage": "https://hirael.com/templates/velorah",
+  "marketplaceReference": "https://21st.dev/@mohammadshehadeh/templates/hirael-velorah",
+  "status": "Source only. Dependencies not installed; not runnable or deployed yet.",
+  "assets": "Demo images and video are externally referenced; not downloaded or approved for production reuse.",
+  "files": [
+    {
+      "name": "cta.tsx",
+      "originalPath": "registry/hirael/templates/velorah/cta.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/cta.tsx",
+      "sha256": "2c85de3ef5d13ac00b23375657e9c8c90cbb108e167062e11c5308816d8415bc"
+    },
+    {
+      "name": "feature.tsx",
+      "originalPath": "registry/hirael/templates/velorah/feature.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/feature.tsx",
+      "sha256": "c8b4dcfc09d9a62ed7dd185c4b8236d9e8581512a4e64908508574597270ba7b"
+    },
+    {
+      "name": "fonts.ts",
+      "originalPath": "registry/hirael/templates/velorah/fonts.ts",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/fonts.ts",
+      "sha256": "38487c65f0ffb140430a63ac551e6eb6e98c7aaf74a73e1896bfe8ee9d0d98aa"
+    },
+    {
+      "name": "footer.tsx",
+      "originalPath": "registry/hirael/templates/velorah/footer.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/footer.tsx",
+      "sha256": "1071b86119c500105c7754ea4b7b67855faef9a10f1c51b60b1601b366c3a4da"
+    },
+    {
+      "name": "hero.tsx",
+      "originalPath": "registry/hirael/templates/velorah/hero.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/hero.tsx",
+      "sha256": "ce2bd792ce4281545b251064a439e1d7063d98473a676feec0bd6c6e0d1d001b"
+    },
+    {
+      "name": "hls-video.tsx",
+      "originalPath": "registry/hirael/templates/velorah/hls-video.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/hls-video.tsx",
+      "sha256": "ac800f2f18c779152d99602d20ea594f6244f7438a157d14133203fcdbdc2d5e"
+    },
+    {
+      "name": "navbar.tsx",
+      "originalPath": "registry/hirael/templates/velorah/navbar.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/navbar.tsx",
+      "sha256": "e8c2d8af67a0a13e55b5864d3601475b8320e75fc920af557c94af551c5a9e48"
+    },
+    {
+      "name": "primitives.tsx",
+      "originalPath": "registry/hirael/templates/velorah/primitives.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/primitives.tsx",
+      "sha256": "bfae5ced7ceeae9a4e46fd9a963f13755326f69253ad05d676e6563c6ee60812"
+    },
+    {
+      "name": "statement.tsx",
+      "originalPath": "registry/hirael/templates/velorah/statement.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/statement.tsx",
+      "sha256": "90084c9de8fa65e94e0a227eb78e3a365c3ebd5840726c0bee35b6ecda651946"
+    },
+    {
+      "name": "styles.tsx",
+      "originalPath": "registry/hirael/templates/velorah/styles.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/styles.tsx",
+      "sha256": "36a09742f61d5a59e7595921e4c2289653d05ff08e59c72c3e2fb85e9a7fd6d0"
+    },
+    {
+      "name": "tagline.tsx",
+      "originalPath": "registry/hirael/templates/velorah/tagline.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/tagline.tsx",
+      "sha256": "c47bfdd028a2011e5b69ad831048bd40595d71ea4586424f2753f4a2bfd9938b"
+    },
+    {
+      "name": "velorah.tsx",
+      "originalPath": "registry/hirael/templates/velorah/velorah.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/85b198f0ab19238ac3bdfe410cd9766d065b1974/registry/hirael/templates/velorah/velorah.tsx",
+      "sha256": "b037bb2bcd2049b175a15cd1586083f11dcd5c7c2487307ea1bd6cb4e8666762"
+    }
+  ]
+}

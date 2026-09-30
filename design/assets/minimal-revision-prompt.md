@@ -1,0 +1,17 @@
+# Minimal first-screen revision
+
+Generated with the built-in image generation tool from option 2. Static image mockup, not an implemented screen.
+
+Use case: ui-mockup / style-transfer.
+Edit the attached first-screen mobile UI concept according to this user feedback: "nice vibe, too realistic, want more minimalist style, no sub headlines, more chic, like the second one the most, first screen talks about meet your protector animal."
+Create ONE refined mobile welcome-screen image, portrait 1024x1536. Flat straight-on screen design, full bleed, no device bezel, no perspective, no surrounding presentation board.
+The reference is the previous approved DIRECTION, not a layout to preserve. Keep its soft ivory/lavender, midnight navy, tiny warm-gold accents and friendly elephant concept. Completely simplify the visual language and change the screen purpose to INTRODUCING THE ELEPHANT PROTECTOR. Remove the questionnaire/input, old title, old supporting copy, all footnotes, all subtitles, and decorative garden clutter.
+Overall design: chic contemporary editorial app, beautiful restraint, generous intentional negative space, premium independent stationery meets a friendly wellbeing app. Calm, adult-appropriate, memorable. Very limited colors and exceptionally clear hierarchy. Warm near-ivory background, dark indigo text, muted lavender and periwinkle character, one tiny ochre accent. No gradients, no photographic lighting, no 3D, no fur or skin texture, no glossy eyes, no Disney/Pixar rendering, no painterly realism, no shadows giving the animal volume.
+Elephant illustration: an ORIGINAL minimal flat 2D elephant mascot, approachable and softly protective, large rounded ears, very simple stout body, little gracefully curled trunk, tiny ink-dot eyes, a subtle friendly expression. At most 5-7 large clean organic color shapes with a few expressive ink lines; matte solid fills, graphic silhouette. Like a carefully art-directed modern picture-book or screen-printed character, not a realistic elephant and not a stock vector. Front three-quarter view, sitting comfortably, delicate asymmetry for personality. No costume or armor. It should feel like a companion you can grow with, without claiming real-world protection.
+Composition: small quiet wordmark near top; one elegant editorial headline, slightly off the rigidity of a corporate UI but carefully aligned; substantial elephant centered in the middle, placed on or in front of a very pale lavender organic oval. A single tiny four-point mustard star and at most two very simple botanical strokes may echo the website's dreamy night-garden atmosphere, but no busy scenery, no books, no lantern, no flower field, no constellations. The mascot and whitespace are the main visual. One elegant wide rounded deep-indigo button near bottom with generous safe padding.
+Typography: headline in a refined contemporary serif with graceful forms and moderate contrast, not chunky or overly ornate. Wordmark small and understated. Button clean humanist sans serif, medium weight. All text crisp, readable, beautifully spaced.
+Render ONLY these three exact text elements:
+1. "build my safety" — small wordmark
+2. "Meet your protector." — single main headline, can wrap into two lines
+3. "Say hello" — button label
+NO subheadline, NO supporting sentence, NO helper text, NO footer text, NO extra labels, NO input field, NO navigation bar. Keep the whole first screen minimal and chic, with exactly one main action.
