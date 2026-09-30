@@ -1,6 +1,6 @@
 # Task detail — three design options
 
-September 30, 2026. Alternatives for founder review; no layout has been selected yet. The approved [V1 generator prompt](../../../docs/prompts/task-generator-v1.md) supplies the underlying task content. These are sample interactions, not a live generator integration or an update to the deployed app/Figma file.
+September 30, 2026. Historical comparison: Ada selected Option A exactly as shown, including its collapsed optional link and purchase rows. Use the [approved task detail](../task-detail/README.md) for implementation. The approved [V1 generator prompt](../../../docs/prompts/task-generator-v1.md) supplies the underlying task content. These are sample interactions, not a live generator integration or an update to the deployed app/Figma file.
 
 Download and open [preview.html](preview.html) to compare A, B and C. The [editable fragment](source.fragment.html) is the conversation-host source; the standalone export provides local preview-state storage. All three reuse the existing minimal elephant, ivory/lavender palette and editorial type.
 
