@@ -1,6 +1,6 @@
 # Current product — My Safety V0
 
-Decision snapshot: 29 September 2026. This is the current implementation reference. Dated research and archived proposals do not override it. Product flow is agreed; the new sick-day list and growth preview awaits founder visual review.
+Decision snapshot: 30 September 2026, updated with the approved V1 generation prompt. This is the current implementation reference. Dated research and archived proposals do not override it. Product flow is agreed; the new sick-day list and growth preview awaits founder visual review.
 
 ## Purpose
 
@@ -13,13 +13,14 @@ Help women living independently enjoy solo life with practical knowledge, prepar
 3. Choose any of that category's **five** concerns, type a concern, or combine both. Continue requires at least one choice or nonblank input. Do not add a long questionnaire. Keep each category's draft separate when switching.
 4. Receive **three** relevant AI suggestions. Expand before saving: two short sentences explaining the action, estimated time, and a useful reviewed link when relevant.
 5. Use **+** to add selected suggestions to My list. Request another batch without losing saved tasks or repeating shown actions. Handle exhaustion with a clear message instead of cycling endlessly.
-6. Complete a real action in My list. The elephant grows in acknowledgment. Generation and saving do not earn growth. A task can earn its completion award only once, including across undo/re-completion or request retries.
+6. Open a saved task for two to four simple steps (usually three), a clear completion condition, and up to two useful resource links. Show two or three purchase checks only when relevant. Generate and save these details with the original task; opening it does not trigger another generation or silently change its instructions.
+7. Complete a real action in My list with one completion checkbox for the whole task. The elephant grows in acknowledgment. Generation and saving do not earn growth. A task can earn its completion award only once, including across undo/re-completion or request retries.
 
 No punishment for absence, regressing animal, distress-based streak, fear score or claimed level of real-world safety. The user may remove, defer or decide a task no longer matters. Detailed growth milestones and reminder behavior remain to be decided after this interaction is reviewed.
 
 ## Content and AI
 
-AI personalization is required for the eventual app. The clickable design currently uses nine sample tasks to test interaction. The final prompt will be developed later, as requested; these are the requirements it must meet.
+AI personalization is required for the eventual app. The clickable design currently uses nine sample tasks to test interaction. Ada approved the [task-generator V1 prompt](prompts/task-generator-v1.md) on September 30 as the current implementation baseline. It is saved, but not yet connected to the live generator or evaluated through the paid API. The requirements below continue to apply.
 
 - Generate preventive actions that can be taken now, tailored to selected needs and feasible time, energy, budget and support. Do not assume money, a nearby helper, a car or good health.
 - Prefer small practical steps, explicit help-request messages, existing supplies, official guidance and ways to evaluate local services. Do not equate browsing a directory with confirmed help.

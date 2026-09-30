@@ -7,6 +7,7 @@ A peaceful place to embrace solo living and enjoy it fully. Practical knowledge,
 | Need | Canonical reference |
 | --- | --- |
 | What we are building now | [Current product](docs/current-product.md) |
+| Approved AI task-generation prompt | [Task generator V1](docs/prompts/task-generator-v1.md) |
 | Philosophy and founder voice | [Founder voice](docs/founder-voice.md) |
 | What works, what is still a prototype | [Technical status](docs/technical-status.md) |
 | Try the sick-day interaction | Download [the standalone preview](design/app/sick-day-journey.html) and open it in a browser; GitHub's file viewer shows source |
