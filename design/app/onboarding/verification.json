@@ -2,6 +2,7 @@
   "passed": true,
   "questionScreens": 11,
   "focusPaths": 7,
+  "interestTopics": 16,
   "widths": [
     320,
     393,
@@ -22,7 +23,11 @@
     "one-first-step preference",
     "all topic paths",
     "detail/back/save/email-demo/list/complete/undo",
-    "green/ink comparison"
+    "green/ink comparison",
+    "interest select/deselect and skip",
+    "interest state restoration",
+    "interest recap and edit from ideas",
+    "sixteen interest task paths and mixed samples"
   ],
   "liveApiCalls": 0,
   "errors": []
