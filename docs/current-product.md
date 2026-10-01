@@ -1,6 +1,6 @@
 # Current product — My Safety V0
 
-Decision snapshot: 1 October 2026, updated with Ada's requested conversational onboarding and earthy-green palette trial. The approved V1 generation prompt and confirmed email sign-in remain the implementation baseline. Dated research and archived proposals do not override this document. The latest connected screen treatments await founder visual review.
+Decision snapshot: 1 October 2026. Latest direction: preserve the established flow and solo-living audience; onboarding adds light focus; calibrate the task-writing prompt before creating the solution pool. V1 is the saved approved prompt; V1.1 is a review draft with synthetic teaching/test cases, not an activated or API-tested replacement. Email sign-in is confirmed. The existing clickable designs remain the interaction reference, while specific proposed defaults are labeled in their design notes. Dated research and archived proposals do not override this document.
 
 ## Purpose
 
