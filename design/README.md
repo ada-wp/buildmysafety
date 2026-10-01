@@ -4,7 +4,7 @@ There are two distinct design assets: the approved ivory/lavender app direction 
 
 ## App journey
 
-- [Conversational onboarding](app/onboarding/README.md): the latest clickable entry journey, with eleven choice-led questions, a broader text-bubble interest picker, brief answer-based comments, an editable recap, and connected sample tasks. Includes Ada's earthy-green button trial; ivory and lavender remain dominant. Ready for visual review. The [personalization plan](../docs/personalization-plan-v0.md) describes how answers should shape topics and feasible recommendations.
+- [Conversational onboarding](app/onboarding/README.md): the latest clickable entry journey, with eleven choice-led questions, a solo-living text-bubble interest picker, brief answer-based comments, an editable recap, and connected sample tasks. Includes Ada's earthy-green button trial; ivory and lavender remain dominant. Ready for visual review. The [personalization plan](../docs/personalization-plan-v0.md) describes how answers should shape topics and feasible recommendations.
 - [Five V0 flow details](app/v0-flow/README.md): email-code sign-in, removal/Undo, empty/all-done lists, generation recovery and gentle growth. Email sign-in is confirmed; the new screen treatments are ready for review and use synthetic behavior.
 - [Simple navigation proposal](app/navigation/README.md): two main destinations, labeled return paths, and a clickable sample preview; awaiting visual review.
 - [Completion and elephant-growth proposal](app/completion-feedback-proposal.md): research-informed next-screen behavior under discussion; fun, gentle feedback after either completion entry point.

@@ -1,6 +1,6 @@
 # Personalization plan — interests, needs and a feasible next step
 
-1 October 2026. Proposed implementation plan following Ada’s request for a topic picker and an experience that uses onboarding answers to recommend relevant topics and useful tasks. Ada corrected the initial eight-topic proposal: research more broadly online and use agency/sense-of-safety principles rather than treating the old categories as a ceiling. She accepted simple text bubbles. This is a design specification, not a connected generator. Keep the [founder philosophy](founder-voice.md) and the [approved task-generator V1](prompts/task-generator-v1.md).
+1 October 2026. Proposed implementation plan following Ada’s request for a topic picker and an experience that uses onboarding answers to recommend relevant topics and useful tasks. Ada corrected the initial eight-topic proposal: research more broadly online and use agency/sense-of-safety principles rather than treating the old categories as a ceiling. She accepted simple text bubbles, then asked to focus the actual interests on living alone while retaining the design. The current list below follows that latest direction. “Living alone” describes the household situation; it does not assume relationship status. This is a design specification, not a connected generator. Keep the [founder philosophy](founder-voice.md) and the [approved task-generator V1](prompts/task-generator-v1.md).
 
 ## The product decision
 
@@ -20,34 +20,35 @@ After the eleven questions, before the editable starting-point recap:
 
 **What would you like to build?**
 
-“Choose what speaks to you. We’ll find small ways to begin.”
+“Choose what would make life on your own feel a little easier.”
 
 Sixteen text bubbles; multiple choices; no automatic selections. Selection uses a checkmark and lavender fill. “Choose any that draw you in.” Selected count is descriptive, not a target. Continue needs at least one interest; **I’ll explore along the way** is a separate valid route. Edits are available in the recap and first ideas. The order should not imply a ranking of danger or personal deficiency.
 
-| Interest | Need or interest it can represent | Example practical direction | Basis |
+| Interest | Living-alone situation | Example practical direction | Basis |
 | --- | --- | --- | --- |
-| Trusting myself | Wanting to choose from personal preferences, with less need for external reassurance | Name two criteria for an ordinary reversible decision; keep a concrete example of something handled | S1, R1; editorial adaptation |
-| Speaking up | Wanting a voice in everyday interactions | Put one preference into a clear sentence; prepare a question before an appointment | S2; editorial adaptation |
-| Setting boundaries | Wanting choice over time, access and personal information | Draft a pause-before-answering phrase or an ordinary visiting preference | S2, R2 |
-| Asking for help | Wanting support without having to do everything alone | Make one request specific; distinguish asking from someone agreeing | R3, S1 |
-| Finding my people | Wanting belonging, reciprocal relationships or local familiarity | Find an interest-based gathering; plan a comfortable catch-up | S1, R4; editorial adaptation |
-| Enjoying solo life | Wanting independence to include pleasure and freedom | Plan a small activity chosen for oneself, at home or elsewhere | R4, R5 |
-| Finding calm | Wanting an optional way to settle before choosing what to do | Choose a familiar comfortable pause; find an appropriate introductory resource | S3 |
-| Listening to my body | Wanting awareness of comfort, energy and personal preferences | Notice a comfort preference and make an optional ordinary adjustment | S3 + founder direction; editorial adaptation |
-| Making room for rest | Wanting a realistic pace and less pressure to do everything | Defer or simplify one nonessential task; prepare a low-effort option | Founder direction, practical judgment; not a measured demand finding |
-| Trying new things | Wanting evidence of capability and permission to be a beginner | Choose one learnable everyday skill and a low-pressure first try | S1, R6; editorial adaptation |
-| Navigating change | Wanting familiarity and manageable choices in a new chapter | Carry one helpful routine forward; identify one new practical question | R6 + practical judgment; context tag |
-| Everyday readiness | Wanting ordinary disruptions to require less improvising | Save a reliable local information source; find existing essentials | S4 |
-| Sick-day care | Wanting practical care arrangements when energy is limited | Easy food, reachable essentials and a draft check-in request | R7; no treatment advice from Reddit |
-| Home skills | Wanting more capability and informed help with the home | Save repair questions, find ordinary supplies, use reviewed guidance | S4 + practical judgment |
-| Privacy online | Wanting informed choice over accounts, sharing and information | Review one sharing setting using official help; find account-recovery instructions | S5 |
-| Going places solo | Wanting more freedom to take part in activities independently | Plan a suitable outing, route and optional support arrangement | R5, R6 |
+| Sick-day care | Getting ordinary essentials or support while unwell | Reachable supplies, familiar meal options, a check-in request | R7 |
+| Meals for one | Choosing food and shopping for one household member | Keep a short meal list; plan two uses for a familiar ingredient | Editorial practical judgment |
+| Home repairs | Knowing what to ask and whom to contact | Save a repair contact and clear questions about ordinary work | S4 + practical judgment |
+| Power-cut prep | Finding supplies and reliable information during disruption | Locate an existing working light; save official outage information | S4 |
+| People to call | Having possible sources of practical or social support | Draft one specific request; distinguish a possible contact from agreed help | R3, S1 |
+| Knowing neighbors | Becoming familiar with people and resources nearby | Prepare a comfortable introduction; find a local noticeboard | S1 + practical judgment |
+| Enjoying time alone | Making independent life enjoyable | Plan an activity chosen for oneself; make a small corner feel personal | R4, R5 |
+| Settled evenings | Having comfortable options for evenings at home | Prepare a familiar activity or optional pause | S3 + founder direction |
+| Visitor boundaries | Choosing how visits and personal space work | Draft a check-before-visiting preference | S2, R2 |
+| Going out solo | Taking part in local activities independently | Pick an enjoyable outing and a suitable route home | R5, R6 |
+| Privacy online | Choosing what others can learn about home and routines | Review a public profile or one sharing setting using official help | S5 |
+| Pet-care plans | Preparing for a time when the usual caregiver is unavailable | Private routine note; questions for a possible caregiver; ordinary supply reminder | Founder context + practical judgment |
+| Solo travel | Keeping practical trip details within reach | Plan arrival; organize booking/contact information privately | R6 + practical judgment; no destination safety ranking |
+| New home & routines | Finding familiarity and everyday services after a move | Carry one helpful routine forward; find an everyday local place | R6 + practical judgment; context interest |
+| Everyday chores | Managing a household without assuming a second person | Define a smaller useful task and what counts as enough | Founder direction + practical judgment |
+| Low-energy days | Keeping everyday life manageable when capacity varies | Defer a nonessential chore; keep a familiar meal option | Founder direction + practical judgment |
 
-These labels are a proposed browsing layer, not a population popularity ranking, clinical classification or a validated intervention. Multiple capability tags may apply to one task. Do not force the topics back into the old five public categories. The four historical internal areas remain useful background, not a limit on discovery. Money remains absent as a topic. Navigating change is a context interest that can affect any domain, not a fifth core pillar. “Backup” remains internal terminology only. Topic scope and higher-stakes resources require content review before production.
+
+These labels are a proposed browsing layer, not a population popularity ranking, clinical classification or a validated intervention. Multiple capability tags may apply to one task. Do not force the topics back into the old five public categories. The four historical internal areas remain useful background, not a limit on discovery. Money remains absent as a topic. New home & routines is a context interest that can affect any domain, not a fifth core pillar. Self-trust, voice, body awareness and connection remain design principles and possible task approaches; they are not broad standalone self-help topics in this picker. “Backup” remains internal terminology only. Topic scope and higher-stakes resources require content review before production.
 
 ## Research basis and limits
 
-Checked 1 October 2026. This is a targeted qualitative scan, not an exhaustive review, representative survey or evidence of willingness to pay. Topic labels and the task examples above are our product interpretations.
+Checked 1 October 2026. This is a targeted qualitative scan, not an exhaustive review, representative survey or evidence of willingness to pay. Topic labels and the task examples above are our product interpretations. Later practical refinements such as meals for one and pet-care plans are explicitly identified as judgment/context rather than being attributed to a new measured research finding.
 
 - **S1 — [Self-Determination Theory: basic psychological needs](https://selfdeterminationtheory.org/topics/application-basic-psychological-needs/).** The framework distinguishes autonomy, competence and relatedness. We use these as design lenses for choice, achievable skill and connection. It does not validate our specific topics, tasks or claims about the app’s effects.
 - **S2 — [Western Australia Centre for Clinical Interventions: assertiveness](https://www.cci.health.wa.gov.au/en/Resources/Looking-After-Yourself/Assertiveness).** The official resource distinguishes clear, respectful communication and includes saying no and practicing skills. It supports considering voice/boundary topics; it is not permission to turn a clinical workbook into AI therapy or advise confrontation in unsafe relationships.
@@ -86,7 +87,7 @@ If a field cannot produce a useful, explainable change, remove it from required 
 
 ## Concrete example
 
-**She tells us:** she lives alone, wants to feel more ready for being unwell, feels everything depends on her, has low energy, wants to keep costs down, and prefers one gentle first step. She selects Sick-day care and Asking for help. Country and local contacts may remain unknown.
+**She tells us:** she lives alone, wants to feel more ready for being unwell, feels everything depends on her, has low energy, wants to keep costs down, and prefers one gentle first step. She selects Sick-day care and People to call. Country and local contacts may remain unknown.
 
 - Explore begins with those two interests; Sick-day care is the suggested starting point because it matches her explicit concern.
 - The first visible idea could be **Choose two easy meals**, using familiar food she already has. Two other options remain available.
