@@ -19,12 +19,20 @@ The welcome introduces: **A little more “I can handle this.”** Small prepara
 | 5 | How does this feel for you lately? | Choose one; optional |
 | 6 | What might make it hard to take a first step? | Multiple choices; “Nothing in particular” is exclusive |
 | 7 | What already helps you find your footing? | Multiple choices; “I’m still discovering what helps” is exclusive |
-| 8 | What would you like to be able to say to yourself? | One or two choices |
+| 8 | What would a stronger sense of safety feel like for you? | Choose up to two that feel closest |
 | 9 | How would you like us to help you begin? | Choose one |
 | 10 | Which country are you based in? | Optional country/region picker; Keep it general |
 | 11 | Anything else you’d like us to understand? | Optional text, up to 600 characters |
 
 Choices remain the main interaction; typing comes last. Back retains answers. A disabled Continue becomes available after a required choice. Optional questions offer Skip. Recap edits return directly to the recap. Its full answer review makes every answer editable without repeating the entire funnel.
+
+Ada approved the revised question 8 and its five answers on 1 October:
+
+- “I trust myself to take care of me.”
+- “I have things in place that help me feel more prepared.”
+- “I know where to turn—I don’t have to handle everything alone.”
+- “When life feels uncertain, I can find my footing.”
+- “I feel freer to enjoy life on my own.”
 
 Brief comments appear within selected question screens, not as extra interstitial steps. They respond to an actual choice: for example, choosing self-trust prompts “We can build from small moments of ‘I did that.’” Choosing that everything depends on oneself prompts a reminder that people and resources can be part of feeling capable. Unanswered questions are not interpreted as a deficit.
 
