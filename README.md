@@ -8,6 +8,7 @@ A peaceful place to embrace solo living and enjoy it fully. Practical knowledge,
 | --- | --- |
 | What we are building now | [Current product](docs/current-product.md) |
 | Approved AI task-generation prompt | [Task generator V1](docs/prompts/task-generator-v1.md) |
+| Writing calibration before building the pool | [V1.1 draft and teaching plan](docs/prompts/task-writer-v1.1-draft.md) — not activated |
 | Philosophy and founder voice | [Founder voice](docs/founder-voice.md) |
 | What works, what is still a prototype | [Technical status](docs/technical-status.md) |
 | Try the sick-day interaction | Download [the standalone preview](design/app/sick-day-journey.html) and open it in a browser; GitHub's file viewer shows source |

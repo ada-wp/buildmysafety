@@ -8,6 +8,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - She has lived alone for more than seven years, with a cat.
 - She dislikes fear-based content that keeps people scrolling without helping them take action.
 - She wants My Safety to be a peaceful place where people embrace solo living and enjoy it fully.
+- On October 1 she reaffirmed that living solo is the key audience/context, while the deeper purpose is helping women build a sense of agency, safety and control. Onboarding should add focus rather than rule their experience, and reusable solution pools should reduce unnecessary AI generation.
 
 ## Core direction
 
@@ -15,7 +16,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 Lead with the life people want to live. Make practical knowledge, preparation, and support useful companions to that life. Give readers a clear, manageable way to act and respect their time and attention.
 
-The earlier project foundation remains useful: knowledge, people, resources, systems, and practiced actions; one small step at a time; and the confidence of feeling “I can handle it.” Fit these ideas to Ada's emphasis on enjoying solo life.
+The earlier project foundation remains useful: knowledge, people, resources, systems, and practiced actions; one small step at a time; and the confidence of feeling “I can handle it.” Fit these ideas to Ada's emphasis on enjoying solo life. Practical tasks are a way to exercise choice and develop capability; the product is not limited to chores or physical protection. Agency includes choosing support and deciding what matters now.
 
 ## Writing voice
 
@@ -49,7 +50,7 @@ These drafts use Ada's supplied facts. Their final wording can evolve as the Abo
 
 “We are creating, not defending.” The earlier homepage describes Know → Act → Trust: learn what to do, put something useful in place, and practice taking the next step. Safety is built through knowledge, people, resources, systems and practiced actions. This supports the desired feeling “I can handle it”; it does not promise protection.
 
-The four internal areas remain My Backup, If I'm Out of Action, My Home and My Body. Life transitions provide context. In app navigation, use the five current topics in the [product brief](current-product.md); the founder specifically dislikes “backup” as user-facing wording and removed Money from those choices.
+The four historical internal areas remain My Backup, If I'm Out of Action, My Home and My Body. Life transitions provide context. Follow the evolving topics and established selection flow in the [product brief](current-product.md), rather than treating the five legacy labels as final navigation. The founder specifically dislikes “backup” as user-facing wording and removed Money from those choices.
 
 Mental/body support should help someone notice stress, feel more settled and take practical action. It is optional, not a prerequisite or a treatment claim. Feeling calm is not evidence of external safety.
 

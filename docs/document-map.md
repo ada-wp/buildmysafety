@@ -26,3 +26,7 @@ The only byte-identical group in the inspected source inventory consists of four
 [Source manifest](source-manifest.json) records copied/merged files with SHA-256 and source-root aliases, without exposing local usernames or credentials. Ten superseded document exports and briefs were removed from the old active output folders after every original was saved and checksum-verified in a local recovery ZIP. The [cleanup receipt](cleanup-receipt.json) records exact workspace-relative paths, checksums and the recovery location. Folder index notes point to this collection. Unrelated projects, unique research and the original read-only branding project are untouched.
 
 Repository root runtime files remain byte-for-byte unchanged. This is a private review-branch sync. Before merging, resolve the deployment gate in [technical status](technical-status.md).
+
+## October 1 writing calibration
+
+[Approved V1](prompts/task-generator-v1.md) remains unchanged. [V1.1](prompts/task-writer-v1.1-draft.md) is the candidate writing revision requested by Ada, with a single [calibration data file](prompts/task-writer-calibration.json) holding the teaching example and development/reserved cases. These are intentional baseline/candidate/test artifacts, not competing product briefs. The calibration pack is not a solution pool or a record of completed API tests. Product position and flow still live in the current product and personalization documents above.

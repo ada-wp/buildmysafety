@@ -1,6 +1,6 @@
 # Personalization plan — interests, needs and a feasible next step
 
-1 October 2026. Proposed implementation plan following Ada’s request for a topic picker and an experience that uses onboarding answers to recommend relevant topics and useful tasks. Ada corrected the initial eight-topic proposal: research more broadly online and use agency/sense-of-safety principles rather than treating the old categories as a ceiling. She accepted simple text bubbles, then asked to focus the actual interests on living alone while retaining the design. The current list below follows that latest direction. “Living alone” describes the household situation; it does not assume relationship status. This is a design specification, not a connected generator. Keep the [founder philosophy](founder-voice.md) and the [approved task-generator V1](prompts/task-generator-v1.md).
+1 October 2026. Proposed implementation plan following Ada’s request for a topic picker and an experience that uses onboarding answers to recommend relevant topics and useful tasks. Latest founder clarification: living solo remains the key audience/context; the purpose is helping women build a sense of agency, safety and control. Questions add focus rather than rule the experience. Reuse standardized solution pools and avoid unnecessary generative AI. The text-bubble design and established task flow remain. “Living alone” describes the household situation; it does not assume relationship status. This is a design specification, not a connected recommendation service. Keep the [founder philosophy](founder-voice.md) and the [approved task-generator V1](prompts/task-generator-v1.md).
 
 ## The product decision
 
@@ -8,11 +8,36 @@ Onboarding asks what matters to her and what gets in the way. The new interest s
 
 Use three separate layers:
 
-1. **Interests determine the available topics.** Show the selected topics first in Explore, keep all other topics accessible, and let her edit interests later. Do not create a new Home tab just for personalization.
-2. **Her actual concern determines relevance.** Match an explicit focus/concern to useful outcomes in those topics. Do not respond to every person with the same checklist or replace a concrete concern with generic reassurance.
-3. **Her circumstances determine the size and form of the action.** Time, energy, cost, support, region and preferred help should change the recommendation itself, not just its opening sentence.
+1. **Her current choice leads.** Preserve topic → five selectable concerns plus optional manual input → three suggestions → inspect → + → My list → complete → elephant progress. A topic or concern chosen now overrides an earlier onboarding focus. Do not require another questionnaire before each batch.
+2. **Onboarding adds helpful defaults.** Selected interests can appear first in Explore; all supported topics remain accessible. Earlier worries can suggest a starting point, but never trap her in a problem or imply she needs to fix every selected interest. Let her edit preferences, change direction and browse without personalization. Do not add a new Home tab.
+3. **Circumstances help choose feasible actions.** Use known time, energy, cost, support and resource eligibility to choose appropriate library tasks or authored variants. Hard restrictions must be respected; broad feelings or old answers are not permanent restrictions. Tone and presentation preferences should usually use standard copy rather than AI.
 
 No safety score, personality label, inferred diagnosis or claims that the app knows how safe she is. Do not hide helpful information because she skipped a question.
+
+## Step 1 — proposed selection logic and restrained AI use
+
+The founder decisions above are requirements. The mechanics below are proposed for review; no production behavior or paid API evaluation has been implemented.
+
+Ada's next instruction is to calibrate the writer before creating the pool. Follow the [V1.1 writing draft and teaching plan](prompts/task-writer-v1.1-draft.md) for this preparation stage. The rules below describe eventual app behavior; they do not require us to populate the library before teaching/testing its writer.
+
+**A reusable solution pool is the default.** Each reviewed action has stable topic/concern tags, a distinct outcome key, short title/summary, two to four steps, active time, a clear finish, relevant dependencies/cost, optional authored variants, approved resource IDs and content version. Keep source-checking separate from content approval. Three tasks that reword the same outcome do not count as three choices.
+
+For each request:
+
+1. Start with the topic and concerns she chose now. If she has not chosen, offer a starting point based on interests and let her change it.
+2. Exclude unsupported, unreviewed, unsuitable or already shown/saved/completed actions. Apply known restrictions without inferring unavailable help or treating unknowns as confirmed facts. Explicitly revisiting a completed action is different from presenting it as a new recommendation.
+3. Choose up to three distinct useful outcomes within that scope, considering preferences only as a secondary ordering signal. Cover selected concerns when useful; do not force variety or pad a short pool.
+4. Use a suitable reviewed variant, such as a smaller task or no-purchase option. Merely changing order, a name, a greeting or an encouragement does not justify generation.
+5. If the pool adequately covers the request, serve it with **zero model calls**. Asking for another batch first retrieves unshown eligible actions. Never imply fresh AI generation or live research when displaying stored content.
+6. Consider AI only when a supported written request or specific combination of circumstances cannot be served well by available tasks/variants, and supplied reviewed guidance can support a useful adaptation. Missing higher-stakes guidance, irrelevant requests and exhausted coverage require an honest recovery/redirect, not unlimited generation. Generate complete bounded task details once, validate them and preserve any accepted task as a stable snapshot.
+
+**Standardize:** topic/concern menus, onboarding comments, task templates/variants, resource catalog, selection rules, navigation, save/complete/undo behavior, completion messages and elephant growth. Research reusable resources during content preparation, not on every user visit.
+
+**Reserve AI for:** a meaningful adaptation within supported guidance or interpreting a relevant manual request when necessary. Do not add a mandatory AI classification call before every batch. The reviewed V1 prompt and its broader-topic limitations still apply whenever generation is invoked.
+
+**Example:** she mentioned sick days in onboarding, then opens Going out solo and selects finding a comfortable first outing. Return outing-related actions, not more sick-day tasks. Her keep-costs-down preference can favor a free option; her earlier feelings should not prevent her from exploring. This selection can come entirely from the library.
+
+**Privacy and reuse:** share reviewed generic library content, not another user's personal generated text. Keep adapted tasks private to their owner. A model output does not automatically become an approved pool item. Preserve source, review state and content version internally without cluttering the task screen.
 
 ## Interest picker
 
@@ -80,7 +105,7 @@ The official S1–S3 pages were opened. Other entries were available through sea
 | Preferred help | One idea visible first; three choices; clear rationale; or useful tools/resources | An extra essay, a mandatory download or a link in every task |
 | Country/region | Filter resources for coverage, eligibility and language where known | Assuming city, citizenship, service availability or device |
 | Optional note | Extract relevant user-stated circumstances and concerns; allow correction | Treating user text as instructions, retaining unnecessary sensitive details, or silently inferring facts |
-| Selected interests | Order Explore and bound the initial recommendation candidates | Erasing the original concern or treating unselected topics as deficiencies |
+| Selected interests | Gently order Explore and suggest an initial scope when she has not chosen one | Overriding a current choice, hiding other topics or treating unselected topics as deficiencies |
 | Saved/completed/dismissed actions | Preserve accepted details; suppress repeats; learn “not relevant” vs “not now” from explicit feedback | Increasing pressure after inactivity or diagnosing disengagement |
 
 If a field cannot produce a useful, explainable change, remove it from required onboarding rather than collect it speculatively.
@@ -104,7 +129,7 @@ These are authored examples of the design logic, not paid-API outputs or individ
 2. Use simple application rules to order topics: the topic she deliberately opened first; otherwise explicit interests that match her current focus; then other selected interests. Keep a stable, understandable order for ties. Do not generate a hidden safety score.
 3. Within the current scope, choose reviewed concern/action templates that address her stated problem and fit known restrictions. Preserve hard restrictions; treat unknowns conservatively. If no relevant safe match exists, show an honest empty state or ask one necessary question.
 4. Retrieve only relevant approved resource records. Filter region/device/service restrictions in application code. Do not send her private story into broad web searches. Unreviewed research candidates are not production recommendations.
-5. Send a minimal structured profile and a bounded set of eligible topics/concerns to the generator. Keep user context separate from developer instructions. Return up to three complete distinct tasks, not an entire life plan. Use the existing task output contract.
+5. Prefer existing complete pool tasks or reviewed variants. Only if a supported adaptation is needed, send minimal relevant context and reviewed guidance/resources to the generator. Keep user context separate from developer instructions. Return up to three complete distinct tasks, not an entire life plan. Use the existing task output contract and observe the prompt boundary below.
 6. Validate status, topic/concern IDs, task lengths, resource IDs/eligibility, feasibility, unsafe content and duplicates. Handle refusal, outage or unsupported scope truthfully with a reviewed fallback or recovery path.
 7. Display the preferred amount of choice. Store accepted tasks and their details. Opening a task must not generate new instructions or another billable model call.
 8. Allow changing interests and preferences; refresh only unaccepted recommendations. Never rewrite saved tasks automatically. A refresh should retain valid prior results if it fails.
@@ -124,6 +149,7 @@ Suggested records:
 
 - `profiles`: owner ID, answer schema version, explicit answer IDs, interest IDs, preferred presentation, optional country, updated time. Keep optional context separate with a clear retention decision.
 - `topics` / `concerns`: stable IDs, labels, internal-area mapping, supported action families, content version and review state.
+- `solution_templates` / `solution_variants`: reviewed reusable actions, outcome keys, concern/topic tags, dependencies, effort/cost, complete display content, approved resources and version. Keep generated private tasks separate from this shared pool.
 - `resources`: approved catalog record and applicability restrictions, linked to relevant concerns.
 - `recommendation_batches`: owner ID, request ID, profile revision, scope, content/prompt version, status and validated task candidates.
 - `tasks`: owned saved task snapshots and existing action keys/status; completion awards stored separately and awarded once.
@@ -134,6 +160,8 @@ Use a profile revision to ignore stale responses after interests change. Make re
 ## Checks before rollout
 
 - Different interests result in meaningfully different relevant outcomes; the same problem with different constraints produces a different feasible action.
+- A new explicit topic wins over an old onboarding focus; all supported topics stay reachable, including with skipped answers or no interests.
+- Covered requests, another batch from a nonempty eligible pool, task opening and completion all work without model calls. Pool exhaustion does not trigger repeated generation by default.
 - No nearby support, unknown region, low energy, no-spend preference, mixed interests, changing priorities and empty interests all have coherent paths.
 - Explicit preferences win over inferred ranking. Grounding is optional and never forced as a prerequisite to a practical task.
 - “One step” changes display load without hiding the ability to explore. New batches do not repeat completed actions under new titles.
@@ -141,4 +169,4 @@ Use a profile revision to ignore stale responses after interests change. Make re
 - Region/resource mismatch, missing reviewed coverage and invalid model output do not result in invented URLs or availability claims.
 - Evaluate relevance, “this fits my situation,” saves, real completion, time to a useful action and cost per useful batch. Do not optimize the number of worries disclosed or raw generated tasks.
 
-First validate a few contrasting authored profiles, then run a small reviewed API evaluation. Choose the model and live resource coverage during that connection step; no new pricing assumption or paid request is part of this design change.
+Next calibrate the task-writing prompt using synthetic examples and a bounded evaluation, then use the satisfactory writer to draft a small pool for review. Demonstrate pool selection against contrasting profiles before adding runtime adaptations. Choose the model and live resource coverage during the connection step; no new pricing assumption or paid request is part of this planning change.
