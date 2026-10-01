@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "questionScreens": 11,
+  "focusPaths": 7,
+  "widths": [
+    320,
+    393,
+    736
+  ],
+  "greenButtonContrast": 8.07,
+  "checked": [
+    "conditional replies",
+    "back and preserved choices",
+    "exclusive checkbox choices",
+    "two-choice limit",
+    "optional skip",
+    "country choices",
+    "escaped optional note",
+    "private snapshot excludes note and email",
+    "no answers in model-facing state",
+    "editable recap",
+    "one-first-step preference",
+    "all topic paths",
+    "detail/back/save/email-demo/list/complete/undo",
+    "green/ink comparison"
+  ],
+  "liveApiCalls": 0,
+  "errors": []
+}

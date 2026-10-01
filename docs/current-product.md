@@ -1,6 +1,6 @@
 # Current product — My Safety V0
 
-Decision snapshot: 30 September 2026, updated with the approved V1 generation prompt and Ada's confirmed email sign-in requirement. This is the current implementation reference. Dated research and archived proposals do not override it. Product flow is agreed; the latest connected screen treatments await founder visual review.
+Decision snapshot: 1 October 2026, updated with Ada's requested conversational onboarding and earthy-green palette trial. The approved V1 generation prompt and confirmed email sign-in remain the implementation baseline. Dated research and archived proposals do not override this document. The latest connected screen treatments await founder visual review.
 
 ## Purpose
 
@@ -9,9 +9,9 @@ Help women living independently enjoy solo life with practical knowledge, prepar
 ## First loop
 
 1. Meet an original, minimal elephant companion from the beginning.
-2. Choose **one** category: Sick days; Daily life; My home; People I can turn to; Peace of mind.
-3. Choose any of that category's **five** concerns, type a concern, or combine both. Continue requires at least one choice or nonblank input. Do not add a long questionnaire. Keep each category's draft separate when switching.
-4. Receive **three** relevant AI suggestions. Expand before saving: two short sentences explaining the action, estimated time, and a useful reviewed link when relevant.
+2. For a new person, use the requested [conversational onboarding direction](../design/app/onboarding/README.md): choices about why she came, her situation, worries, feelings, existing strengths, constraints and preferred help. One question per screen; short conditional comments; optional typing comes last. The current eleven-question treatment is a reviewable proposal, not a fixed length target.
+3. Review an editable starting point, then choose where to begin. The earlier category → five concerns → optional manual input route remains available in Explore for returning visits. Its current labels (Sick days; Daily life; My home; People I can turn to; Peace of mind) are legacy draft copy that Ada found unclear, not final taxonomy. Keep drafts separate when changing topics; life changes remain context rather than a fifth core area.
+4. Receive **three** relevant AI suggestions. The latest preview proposes showing one first, with two optional alternatives, when the person explicitly prefers one gentle step. Inspect before saving: short description, estimated time, and the approved task detail. Choice of onboarding length and presentation awaits review; real AI must use the agreed constraints and resources rather than merely echo feelings.
 5. Use **+** to add selected suggestions to My list. Request another batch without losing saved tasks or repeating shown actions. Handle exhaustion with a clear message instead of cycling endlessly.
 6. Open a saved task for two to four simple steps (usually three), a clear completion condition, and up to two useful resource links. Use the [approved Option A screen](../design/app/task-detail/README.md): steps visible together, optional links and purchase considerations in initially collapsed rows. Show two or three purchase checks only when relevant. Generate and save these details with the original task; opening it does not trigger another generation or silently change its instructions.
 7. Complete a real action in My list with one completion checkbox for the whole task. The elephant grows in acknowledgment. Generation and saving do not earn growth. A task can earn its completion award only once, including across undo/re-completion or request retries.
@@ -20,7 +20,7 @@ No punishment for absence, regressing animal, distress-based streak, fear score 
 
 ## Content and AI
 
-AI personalization is required for the eventual app. The clickable design currently uses nine sample tasks to test interaction. Ada approved the [task-generator V1 prompt](prompts/task-generator-v1.md) on September 30 as the current implementation baseline. It is saved, but not yet connected to the live generator or evaluated through the paid API. The requirements below continue to apply.
+AI personalization is required for the eventual app. The clickable designs use fixed sample tasks to test interaction. The onboarding preview routes by explicit focus and adjusts sample ordering/presentation; it is not semantic AI personalization. Ada approved the [task-generator V1 prompt](prompts/task-generator-v1.md) on September 30 as the current implementation baseline. It is saved, but not yet connected to the live generator or evaluated through the paid API. Mapping the new onboarding answers to its input contract remains build work. The requirements below continue to apply.
 
 - Generate preventive actions that can be taken now, tailored to selected needs and feasible time, energy, budget and support. Do not assume money, a nearby helper, a car or good health.
 - Prefer small practical steps, explicit help-request messages, existing supplies, official guidance and ways to evaluate local services. Do not equate browsing a directory with confirmed help.
@@ -34,7 +34,7 @@ Suggested future task fields: id, categoryId, concernIds, actionKey, title, desc
 
 ## Visual direction
 
-Warm ivory, restrained lavender and deep ink; Instrument Serif + Inter; flat minimal elephant; chic editorial spacing. Short copy and no unnecessary subheadlines. Finch is an interaction reference, not a source of artwork. The cinematic branding website is a separate design asset; it does not replace the approved app palette.
+Warm ivory, restrained lavender and deep ink; Instrument Serif + Inter; flat minimal elephant; chic editorial spacing. Ada requested adding earthy dark green while retaining ivory/lavender as the main colors. The latest preview tests **#3E5044** on primary buttons only and offers the original ink for comparison. Short copy and no unnecessary subheadlines. Finch is an interaction reference, not a source of artwork. The cinematic branding website is a separate design asset; it does not replace the approved app palette.
 
 ## Delivery and scope
 
@@ -46,7 +46,7 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 ## Next gates
 
-1. Review this clickable sick-day journey on a phone: three suggestions → + → My list → completion → elephant. Confirm the visual direction with the founder.
+1. Review the conversational onboarding and green-button trial, then continue through sample suggestions → + → My list → completion → elephant. Confirm wording, length, navigation and visual direction with the founder.
 2. Implement the approved flow with real structured generation, reviewed resources, error recovery, durable owned tasks and one-time growth awards. Reconcile deployment source before touching the live site.
 3. Test with 10–20 invited people. Observe task relevance, save and completion rates, time to first useful action, returning use, link usefulness and cost per useful generated batch. Ask why people abandon or do not complete; avoid rewarding raw generation volume. Prices, retention thresholds and a paid offer need evidence, not assumptions.
 

@@ -4,6 +4,7 @@ There are two distinct design assets: the approved ivory/lavender app direction 
 
 ## App journey
 
+- [Conversational onboarding](app/onboarding/README.md): the latest clickable entry journey, with eleven choice-led questions, brief answer-based comments, an editable recap, and connected sample tasks. Includes Ada's earthy-green button trial; ivory and lavender remain dominant. Ready for visual review.
 - [Five V0 flow details](app/v0-flow/README.md): email-code sign-in, removal/Undo, empty/all-done lists, generation recovery and gentle growth. Email sign-in is confirmed; the new screen treatments are ready for review and use synthetic behavior.
 - [Simple navigation proposal](app/navigation/README.md): two main destinations, labeled return paths, and a clickable sample preview; awaiting visual review.
 - [Completion and elephant-growth proposal](app/completion-feedback-proposal.md): research-informed next-screen behavior under discussion; fun, gentle feedback after either completion entry point.
@@ -13,7 +14,7 @@ There are two distinct design assets: the approved ivory/lavender app direction 
 - [Current concern choices](app/concern-content.json): five categories, five choices each, mapped to research IDs.
 - [Chosen minimal elephant direction](assets/meet-your-protector-minimal.png) and [revision brief](assets/minimal-revision-prompt.md).
 
-The preview extends the earlier two-screen task concept; keep this version as the active reference. Earlier realistic animal options were rejected and remain in local history. Do not copy Finch's artwork. The new screens await founder review and have not been written into Figma.
+Use the conversational onboarding preview for the latest connected entry journey; keep the approved task-detail reference for its layout and the five-flow notes for behavior. Earlier realistic animal options were rejected and remain in local history. Do not copy Finch's artwork. The new screens await founder review and have not been written into Figma.
 
 ## Branding website source
 
