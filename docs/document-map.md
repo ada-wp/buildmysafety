@@ -34,3 +34,5 @@ Repository root runtime files remain byte-for-byte unchanged. This is a private 
 ## October 11 first real writing test
 
 The [single test record](prompts/evaluations/2026-10-11-sick-day-smoke-test.json) contains the actual Playground input/output, settings, displayed metrics and review notes. It is evaluation evidence, not another specification or a published pool. The original response is preserved separately from suggested wording edits. The earlier teaching examples and twelve evaluation cases retain their existing not-run status.
+
+The [second test record](prompts/evaluations/2026-10-11-urgent-pet-care-test.json) records Ada's urgent pet-care scenario, synthetic assumptions, two checked source records and the actual revised-prompt response. It passed structural checks but exposed an unresolved urgent-help fallback. Neither test record replaces the canonical product decisions or activates urgent behavior in the app.

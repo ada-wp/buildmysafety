@@ -1,0 +1,207 @@
+{
+  "test_id": "S02-urgent-pet-care-resource-discovery",
+  "date": "2026-10-11",
+  "status": "completed_revision_needed_for_urgent_use",
+  "purpose": "Test the external-resource revision on the founder's urgent scenario: away from home with no one caring for pets. Founder explicitly confirmed this is a test, not her own pet needing help.",
+  "synthetic_assumptions": "A cat in the US was stated as the fictional example before running. These are test inputs, not facts inferred about the founder. City, care duration, pet condition, budget and confirmed sitter availability are unknown.",
+  "execution": {
+    "surface": "OpenAI Platform Playground, fresh conversation",
+    "model_selected": "gpt-6-luna",
+    "model_snapshot": null,
+    "service_tier": "standard",
+    "reasoning_mode": "standard",
+    "reasoning_effort": "medium",
+    "verbosity": "medium",
+    "summary": "auto",
+    "store_logs": false,
+    "websocket_mode": false,
+    "tools": [],
+    "successful_generations_observed": 1,
+    "developer_prompt_source": "../task-writer-v1.1-draft.md: complete text-fenced developer prompt",
+    "developer_prompt_git_commit": "891b5d4",
+    "developer_prompt_characters": 10686,
+    "developer_prompt_sha256_utf8": "2432d1cad53d50d53a19ebde8ceac48aa12cdecbad9c07a91412bf752ea5d23e",
+    "teaching_examples_supplied": false,
+    "response_format_reference": "2026-10-11-sick-day-smoke-test.json#/response_format",
+    "ui_reported_metrics": {
+      "user_token_label": "2,878t",
+      "assistant_token_label": "2,007t",
+      "assistant_duration_label": "21.5s"
+    },
+    "measurement_limits": "Playground display labels only. Raw usage breakdown, model snapshot and billed cost were not collected; do not infer exact cost from these labels.",
+    "billed_cost_usd": null,
+    "production_changed": false
+  },
+  "input": {
+    "current_topic": {
+      "id": "pet_care",
+      "label": "Pet-care plans",
+      "scope": "Organize ordinary pet-care arrangements and discover care services; no veterinary diagnosis, treatment or guarantees of availability."
+    },
+    "selected_concerns": [
+      {
+        "id": "care_gap_today",
+        "label": "My pet needs care today and no one is available"
+      }
+    ],
+    "user_context": "I am away from home and my cat has no one to feed or check on them today. It is urgent. I live in the US and do not have anyone nearby who can help.",
+    "preferences": {
+      "max_active_minutes": null,
+      "avoid_spending": null,
+      "country": "US",
+      "device": null
+    },
+    "previous_actions": [],
+    "reviewed_guidance": [
+      "Help with ordinary care arrangements only. Do not prescribe feeding amounts, medication or veterinary treatment.",
+      "The supplied directories are paid-service research and contact starting points, not emergency-response services. No individual sitter, local coverage, price or same-day availability has been checked.",
+      "Finding a listing, sending an inquiry and having a sitter explicitly agree to provide care are different states. Do not claim that the pet has care arranged from a search result.",
+      "Do not request or include door codes, keys, exact home addresses or other home-access secrets in generated content."
+    ],
+    "eligible_resources": [
+      {
+        "resource_id": "rover_cat_us",
+        "name": "Rover cat sitting",
+        "url": "https://www.rover.com/cat-sitting/",
+        "region": "US; local availability must be checked",
+        "supported_use": "Find cat-sitter profiles for home drop-in visits or house sitting, and contact potential sitters through the platform.",
+        "facts": [
+          "Official page supports cat-care options including feeding, play and litter care.",
+          "People can browse profiles and reach out to prospective sitters."
+        ],
+        "cost": "Paid sitter service; actual costs and terms must be checked.",
+        "checked_date": "2026-10-11",
+        "source_checked": "Official cat-sitting page opened; no individual provider or booking verified."
+      },
+      {
+        "resource_id": "meowtel_cat_us",
+        "name": "Meowtel",
+        "url": "https://meowtel.com/",
+        "region": "US; local availability must be checked",
+        "supported_use": "Find cat-focused sitters for in-home care and check whether someone can take the required visit.",
+        "facts": [
+          "Official page describes care that can include feeding, litter scooping and playtime.",
+          "Official site has sitter search and reservation routes."
+        ],
+        "cost": "Paid sitter service; actual costs and terms must be checked.",
+        "checked_date": "2026-10-11",
+        "source_checked": "Official homepage opened; no individual provider or booking verified."
+      }
+    ],
+    "candidate_solutions": []
+  },
+  "original_output": {
+    "status": "no_more_ideas",
+    "message": "I can offer two useful steps with the supplied resources. Neither directory confirms same-day availability, so care is arranged only when a sitter explicitly agrees.",
+    "tasks": [
+      {
+        "action_key": "pet_care_same_day_sitter_inquiry",
+        "concern_ids": [
+          "care_gap_today"
+        ],
+        "title": "Contact Sitters for Today",
+        "summary": "Check two cat-sitting directories for a visit today and ask about timing, total cost, and included care. A listing or inquiry is not a confirmed arrangement.",
+        "estimated_minutes": 15,
+        "steps": [
+          "Search both directories for local cat sitters who may be available today.",
+          "Compare visit timing, total cost, and whether feeding and a check-in are included.",
+          "Contact suitable candidates with: “Can you visit my cat today? What time, total cost, and care is included?”",
+          "Count care as arranged only after a sitter explicitly agrees; keep access secrets out of your inquiry."
+        ],
+        "done_when": "You have sent inquiries or noted that neither directory showed a suitable same-day option.",
+        "resources": [
+          {
+            "resource_id": "rover_cat_us",
+            "why": "Browse cat-sitter profiles and contact prospective sitters."
+          },
+          {
+            "resource_id": "meowtel_cat_us",
+            "why": "Search for cat-focused in-home care and contact sitters."
+          }
+        ],
+        "purchase_checks": [
+          "Confirm the sitter can visit today and at what time.",
+          "Check total charges and any minimums.",
+          "Confirm feeding and check-in are included."
+        ],
+        "no_purchase_option": null
+      },
+      {
+        "action_key": "pet_care_visit_instructions_note",
+        "concern_ids": [
+          "care_gap_today"
+        ],
+        "title": "Prepare a Cat-Care Note",
+        "summary": "A concise note makes your cat’s usual routine and care needs easier to explain to a sitter who agrees to help.",
+        "estimated_minutes": 8,
+        "steps": [
+          "Write your cat’s usual feeding and check-in routine from what you already know.",
+          "Add any practical care details a sitter would need, such as where supplies are kept.",
+          "Keep keys, door codes, exact address, and other access secrets out of the note and inquiry."
+        ],
+        "done_when": "You have a short care note ready to share without home-access secrets.",
+        "resources": [],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      }
+    ]
+  },
+  "automated_validation": {
+    "status": "pass",
+    "method": "Dependency-free recursive checks for every keyword used in the referenced schema; independent status/task count, word limits, distinct keys, supplied IDs and prohibited link/word checks. Fixture validation, not a production validator.",
+    "task_counts": [
+      {
+        "action_key": "pet_care_same_day_sitter_inquiry",
+        "total_visible_words": 141,
+        "step_words": [
+          12,
+          13,
+          18,
+          17
+        ],
+        "resource_ids": [
+          "rover_cat_us",
+          "meowtel_cat_us"
+        ]
+      },
+      {
+        "action_key": "pet_care_visit_instructions_note",
+        "total_visible_words": 81,
+        "step_words": [
+          13,
+          15,
+          16
+        ],
+        "resource_ids": []
+      }
+    ],
+    "limits": "A structural pass does not resolve the urgent-help content failures recorded in editorial_review."
+  },
+  "editorial_review": {
+    "reviewer": "Codex assistant; not model self-grading, founder approval or professional review",
+    "decision": "External-resource behavior improved; urgent handling is incomplete and should not be approved for public use from this test.",
+    "passes": [
+      "Used both supplied resources with relevant descriptions; did not invent another brand or URL.",
+      "Acted on today's care gap by suggesting contact now instead of only saving a directory for later.",
+      "Distinguished a listing or inquiry from a sitter's explicit agreement; did not claim to have found available care.",
+      "Returned two distinct tasks with no_more_ideas instead of padding a third. That count matches the existing output contract.",
+      "Avoided assumed friends, medical instructions, exact price claims, unnecessary location collection and home-access secrets."
+    ],
+    "blocking_gaps_for_urgent_use": [
+      "No clear next step if neither directory can provide care or nobody replies; collecting a care note does not resolve that gap.",
+      "No brief distinction between an urgent scheduling problem and a pet already at immediate welfare risk. Unknown duration, condition and access are not resolved.",
+      "The message mentions supplied resources, exposing implementation language, and the no_more_ideas state is a poor fit for an urgent unresolved need. User-facing handling needs a deliberate design.",
+      "Privacy wording protects secrets but offers no way to distinguish keeping access details out of My Safety from arranging necessary access privately with a confirmed provider."
+    ],
+    "coverage_gap": "The input supplied two commercial directories but no checked local fallback or reviewed urgent pet-welfare handling. The writer must not invent missing coverage. Fix both the content coverage and the urgent-response guidance, not only the tone.",
+    "next_step_proposal": "Define a short urgent-help response distinct from preventive task suggestions: relevant contact options, explicit confirmation of care, and a reviewed fallback when none are available. Ask only essential triage context and do not delay immediate appropriate help. This product behavior is proposed, not built or activated.",
+    "founder_review": "pending",
+    "limitations": [
+      "One synthetic scenario and one generation; not a controlled before/after comparison because both the scenario and resource input changed.",
+      "No search for real local sitters, inquiry, booking, purchase or sharing of home-access information occurred.",
+      "A source page being accessible does not verify individual sitter availability, suitability or safety.",
+      "This exploratory case is separate from the eight development and four reserved cases; those remain not run.",
+      "No production prompt, app flow or solution pool was changed by this test."
+    ]
+  }
+}
