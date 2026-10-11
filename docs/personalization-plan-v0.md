@@ -159,6 +159,19 @@ Suggested records:
 
 Use a profile revision to ignore stale responses after interests change. Make retrieval and task ownership server-enforced. Avoid logging optional sensitive text. Account sign-in is not marketing consent. Let the person edit or delete their profile information; do not use prototype host state as production account storage.
 
+## Learning from liked and saved tasks
+
+October 11 founder clarification: use tasks the person likes or adds to My list to recommend more related or similar actions. This is a requested capability; the mechanics below are proposed and are not connected to the current prototype.
+
+- **Like** is an explicit positive interest signal. **Add to My list** shows interest or intention to try an action. **Complete** shows reported follow-through, not necessarily enjoyment or usefulness. Keep these events distinct; an explicit “this helped” carries a different meaning again. Do not ask for another rating just to save a task.
+- Use the task's known topic, concern, approach, outcome and effort/cost attributes to find useful related options. Treat learned preferences as provisional; one choice does not prove she always wants the same topic, duration or approach. Prefer patterns and explicit feedback, and allow a later change of mind.
+- Match to the current request and hard constraints first. Then use prior positive choices to order eligible tasks. If she explicitly opens a new topic, do not send her back to an old concern. Leave room for varied approaches and keep Explore available.
+- Related means a useful new outcome, not another title for the same work. Exclude shown, saved and completed outcomes in the normal fresh-batch path. If she saves a sick-day shelf task, related choices might address easy meals or access to outside help; another version of arranging the shelf is not a new suggestion. This example explains selection, not an automatically approved content batch.
+- Retrieve a relevant reviewed action or variant first. Pass only relevant preference evidence to the writer when a supported adaptation is useful. Recording a like/save, updating ordering and opening tasks need no AI generation. Missing content coverage is not permission to generate unchecked advice.
+- Store private user/task IDs, event type, time and content version; join to existing task tags instead of duplicating personal stories. Unlike/undo should remove the active signal, and repeated toggles should not create extra votes. Explain the use of these choices and provide a way to reset preference signals. Do not infer a diagnosis or objective safety level from activity.
+
+Proposed validation: two people with different positive choices should receive meaningfully different eligible suggestions for the same broad topic; explicit current constraints must still win; undo/reset must affect ordering; and more-related batches must remain distinct. Check useful outcomes and reported fit rather than maximizing likes, saves or generation volume. A new Like or “more like this” control requires a small UI design decision; the established + action already supplies the proposed save signal once real task storage is implemented.
+
 ## Continuous improvement and future audiences
 
 October 11 founder direction: Ada wants the agent to improve its suggestions over time, provide deeper personalization and expand beyond the initial audience in the future. Women living solo remain the V0 focus. The mechanisms below are a proposed plan, not a live learning system or a new model-training job.

@@ -15,6 +15,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - She then called the suggestion tone “dull and dry” and asked for livelier, more personal writing. Use this as a direct correction to the earlier task voice: conversational warmth and relevant personal context should be visible in the suggestions.
 - She reaffirmed the original task output format using the easy-food example: title and estimated time, three numbered steps, then “Done when.” Keep this compact structure while improving the voice; do not substitute summary-only task descriptions during review.
 - She clarified the long-term ambition: teach the agent to provide better suggestions over time, make suggestions more individualized, and expand to additional audiences later. Women living solo remain the initial V0 audience; this is a direction for growth, not an instruction to launch for new groups immediately.
+- She specifically wants the app to use tasks a person likes or adds to their to-do list to recommend more related or similar actions. Treat those choices as personal recommendation signals while preserving current needs and avoiding repeated outcomes.
 
 ## Core direction
 

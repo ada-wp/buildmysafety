@@ -10,6 +10,8 @@ Onboarding adds focus; it does not determine or restrict the whole experience. T
 
 Longer-term direction, clarified October 11: Ada wants an agent whose suggestions improve through feedback, become more individualized, and eventually serve additional audiences. Women living solo remain the initial audience. Build toward two separate loops: editable personal context for better individual fit, and reviewed examples/evaluations for better shared recommendation quality. A reusable library supplies knowledge and proven content; relevant retrieval, variants and bounded generation allow personalization. This does not require generation on every interaction or automatic model training. The proposed implementation sequence is in the [personalization plan](personalization-plan-v0.md#continuous-improvement-and-future-audiences). Neither learning loop has been implemented.
 
+Ada specifically wants liked tasks and tasks added to My list to influence future related suggestions. Use these as soft signals of interest and intent, then prefer useful new outcomes within the person's current topic and constraints. Like, save and completion have distinct meanings; none proves the task worked or establishes a permanent preference alone. Ordinary matching can use stored tags and rules without a model call. Preserve the three-task flow, avoid reworded duplicates, keep other topics accessible, and let the person reset or change direction. This is a recorded requirement, not implemented tracking or a new Like control.
+
 ## First loop
 
 1. Meet an original, minimal elephant companion from the beginning.
