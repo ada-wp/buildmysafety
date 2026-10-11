@@ -33,6 +33,8 @@ For each request:
 
 **Standardize:** topic/concern menus, onboarding comments, task templates/variants, resource catalog, selection rules, navigation, save/complete/undo behavior, completion messages and elephant growth. Research reusable resources during content preparation, not on every user visit.
 
+**External-help discovery — founder clarification, October 11:** when outside help addresses the selected problem, include one or two checked services, websites, apps or community resources with a clear purpose and a few useful comparison criteria. A person without suitable nearby help needs ways to find support, not a generic draft to an assumed friend. Save an option for possible later use; do not equate a listing with confirmed availability, affordable access or guaranteed safety. Match resources to region and budget, and distinguish free research from a paid service. This is a general capability across relevant topics, not a default brand or a requirement to add links to every self-contained task.
+
 **Reserve AI for:** a meaningful adaptation within supported guidance or interpreting a relevant manual request when necessary. Do not add a mandatory AI classification call before every batch. The reviewed V1 prompt and its broader-topic limitations still apply whenever generation is invoked.
 
 **Example:** she mentioned sick days in onboarding, then opens Going out solo and selects finding a comfortable first outing. Return outing-related actions, not more sick-day tasks. Her keep-costs-down preference can favor a free option; her earlier feelings should not prevent her from exploring. This selection can come entirely from the library.

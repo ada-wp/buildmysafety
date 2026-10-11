@@ -1,7 +1,7 @@
 {
   "test_id": "S01-sick-day-instructions-only",
   "date": "2026-10-11",
-  "status": "completed_founder_review_pending",
+  "status": "completed_founder_requested_revision",
   "purpose": "One real generation for founder review before building a solution pool. This is not the eight-case development comparison or the four reserved tests.",
   "execution": {
     "surface": "OpenAI Platform Playground",
@@ -27,7 +27,8 @@
     },
     "billed_cost_usd": null,
     "measurement_limits": "Labels copied from the completed Playground response. No raw API usage breakdown, model snapshot, cache/reasoning token accounting or billed cost was collected. Do not infer exact cost from these labels. The initial click while Configure covered the narrow viewport opened the model menu; no conversation or output was created until Configure was closed and Run was submitted.",
-    "production_changed": false
+    "production_changed": false,
+    "developer_prompt_git_commit": "c40dcb7"
   },
   "response_format": {
     "name": "safety_task_batch_v11",
@@ -324,7 +325,7 @@
         "proposed_text": "Your available easy-food options and where to find them are noted."
       }
     ],
-    "founder_review": "pending",
+    "founder_review": "Third task rejected. Replace generic help-request drafting with useful external-resource discovery when the user needs outside support. This is a general capability, not a Taskrabbit-only preference; other tasks are not implicitly approved.",
     "limitations": [
       "One ordinary synthetic request with no teaching examples; not a model comparison, consistency test or proof of general safety.",
       "No actual user health data, account credentials, precise home information or personal contacts were supplied.",
@@ -333,5 +334,78 @@
       "The eight development cases and four reserved cases in the calibration pack remain not run."
     ],
     "next_step": "Founder reviews the task usefulness and tone. Then refine the relevant writing rule and run bounded contrasting cases before approving a small pool."
+  },
+  "founder_feedback": {
+    "date": "2026-10-11",
+    "affected_action_key": "draft_practical_help_request",
+    "direction": "Provide one or two useful external sources people can research and use when needed. Match the actual help gap, especially when support is not nearby. Include what each source does and a few useful criteria. Do not default to one brand or assume a friend is available.",
+    "prompt_update": "task-writer-v1.1-draft.md updated; revised instructions have not been rerun through the API.",
+    "next_test": "Use checked source records and compare cases with unavailable nearby support, a known contact but wording difficulty, explicit inability to pay, and unknown region. Do not spend another call solely to paraphrase this editorial example."
+  },
+  "editorial_replacement_example": {
+    "provenance": "Assistant-authored example responding to founder feedback, not a new API response, validated user result or approved production pool entry.",
+    "context": "Illustrative US-oriented cleaner-research task for a future low-energy period. This does not assume the founder or original synthetic user is in the US, can afford cleaning, or has local coverage.",
+    "task": {
+      "action_key": "research_house_cleaning_option",
+      "concern_ids": [],
+      "title": "Find a cleaner for low-energy weeks",
+      "summary": "Explore where you could get help with cleaning when you need to rest. Today is for research; booking can wait.",
+      "estimated_minutes": 15,
+      "steps": [
+        "Open the two cleaning resources below and check whether they list services in your area.",
+        "Compare one or two suitable listings using the checks below.",
+        "Save a promising option with your notes, or record that neither source fits; booking can wait."
+      ],
+      "done_when": "You have saved an option to investigate further, or noted that neither source fits.",
+      "resources": [
+        {
+          "resource_id": "example_taskrabbit_cleaning",
+          "why": "Explore cleaning listings and their service details."
+        },
+        {
+          "resource_id": "example_thumbtack_home_services",
+          "why": "Look for local cleaning professionals as another starting point."
+        }
+      ],
+      "purchase_checks": [
+        "Total cost, extra charges and minimum booking.",
+        "Recent reviews for similar cleaning work.",
+        "What is included, including cleaning supplies."
+      ],
+      "no_purchase_option": null
+    },
+    "source_records": [
+      {
+        "id": "example_taskrabbit_cleaning",
+        "provider": "Taskrabbit",
+        "url": "https://www.taskrabbit.com/services/cleaning",
+        "checked_date": "2026-10-11",
+        "method": "Official service page opened.",
+        "supported_use": "Research cleaning providers; service details and coverage must be checked for the actual location.",
+        "cost": "Paid service; no exact price promised. Research task requires no booking.",
+        "limits": "No individual provider, local coverage or availability verified. Directory presence/reviews are not a guarantee of safety.",
+        "additional_source": "https://support.taskrabbit.com/hc/en-us/articles/46260502667035-Tasker-Rates-Minimum-Hours-Policy",
+        "additional_source_note": "Official policy opened; hourly minimums can affect total cost.",
+        "review_state": "editorial_example_candidate_not_production_approved"
+      },
+      {
+        "id": "example_thumbtack_home_services",
+        "provider": "Thumbtack",
+        "url": "https://www.thumbtack.com/",
+        "checked_date": "2026-10-11",
+        "method": "Current search-index extract from the official homepage supports house-cleaning discovery. Direct opening displayed a JavaScript/robot-check page; no search or booking flow was tested.",
+        "supported_use": "US-oriented home-service discovery including house cleaning.",
+        "cost": "Paid professionals; compare service-specific charges before any future hire.",
+        "limits": "No local provider, price, eligibility or availability verified. The homepage is a research starting point, not a confirmed match.",
+        "review_state": "editorial_example_candidate_not_production_approved"
+      }
+    ],
+    "other_checked_example": {
+      "provider": "Taskrabbit",
+      "url": "https://www.taskrabbit.com/services/personal-assistant/run-errands",
+      "checked_date": "2026-10-11",
+      "method": "Official page opened.",
+      "supported_use": "Research ordinary shopping and errand help when that is the actual need; do not add this third link to the two-resource cleaning task."
+    }
   }
 }

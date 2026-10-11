@@ -9,6 +9,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - She dislikes fear-based content that keeps people scrolling without helping them take action.
 - She wants My Safety to be a peaceful place where people embrace solo living and enjoy it fully.
 - On October 1 she reaffirmed that living solo is the key audience/context, while the deeper purpose is helping women build a sense of agency, safety and control. Onboarding should add focus rather than rule their experience, and reusable solution pools should reduce unnecessary AI generation.
+- On October 11 she rejected a generic help-request draft in the sick-day test. Where outside help is needed, she wants one or two external resources people can research and use later, especially without nearby support. Taskrabbit was an example, not a preferred default: discovering suitable services, tools and resources is a broader part of the product's value.
 
 ## Core direction
 
