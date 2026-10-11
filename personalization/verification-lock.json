@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-11T23:48:10.569Z",
+  "base": "https://8cb55c55.buildmysafety.pages.dev",
+  "runId": "20261011234810568",
+  "storage": "remote Cloudflare D1",
+  "checks": [
+    "health remains reachable",
+    "former test signing key no longer grants access"
+  ],
+  "requests": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 503,
+      "error": "authentication_not_configured"
+    }
+  ],
+  "paidCalls": 0,
+  "status": "passed",
+  "mode": "locked"
+}

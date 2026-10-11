@@ -1,0 +1,183 @@
+{
+  "at": "2026-10-11T23:46:51.801Z",
+  "base": "https://614f4047.buildmysafety.pages.dev",
+  "runId": "20261011234651777",
+  "storage": "remote Cloudflare D1",
+  "checks": [
+    "anonymous rejected",
+    "expired token rejected",
+    "forged identity rejected",
+    "private research is not in deployment artifact",
+    "create cloud profile A",
+    "create cloud profile B",
+    "fresh request retrieves persisted profile",
+    "two accounts remain isolated",
+    "browser cannot supply owner",
+    "profile edit persists",
+    "stale edit rejected",
+    "three pool tasks delivered without AI",
+    "shown outcomes saved remotely",
+    "save choice persists",
+    "repeated save is a no-op",
+    "concurrent updates cannot overwrite one another",
+    "other account cannot update A task",
+    "new topic wins over old sick-day focus",
+    "next batch excludes earlier outcomes and meal equivalent",
+    "reset clears preference signals and keeps task history",
+    "account B still unchanged after A entire journey"
+  ],
+  "requests": [
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 401,
+      "error": "authentication_required"
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 401,
+      "error": "authentication_invalid"
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 401,
+      "error": "authentication_invalid"
+    },
+    {
+      "path": "/docs/founder-voice.md",
+      "method": "GET",
+      "status": 404,
+      "error": "route_not_found"
+    },
+    {
+      "path": "/api/memory",
+      "method": "POST",
+      "status": 201,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "POST",
+      "status": 201,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "PATCH",
+      "status": 400,
+      "error": "invalid_body"
+    },
+    {
+      "path": "/api/memory",
+      "method": "PATCH",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "PATCH",
+      "status": 409,
+      "error": "stale_profile"
+    },
+    {
+      "path": "/api/recommendations",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/tasks/action",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/tasks/action",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/tasks/action",
+      "method": "POST",
+      "status": 409,
+      "error": "stale_state"
+    },
+    {
+      "path": "/api/tasks/action",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/tasks/action",
+      "method": "POST",
+      "status": 404,
+      "error": "task_not_found"
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/recommendations",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/recommendations",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory/reset",
+      "method": "POST",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    },
+    {
+      "path": "/api/memory",
+      "method": "GET",
+      "status": 200,
+      "error": null
+    }
+  ],
+  "paidCalls": 0,
+  "status": "passed"
+}

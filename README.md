@@ -9,6 +9,7 @@ A peaceful place to embrace solo living and enjoy it fully. Practical knowledge,
 | What we are building now | [Current product](docs/current-product.md) |
 | Approved AI task-generation prompt | [Task generator V1](docs/prompts/task-generator-v1.md) |
 | Writing calibration before building the pool | [V1.1 draft and teaching plan](docs/prompts/task-writer-v1.1-draft.md) — not activated |
+| Memory storage and API test flow | [Cloud personalization module](personalization/README.md) — D1 staging verified; email login and live backend AI call pending |
 | First real writing test | [October 11 sick-day result and review](docs/prompts/evaluations/2026-10-11-sick-day-smoke-test.json) — founder review pending |
 | Urgent resource-discovery test | [October 11 pet-care result and review](docs/prompts/evaluations/2026-10-11-urgent-pet-care-test.json) — urgent handling needs revision |
 | Philosophy and founder voice | [Founder voice](docs/founder-voice.md) |
