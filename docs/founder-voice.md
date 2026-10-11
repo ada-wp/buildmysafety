@@ -11,6 +11,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - On October 1 she reaffirmed that living solo is the key audience/context, while the deeper purpose is helping women build a sense of agency, safety and control. Onboarding should add focus rather than rule their experience, and reusable solution pools should reduce unnecessary AI generation.
 - On October 11 she rejected a generic help-request draft in the sick-day test. Where outside help is needed, she wants one or two external resources people can research and use later, especially without nearby support. Taskrabbit was an example, not a preferred default: discovering suitable services, tools and resources is a broader part of the product's value.
 - Later on October 11 she approved this definition: “After doing this, she has something she can use—a clearer decision, a real option, something prepared, a skill, or support she can access.” She asked to put it and six suggestion angles—Understand, Discover, Prepare, Arrange, Practice, and Make it easier next time—into the writing prompt. These guide how to address a concern; they do not add navigation categories or a compulsory sequence.
+- After reviewing the new-neighborhood test, she emphasized that the top suggestion has an external link or resource recommendation. The working interpretation is to make a useful resource-supported action the default first suggestion, with relevance and eligibility still governing selection.
 
 ## Core direction
 
