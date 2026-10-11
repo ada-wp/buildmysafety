@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "userId": "fictional-user-001",
+  "revision": 1,
+  "updatedAt": "2026-10-11T12:00:00Z",
+  "answers": {
+    "why": "ease",
+    "home": "alone",
+    "focus": "sick",
+    "difficulty": ["support"],
+    "constraints": ["energy", "cost", "support"],
+    "strengths": ["routine"],
+    "hope": ["prepared", "choice"],
+    "style": "one",
+    "country": "US"
+  },
+  "interests": ["sick_care", "meals_one"],
+  "personalizationEnabled": true,
+  "signalsResetAt": null,
+  "elephantName": null
+}

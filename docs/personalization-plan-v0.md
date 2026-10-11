@@ -147,17 +147,64 @@ The current clickable screen mixes authored sample tasks across selected interes
 
 ## Data and ownership
 
-Suggested records:
+October 11: Ada requested a standardized, uncomplicated user record that avoids unnecessary storage. The following is the V0 build contract; it is saved for implementation, not connected account storage. It refines the earlier suggested records without changing the onboarding screens. Use one account database; the provider remains undecided.
 
-- `profiles`: owner ID, answer schema version, explicit answer IDs, interest IDs, preferred presentation, optional country, updated time. Keep optional context separate with a clear retention decision.
-- `topics` / `concerns`: stable IDs, labels, internal-area mapping, supported action families, content version and review state.
-- `solution_templates` / `solution_variants`: reviewed reusable actions, outcome keys, concern/topic tags, dependencies, effort/cost, complete display content, approved resources and version. Keep generated private tasks separate from this shared pool.
-- `resources`: approved catalog record and applicability restrictions, linked to relevant concerns.
-- `recommendation_batches`: owner ID, request ID, profile revision, scope, content/prompt version, status and validated task candidates.
-- `tasks`: owned saved task snapshots and existing action keys/status; completion awards stored separately and awarded once.
-- `feedback`: explicit reasons such as already done, not relevant, too much right now, or chosen to save. Avoid recording raw private narratives in analytics.
+### One small profile per account
 
-Use a profile revision to ignore stale responses after interests change. Make retrieval and task ownership server-enforced. Avoid logging optional sensitive text. Account sign-in is not marketing consent. Let the person edit or delete their profile information; do not use prototype host state as production account storage.
+The machine-readable [profile schema](contracts/user-profile-v0.schema.json) and [fictional example](contracts/user-profile-v0.example.json) define the stored shape. Keep descriptive field names and short option IDs. Store each fact once; derive readable labels and recommendation context when needed.
+
+| Stored value | What it means and why we keep it |
+| --- | --- |
+| `userId` | The verified account ID. Email and sign-in credentials remain with the identity provider; do not duplicate them in the recommendation profile. |
+| `schemaVersion`, `revision`, `updatedAt` | Interpret stored answers correctly and reject stale recommendation results after an edit. The server controls these values. |
+| `answers.why` | Her stated starting motivation, such as curiosity or wanting to trust herself. Historical context, not a permanent identity. |
+| `answers.home` | Her chosen household situation; never infer relationship status or available help. |
+| `answers.focus` | An onboarding starting point. This is not her current topic and never overrides a deliberate new choice. |
+| `answers.difficulty` | Selected obstacles. Preserve her own choices without an inferred psychological profile. |
+| `answers.constraints` | Broad effort, cost and support preferences. `time` does not mean a specific number of minutes; `cost` does not mean zero spending. |
+| `answers.strengths` | What she says already helps, so personalization includes capability as well as worries. A trusted person is not confirmed available support. |
+| `answers.hope` | Up to two desired feelings/goals, preserving the agency and self-trust side of the product. Not a safety or emotional-progress score. |
+| `answers.style` | How she prefers to begin. `one` changes the initial presentation, while alternatives remain accessible. |
+| `answers.country` | Optional two-letter country code for applicable resources. Unknown location stays unknown; no address, GPS or inferred city. |
+| `interests` | Selected topic IDs. Keep separate from concerns; do not infer pet ownership, loneliness or a problem from an interest. |
+| `personalizationEnabled`, `signalsResetAt` | Let her turn preference-based ordering off or reset learned signals without losing her tasks. |
+| `elephantName` | Optional companion name, up to 24 characters. No generated biography or per-user animation files. |
+
+Reuse the IDs in `design/app/onboarding/source.fragment.html`; the sixteen interest IDs are browsing choices, not a claim that all topics have reviewed production content. Single choices are a code or `null`; multi-choices are unique arrays, empty when unknown/skipped. Convert `private` and a skipped country to `null`. Preserve explicit `none` and `discovering` as exclusive choices so unknown and “nothing in particular” are not confused. Do not store option labels, a second derived profile, raw onboarding JSON or a model-written personality summary alongside these answers.
+
+The current `feeling` answer and optional `note` stay in session memory for the immediate experience and are not durable profile fields. A current topic, concerns and temporary time/budget limits also belong to the current request. Explain that temporary notes are not remembered; clear them on sign-out/session end and omit them from logs. A lasting fact from a note can be saved only after the person explicitly confirms a supported structured preference. The raw note is not silently turned into a permanent biography. No birth date, gender, exact income, medical history, phone number or contacts list is needed for this V0. New useful fields require an explicit versioned contract change.
+
+### One current task record, not a tap history
+
+Use one `user_tasks` row per `(userId, actionKey)`. `actionKey` identifies the useful outcome across rewritten titles and variants.
+
+| Field | Storage rule |
+| --- | --- |
+| `userId`, `actionKey` | Unique together, with account ownership enforced by the server. |
+| `contentRef` | A reference to an immutable content ID/version. Task content and its topic/effort tags are not copied into every interaction. |
+| `shownAt` | First shown time. A compact marker prevents repeating an outcome even if she did not save it. |
+| `savedAt` | Current save timestamp, or null after removal. Repeated saves update the same row; they are not extra votes. |
+| `removedAt` | Current removal timestamp, cleared on restore. Distinguishes recoverable removed tasks from ideas that were only shown. |
+| `completedAt` | Current completion timestamp, or null after undo. Removing a task from My list need not erase its completed history. |
+| `likedAt` | Optional active like timestamp; null until a Like control exists or after unlike. |
+| `feedbackCode`, `feedbackAt` | At most one current explicit response: `helpful`, `too_generic`, `too_much_effort`, `too_expensive`, `already_done` or `not_relevant_now`; otherwise null. No open-ended feedback transcript by default. |
+
+Keep first-completion awards separately as unique `(userId, actionKey, awardedAt)` records. Completion and award insertion must be atomic/idempotent. Undo, removal, retries and re-saving cannot award the same action again. Derive elephant progress from these awards; do not maintain another AI-written progress history or safety score.
+
+Shared reviewed task content is stored once per immutable version. Pin that version when saved. A generated adaptation has one private content snapshot owned by that person; reference it from the task record instead of copying it on each visit. Do not merge private adaptations into the shared pool. Retain a saved or completed snapshot until the person removes its content or deletes the account. After removing unsaved private content, a compact action/award marker can remain; explain this distinction. Shared versions referenced by saved tasks cannot be overwritten or deleted behind the user's back. A safety correction requires an explicit notice, not silent rewriting.
+
+Only profile state and task state feed personalization; no separate per-user preference-score table or append-only click log. Join active like/save choices to existing content tags at recommendation time, count each action once, and ignore signals at or before `signalsResetAt`. Removing/unliking removes that active signal. Resetting preferences also clears active likes and feedback while leaving saved/completed tasks, seen markers and awards intact. Only a deliberate new choice creates a new signal after reset. With personalization off, use today's explicit request, necessary eligibility/feasibility information and repeat prevention, without ordering by past interests or behavior. A completion is not evidence that she liked the task.
+
+### Short-lived work and safe ownership
+
+- Before the first-save email sign-in, keep onboarding and the pending selection in browser session memory. After authentication, validate and attach them to the verified account. Never trust a client-supplied owner ID or copy demo authentication into production.
+- `topics`, `concerns`, versioned solution content and `resources` are shared catalog records, not duplicated inside user profiles. Check supported scope and resource eligibility in application code.
+- A `recommendation_batches` cache may retain a request ID, owner, profile revision, selected content refs, generation status and prompt/content version for recovery and idempotency. Proposed TTL: 24 hours; this is a cache, not a permanent personal history. On expiry, keep saved content and compact seen/action markers; remove unreferenced private candidates. Repeated save requests must still resolve to the same task row. This TTL is an engineering default to test, not deployed behavior.
+- Keep aggregate operational counts and generation cost metadata separate from personal context; never log full prompts, onboarding notes or email by default. Rate-limit records are short-lived operational data, not a second preference history.
+- Validate the profile against the contract. The server derives `userId`, increments `revision`, stamps dates, enforces ownership on every read/write and validates catalog references. A JSON schema alone provides no authentication. Discard stale recommendation responses after profile edits.
+- Profile edits update the same row; there is no permanent answer-version history in V0. Account deletion removes profile, task states, private snapshots, caches and award records. Offer profile edits, preference reset and export. Sign-in is not marketing consent; private personalization is not permission to publish a story into the shared teaching set.
+
+This saves space by removing duplication and long text, while preserving readable field names and useful user control. Measure actual database/index/back-up usage during implementation; the compact example size is not a promise of total storage per user. No database migration, retention job or production connection has been run for this contract.
 
 ## Learning from liked and saved tasks
 
@@ -168,7 +215,7 @@ October 11 founder clarification: use tasks the person likes or adds to My list 
 - Match to the current request and hard constraints first. Then use prior positive choices to order eligible tasks. If she explicitly opens a new topic, do not send her back to an old concern. Leave room for varied approaches and keep Explore available.
 - Related means a useful new outcome, not another title for the same work. Exclude shown, saved and completed outcomes in the normal fresh-batch path. If she saves a sick-day shelf task, related choices might address easy meals or access to outside help; another version of arranging the shelf is not a new suggestion. This example explains selection, not an automatically approved content batch.
 - Retrieve a relevant reviewed action or variant first. Pass only relevant preference evidence to the writer when a supported adaptation is useful. Recording a like/save, updating ordering and opening tasks need no AI generation. Missing content coverage is not permission to generate unchecked advice.
-- Store private user/task IDs, event type, time and content version; join to existing task tags instead of duplicating personal stories. Unlike/undo should remove the active signal, and repeated toggles should not create extra votes. Explain the use of these choices and provide a way to reset preference signals. Do not infer a diagnosis or objective safety level from activity.
+- Persist the current like/save/completion/feedback state and its timestamps using the compact records above; do not retain every tap as an event log. Join to existing task tags instead of duplicating personal stories. Unlike/undo should remove the active signal, and repeated toggles should not create extra votes. Explain the use of these choices and provide a way to reset preference signals. Do not infer a diagnosis or objective safety level from activity.
 
 Proposed validation: two people with different positive choices should receive meaningfully different eligible suggestions for the same broad topic; explicit current constraints must still win; undo/reset must affect ordering; and more-related batches must remain distinct. Check useful outcomes and reported fit rather than maximizing likes, saves or generation volume. A new Like or “more like this” control requires a small UI design decision; the established + action already supplies the proposed save signal once real task storage is implemented.
 

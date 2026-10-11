@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "My Safety V0 stored user profile",
+  "description": "Portable stored-profile contract. Server-owned IDs, versions and timestamps are not client-authorized writes. Does not implement authentication or storage.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "userId", "revision", "updatedAt", "answers", "interests", "personalizationEnabled", "signalsResetAt", "elephantName"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "userId": {"type": "string", "minLength": 1, "maxLength": 128},
+    "revision": {"type": "integer", "minimum": 1},
+    "updatedAt": {"type": "string", "format": "date-time"},
+    "answers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["why", "home", "focus", "difficulty", "constraints", "strengths", "hope", "style", "country"],
+      "properties": {
+        "why": {"enum": ["ease", "trust", "change", "unprepared", "curious", null]},
+        "home": {"enum": ["alone", "preparing", "sometimes", "shared", null]},
+        "focus": {"enum": ["sick", "home", "daily", "people", "peace", "change", "unsure", null]},
+        "difficulty": {
+          "type": "array", "uniqueItems": true, "maxItems": 6,
+          "items": {"enum": ["uncertain", "alone", "support", "judgment", "too_much", "other"]}
+        },
+        "constraints": {
+          "type": "array", "uniqueItems": true, "maxItems": 5,
+          "items": {"enum": ["energy", "time", "cost", "support", "start", "none"]},
+          "if": {"contains": {"const": "none"}},
+          "then": {"maxItems": 1}
+        },
+        "strengths": {
+          "type": "array", "uniqueItems": true, "maxItems": 5,
+          "items": {"enum": ["person", "routine", "prepared", "experience", "learning", "discovering"]},
+          "if": {"contains": {"const": "discovering"}},
+          "then": {"maxItems": 1}
+        },
+        "hope": {
+          "type": "array", "uniqueItems": true, "maxItems": 2,
+          "items": {"enum": ["start", "prepared", "support", "trust", "choice"]}
+        },
+        "style": {"enum": ["one", "choice", "understand", "resources", null]},
+        "country": {
+          "description": "Optional country code; also validate against the app's supported country-code list. Syntax alone does not establish service coverage.",
+          "type": ["string", "null"], "pattern": "^[A-Z]{2}$", "maxLength": 2
+        }
+      }
+    },
+    "interests": {
+      "type": "array", "uniqueItems": true, "maxItems": 16,
+      "items": {"enum": ["sick_care", "meals_one", "home_confidence", "unexpected", "asking_help", "neighbors", "own_company", "grounded", "boundaries", "out_about", "digital", "pet_care", "solo_travel", "life_change", "daily_upkeep", "rest"]}
+    },
+    "personalizationEnabled": {"type": "boolean"},
+    "signalsResetAt": {"type": ["string", "null"], "format": "date-time"},
+    "elephantName": {"type": ["string", "null"], "minLength": 1, "maxLength": 24}
+  }
+}
