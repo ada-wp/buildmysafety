@@ -1,0 +1,284 @@
+{
+  "test_id": "S03-new-neighborhood-six-angles",
+  "date": "2026-10-11",
+  "status": "completed_editorial_revision_needed",
+  "purpose": "One real instructions-only test of the founder-approved usefulness definition and six suggestion angles on an ordinary new-neighborhood scenario. The founder accepted switching from sick days to this scenario.",
+  "synthetic_assumptions": "US is an explicitly stated fictional test setting, not the founder's location. City, transport, accessibility needs, tenure and nearby support are unknown.",
+  "execution": {
+    "surface": "OpenAI Platform Playground, fresh conversation",
+    "model_selected": "gpt-6-luna",
+    "model_snapshot": null,
+    "service_tier": "standard",
+    "reasoning_mode": "standard",
+    "reasoning_effort": "medium",
+    "verbosity": "medium",
+    "summary": "auto",
+    "store_logs": false,
+    "websocket_mode": false,
+    "tools": [],
+    "successful_generations_observed": 1,
+    "developer_prompt_source": "../task-writer-v1.1-draft.md: complete text-fenced developer prompt",
+    "developer_prompt_git_commit": "b7c4e98",
+    "developer_prompt_characters": 12762,
+    "developer_prompt_sha256_utf8": "9c64f9d42ef03f09a9cf8cbc3d5a499c448b44dfa2207a0f226eddaf606b0a6f",
+    "teaching_examples_supplied": false,
+    "response_format_reference": "2026-10-11-sick-day-smoke-test.json#/response_format",
+    "ui_reported_metrics": {
+      "user_token_label": "3,512t",
+      "assistant_token_label": "2,552t",
+      "assistant_duration_label": "28.7s"
+    },
+    "billed_cost_usd": null,
+    "measurement_limits": "Visible Playground labels only; raw usage breakdown, exact model snapshot and billed cost were not collected. Do not infer exact cost.",
+    "production_changed": false
+  },
+  "input": {
+    "current_topic": {
+      "id": "new_home_routines",
+      "label": "New home & routines",
+      "scope": "Everyday familiarity, local resources and manageable routines after moving while living alone. Preventive preparation and participation, without neighborhood danger ratings or emergency planning."
+    },
+    "selected_concerns": [
+      {
+        "id": "unfamiliar_area",
+        "label": "Everything nearby feels unfamiliar"
+      },
+      {
+        "id": "where_to_start",
+        "label": "I do not know where to start or who to contact for practical help"
+      }
+    ],
+    "user_context": "I've just moved into a place on my own. I'm excited, but everything feels unfamiliar. If something goes wrong, I wouldn't know where to start or who to contact. I'd like to feel more settled without spending much money.",
+    "preferences": {
+      "country": "US",
+      "prefer_low_cost": true,
+      "max_active_minutes": null,
+      "device": null
+    },
+    "previous_actions": [],
+    "reviewed_guidance": [
+      "This is a fictional US test case. City, transport, accessibility needs, housing tenure and existing local contacts are unknown. Do not infer those facts from living alone or being new to an area.",
+      "Supported ordinary actions include identifying relevant local information, comparing an everyday resource, making a practical choice, organizing existing information, and trying a chosen manageable local routine. No specific three-task sequence is prescribed.",
+      "Resource directories are research starting points. Local opening hours, charges, eligibility, programs and accessibility need checking on the relevant provider page. Finding a listing is not confirmed help or a social connection.",
+      "211 is an information and referral resource for community services. Do not present it as a personal on-call helper or guaranteed practical assistance.",
+      "USAGov describes library services and links to a Library Finder. Its page was opened. The linked CareerOneStop finder returned 403 to the research tool; its interactive search was not verified. A local library official website can also be located by city or county name. No particular local program was checked.",
+      "No exact address, public disclosure of living alone, private home access information, signup, paid purchase or contacting a stranger is required for this test. Keep research and a proposed action separate from claiming a completed arrangement."
+    ],
+    "eligible_resources": [
+      {
+        "resource_id": "211_local_us",
+        "name": "Find your local 211",
+        "url": "https://211.org/about-us/your-local-211",
+        "region": "US; local resources and eligibility vary",
+        "supported_use": "Find a local 211 organization by ZIP code or county and discover its online resource directory or contact options.",
+        "facts": [
+          "Official page offers a location search for local online resources and contact information.",
+          "211 provides information and referrals to community services, including food, housing and transportation."
+        ],
+        "cost": "Research starting point; referred services may have their own fees and eligibility rules.",
+        "checked_date": "2026-10-11",
+        "source_checked": "Official local-211 and About pages opened; no local search, referral or availability checked."
+      },
+      {
+        "resource_id": "usagov_public_libraries",
+        "name": "USAGov: local public libraries",
+        "url": "https://www.usa.gov/libraries-and-archives",
+        "region": "US; local services, eligibility and access vary",
+        "supported_use": "Learn what public libraries can offer and find a starting point for checking a local library website.",
+        "facts": [
+          "USAGov describes public libraries as offering resource-finding help, books and digital media, computers, and programs or events.",
+          "Page links to a Library Finder; a specific branch or event must be checked locally."
+        ],
+        "cost": "No purchase needed to research; check any program fees, registration or library-card requirements locally.",
+        "checked_date": "2026-10-11",
+        "source_checked": "USAGov page opened directly; linked CareerOneStop finder blocked the research tool with 403, so no interactive locator or local availability was verified."
+      }
+    ],
+    "candidate_solutions": []
+  },
+  "original_output": {
+    "status": "ready",
+    "message": null,
+    "tasks": [
+      {
+        "action_key": "find_local_211_practical_resources",
+        "concern_ids": [
+          "where_to_start"
+        ],
+        "title": "Find Local Practical-Help Options",
+        "summary": "Use your local 211 directory to find a relevant community-service option and note what you would need to confirm before relying on it.",
+        "estimated_minutes": 12,
+        "steps": [
+          "Use the local 211 search to find your area's directory or contact options.",
+          "Browse for one type of community service that could be useful to you.",
+          "Save a promising listing and note its fees, eligibility, or availability details to check; if none fits, save the local 211 starting point."
+        ],
+        "done_when": "You have saved a relevant listing or local 211 starting point, with any details still to confirm noted.",
+        "resources": [
+          {
+            "resource_id": "211_local_us",
+            "why": "Find your local directory and community-service contact options."
+          }
+        ],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      },
+      {
+        "action_key": "check_local_library_options",
+        "concern_ids": [
+          "unfamiliar_area"
+        ],
+        "title": "Explore Your Local Library",
+        "summary": "Find a nearby library option and check one service or program that could give you a useful local place to visit or resource to use.",
+        "estimated_minutes": 12,
+        "steps": [
+          "Use the USAGov library page to find a starting point for your local library website.",
+          "Check its services or programs and choose one that interests you.",
+          "Note any local requirements, fees, or hours to confirm before visiting or taking part."
+        ],
+        "done_when": "You have one library service or program selected and its relevant local details noted.",
+        "resources": [
+          {
+            "resource_id": "usagov_public_libraries",
+            "why": "Learn about library services and find a starting point for a local website."
+          }
+        ],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      },
+      {
+        "action_key": "plan_local_errand_routine",
+        "concern_ids": [
+          "unfamiliar_area"
+        ],
+        "title": "Plan a Familiar Local Routine",
+        "summary": "Pair an errand you already expect to do with one nearby stop you would like to get to know, creating an easy routine without adding much expense.",
+        "estimated_minutes": 8,
+        "steps": [
+          "Choose an upcoming errand and a nearby place you would enjoy visiting or find useful.",
+          "Check the place’s hours and any entry cost using information you already have or its official listing.",
+          "Choose an order and a time that fit your plans, then save the routine in a note or calendar you already use."
+        ],
+        "done_when": "You have a saved plan pairing an upcoming errand with one nearby stop, including a suitable time.",
+        "resources": [],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      }
+    ]
+  },
+  "original_output_sha256_compact_utf8_json": "620a332ae1e613935e6bc803a3ec9a9154c0f86ee34def310825ed5876797d61",
+  "source_checks": [
+    {
+      "url": "https://211.org/about-us/your-local-211",
+      "method": "Official page opened; local organization lookup described. No real location or contact submitted."
+    },
+    {
+      "url": "https://211.org/about-us",
+      "method": "Official page opened; community information/referral scope checked."
+    },
+    {
+      "url": "https://www.usa.gov/libraries-and-archives",
+      "method": "Official page opened; library services and linked finder checked."
+    },
+    {
+      "url": "https://www.careeronestop.org/LocalHelp/CommunityServices/find-libraries.aspx",
+      "method": "Open attempt returned 403. The USAGov source is the supplied resource; no claim the linked finder was tested interactively."
+    }
+  ],
+  "automated_validation": {
+    "status": "pass",
+    "method": "Dependency-free recursive checks for every keyword in the referenced schema, plus independent status/count, word limits, distinct keys, supplied concern/resource IDs and prohibited wording/URL checks. Saved output compact-JSON SHA-256 matches the response copied from the browser.",
+    "schema_status": "pass",
+    "business_checks_status": "pass",
+    "errors": [],
+    "task_counts": [
+      {
+        "action_key": "find_local_211_practical_resources",
+        "total_visible_words": 102,
+        "step_words": [
+          13,
+          13,
+          23
+        ],
+        "resource_ids": [
+          "211_local_us"
+        ]
+      },
+      {
+        "action_key": "check_local_library_options",
+        "total_visible_words": 96,
+        "step_words": [
+          15,
+          11,
+          14
+        ],
+        "resource_ids": [
+          "usagov_public_libraries"
+        ]
+      },
+      {
+        "action_key": "plan_local_errand_routine",
+        "total_visible_words": 103,
+        "step_words": [
+          15,
+          17,
+          22
+        ],
+        "resource_ids": []
+      }
+    ],
+    "limits": "A structural pass does not approve editorial usefulness, verify local access, or prove that a task produces a sense of safety."
+  },
+  "editorial_review": {
+    "reviewer": "Codex assistant; not model self-grading, founder approval or professional review",
+    "decision": "Relevant, bounded and affordable research/planning ideas, but the research tasks still leave too much work in choosing what to look for. Review with Ada before reuse.",
+    "passes": [
+      "Returned three distinct outcomes within the new-home topic, each under 105 visible words with three steps and an observable finish.",
+      "Used both supplied resource IDs for specific tasks and left the self-contained routine task without a filler link.",
+      "Did not claim that a local match, help arrangement, service availability or emotional outcome had been achieved.",
+      "Did not infer a car, tenancy, diagnosis, friends, precise location or paid prerequisite.",
+      "The third task creates a chosen plan for participation and enjoyment; it does not turn the entire batch into risk prevention."
+    ],
+    "improvements_before_reuse": [
+      "The first task says to browse for one type of community service but gives no concrete choice or example tied to a possible everyday obstacle. It risks handing the broad research problem back to the user.",
+      "The library task sends the user to a starting point for another website. Use a more direct local route when region coverage exists, or a precise official-site search instruction; the linked finder was not verified and needs an alternative route.",
+      "The first two tasks emphasize collecting information. Sharpen the distinct usable decision each should leave, without forcing a practice task or all six angles into the batch.",
+      "The third task is planning, not a completed outing or practiced routine. Its completion and time estimate should remain labeled as planning."
+    ],
+    "angle_interpretation": [
+      {
+        "action_key": "find_local_211_practical_resources",
+        "angles": [
+          "Discover",
+          "Understand"
+        ],
+        "usable_outcome": "A candidate local service or referral starting point, with unknowns recorded; no confirmed support."
+      },
+      {
+        "action_key": "check_local_library_options",
+        "angles": [
+          "Discover",
+          "Understand"
+        ],
+        "usable_outcome": "A chosen library service/program and access details to check; no attendance or connection yet."
+      },
+      {
+        "action_key": "plan_local_errand_routine",
+        "angles": [
+          "Prepare",
+          "Make it easier next time"
+        ],
+        "usable_outcome": "A saved plan combining an existing errand with a chosen stop; not evidence that a routine was practiced."
+      }
+    ],
+    "next_step_proposal": "Review these three tasks with Ada. If she agrees they remain too broad, tighten research-task guidance to specify a useful question or comparison, a direct route, and one decision. Preserve this original output and test only the relevant revision next.",
+    "founder_review": "pending",
+    "limitations": [
+      "One synthetic generation; the scenario, resources and instructions differ from earlier tests, so this does not establish a causal improvement from the six-angle addition.",
+      "The resource brief itself influences the result. These are not locally matched recommendations, and no specific event or provider was checked.",
+      "Neither local resource search nor contact, signup, visit or purchase was performed.",
+      "The eight development and four reserved evaluation cases remain not run.",
+      "No live app flow, runtime prompt or reusable pool content was changed."
+    ]
+  }
+}
