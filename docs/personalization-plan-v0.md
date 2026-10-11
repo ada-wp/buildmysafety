@@ -16,7 +16,7 @@ No safety score, personality label, inferred diagnosis or claims that the app kn
 
 ## Step 1 — proposed selection logic and restrained AI use
 
-The founder decisions above are requirements. The mechanics below are proposed for review; no production behavior or paid API evaluation has been implemented.
+The founder decisions above are requirements. The mechanics below are proposed for review; no production selection behavior has been implemented. An isolated [October 11 writer test](prompts/evaluations/2026-10-11-sick-day-smoke-test.json) produced one real batch for founder review; it does not evaluate or implement this recommendation system.
 
 Ada's next instruction is to calibrate the writer before creating the pool. Follow the [V1.1 writing draft and teaching plan](prompts/task-writer-v1.1-draft.md) for this preparation stage. The rules below describe eventual app behavior; they do not require us to populate the library before teaching/testing its writer.
 

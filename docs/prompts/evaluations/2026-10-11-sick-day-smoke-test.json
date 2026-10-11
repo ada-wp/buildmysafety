@@ -1,0 +1,337 @@
+{
+  "test_id": "S01-sick-day-instructions-only",
+  "date": "2026-10-11",
+  "status": "completed_founder_review_pending",
+  "purpose": "One real generation for founder review before building a solution pool. This is not the eight-case development comparison or the four reserved tests.",
+  "execution": {
+    "surface": "OpenAI Platform Playground",
+    "model_selected": "gpt-6-luna",
+    "model_snapshot": null,
+    "service_tier": "standard",
+    "reasoning_mode": "standard",
+    "reasoning_effort": "medium",
+    "verbosity": "medium",
+    "summary": "auto",
+    "store_logs": false,
+    "websocket_mode": false,
+    "tools": [],
+    "successful_generations_observed": 1,
+    "developer_prompt_source": "../task-writer-v1.1-draft.md: complete text-fenced developer prompt",
+    "developer_prompt_characters": 8983,
+    "developer_prompt_sha256_utf8": "447724e4391e4f89c25038bdec7b6ab1e92fb820efd9771939ff61e058840e6f",
+    "teaching_examples_supplied": false,
+    "ui_reported_metrics": {
+      "user_token_label": "2,165t",
+      "assistant_token_label": "1,049t",
+      "assistant_duration_label": "12.9s"
+    },
+    "billed_cost_usd": null,
+    "measurement_limits": "Labels copied from the completed Playground response. No raw API usage breakdown, model snapshot, cache/reasoning token accounting or billed cost was collected. Do not infer exact cost from these labels. The initial click while Configure covered the narrow viewport opened the model menu; no conversation or output was created until Configure was closed and Run was submitted.",
+    "production_changed": false
+  },
+  "response_format": {
+    "name": "safety_task_batch_v11",
+    "strict": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "no_more_ideas",
+            "needs_context",
+            "safety_redirect",
+            "out_of_scope"
+          ]
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tasks": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "properties": {
+              "action_key": {
+                "type": "string"
+              },
+              "concern_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "title": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "estimated_minutes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "steps": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 4,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "done_when": {
+                "type": "string"
+              },
+              "resources": {
+                "type": "array",
+                "maxItems": 2,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "why": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "resource_id",
+                    "why"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "purchase_checks": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "no_purchase_option": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "action_key",
+              "concern_ids",
+              "title",
+              "summary",
+              "estimated_minutes",
+              "steps",
+              "done_when",
+              "resources",
+              "purchase_checks",
+              "no_purchase_option"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "status",
+        "message",
+        "tasks"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "input": {
+    "current_topic": {
+      "id": "sick_care",
+      "label": "Sick-day care",
+      "scope": "Prepare ordinary household essentials, familiar food options and useful arrangements before a future sick day; no diagnosis or treatment."
+    },
+    "selected_concerns": [],
+    "user_context": "I live alone and want to prepare for sick days. I have limited energy and would prefer to use things I already own.",
+    "preferences": {
+      "max_active_minutes": null,
+      "avoid_spending": true,
+      "energy": "limited",
+      "country": null,
+      "device": null
+    },
+    "previous_actions": [],
+    "reviewed_guidance": [
+      "Keep this synthetic writing test to ordinary preventive organization and everyday choices; do not provide medical treatment, medication instructions or hazardous DIY.",
+      "Using existing belongings is preferred. Unknown support means no confirmed available helper; do not infer that no support exists.",
+      "No verified resource catalog is supplied for this test. Use no links rather than inventing references."
+    ],
+    "eligible_resources": [],
+    "candidate_solutions": []
+  },
+  "original_output": {
+    "status": "ready",
+    "message": null,
+    "tasks": [
+      {
+        "action_key": "gather_existing_sick_day_essentials",
+        "concern_ids": [],
+        "title": "Gather everyday essentials",
+        "summary": "Keep a few useful household items together and easy to reach, using what you already own.",
+        "estimated_minutes": 8,
+        "steps": [
+          "Choose a spot near where you usually rest.",
+          "Gather existing items such as tissues, a phone charger, a water bottle or a small waste bin.",
+          "Place them together and leave anything you do not use where it is."
+        ],
+        "done_when": "A small set of existing household essentials is together in an easy-to-reach spot.",
+        "resources": [],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      },
+      {
+        "action_key": "choose_easy_familiar_foods",
+        "concern_ids": [],
+        "title": "Choose familiar easy foods",
+        "summary": "Identify a couple of familiar, low-effort food options so you know what is already available.",
+        "estimated_minutes": 8,
+        "steps": [
+          "Look over food you already have or commonly keep at home.",
+          "Choose two options that take little preparation and sound familiar to you.",
+          "Write their names and where to find them on a note or in a place you already use."
+        ],
+        "done_when": "Two familiar, low-preparation food options and their locations are noted.",
+        "resources": [],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      },
+      {
+        "action_key": "draft_practical_help_request",
+        "concern_ids": [],
+        "title": "Draft a practical help request",
+        "summary": "Prepare a message you can use to ask someone you choose for a specific everyday task; drafting does not commit you to sending it.",
+        "estimated_minutes": 7,
+        "steps": [
+          "Choose one practical task you might want help with, such as picking up an item.",
+          "Draft: “I’m under the weather. Would you be able to [specific task]? It’s okay if you can’t.”",
+          "Save the draft somewhere easy to find; sending it is optional."
+        ],
+        "done_when": "A reusable draft names one practical task and is saved somewhere you can find.",
+        "resources": [],
+        "purchase_checks": [],
+        "no_purchase_option": null
+      }
+    ]
+  },
+  "automated_validation": {
+    "status": "pass",
+    "method": "Dependency-free recursive checks for every keyword in this schema, plus independent status/count, word-length, supplied-ID, distinct-key and forbidden-link/word checks against the saved actual response. This is a fixture check, not a production JSON Schema validator.",
+    "word_count_method": "Whitespace-separated tokens; hyphenated terms count as one word",
+    "task_counts": [
+      {
+        "action_key": "gather_existing_sick_day_essentials",
+        "title_words": 3,
+        "summary_words": 16,
+        "step_words": [
+          8,
+          17,
+          13
+        ],
+        "done_when_words": 13,
+        "total_visible_words": 70
+      },
+      {
+        "action_key": "choose_easy_familiar_foods",
+        "title_words": 4,
+        "summary_words": 15,
+        "step_words": [
+          11,
+          12,
+          18
+        ],
+        "done_when_words": 10,
+        "total_visible_words": 70
+      },
+      {
+        "action_key": "draft_practical_help_request",
+        "title_words": 5,
+        "summary_words": 24,
+        "step_words": [
+          15,
+          17,
+          11
+        ],
+        "done_when_words": 14,
+        "total_visible_words": 86
+      }
+    ],
+    "limits": "Does not establish semantic uniqueness, real-world feasibility, source quality, medical correctness or founder approval."
+  },
+  "editorial_review": {
+    "reviewer": "Codex assistant; not model self-grading, founder approval or professional content review",
+    "decision": "Promising baseline; revise food-availability wording before approving this batch for reuse.",
+    "checks": [
+      {
+        "check": "Relevance",
+        "result": "pass",
+        "reason": "All three outcomes address ordinary preparation for a future sick day."
+      },
+      {
+        "check": "Agency",
+        "result": "pass",
+        "reason": "Creates an accessible set of supplies, a food choice and a reusable request; does not prescribe feelings."
+      },
+      {
+        "check": "Usefulness",
+        "result": "pass",
+        "reason": "Concrete outputs use existing belongings, with no purchase or app prerequisite."
+      },
+      {
+        "check": "Feasibility",
+        "result": "revise",
+        "reason": "Food step 1 permits commonly kept food that may not actually be present, while the summary promises known availability. The 7–8 minute estimates are untested; drafting could take less."
+      },
+      {
+        "check": "Voice",
+        "result": "pass_with_edit",
+        "reason": "Calm adult language without fear or exaggerated praise. Replace the awkward phrase sound familiar to you with familiar foods you normally eat."
+      },
+      {
+        "check": "Task design",
+        "result": "pass",
+        "reason": "Three distinct outcomes with observable finishes; the help request remains a draft, not a claim of agreed help."
+      },
+      {
+        "check": "Evidence restraint",
+        "result": "pass_limited",
+        "reason": "No supplied resources, invented links, medical instructions or claims of live research. This does not test selecting or explaining real resources."
+      }
+    ],
+    "proposed_edits_not_applied_to_original": [
+      {
+        "action_key": "choose_easy_familiar_foods",
+        "field": "steps[0]",
+        "proposed_text": "Look over the food you currently have at home."
+      },
+      {
+        "action_key": "choose_easy_familiar_foods",
+        "field": "steps[1]",
+        "proposed_text": "Choose up to two familiar options that need little preparation."
+      },
+      {
+        "action_key": "choose_easy_familiar_foods",
+        "field": "done_when",
+        "proposed_text": "Your available easy-food options and where to find them are noted."
+      }
+    ],
+    "founder_review": "pending",
+    "limitations": [
+      "One ordinary synthetic request with no teaching examples; not a model comparison, consistency test or proof of general safety.",
+      "No actual user health data, account credentials, precise home information or personal contacts were supplied.",
+      "No resource-selection, region-matching, purchase-advice, adversarial, urgent-input or duplicate-exhaustion case was run.",
+      "No task entered a production solution pool. No prompt deployment, website change or fine-tuning occurred.",
+      "The eight development cases and four reserved cases in the calibration pack remain not run."
+    ],
+    "next_step": "Founder reviews the task usefulness and tone. Then refine the relevant writing rule and run bounded contrasting cases before approving a small pool."
+  }
+}
