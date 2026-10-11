@@ -14,6 +14,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - After reviewing the new-neighborhood test, she clarified that at most one suggestion per batch may contain external links. The assistant's earlier interpretation that the first task should have links was incorrect. The cap permits zero linked tasks and does not require the linked task to come first.
 - She then called the suggestion tone “dull and dry” and asked for livelier, more personal writing. Use this as a direct correction to the earlier task voice: conversational warmth and relevant personal context should be visible in the suggestions.
 - She reaffirmed the original task output format using the easy-food example: title and estimated time, three numbered steps, then “Done when.” Keep this compact structure while improving the voice; do not substitute summary-only task descriptions during review.
+- She clarified the long-term ambition: teach the agent to provide better suggestions over time, make suggestions more individualized, and expand to additional audiences later. Women living solo remain the initial V0 audience; this is a direction for growth, not an instruction to launch for new groups immediately.
 
 ## Core direction
 

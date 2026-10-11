@@ -8,6 +8,8 @@ Primarily help women living solo build a sense of agency, safety and control thr
 
 Onboarding adds focus; it does not determine or restrict the whole experience. The person's current topic, selected concerns and explicit request take priority over earlier answers. Keep all supported topics accessible and editable. Ada also requested restrained AI use: reviewed solution pools and simple selection rules should supply ordinary recommendations; generative AI is reserved for meaningful gaps or adaptations.
 
+Longer-term direction, clarified October 11: Ada wants an agent whose suggestions improve through feedback, become more individualized, and eventually serve additional audiences. Women living solo remain the initial audience. Build toward two separate loops: editable personal context for better individual fit, and reviewed examples/evaluations for better shared recommendation quality. A reusable library supplies knowledge and proven content; relevant retrieval, variants and bounded generation allow personalization. This does not require generation on every interaction or automatic model training. The proposed implementation sequence is in the [personalization plan](personalization-plan-v0.md#continuous-improvement-and-future-audiences). Neither learning loop has been implemented.
+
 ## First loop
 
 1. Meet an original, minimal elephant companion from the beginning.
