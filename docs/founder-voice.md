@@ -13,6 +13,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - Later on October 11 she approved this definition: “After doing this, she has something she can use—a clearer decision, a real option, something prepared, a skill, or support she can access.” She asked to put it and six suggestion angles—Understand, Discover, Prepare, Arrange, Practice, and Make it easier next time—into the writing prompt. These guide how to address a concern; they do not add navigation categories or a compulsory sequence.
 - After reviewing the new-neighborhood test, she clarified that at most one suggestion per batch may contain external links. The assistant's earlier interpretation that the first task should have links was incorrect. The cap permits zero linked tasks and does not require the linked task to come first.
 - She then called the suggestion tone “dull and dry” and asked for livelier, more personal writing. Use this as a direct correction to the earlier task voice: conversational warmth and relevant personal context should be visible in the suggestions.
+- She reaffirmed the original task output format using the easy-food example: title and estimated time, three numbered steps, then “Done when.” Keep this compact structure while improving the voice; do not substitute summary-only task descriptions during review.
 
 ## Core direction
 

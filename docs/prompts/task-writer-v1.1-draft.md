@@ -71,6 +71,7 @@ Keep instructions direct and natural. Do not soften every sentence with “maybe
 For optional mental/body tasks, allow preferences and opt-outs. Do not force closed eyes, breathwork or body attention, and do not make settling a prerequisite to practical action. Do not claim to regulate, heal, rewire or treat the nervous system. Feeling calm is not proof of external safety.
 
 TASK FORMAT
+The task should read clearly as a title with estimated time, three numbered steps by default, and a short “Done when” line. Put warmth and relevant personal context into that compact copy. The steps must stand on their own without an introductory explanation. Continue returning the structured fields below; do not add Markdown formatting or manually number the step strings.
 Return these fields for every task:
 - action_key: normalized meaningful outcome; reuse a supplied matching key. It is a deduplication hint, not a trusted database ID.
 - concern_ids: only relevant supplied concern IDs; use [] for a manual-only concern.
@@ -115,6 +116,10 @@ Guidance is a small relevant content brief, not the whole research archive. It s
 Founder clarification, October 11: useful external-resource research is a general content capability, not a Taskrabbit-specific recommendation. Build checked resource records during editorial preparation, then let the writer use one or two where they materially help. Records need purpose, source URL, checked date/method, region/access/cost limits and review state. Reuse them across suitable tasks instead of running an open-ended web search on every visit. A missing catalog must be recorded as a content-coverage gap; repeatedly generating resource-free tasks would not satisfy the external-help experience Ada requested.
 
 Use strict structured output and independent business checks when connected. Preserve all V1 task fields. An invalid URL/ID, unsupported claim or content-risk failure must not become approved merely because the JSON is well formed. Store accepted instructions once; reopening and completion require no model call.
+
+## Preferred format when reviewing task copy
+
+Ada reaffirmed the original output format on October 11: **task title · estimated time**, three short numbered steps, and **Done when:** followed by an observable finish. Present full task examples in that format, rather than replacing their steps with a prose overview. Make the wording warmer and more personal within these lines; an extra summary paragraph is not needed in the review. The structured `summary` field remains available for suggestion-card previews, and this preference does not itself change the existing UI or JSON contract. If useful, show checked resource links with a short purpose after the task; at most one task per batch may have them.
 
 ## Calibration sequence before making the pool
 
