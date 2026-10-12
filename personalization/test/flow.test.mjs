@@ -14,6 +14,39 @@ test('missing authentication context fails before storage is read', async () => 
   assert.equal(o.store.reads, 0);
 });
 
+test('connected app uses explicit profile limits as defaults and current overrides still win', async () => {
+  const o = options({ useProfileDefaults: true });
+  o.store.change(s => { s.profile.answers.constraints = ['cost', 'time', 'support']; });
+  const p = await prepare(o);
+  assert.equal(p.effective.noSpend, true);
+  assert.equal(p.effective.maxMinutes, 10);
+  assert.equal(p.effective.localSupport, 'unavailable');
+  assert.ok(p.candidates.every(c => !c.requiresSpending && !c.requiresNearbySupport && c.task.estimated_minutes <= 10));
+  const overridden = await prepare({ ...o, request: { ...o.request, noSpend: false, maxMinutes: null, localSupport: 'available' } });
+  assert.equal(overridden.effective.noSpend, false);
+  assert.equal(overridden.effective.maxMinutes, null);
+  assert.equal(overridden.effective.localSupport, 'available');
+  assert.ok(overridden.candidates.some(c => c.requiresSpending));
+  o.store.change(s => { s.profile.personalizationEnabled = false; });
+  const optedOut = await prepare(o);
+  assert.equal(optedOut.effective.noSpend, null);
+  assert.equal(optedOut.effective.maxMinutes, null);
+  assert.equal(optedOut.effective.localSupport, 'unknown');
+});
+
+test('multi-concern batch covers a second selected concern before repeating the first', async () => {
+  const o = options();
+  const topic = o.catalog.topics[0];
+  topic.concerns.push({ id: 'other_need', label: 'A second selected need' });
+  const last = o.catalog.actions.find(a => a.actionKey === 'usual_delivery');
+  last.concernIds = ['other_need']; last.task.concern_ids = ['other_need'];
+  o.request.concernIds = ['low_energy', 'other_need'];
+  const result = await recommend(o);
+  assert.equal(result.status, 'ok');
+  assert.ok(result.batch.tasks.slice(0, 2).some(task => task.concern_ids.includes('other_need')));
+  assert.ok(result.batch.tasks.slice(0, 2).some(task => task.concern_ids.includes('low_energy')));
+});
+
 test('current topic and limits win; broad preferences are not hard restrictions', async () => {
   const o = options();
   const first = await prepare(o);

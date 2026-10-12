@@ -23,4 +23,4 @@ await writeFile(new URL('_routes.json', output), JSON.stringify({ version: 1, in
 // Clerk's prebuilt UI uses inline styles; scripts remain restricted to its pinned issuer.
 const csp = `default-src 'self'; script-src 'self' ${issuer} https://challenges.cloudflare.com https://*.protect.clerk.com; connect-src 'self' ${issuer} https://*.protect.clerk.com:*; img-src 'self' data: https://img.clerk.com; style-src 'self' 'unsafe-inline'; font-src 'self'; frame-src ${issuer} https://challenges.cloudflare.com https://*.protect.clerk.com; worker-src 'self' blob:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'`;
 await writeFile(new URL('_headers', output), `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: no-referrer\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: ${csp}\n  Cache-Control: no-store\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
-console.log('Pages artifact ready: app/dist/client (profile-only API; no AI routes).');
+console.log('Pages artifact ready: app/dist/client (owned onboarding/tasks; AI disabled).');

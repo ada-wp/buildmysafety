@@ -179,7 +179,8 @@ test('profile controller preserves its loaded account on token refresh, but relo
   const client: SafetyClient = {
     async getMemory() { reads++; return ownerSnapshot(clerk.source.session!.user!.id); },
     health: unexpected, createMemory: unexpected, updateMemory: unexpected,
-    resetMemory: unexpected, taskAction: unexpected, recommendations: unexpected
+    resetMemory: unexpected, taskAction: unexpected, recommendations: unexpected,
+    getCatalog: unexpected, getTasks: unexpected, getLatestRecommendation: unexpected, getOnboarding: unexpected, saveOnboarding: unexpected
   };
   const session = createProfileSession(client, identity);
   await session.load();

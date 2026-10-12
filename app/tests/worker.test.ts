@@ -48,6 +48,7 @@ function setup(t: TestContext) {
   const sqlite = new DatabaseSync(':memory:'); // Disposable test SQL only; deployed storage is D1.
   sqlite.exec('PRAGMA foreign_keys = ON');
   sqlite.exec(migration);
+  sqlite.exec(readFileSync(new URL('../../personalization/migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql: string) {
@@ -70,6 +71,7 @@ function setup(t: TestContext) {
   let assetCalls = 0;
   const identities = new Map([['Bearer alice-test', 'user_alice'], ['Bearer bob-test', 'user_bob']]);
   const worker = createAppWorker({
+    contentReviewHosts: ['app.example'],
     verifyIdentity: async (request: Request, env: Record<string, unknown>) => {
       identityCalls++;
       assert.deepEqual(Object.keys(env).sort(), ['CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'MEMORY_DB']);
@@ -137,9 +139,9 @@ test('stale and browser-owned profile changes are rejected without changing stor
   assert.deepEqual(sqlite.prepare('SELECT * FROM memory_profiles').all(), rows);
 });
 
-test('reserved API namespace and later task/AI/reset routes never reach auth, D1 or SPA fallback', async t => {
+test('reserved API namespace and unsupported reset routes never reach auth, D1 or SPA fallback', async t => {
   const { worker, env, counts } = setup(t);
-  for (const path of ['/api', '/api/', '/api/recommendations', '/api/tasks/action', '/api/memory/reset',
+  for (const path of ['/api', '/api/', '/api/memory/reset',
     '/api/memory/', '/api/%6demory', '/api%2Fmemory', '/API/memory', '/api/memory/unknown']) {
     for (const method of ['GET', 'POST', 'OPTIONS']) {
       await errorIs(await worker.fetch(req(path, method), env), 404, 'route_not_found');
@@ -217,4 +219,54 @@ test('missing or failed asset binding gives a safe error without private excepti
   for (const env of [undefined, {}, { ASSETS: {} }, { ASSETS: { async fetch() { throw new Error('private upstream detail'); } } }]) {
     await errorIs(await defaultWorker.fetch(req('/account'), env), 503, 'assets_unavailable');
   }
+});
+
+test('real task routes persist selected work, replay delivery, and count completion only once', async t => {
+  const { send, sqlite } = setup(t);
+  await send('/api/memory', 'POST', { answers: { country: 'US' }, interests: ['sick_care'] });
+  await send('/api/memory', 'POST', {}, 'bob');
+  const discovery = await (await send('/api/catalog')).json();
+  assert.equal(discovery.reviewRequired, true);
+  assert.deepEqual(discovery.topics.map((topic: { id: string }) => topic.id), ['sick_care']);
+  assert.equal(discovery.topics[0].concerns.length, 5);
+  await errorIs(await send('/api/recommendations', 'POST', { request: { topicId: 'sick_care', concernIds: ['food'] } }), 400, 'invalid_request_id');
+  const request = { requestId: 'worker_first_request', expectedStateVersion: '1', request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] } };
+  const deliveredResponse = await send('/api/recommendations', 'POST', request);
+  assert.equal(deliveredResponse.status, 200, JSON.stringify(await deliveredResponse.clone().json()));
+  const delivered = await deliveredResponse.json();
+  assert.equal(delivered.source, 'pool');
+  assert.equal(delivered.reviewRequired, true);
+  assert.equal(delivered.batch.tasks.length, 3);
+  const replay = await (await send('/api/recommendations', 'POST', request)).json();
+  assert.equal(replay.replayed, true);
+  assert.deepEqual(replay.batch, delivered.batch);
+  const actionKey = delivered.batch.tasks[0].action_key;
+  await errorIs(await send('/api/tasks/action', 'POST', { expectedStateVersion: delivered.stateVersion, actionKey, event: { type: 'complete' } }), 409, 'task_not_saved');
+  const saved = await (await send('/api/tasks/action', 'POST', { expectedStateVersion: delivered.stateVersion, actionKey, event: { type: 'save' } })).json();
+  const completed = await (await send('/api/tasks/action', 'POST', { expectedStateVersion: saved.stateVersion, actionKey, event: { type: 'complete' } })).json();
+  assert.equal(completed.awardEarned, true);
+  assert.equal(completed.earnedCount, 1);
+  const undone = await (await send('/api/tasks/action', 'POST', { expectedStateVersion: completed.stateVersion, actionKey, event: { type: 'undo_complete' } })).json();
+  assert.equal(undone.task.completedAt, null);
+  const again = await (await send('/api/tasks/action', 'POST', { expectedStateVersion: undone.stateVersion, actionKey, event: { type: 'complete' } })).json();
+  assert.equal(again.awardEarned, false);
+  assert.equal(again.earnedCount, 1);
+  const aliceList = await (await send('/api/tasks')).json();
+  assert.ok(aliceList.tasks.find((task: { state: { actionKey: string } }) => task.state.actionKey === actionKey).state.completedAt);
+  assert.deepEqual((await (await send('/api/tasks', 'GET', undefined, 'bob')).json()).tasks, []);
+  await errorIs(await send('/api/tasks/action', 'POST', { expectedStateVersion: '1', actionKey, event: { type: 'save' } }, 'bob'), 404, 'task_not_found');
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_completion_awards').get()?.n, 1);
+});
+
+test('editorial content stays absent outside exact founder preview hosts and AI remains disabled', async t => {
+  const { env, send } = setup(t);
+  await send('/api/memory', 'POST', {});
+  const worker = createAppWorker({ verifyIdentity: async () => 'user_alice' });
+  const discovery = await (await worker.fetch(req('/api/catalog'), env)).json();
+  assert.deepEqual(discovery.topics, []);
+  assert.equal(discovery.reviewRequired, false);
+  await errorIs(await worker.fetch(req('/api/recommendations', 'POST', {
+    requestId: 'unapproved_request01', expectedStateVersion: '1', request: { topicId: 'sick_care', concernIds: ['food'] }
+  }), env), 422, 'unsupported_topic');
+  await errorIs(await send('/api/recommendations', 'POST', { route: 'adapt', request: { topicId: 'sick_care', concernIds: ['food'] } }), 403, 'adaptation_disabled');
 });

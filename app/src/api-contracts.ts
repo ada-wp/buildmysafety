@@ -53,10 +53,10 @@ export type TaskState = {
   feedbackAt: string | null;
 };
 export type MemorySnapshot = { profile: UserProfile; taskStates: TaskState[]; stateVersion: string };
-export type TaskActionEvent = { type: 'save' | 'remove' | 'complete' | 'like' | 'unlike' } |
+export type TaskActionEvent = { type: 'save' | 'remove' | 'complete' | 'undo_complete' | 'like' | 'unlike' } |
   { type: 'feedback'; code: FeedbackCode | null };
 export type TaskActionInput = { expectedStateVersion: string; actionKey: string; event: TaskActionEvent };
-export type TaskActionResponse = { task: TaskState; stateVersion: string; changed: boolean };
+export type TaskActionResponse = { task: TaskState; stateVersion: string; changed: boolean; earnedCount?: number; awardEarned?: boolean };
 
 export type RecommendationRequest = {
   topicId: TopicId;
@@ -67,7 +67,7 @@ export type RecommendationRequest = {
   noSpend?: boolean | null;
   localSupport?: 'available' | 'unavailable' | 'unknown';
 };
-export type RecommendationInput = { request: RecommendationRequest; route?: 'pool' | 'adapt' };
+export type RecommendationInput = { request: RecommendationRequest; route?: 'pool' | 'adapt'; requestId?: string; expectedStateVersion?: string };
 export type RecommendationTask = {
   action_key: string;
   concern_ids: string[];
@@ -100,9 +100,21 @@ export type GenerationMetadata = {
 };
 export type RecommendationResponse = {
   status: 'ok';
+  request?: RecommendationRequest;
+  requestId?: string;
   batch: TaskBatch;
   trace: RecommendationTrace;
 } & ({ source: 'pool'; delivery: 'shown'; stateVersion: string; reviewRequired: boolean; metadata: null } |
   { source: 'ai'; delivery: 'review_preview'; reviewRequired: true; metadata: GenerationMetadata });
 export type HealthResponse = { ok: true };
 export type RequestOptions = { signal?: AbortSignal };
+
+export type CatalogResponse = {
+  topics: Array<{ id: TopicId; label: string; scope: string; concerns: Array<{ id: string; label: string }> }>;
+  resources: Array<{ id: string; name: string; url: string; purpose: string; limits: string }>;
+};
+export type TaskCollection = { tasks: Array<{ state: TaskState; content: RecommendationTask }>; stateVersion: string; earnedCount: number };
+export type LatestRecommendation = { result: RecommendationResponse | null; stateVersion: string };
+export type OnboardingProgress = { revision: number; draft: ProfileChanges | null; checkpoint: string; completedAt: string | null; updatedAt: string };
+export type OnboardingResponse = { progress: OnboardingProgress | null; legacyComplete: boolean };
+export type OnboardingWrite = { expectedRevision: number; expectedProfileRevision?: number; draft: ProfileChanges; checkpoint: string };

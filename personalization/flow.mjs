@@ -6,7 +6,8 @@ import {
 
 const LIMITS = { signals: 8, previous: 30, candidates: 12, resources: 8, contextBytes: 24000 };
 const activeAfter = (date, reset) => date !== null && Date.parse(date) > (reset ? Date.parse(reset) : -Infinity);
-const approved = (item, testMode) => item.reviewState === 'approved' || (testMode && item.reviewState === 'test_fixture');
+const approved = (item, testMode, editorialReview = false) => item.reviewState === 'approved' ||
+  (testMode && item.reviewState === 'test_fixture') || (editorialReview && item.reviewState === 'editorial_review');
 const same = (a, b) => a === b;
 const outcomeGroup = action => action.outcomeGroup || action.actionKey;
 const wordCount = text => text.trim().split(/\s+/u).filter(Boolean).length;
@@ -74,20 +75,23 @@ function matchesConstraints(action, effective) {
 /** Server-only: owner comes from verified authentication, never the browser request body.
  * store.readSnapshot(owner) must return an atomic profile/task snapshot; this module has no DB.
  */
-export async function prepare({ owner, request, store, catalog, testMode = false }) {
+export async function prepare({ owner, request, store, catalog, testMode = false, allowEditorialReview = false, useProfileDefaults = false }) {
   requireRule(typeof owner === 'string' && owner.length > 0, 'authentication_required');
   requireRule(validRequest(request), 'invalid_request');
   const snapshot = structuredClone(await store.readSnapshot(owner));
   validateSnapshot(snapshot, owner);
   const { profile, taskStates } = snapshot;
+  const constraints = useProfileDefaults && profile.personalizationEnabled ? profile.answers.constraints : [];
   const effective = {
     country: Object.hasOwn(request, 'country') ? request.country : profile.answers.country,
-    maxMinutes: request.maxMinutes ?? null,
-    noSpend: request.noSpend ?? null,
-    localSupport: request.localSupport ?? 'unknown'
+    maxMinutes: Object.hasOwn(request, 'maxMinutes') ? request.maxMinutes :
+      (constraints.includes('time') || constraints.includes('energy') ? 10 : null),
+    noSpend: Object.hasOwn(request, 'noSpend') ? request.noSpend : (constraints.includes('cost') ? true : null),
+    localSupport: Object.hasOwn(request, 'localSupport') ? request.localSupport :
+      (constraints.includes('support') ? 'unavailable' : 'unknown')
   };
   requireRule(validCountry(effective.country), 'invalid_country');
-  const topic = catalog.topics.find(item => item.id === request.topicId && approved(item, testMode));
+  const topic = catalog.topics.find(item => item.id === request.topicId && approved(item, testMode, allowEditorialReview));
   requireRule(topic, 'unsupported_topic');
   requireRule(request.concernIds.every(id => topic.concerns.some(concern => concern.id === id)), 'unknown_concern');
   requireRule(new Set(catalog.actions.map(a => a.actionKey)).size === catalog.actions.length, 'duplicate_catalog_key');
@@ -97,7 +101,7 @@ export async function prepare({ owner, request, store, catalog, testMode = false
   // Keep this grouping in shared content, not another per-user memory field.
   const excludedGroups = new Set(catalog.actions.filter(action => excluded.has(action.actionKey)).map(outcomeGroup));
   const memory = memoryFor(profile, taskStates, catalog, topic, effective);
-  const resourceCandidates = catalog.resources.filter(resource => approved(resource, testMode) &&
+  const resourceCandidates = catalog.resources.filter(resource => approved(resource, testMode, allowEditorialReview) &&
     resource.topicIds.includes(topic.id) &&
     (resource.countries.includes('*') || (effective.country && resource.countries.includes(effective.country))) &&
     (effective.noSpend !== true || resource.cost === 'free'));
@@ -114,8 +118,9 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     // At most one vote per action, even when both liked and saved. Feedback is not a diagnosis.
     return positives.filter(signal => !negativeKeys.has(signal.action_key) && signal.tags.some(tag => action.tags.includes(tag))).length;
   };
-  const candidates = catalog.actions.filter(action => approved(action, testMode) &&
+  const candidates = catalog.actions.filter(action => approved(action, testMode, allowEditorialReview) &&
     action.topicIds.includes(topic.id) && !excluded.has(action.actionKey) && !excludedGroups.has(outcomeGroup(action)) &&
+    (action.requiresConcernIds || []).every(id => request.concernIds.includes(id)) &&
     (!request.concernIds.length || action.concernIds.some(id => request.concernIds.includes(id))) &&
     matchesConstraints(action, effective) && action.task.resources.every(r => resources.has(r.resource_id)))
     .sort((a, b) => rank(b) - rank(a) || a.actionKey.localeCompare(b.actionKey)).slice(0, LIMITS.candidates);
@@ -189,14 +194,21 @@ export function validateBatch(batch, prepared) {
 function poolBatch(prepared) {
   const tasks = [];
   const groups = new Set();
-  for (const candidate of prepared.candidates) {
-    if (groups.has(outcomeGroup(candidate))) continue;
-    if (candidate.task.resources.length && tasks.some(task => task.resources.length)) continue;
+  const covered = new Set();
+  while (tasks.length < 3) {
+    const eligible = prepared.candidates.filter(candidate => !groups.has(outcomeGroup(candidate)) &&
+      !(candidate.task.resources.length && tasks.some(task => task.resources.length)));
+    // Cover selected concerns before giving a second action for the same one.
+    // Stable sorting preserves personal signal/editorial order for equal fits.
+    const uncovered = candidate => candidate.concernIds.filter(id => prepared.request.concernIds.includes(id) && !covered.has(id)).length;
+    eligible.sort((a, b) => uncovered(b) - uncovered(a));
+    const candidate = eligible[0];
+    if (!candidate) break;
     const task = structuredClone(candidate.task);
     task.concern_ids = task.concern_ids.filter(id => prepared.request.concernIds.includes(id));
     tasks.push(task);
     groups.add(outcomeGroup(candidate));
-    if (tasks.length === 3) break;
+    task.concern_ids.forEach(id => covered.add(id));
   }
   return { status: tasks.length === 3 ? 'ready' : 'no_more_ideas',
     message: tasks.length === 3 ? null : 'These are the useful new options available for this topic right now.', tasks };
@@ -236,7 +248,7 @@ export async function recommend(options) {
   validateSnapshot(latest, owner);
   if (!same(hash(latest), hash(prepared.snapshot))) return { status: 'stale_state', batch: null, source: null };
   return { status: 'ok', source, batch, metadata,
-    reviewRequired: source === 'ai' || Boolean(options.testMode),
+    reviewRequired: source === 'ai' || Boolean(options.testMode) || Boolean(options.allowEditorialReview),
     trace: { contextVersion: 1, profileRevision: prepared.snapshot.profile.revision,
       stateVersion: prepared.snapshot.stateVersion, promptHash, candidateCount: prepared.candidates.length } };
 }

@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 import { createD1Store } from '../d1-store.mjs';
+import { makeCatalog } from './fixtures.mjs';
+import { hash } from '../contracts.mjs';
 
 const migration = readFileSync(new URL('../migrations/0001_user_memory.sql', import.meta.url), 'utf8');
 const T0 = '2026-10-11T12:00:00.000Z';
@@ -15,6 +17,7 @@ function d1Double(t) {
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys = ON');
   sqlite.exec(migration);
+  sqlite.exec(readFileSync(new URL('../migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const binding = {
     beforeBatch: null,
@@ -377,4 +380,103 @@ test('reset cutoff is later than existing save signals even when the server cloc
   assert.equal(after.taskStates[0].likedAt, null);
   const likedAgain = await store.applyTaskAction('alice', after.stateVersion, 'easy_meals', { type: 'like' });
   assert.ok(Date.parse(likedAgain.task.likedAt) > Date.parse(reset.signalsResetAt));
+});
+
+function delivery(keys = ['easy_meals'], requestId = 'batch_request_0001') {
+  const actions = keys.map(key => makeCatalog().actions.find(action => action.actionKey === key));
+  const request = { topicId: 'sick_care', concernIds: ['low_energy'] };
+  return {
+    requestId, requestHash: hash(request), request,
+    contents: actions.map(action => ({ actionKey: action.actionKey, contentRef: action.contentRef, content: action.task })),
+    result: { status: 'ok', source: 'pool', delivery: 'shown', reviewRequired: true,
+      batch: { status: 'no_more_ideas', message: 'One useful option.', tasks: actions.map(action => action.task) } }
+  };
+}
+
+test('durable delivery stores content once, recovers current batch and isolates owners across adapter instances', async t => {
+  const { binding, sqlite } = d1Double(t);
+  const store = createD1Store(binding, { now: () => T0 });
+  await store.createProfile('alice');
+  await store.createProfile('bob');
+  const content = delivery();
+  assert.deepEqual(await store.readLatestBatch('bob'), { result: null, stateVersion: '1' });
+  assert.deepEqual(await store.deliverBatch('alice', '1', content), { stateVersion: '2' });
+  await store.deliverBatch('bob', '1', content);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_content').get().n, 1);
+  const fresh = createD1Store(binding);
+  const recovered = await fresh.readLatestBatch('alice');
+  assert.equal(recovered.result.requestId, content.requestId);
+  assert.equal(recovered.result.replayed, true);
+  assert.deepEqual(recovered.result.batch.tasks, content.result.batch.tasks);
+  const listing = await fresh.readTasks('alice');
+  assert.equal(listing.tasks[0].state.userId, 'alice');
+  assert.deepEqual(listing.tasks[0].content, content.contents[0].content);
+  assert.equal(listing.earnedCount, 0);
+  await store.applyTaskAction('alice', listing.stateVersion, 'easy_meals', { type: 'save' });
+  assert.equal((await fresh.readLatestBatch('alice')).stateVersion, '3');
+  assert.equal((await fresh.readTasks('bob')).tasks[0].state.savedAt, null);
+  const savedJson = sqlite.prepare('SELECT payload_json FROM memory_latest_batch WHERE user_id = ?').get('alice').payload_json;
+  assert.equal(savedJson.includes('Choose two easy meals'), false, 'per-user batch stores references rather than duplicate content');
+});
+
+test('existing task content cannot be overwritten by another owner with the same content version', async t => {
+  const { binding, sqlite } = d1Double(t);
+  const store = createD1Store(binding);
+  await store.createProfile('alice'); await store.createProfile('bob');
+  await store.deliverBatch('alice', '1', delivery());
+  const modified = delivery();
+  modified.contents[0].content.title = 'Changed without a version';
+  await assert.rejects(store.deliverBatch('bob', '1', modified), code('immutable_content_ref'));
+  assert.equal((await store.readSnapshot('bob')).stateVersion, '1');
+  assert.equal((await store.readTasks('alice')).tasks[0].content.title, 'Choose two easy meals');
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_latest_batch').get().n, 1);
+});
+
+test('delivery transaction rollback never consumes unseen actions or replaces recovery record', async t => {
+  const { binding, sqlite } = d1Double(t);
+  const store = createD1Store(binding);
+  await store.createProfile('alice');
+  await store.deliverBatch('alice', '1', delivery());
+  const before = await store.readSnapshot('alice');
+  binding.failBatchAt = 3;
+  await assert.rejects(store.deliverBatch('alice', '2', delivery(['rest_station'], 'batch_request_0002')), code('storage_unavailable'));
+  binding.failBatchAt = null;
+  assert.deepEqual(await store.readSnapshot('alice'), before);
+  assert.equal((await store.readLatestBatch('alice')).result.requestId, 'batch_request_0001');
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_content').get().n, 1);
+});
+
+test('a task update racing batch delivery keeps current recovery and prevents unobserved inserts', async t => {
+  const { binding } = d1Double(t);
+  const store = createD1Store(binding);
+  await store.createProfile('alice');
+  await store.deliverBatch('alice', '1', delivery());
+  binding.beforeBatch = () => store.applyTaskAction('alice', '2', 'easy_meals', { type: 'save' });
+  await assert.rejects(store.deliverBatch('alice', '2', delivery(['rest_station'], 'batch_request_0002')), code('stale_state'));
+  const after = await store.readTasks('alice');
+  assert.equal(after.tasks.length, 1);
+  assert.ok(after.tasks[0].state.savedAt);
+  assert.equal((await store.readLatestBatch('alice')).result.requestId, 'batch_request_0001');
+});
+
+test('completion award survives undo, remove, re-add, repeat and stale retries without double growth', async t => {
+  const { binding } = d1Double(t);
+  const store = createD1Store(binding, { now: () => T0 });
+  await store.createProfile('alice'); await store.createProfile('bob');
+  await store.deliverBatch('alice', '1', delivery());
+  await assert.rejects(store.applyTaskAction('alice', '2', 'easy_meals', { type: 'complete' }), code('task_not_saved'));
+  await store.applyTaskAction('alice', '2', 'easy_meals', { type: 'save' });
+  const completed = await store.applyTaskAction('alice', '3', 'easy_meals', { type: 'complete' });
+  assert.equal(completed.awardEarned, true); assert.equal(completed.earnedCount, 1);
+  await assert.rejects(store.applyTaskAction('alice', '3', 'easy_meals', { type: 'complete' }), code('stale_state'));
+  const repeat = await store.applyTaskAction('alice', '4', 'easy_meals', { type: 'complete' });
+  assert.equal(repeat.changed, false); assert.equal(repeat.awardEarned, false);
+  const undone = await store.applyTaskAction('alice', '4', 'easy_meals', { type: 'undo_complete' });
+  assert.equal(undone.task.completedAt, null); assert.equal(undone.earnedCount, 1);
+  await store.applyTaskAction('alice', '5', 'easy_meals', { type: 'remove' });
+  await store.applyTaskAction('alice', '6', 'easy_meals', { type: 'save' });
+  const again = await store.applyTaskAction('alice', '7', 'easy_meals', { type: 'complete' });
+  assert.equal(again.awardEarned, false); assert.equal(again.earnedCount, 1);
+  assert.equal((await createD1Store(binding).readTasks('alice')).earnedCount, 1);
+  assert.equal((await store.readTasks('bob')).earnedCount, 0);
 });

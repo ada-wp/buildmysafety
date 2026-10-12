@@ -1,4 +1,4 @@
-import { validProfile, validTaskState, validCountry, requireRule, FlowError } from './contracts.mjs';
+import { validProfile, validTaskState, validOutput, validCountry, requireRule, FlowError } from './contracts.mjs';
 
 const EDITABLE = new Set(['answers', 'interests', 'personalizationEnabled', 'elephantName']);
 const PROFILE_COLUMNS = 'user_id, profile_json, revision, state_version, updated_at, signals_reset_at';
@@ -17,7 +17,21 @@ function checkEvent(event) {
   requireRule(event && typeof event === 'object' && !Array.isArray(event), 'invalid_event');
   const feedback = event.type === 'feedback';
   requireRule(Object.keys(event).every(key => key === 'type' || (feedback && key === 'code')), 'invalid_event');
-  requireRule(feedback ? FEEDBACK.has(event.code) : ['save', 'remove', 'complete', 'like', 'unlike'].includes(event.type), 'invalid_event');
+  requireRule(feedback ? FEEDBACK.has(event.code) : ['save', 'remove', 'complete', 'undo_complete', 'like', 'unlike'].includes(event.type), 'invalid_event');
+}
+
+function checkContent(content, actionKey) {
+  requireRule(validOutput({ status: 'no_more_ideas', message: 'Stored task.', tasks: [content] }) &&
+    content.action_key === actionKey, 'invalid_task_content');
+  return content;
+}
+
+function parsed(value, code) {
+  try { return JSON.parse(value); } catch { throw new FlowError(code); }
+}
+
+function checkRequestId(value) {
+  requireRule(typeof value === 'string' && /^[a-zA-Z0-9_-]{16,80}$/.test(value), 'invalid_request_id');
 }
 
 function checkFields(fields) {
@@ -92,6 +106,104 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
       requireRule(profile.userId === owner, 'owner_mismatch');
       const taskStates = results[1].results.map(state => checkTask(state, owner));
       return { profile, taskStates, stateVersion: String(row.state_version) };
+    },
+
+    async readTasks(owner) {
+      checkOwner(owner);
+      const results = await execute(() => db.batch([
+        stmt(`SELECT ${PROFILE_COLUMNS} FROM memory_profiles WHERE user_id = ?`, owner),
+        stmt(`SELECT ${TASK_COLUMNS} FROM memory_task_states WHERE user_id = ? ORDER BY action_key`, owner),
+        stmt(`SELECT c.content_ref, c.action_key, c.task_json FROM memory_task_content c
+          JOIN memory_task_states t ON t.content_ref = c.content_ref AND t.action_key = c.action_key WHERE t.user_id = ?`, owner),
+        stmt('SELECT COUNT(*) AS total FROM memory_completion_awards WHERE user_id = ?', owner)
+      ]));
+      fromRow(results[0].results[0]);
+      const content = new Map(results[2].results.map(row => [row.content_ref,
+        checkContent(parsed(row.task_json, 'invalid_stored_content'), row.action_key)]));
+      return {
+        tasks: results[1].results.map(state => {
+          checkTask(state, owner);
+          requireRule(content.has(state.contentRef), 'task_content_unavailable');
+          return { state, content: content.get(state.contentRef) };
+        }),
+        stateVersion: String(results[0].results[0].state_version),
+        earnedCount: results[3].results[0].total
+      };
+    },
+
+    async readLatestBatch(owner) {
+      checkOwner(owner);
+      const results = await execute(() => db.batch([
+        stmt(`SELECT ${PROFILE_COLUMNS} FROM memory_profiles WHERE user_id = ?`, owner),
+        stmt('SELECT request_id, request_hash, payload_json FROM memory_latest_batch WHERE user_id = ?', owner),
+        stmt(`SELECT c.content_ref, c.action_key, c.task_json FROM memory_task_content c
+          JOIN memory_task_states t ON t.content_ref = c.content_ref AND t.action_key = c.action_key WHERE t.user_id = ?`, owner)
+      ]));
+      fromRow(results[0].results[0]);
+      const row = results[1].results[0];
+      const stateVersion = String(results[0].results[0].state_version);
+      if (!row) return { result: null, stateVersion };
+      const payload = parsed(row.payload_json, 'invalid_stored_batch');
+      const content = new Map(results[2].results.map(value => [value.content_ref,
+        checkContent(parsed(value.task_json, 'invalid_stored_content'), value.action_key)]));
+      const tasks = payload.contentRefs.map(ref => {
+        requireRule(content.has(ref), 'task_content_unavailable');
+        const task = structuredClone(content.get(ref));
+        task.concern_ids = task.concern_ids.filter(id => payload.request.concernIds.includes(id));
+        return task;
+      });
+      const result = { ...payload.result, requestId: row.request_id, request: payload.request,
+        batch: { ...payload.result.batch, tasks }, stateVersion, replayed: true };
+      return { result, stateVersion, requestHash: row.request_hash };
+    },
+
+    async deliverBatch(owner, expectedStateVersion, { requestId, requestHash, request, result, contents }) {
+      checkOwner(owner);
+      checkStateVersion(expectedStateVersion);
+      checkRequestId(requestId);
+      requireRule(typeof requestHash === 'string' && /^[a-f0-9]{64}$/.test(requestHash), 'invalid_request_hash');
+      requireRule(Array.isArray(contents) && contents.length <= 3 &&
+        new Set(contents.map(item => item.actionKey)).size === contents.length, 'invalid_shown_batch');
+      const profileRow = await getRow(owner);
+      const profile = fromRow(profileRow);
+      requireRule(String(profileRow.state_version) === expectedStateVersion, 'stale_state');
+      const at = timestamp(newest([profile.updatedAt, profile.signalsResetAt]));
+      for (const item of contents) {
+        checkTask({ userId: owner, actionKey: item.actionKey, contentRef: item.contentRef,
+          shownAt: at, savedAt: null, removedAt: null, completedAt: null, likedAt: null, feedbackCode: null, feedbackAt: null }, owner);
+        checkContent(item.content, item.actionKey);
+        const existing = await execute(() => stmt('SELECT action_key, task_json FROM memory_task_content WHERE content_ref = ?', item.contentRef).first());
+        requireRule(!existing || (existing.action_key === item.actionKey && existing.task_json === JSON.stringify(item.content)), 'immutable_content_ref');
+      }
+      // Store only the current small request and references. Text and steps live
+      // once in the shared immutable content table; raw notes are never stored.
+      requireRule(request && !Object.hasOwn(request, 'note'), 'invalid_stored_request');
+      const payload = { request, contentRefs: contents.map(item => item.contentRef),
+        result: { ...result, batch: { ...result.batch, tasks: [] } } };
+      const commitToken = crypto.randomUUID();
+      const guard = 'EXISTS (SELECT 1 FROM memory_latest_batch WHERE user_id = ? AND commit_token = ?)';
+      const unseen = contents.length ? `AND NOT EXISTS (SELECT 1 FROM memory_task_states WHERE user_id = ? AND action_key IN (${contents.map(() => '?').join(',')}))` : '';
+      const statements = [
+        stmt(`UPDATE memory_profiles SET state_version = state_version + 1 WHERE user_id = ? AND state_version = ? ${unseen} RETURNING state_version`,
+          owner, Number(expectedStateVersion), ...(contents.length ? [owner, ...contents.map(item => item.actionKey)] : [])),
+        stmt(`INSERT INTO memory_latest_batch (user_id, request_id, request_hash, commit_token, payload_json, created_at)
+          SELECT ?, ?, ?, ?, ?, ? WHERE changes() > 0
+          ON CONFLICT(user_id) DO UPDATE SET request_id = excluded.request_id, request_hash = excluded.request_hash,
+            commit_token = excluded.commit_token, payload_json = excluded.payload_json, created_at = excluded.created_at`,
+          owner, requestId, requestHash, commitToken, JSON.stringify(payload), at),
+        ...contents.flatMap(item => [
+          stmt(`INSERT INTO memory_task_content (content_ref, action_key, task_json, created_at)
+            SELECT ?, ?, ?, ? WHERE ${guard}
+            ON CONFLICT(content_ref) DO UPDATE SET task_json = CASE
+              WHEN memory_task_content.action_key = excluded.action_key AND memory_task_content.task_json = excluded.task_json
+              THEN memory_task_content.task_json ELSE NULL END`, item.contentRef, item.actionKey, JSON.stringify(item.content), at, owner, commitToken),
+          stmt(`INSERT INTO memory_task_states (user_id, action_key, content_ref, shown_at)
+            SELECT ?, ?, ?, ? WHERE ${guard}`, owner, item.actionKey, item.contentRef, at, owner, commitToken)
+        ])
+      ];
+      const results = await execute(() => db.batch(statements));
+      requireRule(results[0].results[0], 'stale_state');
+      return { stateVersion: String(results[0].results[0].state_version) };
     },
 
     async createProfile(owner, fields = {}) {
@@ -171,6 +283,8 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
       const current = currentRows[1].results[0];
       requireRule(current, 'task_not_found');
       checkTask(current, owner);
+      if (event.type === 'complete') requireRule(current.savedAt || current.completedAt, 'task_not_saved');
+      if (event.type === 'undo_complete') requireRule(current.savedAt, 'task_not_saved');
       const at = timestamp(newest([profile.updatedAt, profile.signalsResetAt,
         current.shownAt, current.savedAt, current.removedAt, current.completedAt, current.likedAt, current.feedbackAt]));
       const next = { ...current };
@@ -182,6 +296,7 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
           if (next.savedAt || !next.removedAt) { next.savedAt = null; next.removedAt = at; }
           break;
         case 'complete': if (!next.completedAt) next.completedAt = at; break;
+        case 'undo_complete': next.completedAt = null; break;
         case 'like': if (!next.likedAt) next.likedAt = at; break;
         case 'unlike': next.likedAt = null; break;
         case 'feedback':
@@ -200,10 +315,15 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
           WHERE user_id = ? AND action_key = ? AND changes() > 0 AND ? = 1`,
         next.savedAt, next.removedAt, next.completedAt, next.likedAt, next.feedbackCode, next.feedbackAt,
         owner, actionKey, changed ? 1 : 0),
-        stmt(`SELECT ${TASK_COLUMNS} FROM memory_task_states WHERE user_id = ? AND action_key = ?`, owner, actionKey)
+        stmt(`INSERT INTO memory_completion_awards (user_id, action_key, awarded_at)
+          SELECT ?, ?, ? WHERE changes() > 0 AND ? = 1
+          ON CONFLICT(user_id, action_key) DO NOTHING RETURNING action_key`, owner, actionKey, at, event.type === 'complete' ? 1 : 0),
+        stmt(`SELECT ${TASK_COLUMNS} FROM memory_task_states WHERE user_id = ? AND action_key = ?`, owner, actionKey),
+        stmt('SELECT COUNT(*) AS total FROM memory_completion_awards WHERE user_id = ?', owner)
       ]));
       requireRule(results[0].results[0], 'stale_state');
-      return { task: checkTask(results[2].results[0], owner), stateVersion: String(results[0].results[0].state_version), changed };
+      return { task: checkTask(results[3].results[0], owner), stateVersion: String(results[0].results[0].state_version), changed,
+        earnedCount: results[4].results[0].total, awardEarned: results[2].results.length > 0 };
     },
 
     async markShownBatch(owner, expectedStateVersion, items) {

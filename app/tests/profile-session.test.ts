@@ -48,7 +48,8 @@ function fakeClient(overrides: Partial<SafetyClient> = {}): SafetyClient {
   return {
     health: unexpected, getMemory: unexpected, createMemory: unexpected,
     updateMemory: unexpected, resetMemory: unexpected, taskAction: unexpected,
-    recommendations: unexpected, ...overrides
+    recommendations: unexpected, getCatalog: unexpected, getTasks: unexpected, getLatestRecommendation: unexpected,
+    getOnboarding: unexpected, saveOnboarding: unexpected, ...overrides
   };
 }
 

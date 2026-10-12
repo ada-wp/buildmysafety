@@ -25,7 +25,7 @@ function ReadyApp() {
   }, [clerk]);
   if (!runtime) return <ConnectionMessage />;
   const returnTo = `${window.location.origin}${window.location.pathname}#/recap`;
-  return <App session={runtime.profileSession} accountLabel={user?.primaryEmailAddress?.emailAddress}
+  return <App session={runtime.profileSession} client={runtime.client} accountLabel={user?.primaryEmailAddress?.emailAddress}
     providerSignedIn={Boolean(user && clerk.session?.status === 'active')}
     renderSignIn={() => <EmailSignIn returnTo={returnTo} />} />;
 }

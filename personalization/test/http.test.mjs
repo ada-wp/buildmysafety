@@ -33,6 +33,7 @@ function setup(t, configuration = {}) {
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys = ON');
   sqlite.exec(migration);
+  sqlite.exec(readFileSync(new URL('../migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql) {
@@ -245,4 +246,83 @@ test('storage failures and model credentials return safe errors without internal
   const noKey = await handle(req('/api/recommendations', 'POST', { route: 'adapt', request: sick }, credential), env);
   assert.equal(noKey.status, 503);
   assert.deepEqual(await noKey.json(), { error: 'api_key_required' });
+});
+
+test('durable pool retry returns the same batch, latest recovery survives actions, and older attempts cannot consume another batch', async t => {
+  const { handle, env, sqlite } = setup(t);
+  const credential = await token();
+  await create(handle, env, credential, { answers: { country: 'US' } });
+  const body = { request: sick, requestId: 'request_first_0001', expectedStateVersion: '1' };
+  const send = data => handle(req('/api/recommendations', 'POST', data, credential), env);
+  const firstResponse = await send(body);
+  assert.equal(firstResponse.status, 200, JSON.stringify(await firstResponse.clone().json()));
+  const first = await firstResponse.json();
+  assert.equal(first.replayed, false);
+  const retry = await (await send(body)).json();
+  assert.equal(retry.replayed, true);
+  assert.deepEqual(retry.batch, first.batch);
+  assert.equal(retry.stateVersion, first.stateVersion);
+  assert.equal((await send({ ...body, request: { ...sick, maxMinutes: 5 } })).status, 409);
+  const tasks = await (await handle(req('/api/tasks', 'GET', undefined, credential), env)).json();
+  assert.equal(tasks.tasks.length, 3);
+  assert.equal(tasks.tasks[0].state.userId, ALICE);
+  assert.ok(tasks.tasks.every(task => task.content.action_key === task.state.actionKey));
+  const saved = await (await handle(req('/api/tasks/action', 'POST', {
+    expectedStateVersion: first.stateVersion, actionKey: first.batch.tasks[0].action_key, event: { type: 'save' }
+  }, credential), env)).json();
+  const latest = await (await handle(req('/api/recommendations/latest', 'GET', undefined, credential), env)).json();
+  assert.deepEqual(latest.result.batch, first.batch);
+  assert.equal(latest.stateVersion, saved.stateVersion);
+  assert.deepEqual(latest.result.request, sick);
+  const second = await (await send({ ...body, requestId: 'request_second_002', expectedStateVersion: saved.stateVersion })).json();
+  assert.ok(second.batch.tasks.every(task => !first.batch.tasks.some(old => old.action_key === task.action_key)));
+  const before = sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_states').get().n;
+  assert.equal((await send(body)).status, 409);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_states').get().n, before);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_latest_batch').get().n, 1);
+});
+
+test('concurrent identical delivery requests replay one atomic batch and retain one shared content version', async t => {
+  const { handle, env, sqlite } = setup(t);
+  const credential = await token();
+  await create(handle, env, credential);
+  const body = { request: sick, requestId: 'concurrent_request_1', expectedStateVersion: '1' };
+  const responses = await Promise.all([1, 2].map(() => handle(req('/api/recommendations', 'POST', body, credential), env)));
+  for (const response of responses) assert.equal(response.status, 200, JSON.stringify(await response.clone().json()));
+  const data = await Promise.all(responses.map(response => response.json()));
+  assert.deepEqual(data[0].batch, data[1].batch);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_states').get().n, 3);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_content').get().n, 3);
+  assert.equal(sqlite.prepare('SELECT state_version FROM memory_profiles').get().state_version, 2);
+});
+
+test('owned task detail stays immutable when a later deploy changes or removes catalog actions', async t => {
+  const { handle, env, catalog } = setup(t);
+  const credential = await token();
+  await create(handle, env, credential);
+  const delivered = await (await handle(req('/api/recommendations', 'POST', {
+    request: sick, requestId: 'immutable_request_01', expectedStateVersion: '1'
+  }, credential), env)).json();
+  const key = delivered.batch.tasks[0].action_key;
+  const original = catalog.actions.find(action => action.actionKey === key).task;
+  const expected = structuredClone(original);
+  original.title = 'Changed copy that must not appear';
+  const tasks = await (await handle(req('/api/tasks', 'GET', undefined, credential), env)).json();
+  assert.deepEqual(tasks.tasks.find(task => task.state.actionKey === key).content, expected);
+  catalog.actions.length = 0;
+  const latest = await (await handle(req('/api/recommendations/latest', 'GET', undefined, credential), env)).json();
+  assert.deepEqual(latest.result.batch, delivered.batch);
+});
+
+test('manual input never silently becomes a pool answer or a stored narrative', async t => {
+  const { handle, env, sqlite } = setup(t);
+  const credential = await token();
+  await create(handle, env, credential);
+  const response = await handle(req('/api/recommendations', 'POST', {
+    request: { ...sick, note: 'Private specific situation that needs discussion.' }, requestId: 'manual_request_0001', expectedStateVersion: '1'
+  }, credential), env);
+  assert.equal(response.status, 422);
+  assert.deepEqual(await response.json(), { error: 'adaptation_needed' });
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_latest_batch').get().n, 0);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_task_states').get().n, 0);
 });

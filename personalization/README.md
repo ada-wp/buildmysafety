@@ -1,27 +1,34 @@
 # Hosted memory and recommendation API
 
-Built October 11, 2026 after Ada approved the memory-to-AI structure, then clarified that user memory must be hosted and suitable for an app used by people. Cloudflare D1 is now the selected account-data store. The API has been deployed to an isolated Pages preview and tested against real hosted storage with synthetic identities. It remains separate from the paused `app/` interface draft. Customer email sign-in and a public beta are not connected.
+Built October 11 and connected to the active mobile-web app October 12, 2026. Cloudflare D1 is the account-data store; Clerk supplies verified email identity. The app now connects signed-in onboarding checkpoints and the first sick-day pool → detail → list → completion journey. Public beta and paid AI remain disabled. Historical synthetic rehearsals below are retained as evidence, not the current authentication mechanism.
 
 Each new recommendation request follows this path:
 
 ```text
-Verified identity (temporary signed synthetic identities in staging)
+Verified Clerk identity in the current app preview
   → read its latest profile + current task states from Cloudflare D1
   → apply today's topic and explicit limits
   → exclude previously shown/saved/completed outcomes
   → create a small relevant memory packet
   → use existing eligible pool tasks by default
-       or, explicitly, request one supported AI adaptation
+       next step: automatically adapt at most one when useful, within three total
   → validate the result and check memory has not changed
-  → pool: atomically record shown outcomes, then deliver
-  → AI adaptation: return an explicitly marked review preview, without writes
+  → pool: atomically pin content, record shown outcomes and latest-batch recovery
+  → save/complete/undo against owned state; award each action only once
 ```
 
-The application owns memory. A like or save changes a compact D1 task record; it does not call AI. At the next request the module reads the latest snapshot. The model sees current context alongside fixed writing rules, without requiring a conversation history or model training. Profile edits, task saving/removal/completion, likes, feedback, preference reset and pool delivery now have authenticated server routes. The customer interface, completion awards and accepted AI-content storage remain later steps.
+The application owns memory. Saving changes a compact D1 task record without calling AI; the next request reads the latest snapshot. The shared backend also supports likes, feedback and preference reset, although those controls are not yet exposed in the app. Completion awards and stable shared content are implemented. Accepted private AI-content storage remains a next step.
+
+Ada's latest AI decision is **automatic adaptation of at most one task within the total three when it adds useful personal fit**. It does not wait for pool exhaustion; use three eligible pool tasks when no meaningful adaptation is justified. The current app still uses the pool only. Before activation, add per-user/global quotas, immutable private accepted snapshots and validation of the full mixed batch. A model call must not invent advice or add a fourth task.
 
 The next request can be a completely different question. Only relevant past context follows her; an old sick-day concern must not take over a new question about home. The same-question paid comparison below is a controlled test, not a required sequence in the app.
 
 ## Hosted environment and evidence
+
+- Current app: [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `4235e3b5`. Migrations [0002](migrations/0002_task_journey.sql) and [0003](migrations/0003_onboarding.sql) are remotely applied after 0001. The current automated checkpoint is 104 backend and 90 app tests; [technical status](../docs/technical-status.md) records hosted browser checks separately.
+- [catalog.mjs](catalog.mjs) contains nine real authored tasks marked `editorial_review`, not synthetic fixtures or founder-approved content. Only the exact founder preview hostname opts into these records. [Catalog review](catalog-review.md) records checked sources and limitations. Other hosts exclude them; no OpenAI secret is forwarded by the app Worker.
+
+The following bullets record the earlier October 11 isolated memory-API rehearsal:
 
 - Preview: [memory-staging.buildmysafety.pages.dev](https://memory-staging.buildmysafety.pages.dev). This is an API test environment, not the customer app.
 - Binding: `MEMORY_DB` → isolated D1 database `buildmysafety-memory-staging`, ID `0c4fb649-fb6a-4a8e-9a02-9f9c76ece796`. Migration [0001](migrations/0001_user_memory.sql) creates `memory_profiles` and `memory_task_states`.
@@ -70,9 +77,9 @@ This proves context assembly and application rules, not the quality of an AI's w
 
 `owner` comes only from verified server-side identity. It is never accepted from the recommendation request body, a query parameter or `x-user-id`. The module validates all returned row owners. `d1-store.mjs` scopes every query and mutation to that account. Reads are consistent D1 batches; profile/task changes use version checks, and pool delivery records all shown outcomes in one compare-and-write transaction. A stale response cannot overwrite a newer choice. Profile revision and the broader state version have different purposes: task changes update the latter without pretending the person's onboarding answers changed.
 
-`request` contains `topicId`, `concernIds`, and optionally a session-only `note`, `country`, `maxMinutes`, `noSpend` and `localSupport` (`available`, `unavailable`, `unknown`). Unknown stays unknown. Explicit country `null` means keep it general, overriding a stored country. A broad stored `cost` answer does not mean zero spending; `time` does not mean five minutes. No raw note is written by this module.
+`request` contains `topicId`, `concernIds`, and optionally a session-only `note`, `country`, `maxMinutes`, `noSpend` and `localSupport` (`available`, `unavailable`, `unknown`). Unknown stays unknown; explicit country `null` overrides stored country. In the connected app, profile cost/time/energy/support answers initialize adjustable limits. Explicit current values, including `maxMinutes: null` or `noSpend: false`, override those defaults. Historical rehearsal calls retain their earlier soft-preference behavior unless `useProfileDefaults` is enabled. No raw note is written.
 
-`catalog` is supplied by the server: topic scope/concerns/guidance, immutable action references/outcomes/tags, prerequisites, and resource records. Only `reviewState: 'approved'` is eligible outside test mode. The demo is not a starter production library. `prepare()` exposes the exact outgoing packet for synthetic inspection; do not log real packets in normal operation.
+`catalog` is supplied by the server: topic scope/concerns/guidance, immutable action references/outcomes/tags, prerequisites and resource records. Public eligibility requires `reviewState: 'approved'`; the named founder preview explicitly permits `editorial_review`. Tests have a separate fixture gate, never enabled by the app Worker. `prepare()` exposes the outgoing packet for synthetic inspection; do not log real packets in normal operation. Prior/new Reddit research informs candidate needs; resource facts require separate source checks.
 
 ## API connection
 
@@ -106,11 +113,19 @@ All API responses use `Cache-Control: no-store`. Requests require a valid bearer
 | `GET /api/memory` | None | Owned profile, task states and state version |
 | `POST /api/memory` | Optional `answers`, `interests`, `personalizationEnabled`, `elephantName` | Created profile |
 | `PATCH /api/memory` | `expectedRevision`, `changes` limited to those profile fields | Updated profile or stale-edit conflict |
-| `POST /api/memory/reset` | `expectedRevision` | Cleared preference signals; saved/completed/seen tasks remain |
-| `POST /api/tasks/action` | `expectedStateVersion`, `actionKey`, `event` | Current task/state version; server stamps all dates |
-| `POST /api/recommendations` | `request`, optional `route` (`pool` or `adapt`) | Delivered pool batch or clearly marked AI review preview |
+| `GET /api/onboarding` | None | Owned draft/checkpoint or completion status |
+| `POST /api/onboarding` | Draft, checkpoint, expected draft/profile revisions | Signed-in checkpoint save |
+| `POST /api/onboarding/complete` | Same, with `checkpoint: 'complete'` | Atomic profile promotion and completion; draft payload removed |
+| `GET /api/catalog` | None | Eligible shared topic/concern/resource metadata |
+| `GET /api/tasks` | None | Owned shown/saved task states plus pinned content, version and earned count |
+| `POST /api/tasks/action` | `expectedStateVersion`, `actionKey`, `event` | Current task/version, earned count and whether a new award was earned |
+| `POST /api/recommendations` | `request`, `requestId`, `expectedStateVersion`; optional `route: 'pool'` | Atomically delivered/replayed pool batch |
+| `GET /api/recommendations/latest` | None | Latest committed result/request and current state version |
+| `POST /api/memory/reset` | `expectedRevision` | Shared backend only; not exposed by the app Worker yet |
 
-Task events are `save`, `remove`, `complete`, `like`, `unlike`, or `feedback` with an allowed code/null. There is no completion-undo or award endpoint yet. Repeating an unchanged event with a current version is a no-op; stale retries must refresh first. Resource metadata, content references and timestamps are not accepted from the browser. Customer login, email delivery and UI controls remain separate integration work.
+Task events are `save`, `remove`, `complete`, `undo_complete`, `like`, `unlike`, or `feedback` with an allowed code/null. First completion requires a saved task. Repeated current-version events are no-ops; stale writes must refresh first. Undo changes completion state without removing the unique award. Resource metadata, content references and timestamps are server-owned. The current app exposes save/remove/complete/undo, not all optional feedback controls.
+
+Durable delivery requires a request ID and expected state version. The latest identical ID replays the same batch; reusing it for different inputs conflicts. Older attempts cannot consume another batch after a newer state. `memory_latest_batch` holds one compact recovery row per account; `memory_task_content` holds immutable shared instructions once per version. Lost responses require a read before another action, not an automatic POST retry. The shared historical rehearsal accepts its earlier input contract, but the app Worker enforces durable delivery fields.
 
 ## What is enforced here
 
@@ -138,8 +153,8 @@ The local fix groups overlapping meal alternatives under `easy_food_ready`. A re
 
 ## Deliberate limits and next checkpoint
 
-Broader onboarding preferences are transmitted with explicit meanings for AI adaptation; the current **pool ranking** only uses active like/save tags after hard filters. It does not yet implement all energy, strengths, interest and presentation preferences. Country/free-paid filters do not establish eligibility, prices, platform compatibility, current availability or human safety. Text guards are mechanical, not a clinical or semantic safety review; an allowed key could still receive bad or semantically duplicate prose. Every AI result is marked `reviewRequired` in this rehearsal.
+Pool matching applies current topic/concerns, adjustable profile-derived limits, resource eligibility and nonrepetition, then uses relevant active save/like tags and selected-concern coverage. It does not interpret every strength or hope as a task rule. Country/free-paid filters do not establish availability or human safety. Mechanical validation does not replace content review; an allowed key could still receive weak or unsafe adapted prose. Historical AI rehearsal results remain review-only.
 
-Hosted account isolation, profile edits, preference reset, task state and atomic pool delivery are implemented and cloud-tested. AI results remain review previews; accepting one still needs immutable private content storage and a final compare-and-write transaction. Unique completion awards/growth, batch retry recovery, per-user/global generation budgets, retention jobs and account deletion/export are not implemented. Existing resource/outcome checks are not a professional review or proof that every suggestion is useful.
+Owned onboarding, pool delivery, shared content snapshots, current task state, batch recovery and unique completion awards are built and deployed. AI acceptance still needs private immutable content storage and a final compare-and-write transaction. Generation budgets, retention jobs and account deletion/export remain unbuilt. Existing resource/outcome checks are not professional review or proof of usefulness.
 
-Next checkpoint: finish the bounded hosted API-call test when the Preview secret is available, then disable temporary test access. Connect a real email identity provider to this same D1 store in a separate step. Before inviting people, add generation budgets, accepted-task snapshots, one-time growth awards and deletion/export, then connect the approved interface and reviewed task collection. Continue reviewing stronger tasks for different questions with Ada; past choices should add relevant context without continuing the old problem automatically. Hosted storage is the selected foundation, not evidence of a completed customer app or unlimited capacity. Do not deploy this repository root.
+Next checkpoint: finish hosted journey verification and Ada's review of the small collection, then build/test automatic one-task adaptation within three with quotas, stable private snapshots and reviewed fallback behavior. Customer launch also requires production identity/storage, deletion/export and release testing. Past choices should add relevant context without continuing an old problem automatically. Hosted storage does not establish unlimited capacity. Deploy only the app's allowlisted output, never this repository root.

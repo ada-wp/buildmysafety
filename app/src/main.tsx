@@ -11,5 +11,5 @@ const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY?.trim();
 const ClerkApp = lazy(() => import('./ClerkApp'));
 createRoot(document.getElementById('root')!).render(<StrictMode>{publishableKey
   ? <Suspense fallback={<p role="status">Getting your sign-in ready…</p>}><ClerkApp publishableKey={publishableKey}/></Suspense>
-  : <App session={runtime.profileSession}/>}</StrictMode>);
+  : <App session={runtime.profileSession} client={runtime.client}/>}</StrictMode>);
 if (import.meta.hot) import.meta.hot.dispose(() => runtime.profileSession.dispose());

@@ -1,12 +1,14 @@
 import { createHandler } from '../personalization/http.mjs';
 import { createClerkIdentityVerifier } from '../personalization/clerk-identity.mjs';
+import { catalog } from '../personalization/catalog.mjs';
+import { createOnboardingHandler } from '../personalization/onboarding.mjs';
 
-// Step 2 exposes account memory only. Reviewed content and task delivery have
-// their own later rollout; neither synthetic fixtures nor AI credentials enter it.
-const EMPTY_CATALOG = Object.freeze({
-  topics: Object.freeze([]), resources: Object.freeze([]), actions: Object.freeze([])
-});
-const MEMORY_METHODS = new Set(['GET', 'POST', 'PATCH']);
+const API_METHODS = new Map([
+  ['/api/memory', ['GET', 'POST', 'PATCH']],
+  ['/api/catalog', ['GET']], ['/api/tasks', ['GET']], ['/api/tasks/action', ['POST']],
+  ['/api/recommendations', ['POST']], ['/api/recommendations/latest', ['GET']],
+  ['/api/onboarding', ['GET', 'POST']], ['/api/onboarding/complete', ['POST']]
+]);
 const PRIVATE_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
   'Cache-Control': 'no-store',
@@ -32,22 +34,31 @@ function reservedApiPath(pathname) {
  * browser input cannot select an identity verifier or supply a database owner.
  * Build with nodejs_compat for the shared backend's node:crypto dependency.
  */
-export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier() } = {}) {
-  const api = createHandler({ catalog: EMPTY_CATALOG, verifyIdentity });
+export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier(),
+  contentReviewHosts = ['app-auth-staging.buildmysafety.pages.dev'] } = {}) {
+  // Editorial content can be exercised in the founder's named preview only.
+  // This is real cloud persistence, with content review still pending. A main
+  // website or future customer hostname does not inherit this review switch.
+  const standardApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true });
+  const reviewApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true, allowEditorialReview: true });
+  const onboarding = createOnboardingHandler({ verifyIdentity });
   return {
     async fetch(request, env) {
-      const { pathname } = new URL(request.url);
+      const { pathname, hostname } = new URL(request.url);
+      const api = contentReviewHosts.includes(hostname) ? reviewApi : standardApi;
       if (pathname === '/health') {
         if (request.method !== 'GET') return failure('method_not_allowed', 405, { Allow: 'GET' });
         return api(request, {});
       }
       if (reservedApiPath(pathname)) {
-        if (pathname !== '/api/memory') return failure('route_not_found', 404);
-        if (!MEMORY_METHODS.has(request.method)) {
-          return failure('method_not_allowed', 405, { Allow: 'GET, POST, PATCH' });
+        const methods = API_METHODS.get(pathname);
+        if (!methods) return failure('route_not_found', 404);
+        if (!methods.includes(request.method)) {
+          return failure('method_not_allowed', 405, { Allow: methods.join(', ') });
         }
         // Deliberately omit OpenAI credentials and all synthetic test settings.
-        const response = await api(request, {
+        const handler = pathname.startsWith('/api/onboarding') ? onboarding : api;
+        const response = await handler(request, {
           MEMORY_DB: env?.MEMORY_DB,
           CLERK_ISSUER: env?.CLERK_ISSUER,
           CLERK_AUTHORIZED_PARTIES: env?.CLERK_AUTHORIZED_PARTIES
@@ -55,7 +66,7 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
         if (response.status >= 500) {
           // Only fixed operational codes. Never log credentials, profile content or email.
           const body = await response.clone().json();
-          console.warn('memory_api_unavailable', { code: body.error, status: response.status });
+          console.warn('app_api_unavailable', { code: body.error, status: response.status });
         }
         return response;
       }

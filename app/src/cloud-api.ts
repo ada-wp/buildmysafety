@@ -1,6 +1,7 @@
 import type {
   HealthResponse, MemorySnapshot, PreferenceReset, ProfileChanges, ProfileResponse, ProfileUpdate,
-  RecommendationInput, RecommendationResponse, RequestOptions, TaskActionInput, TaskActionResponse
+  RecommendationInput, RecommendationResponse, RequestOptions, TaskActionInput, TaskActionResponse,
+  CatalogResponse, TaskCollection, LatestRecommendation, OnboardingResponse, OnboardingWrite
 } from './api-contracts.ts';
 
 export type SafetyClientOptions = {
@@ -81,6 +82,9 @@ const isProfileResponse = (value: unknown) => record(value) && isProfile(value.p
 const isMemory = (value: unknown) => record(value) && isProfile(value.profile) && version(value.stateVersion) &&
   Array.isArray(value.taskStates) && value.taskStates.every(isTaskState);
 const isTaskAction = (value: unknown) => record(value) && isTaskState(value.task) && version(value.stateVersion) && typeof value.changed === 'boolean';
+const isOnboarding = (v: unknown) => record(v) && typeof v.legacyComplete === 'boolean' && (v.progress === null ||
+  (record(v.progress) && positiveInt(v.progress.revision) && nullableText(v.progress.completedAt) && text(v.progress.checkpoint) &&
+    text(v.progress.updatedAt) && (v.progress.draft === null || record(v.progress.draft))));
 function isRecommendation(value: unknown) {
   if (!record(value) || value.status !== 'ok' || !record(value.batch) || !record(value.trace)) return false;
   const { batch, trace } = value;
@@ -103,6 +107,7 @@ function isRecommendation(value: unknown) {
 
 // Known machine codes only. Never surface arbitrary server error text or HTML to the UI.
 const serverCodes = new Set([
+  'task_not_saved', 'request_id_conflict', 'invalid_request_id', 'task_content_unavailable',
   'authentication_required', 'authentication_invalid', 'authentication_unavailable', 'origin_not_allowed', 'adaptation_disabled', 'authentication_not_configured',
   'd1_binding_required', 'storage_unavailable', 'api_key_required', 'model_required', 'profile_not_found', 'task_not_found',
   'route_not_found', 'method_not_allowed', 'profile_exists', 'stale_profile', 'stale_state', 'immutable_content_ref', 'task_already_shown',
@@ -199,14 +204,14 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
         version(action.expectedStateVersion) && text(action.actionKey));
       input(validFields(action.event, action.event?.type === 'feedback' ? ['type', 'code'] : ['type'],
         action.event?.type === 'feedback' ? ['type', 'code'] : ['type']));
-      input(['save', 'remove', 'complete', 'like', 'unlike', 'feedback'].includes(action.event.type));
+      input(['save', 'remove', 'complete', 'undo_complete', 'like', 'unlike', 'feedback'].includes(action.event.type));
       const event = action.event.type === 'feedback' ? { type: action.event.type, code: action.event.code } : { type: action.event.type };
       if (event.type === 'feedback') input(nullableText(event.code));
       return call<TaskActionResponse>('/api/tasks/action', 'POST', { expectedStateVersion: action.expectedStateVersion,
         actionKey: action.actionKey, event }, isTaskAction, options);
     },
     recommendations: (selection: RecommendationInput, options?: RequestOptions) => {
-      input(validFields(selection, ['request', 'route'], ['request']) &&
+      input(validFields(selection, ['request', 'route', 'requestId', 'expectedStateVersion'], ['request']) &&
         (selection.route === undefined || selection.route === 'pool' || selection.route === 'adapt'));
       const r = selection.request;
       input(validFields(r, ['topicId', 'concernIds', 'note', 'country', 'maxMinutes', 'noSpend', 'localSupport'], ['topicId', 'concernIds']) &&
@@ -219,7 +224,28 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
           key === 'noSpend' ? v === null || typeof v === 'boolean' : v === null || positiveInt(v));
         request[key] = v;
       }
-      return call<RecommendationResponse>('/api/recommendations', 'POST', { request, ...(selection.route === undefined ? {} : { route: selection.route }) }, isRecommendation, options);
+      if (selection.requestId !== undefined) input(text(selection.requestId));
+      if (selection.expectedStateVersion !== undefined) input(version(selection.expectedStateVersion));
+      return call<RecommendationResponse>('/api/recommendations', 'POST', { request, ...(selection.route === undefined ? {} : { route: selection.route }),
+        ...(selection.requestId ? { requestId: selection.requestId } : {}),
+        ...(selection.expectedStateVersion ? { expectedStateVersion: selection.expectedStateVersion } : {}) }, isRecommendation, options);
+    },
+    getCatalog: (options?: RequestOptions) => call<CatalogResponse>('/api/catalog', 'GET', undefined, v => record(v) &&
+      Array.isArray(v.topics) && v.topics.every(t => record(t) && text(t.id) && text(t.label) && Array.isArray(t.concerns) &&
+        t.concerns.every(c => record(c) && text(c.id) && text(c.label))) && Array.isArray(v.resources) &&
+      v.resources.every(r => record(r) && text(r.id) && text(r.name) && text(r.url) && r.url.startsWith('https://')), options),
+    getTasks: (options?: RequestOptions) => call<TaskCollection>('/api/tasks', 'GET', undefined, v => record(v) && version(v.stateVersion) &&
+      Number.isSafeInteger(v.earnedCount) && (v.earnedCount as number) >= 0 && Array.isArray(v.tasks) && v.tasks.every(t =>
+        record(t) && isTaskState(t.state) && record(t.content) && text(t.content.action_key) && text(t.content.title) && texts(t.content.steps)), options),
+    getLatestRecommendation: (options?: RequestOptions) => call<LatestRecommendation>('/api/recommendations/latest', 'GET', undefined,
+      v => record(v) && version(v.stateVersion) && (v.result === null || isRecommendation(v.result)), options),
+    getOnboarding: (options?: RequestOptions) => call<OnboardingResponse>('/api/onboarding', 'GET', undefined, isOnboarding, options),
+    saveOnboarding: (write: OnboardingWrite, complete = false, options?: RequestOptions) => {
+      input(Number.isSafeInteger(write.expectedRevision) && write.expectedRevision >= 0 && text(write.checkpoint));
+      return call<OnboardingResponse>(complete ? '/api/onboarding/complete' : '/api/onboarding', 'POST', {
+        expectedRevision: write.expectedRevision, ...(write.expectedProfileRevision === undefined ? {} : { expectedProfileRevision: write.expectedProfileRevision }),
+        draft: profileBody(write.draft), checkpoint: write.checkpoint
+      }, isOnboarding, options);
     }
   };
 }

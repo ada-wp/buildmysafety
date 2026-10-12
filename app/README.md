@@ -1,8 +1,8 @@
-# My Safety mobile-web app — onboarding and task-flow preview
+# My Safety mobile-web app — connected sick-day journey
 
 Step 1 consolidated the preserved welcome/onboarding/interests/recap screens, portable API client and profile controller. **Step 2 is complete for the development build:** Clerk supplies verified email sign-in, while the existing [`personalization/`](../personalization/README.md) backend and Cloudflare D1 continue to own app profiles. The old second server remains [archived](../archive/app-server-draft-20261011/README.md).
 
-The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `b9ab91c6` after the October 12 navigation repair. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
+The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `4235e3b5` after the October 12 cloud-journey integration. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
 
 ## Boundaries
 
@@ -15,18 +15,22 @@ The current development preview is [app-auth-staging.buildmysafety.pages.dev](ht
 - `src/profile-draft.ts`: editable answers only. Identity, revision and dates are assigned by the server. Feelings/reflection are separate temporary screen state and never enter this profile request.
 - `src/components/` and `src/App.tsx`: React presentation using the approved copy, palette and elephant. A fresh identity epoch remounts the private screen state; unchanged identity preserves edits after a failed save. Editing is disabled while a write is pending.
 - `src/runtime.ts` and `src/main.tsx`: compose the client, provider and controller at the same browser origin. The client/controller do not depend on React or DOM APIs.
-- `worker.mjs`: serves the built app plus the profile-only API. It exposes `GET /health` and `GET`, `POST`, `PATCH /api/memory`; task, recommendation, reset and AI routes are unavailable in this deployment.
+- `src/task-session.ts` and `src/components/TaskJourney.tsx`: cloud task recovery and the concern → suggestions → detail → My list → completion journey. Mutations use current versions; uncertain outcomes require an explicit reload, never automatic write replay.
+- `worker.mjs`: serves the built app, profile/onboarding routes, shared catalog, owned tasks, latest batch and pool recommendation routes. The memory reset route remains outside this app allowlist; paid adaptation remains disabled.
+- `../personalization/onboarding.mjs`: signed-in draft checkpoints and atomic final profile/completion saves. Guest drafts remain page-memory-only.
 - `../personalization/clerk-identity.mjs`: verifies Clerk session tokens with `jose` and the configured issuer's public JWKS. Only a verified subject becomes the D1 owner. The issuer, exact authorized origins, signature, session status and token times are checked; request bodies cannot select an account.
 
 ## Current behavior and verification status
 
-**Latest navigation correction:** the old bubble-only `#/topics` endpoint was an actual dead end. Continue now opens `#/app/explore`, with distinct topic cards and persistent Explore/My list navigation. `TaskJourneyPreview.tsx` provides a clearly labeled, temporary sick-day example from concerns through completion; other topics have explicit coming-next exits. Sample list/completion data is never sent to D1 or browser storage and clears on refresh/account change. Real account/profile saving stays separate. The app now passes 78 tests; the full sample journey was walked in the browser, including both completion entry points and account/browser navigation.
+The active app uses authenticated D1 storage for its first sick-day journey. Choose current concerns, receive up to three fitting tasks, inspect stable details, add with **+**, complete or undo, and return to the same list. Another batch excludes previously delivered outcomes. A stored latest batch recovers a lost response; one completion award per account/action survives undo and recompletion. Other topics have explicit coming-next exits.
 
-October 12 adds two authored elephant moments: after the feelings question, and as a short recap. The message uses known answers/interests, with neutral fallbacks; no AI call or reward is involved. The recap has one Continue action, no answer-review section or restart button. For signed-in users, Continue confirms a profile save before opening the new first-topic screen; Account provides preference editing. A skip-to-topics shortcut preserves existing choices and a return path. Public question IDs support browser Back without exposing answers. The topic screen puts interests first, permits one current topic, and honestly ends before unconnected task delivery. Cloud draft resume/completion markers and task matching remain later work. This bounded Step 3 update passes 76 app tests and the Pages build; see technical status for browser coverage.
+Signed-in onboarding saves structured draft answers and a public checkpoint so it can resume. Final Continue atomically saves the canonical profile and completion marker, then opens Explore; returning completed accounts enter the app. Preferences remain editable from Account. The guided route, skip-to-topics shortcut and two authored elephant moments remain. Feelings and free-text notes stay temporary. Guests can carry their draft through sign-in; refreshing an unfinished guest draft clears it. There is no browser product database.
 
-Visitors can walk through onboarding, review their choices and intentionally continue with email. During sign-in, the guest screen remains mounted; only the structured profile choices enter the handoff. After authentication, the user reviews those choices before explicitly saving. Existing saved answers are not automatically replaced. Account changes and sign-out clear private screen state. Feelings/reflection remain temporary and do not enter profile storage.
+The first collection contains **nine authored tasks** in `personalization/catalog.mjs`, marked `editorial_review`. They are available only on the named founder preview host while Ada reviews content. This is connected functionality, not a synthetic task fixture; it is also not a publicly approved content release. Sources and limitations are in [catalog review](../personalization/catalog-review.md).
 
-An unfinished guest draft disappears on page reload. There is no local-storage fallback for product data. This is separate from Clerk's managed session persistence, which allows returning users to authenticate again without rebuilding a custom login system.
+Current automated checkpoint: **90 app tests and 104 backend tests pass**. Remote D1 migrations 0002 and 0003 are applied, and `4235e3b5` is deployed. Hosted browser verification is tracked separately in [technical status](../docs/technical-status.md); these counts do not claim that every release check has finished.
+
+The earlier `b9ab91c6` navigation repair replaced a bubble dead end with a temporary sample journey. Its evidence remains in [the historical navigation record](verification-navigation.json). The sample component is no longer the active app journey. The unconfigured local state does not pretend to save tasks or provide fake login.
 
 At the October 11 Step 2 checkpoint, **59 app tests and 75 backend tests passed**, and the app build passed. These cover simulated SDK transitions, guest handoff, profile ownership, JWT validation, interrupted writes, API rejection recovery and the profile-only Worker boundary.
 
@@ -40,7 +44,7 @@ The fictional-account checks exercised the deployed app, Clerk and cloud D1; the
 
 The verified build includes fixes for sign-in modal/hash routing conflicts, Clerk's `oiat` JWT header, Workers-compatible JWKS redirect handling that rejects redirects, and recovery when the API rejects a token while the Clerk session remains active. In that last case, the app keeps explicit sign-out available and does not automatically reopen sign-in.
 
-Task suggestions, stable task details, My list and elephant awards will be connected in their own roadmap steps. The active build deliberately has no dead-end links into the old unsupported routes, no unrelated fallback task and no client-side synthetic rewards. Existing clickable design previews remain available in `design/app/`.
+Existing clickable design previews remain available in `design/app/` as references. The active journey preserves their task-detail and gentle completion patterns while D1 owns task state and awards.
 
 ## Clerk configuration
 
@@ -66,7 +70,7 @@ The unconfigured foundation smoke check uses `node scripts/check-foundation.cjs`
 
 ## Deployment boundary
 
-`npm run build:pages` creates the frontend, bundles the profile-only Pages Worker and writes routing/security headers into **`dist/client/`**. Only that output directory may be deployed. `wrangler.jsonc` names the existing Pages project `buildmysafety` and binds `MEMORY_DB` to `buildmysafety-memory-staging`.
+`npm run build:pages` creates the frontend, bundles the Pages Worker and writes routing/security headers into **`dist/client/`**. Only that output directory may be deployed. `wrangler.jsonc` names the existing Pages project `buildmysafety` and binds `MEMORY_DB` to `buildmysafety-memory-staging`.
 
 The authorized development target is the existing project's **`app-auth-staging` preview branch**. Using the configured Wrangler CLI from this directory, the target is:
 
@@ -78,6 +82,6 @@ Build and inspect the output before deployment. Do not deploy the repository roo
 
 Before inviting real customers, confirm an owned domain and DNS, create/configure the Clerk production instance, switch to its production public key/issuer, and provision separate production D1 storage. Development users and production users are separate identities; do not assume a development account or draft will migrate automatically. Clerk development mode is not the launch solution for either 100 or 1,000 users. Follow the official [production checklist](https://clerk.com/docs/guides/development/deployment/production), [environment guidance](https://clerk.com/docs/guides/development/managing-environments) and [current pricing](https://clerk.com/pricing).
 
-Opening this app cannot trigger a paid AI request. The Worker exposes no AI route and passes no OpenAI credential into the profile handler. Saved profile operations never need a model call.
+Opening this app cannot trigger a paid AI request. The Worker passes no OpenAI credential to its handlers and rejects paid adaptation. Ada's next agreed feature is **automatic adaptation of at most one task within a batch of three when it meaningfully helps**, with three pool tasks when adaptation adds no value. It must not wait for exhaustion or add a fourth task. Server quotas, accepted private snapshots and adaptation validation are required before activation. See the [personalization plan](../docs/personalization-plan-v0.md).
 
 For a future native client, reuse the contracts/client/session/backend. The React DOM screens and browser navigation may need adapting; this is not a claim of automatic native conversion.

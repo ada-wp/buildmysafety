@@ -1,7 +1,7 @@
 import { createD1Store } from './d1-store.mjs';
 import { createOpenAIClient } from './openai.mjs';
 import { recommend } from './flow.mjs';
-import { FlowError, requireRule } from './contracts.mjs';
+import { FlowError, requireRule, hash, validRequest } from './contracts.mjs';
 
 const MAX_BODY_BYTES = 16384;
 const PROFILE_FIELDS = ['answers', 'interests', 'personalizationEnabled', 'elephantName'];
@@ -75,7 +75,7 @@ export async function verifyJwtIdentity(request, env) {
   }
 }
 
-async function readBody(request) {
+export async function readBody(request) {
   requireRule(/^application\/json(?:\s*;|$)/i.test(request.headers.get('Content-Type') || ''), 'json_required');
   const length = request.headers.get('Content-Length');
   requireRule(length === null || (/^\d+$/.test(length) && Number(length) <= MAX_BODY_BYTES), 'body_too_large');
@@ -108,12 +108,13 @@ const STATUS = {
   api_key_required: 503, model_required: 503, profile_not_found: 404, task_not_found: 404,
   route_not_found: 404, method_not_allowed: 405, profile_exists: 409,
   stale_profile: 409, stale_state: 409, immutable_content_ref: 409, task_already_shown: 409,
+  request_id_conflict: 409, task_not_saved: 409, task_content_unavailable: 503,
   body_too_large: 413, json_required: 415, unsupported_topic: 422, adaptation_needed: 422,
   rate_limited: 429, request_timeout: 504, upstream_error: 502,
   network_or_response_error: 502, model_refusal: 422, incomplete_output: 502,
   invalid_api_response: 502, invalid_output_json: 502
 };
-function safeError(error) {
+export function safeError(error) {
   if (!(error instanceof FlowError)) return json({ error: 'internal_error' }, 500);
   if (Object.hasOwn(STATUS, error.code)) return json({ error: error.code }, STATUS[error.code]);
   if (/^(?:invalid_|unknown_|empty_|missing_|unsupported_|unexpected_|too_|repeated_|duplicate_|constraint_|context_|resource_)/.test(error.code)) {
@@ -127,7 +128,7 @@ function safeError(error) {
  * catalog must be supplied by the deployment. No fictional content is a default.
  * A future email-login adapter may replace verifyIdentity with an equally trusted verifier.
  */
-export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity }) {
+export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, requireDeliveryIds = false, allowEditorialReview = false }) {
   if (!catalog || typeof verifyIdentity !== 'function') throw new Error('A catalog and trusted identity verifier are required.');
   return async function handle(request, env) {
     try {
@@ -140,6 +141,19 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity }) {
       requireRule(typeof owner === 'string' && owner.trim() === owner && owner.length > 0 && owner.length <= 128, 'authentication_invalid');
       const store = createD1Store(env.MEMORY_DB);
       const route = `${request.method} ${url.pathname}`;
+      if (route === 'GET /api/catalog') {
+        const publishable = item => item.reviewState === 'approved' || (allowEditorialReview && item.reviewState === 'editorial_review');
+        return json({
+          topics: catalog.topics.filter(publishable).map(({ id, label, scope, concerns }) => ({ id, label: label || id, scope, concerns })),
+          resources: catalog.resources.filter(publishable).map(({ id, name, url, purpose, limits, countries, cost }) => ({ id, name, url, purpose, limits, countries, cost })),
+          reviewRequired: allowEditorialReview
+        });
+      }
+      if (route === 'GET /api/tasks') return json(await store.readTasks(owner));
+      if (route === 'GET /api/recommendations/latest') {
+        const { result, stateVersion } = await store.readLatestBatch(owner);
+        return json({ result, stateVersion });
+      }
       if (route === 'GET /api/memory') return json(await store.readSnapshot(owner));
       if (route === 'POST /api/memory') {
         const body = await readBody(request);
@@ -165,9 +179,26 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity }) {
       }
       if (route === 'POST /api/recommendations') {
         const body = await readBody(request);
-        fields(body, ['request', 'route'], ['request']);
+        fields(body, ['request', 'route', 'requestId', 'expectedStateVersion'], ['request']);
         const routeType = body.route ?? 'pool';
         requireRule(routeType === 'pool' || routeType === 'adapt', 'invalid_route');
+        requireRule(validRequest(body.request), 'invalid_request');
+        const durable = routeType === 'pool' && (requireDeliveryIds || Object.hasOwn(body, 'requestId'));
+        let requestHash;
+        if (durable) {
+          requireRule(typeof body.requestId === 'string' && /^[a-zA-Z0-9_-]{16,80}$/.test(body.requestId), 'invalid_request_id');
+          requireRule(typeof body.expectedStateVersion === 'string' && /^[1-9][0-9]*$/.test(body.expectedStateVersion) &&
+            Number.isSafeInteger(Number(body.expectedStateVersion)), 'invalid_state_version');
+          const normalized = Object.fromEntries(Object.entries(body.request).sort(([a], [b]) => a.localeCompare(b)));
+          normalized.concernIds = [...normalized.concernIds].sort();
+          requestHash = hash({ request: normalized, route: routeType });
+          const latest = await store.readLatestBatch(owner);
+          if (latest.result?.requestId === body.requestId) {
+            requireRule(latest.requestHash === requestHash, 'request_id_conflict');
+            return json(latest.result);
+          }
+          requireRule(body.expectedStateVersion === latest.stateVersion, 'stale_state');
+        }
         const testMode = env.SYNTHETIC_TEST_MODE === 'true' && owner.startsWith('synthetic-');
         // This deployment only rehearses paid adaptations with synthetic identities.
         // Real-user generation needs a separate rollout with quotas and review policy.
@@ -175,11 +206,39 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity }) {
         // Credentials remain server-side; they are never read from user input.
         const client = routeType === 'adapt' ? createOpenAIClient({ apiKey: env.OPENAI_API_KEY }) : undefined;
         const result = await recommend({ owner, request: body.request, store, catalog, route: routeType,
-          testMode, client, model: env.OPENAI_MODEL });
-        if (result.status !== 'ok') throw new FlowError(result.status);
+          testMode, client, model: env.OPENAI_MODEL, allowEditorialReview, useProfileDefaults: requireDeliveryIds });
+        if (result.status !== 'ok') {
+          if (durable && result.status === 'stale_state') {
+            const latest = await store.readLatestBatch(owner);
+            if (latest.result?.requestId === body.requestId && latest.requestHash === requestHash) return json(latest.result);
+          }
+          throw new FlowError(result.status);
+        }
         if (result.source === 'ai') {
           // Adaptations remain review previews. Do not publish or mark private AI copy as shown.
           return json({ ...result, delivery: 'review_preview', reviewRequired: true });
+        }
+        if (durable) {
+          try {
+            requireRule(result.trace.stateVersion === body.expectedStateVersion, 'stale_state');
+            const cleanRequest = { ...body.request };
+            delete cleanRequest.note;
+            const delivery = { ...result, delivery: 'shown' };
+            const contents = result.batch.tasks.map(task => {
+              const action = catalog.actions.find(item => item.actionKey === task.action_key);
+              return { actionKey: action.actionKey, contentRef: action.contentRef, content: action.task };
+            });
+            const marked = await store.deliverBatch(owner, body.expectedStateVersion, {
+              requestId: body.requestId, requestHash, request: cleanRequest, result: delivery, contents
+            });
+            return json({ ...delivery, requestId: body.requestId, request: cleanRequest, ...marked, replayed: false });
+          } catch (error) {
+            if (error instanceof FlowError && error.code === 'stale_state') {
+              const latest = await store.readLatestBatch(owner);
+              if (latest.result?.requestId === body.requestId && latest.requestHash === requestHash) return json(latest.result);
+            }
+            throw error;
+          }
         }
         let stateVersion = result.trace.stateVersion;
         if (result.batch.tasks.length > 0) {
@@ -190,7 +249,8 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity }) {
         }
         return json({ ...result, delivery: 'shown', stateVersion });
       }
-      const knownPath = ['/api/memory', '/api/memory/reset', '/api/tasks/action', '/api/recommendations'].includes(url.pathname);
+      const knownPath = ['/api/memory', '/api/memory/reset', '/api/tasks', '/api/tasks/action', '/api/catalog',
+        '/api/recommendations', '/api/recommendations/latest'].includes(url.pathname);
       throw new FlowError(knownPath ? 'method_not_allowed' : 'route_not_found');
     } catch (error) { return safeError(error); }
   };
