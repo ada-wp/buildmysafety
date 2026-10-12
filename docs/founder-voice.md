@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- After reviewing the English sick-day trial on October 12, Ada emphasized that useful suggestions must help someone discover options she does not yet know about or cannot yet access. Do not ask her to re-list or reorganize what she already knows or has prepared. Consider the case without an existing doctor or service: research online clinics, affordable virtual visits, possible employer/insurance benefits and prescription delivery, with one or two concrete questions that determine whether an option is usable. Account for the person's actual situation; unknown information is not evidence that she has or lacks an arrangement. A note is appropriate when requested or when it solves a real retrieval problem, rather than as a default task.
+
 - On October 12, Ada specified that all future project documents should be in English. This includes internal research, specifications, prompts and test reports, as well as user-facing product content. Conversation with her may still follow her chosen language.
 
 - Ada confirmed My Safety's user-facing product content should be English; discussion with her may remain Chinese. She said the preparation draft felt good and asked to turn it into English and try it. This supports the writing direction and a bounded real-model trial; it does not automatically approve every new model output or publish the content to the app.

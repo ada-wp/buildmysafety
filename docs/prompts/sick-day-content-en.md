@@ -2,6 +2,8 @@
 
 English writing candidate, 12 October 2026. Ada supported the Chinese direction and asked to translate it and try it. These ten tasks are authored examples, not model outputs or published pool entries. The [Chinese discussion draft](sick-day-content-draft.md) remains the source reference. The app is unchanged.
 
+Revised after Ada's review: help someone discover and establish options she does not yet have, understand or know how to access. Do not turn her existing knowledge into another organizing task. The clinic and pharmacy candidates below now include a starting point without an existing provider. This revision has not been model-tested; the three earlier tests retain their exact original prompt and outputs.
+
 [Three real English writing tests](evaluations/2026-10-12-english-preparation/review.md) are now complete. All returned tasks and passed the existing validators with the evaluation's candidate resources. The two new-resource tasks do not yet pass against the unchanged app catalog. Natural wording and pending-arrangement copy still need polish. No authored examples were passed to these three model calls.
 
 ## Writing prompt
@@ -9,13 +11,15 @@ English writing candidate, 12 October 2026. Ada supported the Chinese direction 
 ```text
 You are My Safety's writing partner. Help women living solo prepare useful supplies, knowledge, contacts, options and notes before they need them. Our philosophy is Know → Act → Trust: understanding what is possible, putting something in place, and getting familiar with using it. Write with warmth and respect. Do not manufacture fear, promise protection, or tell someone how she will feel afterward.
 
-Start with what she wants to prepare for and what she already has. Today's request leads; relevant preferences and past actions help you choose a useful next step. Do not assume a pet, car, nearby helper, spare money, equipment or diagnosis. Previous choices must not trap her in an old concern. Likes and saves are soft signals, not proof that something helped or a permanent preference. When personalization is off, use the current request and necessary feasibility facts; use past outcomes only to avoid repetition.
+Start with what she wants to prepare for, what is already in place and the useful gap that remains. Today's request leads; relevant preferences and past actions help you choose a useful next step. Do not assume a regular doctor, pharmacy, prescription, insurance, employer benefits, pet, car, nearby helper, spare money, equipment or diagnosis. Missing information stays unknown; it does not mean she lacks something. If one fact materially changes the route, ask one short question or offer a concise conditional starting point. Previous choices must not trap her in an old concern. Likes and saves are soft signals, not proof that something helped or a permanent preference. When personalization is off, use the current request and necessary feasibility facts; use past outcomes only to avoid repetition.
 
 Offer something worth knowing or doing: an option she did not know about, an overlooked condition, supplies she can use, a contact she can approach, or a process she can try while she has the energy. Familiar preparation can be valuable too. Do not chase novelty, turn obvious advice into extra chores, or split one useful action into several cards to fill space.
 
-When research would help, provide a concrete starting point and the few questions or comparisons that matter. Explain how the result could be used later. Use the supplied checked knowledge and eligible resources; do not invent providers, brands, links, eligibility, prices or availability. Looking into a paid service is not a commitment to spend now. Respect an explicit no-spend limit; do not present a future paid service as a free solution. When nearby support is unavailable, consider appropriate outside services or community support rather than inventing a friend to ask.
+Before writing, identify the contribution: what useful option, understanding, access or preparation will she gain? Do not ask her to repeat, rename, list or reorganize something she already knows or has completed. Use what is already handled to choose the next relevant gap. An exception is an explicit request to gather scattered information, repair an arrangement or revisit something. Do not assume a new gap just to keep generating tasks. If a task depends on something she explicitly lacks, help her find an attainable starting point instead. For example, someone without a regular doctor may benefit from discovering virtual care through her health plan, a pay-per-visit service or a community health center; saving an existing clinic number presumes the missing solution.
 
-A note can be a good preparation when its contents will help later: a delivery process already checked, contact details with their purpose, or a message ready to adapt and send. Give a short example or useful headings instead of saying only 'make a list.' Do not finish every task with writing something down. Putting supplies in place, trying a process and getting a question answered are useful outcomes too.
+When research would help, do some of the thinking for her: use supplied verified knowledge to introduce one relevant route, explain why it may fit and give one or two specific questions that determine whether it is usable. Choose the details that matter for this person's gap, rather than a long checklist. 'Research clinics' or 'make a list of options' is not enough. Explain how to begin without an existing arrangement and what the research would let her do later. Use the supplied checked knowledge and eligible resources; do not invent providers, brands, links, eligibility, prices or availability. If those facts are missing, request research or give a clearly conditional route; do not claim the model researched live services. Looking into a paid service is not a commitment to spend now. Respect an explicit no-spend limit; do not present a future paid service as a free solution. When nearby support is unavailable, consider appropriate outside services or community support rather than inventing a friend to ask.
+
+A note can be a useful byproduct of discovering an option or making an arrangement. Offer organizing existing information as a standalone task only when she asks for it or describes a real retrieval problem. Give a short example instead of saying only 'make a list.' Do not use a generic sick-day note as the default answer or finish every task with writing something down. Putting supplies in place, trying a process and getting a question answered are useful outcomes too.
 
 Sound like a thoughtful, practical friend who has helped work out the next step. Write in natural English. Use a conversational title, one or two brief sentences of context, three clear steps and a concrete 'Done when.' Keep the important detail while keeping the language light. Avoid administrative wording, training-course language, pep talks, baby talk and 'backup.' Do not manufacture intimacy or repeat her whole story.
 
@@ -56,25 +60,31 @@ Choose the tasks that fit the person. This is a collection, not a compulsory seq
 
 **Done when:** You know how to request groceries, where to receive them, and what still needs checking.
 
-### 4. Ask your pharmacy about delivery · 10 min
+### 4. Find a pharmacy that can come to you · 15 min
 
-1. Find delivery information on your usual pharmacy's official website, or call the pharmacy.
-2. Ask whether your existing prescription qualifies, what delivery costs, how long it takes, and whether you need to receive it personally.
-3. Save the pharmacy's number and delivery steps. Mark unanswered questions as pending.
+If you ever receive a prescription, getting it home is another piece to figure out. You can explore delivery before you need a prescription filled.
 
-**Done when:** The delivery conditions are clear, or your specific questions are with the pharmacy awaiting a reply.
+1. Pick one nearby pharmacy to check. If you have insurance, start with its pharmacy directory; otherwise, try a local pharmacy's official delivery page. You do not need a usual pharmacy already.
+2. Ask: 'Do you deliver new prescriptions to my area, and how soon after they are ready?' Then: 'What would delivery cost, and does my plan allow it?' Skip the insurance question if it does not apply.
+3. Find out how a future prescriber would send a prescription there and how you would request delivery. Keep the pharmacy details if the service looks workable; there is nothing to order now.
 
-For US CVS customers: [CVS prescription delivery](https://www.cvs.com/content/delivery?icid=shop-household-shop-your-way-rx-delivery). Use the person's own pharmacy when different. This concerns collection arrangements, not medication choices.
+**Done when:** You have one possible delivery route and understand how to start it. Unanswered questions are still pending; eligibility for a particular prescription must be checked if one is issued.
 
-### 5. Know how to reach your clinic · 10 min
+US starting point, where locally available: [CVS prescription delivery](https://www.cvs.com/content/delivery). This is a candidate to investigate, not a pharmacy recommendation for every user. A mail-order refill service and delivery of a newly issued prescription may serve different needs. Confirm timing and eligibility with the pharmacy; do not promise same-day delivery or suggest a medication, transfer or purchase.
 
-1. Find your usual clinic's official phone number, hours and appointment route. If you use its patient portal, check you can sign in.
-2. Find its published instructions for contacting the practice outside office hours. Ask during opening hours if anything is unclear.
-3. Save the contact details together, with a short note about what each route is for. No medical history needed.
+### 5. Find a way to see a clinician from home · 15 min
 
-**Done when:** You know the contact routes, or your question about an unclear arrangement is awaiting a reply.
+No regular doctor yet? Let's find somewhere you could start. Your health plan or work benefits may include virtual visits you have not explored.
 
-For someone with an existing clinic. Without one, use a separate clinic-discovery task; in the US, [HRSA's finder](https://findahealthcenter.hrsa.gov/) is a starting point, with fees, new-patient access and appointments still to confirm. It does not establish a suitable response to symptoms.
+1. If you have coverage, search your insurer's app or work benefits page for 'virtual care' or 'telehealth.' Start with the service your benefits name.
+2. Check two things: can a first-time patient use it in your state, and what would a visit cost under your plan? If unclear, ask member support before booking.
+3. Find the first-visit entry point and check what setup it needs. Bookmark that page if it fits, or send the one question that is holding you up. No appointment needed today.
+
+**Done when:** You know one way to request a first visit and its expected cost, or have a specific eligibility or price question awaiting a reply. A pending question is not confirmed access.
+
+For a US user with insurance or work benefits but no established care route. [HHS's telehealth access guide](https://telehealth.hhs.gov/patients/how-do-i-schedule-telehealth-appointment) explains the insurer route. [Teladoc's general FAQ](https://www.teladochealth.com/helpcenter/article/general-faqs) is an example only when the person's benefits name Teladoc; another plan may use another service.
+
+Without applicable coverage, replace the benefits step with one checked self-pay route such as [One Medical On-Demand Care](https://health.amazon.com/onemedical), or use [HRSA's health-center finder](https://findahealthcenter.hrsa.gov/) when affordability is the main barrier. Ask about the first-visit cash price and new-patient access; for a health center, also establish whether virtual first visits are offered. These are alternative starting routes, not extra tasks or a promise of affordable care for everyone. Select at most two relevant links for the delivered task. If she already has a workable care route, skip this task unless she asks to improve it.
 
 ### 6. Find someone for that one errand · 15 min
 
@@ -122,6 +132,21 @@ For someone with a willing contact; this is ordinary companionship, not monitori
 
 **Done when:** Your existing preparations are easy to find together, with unfinished arrangements clearly marked.
 
-Useful when preparations are scattered. It is not required homework, and the personal note does not need to be uploaded to My Safety.
+Use only when she explicitly wants to gather scattered preparations or describes difficulty finding them. Do not include it by default in a first batch or use it to repeat completed preparation. The personal note does not need to be uploaded to My Safety.
 
-Sources and limitations are recorded in the Chinese discussion draft. Translation preserves the preventive scope; small wording edits make the English natural. Some tasks finish with a pending inquiry; others require a reply or later trial, which is stated explicitly. These differences need not become a complicated app workflow.
+These are separate library candidates, not a single batch. At delivery, keep at most one linked task per batch and at most two resources within it. Some tasks finish with a pending inquiry; others require a reply or later trial, which is stated explicitly. These differences need not become a complicated app workflow.
+
+## Research behind the care-access revision
+
+Official sources checked 12 October 2026. This is US starting coverage, not personalized clinical advice or proof of anyone's benefits. The task's value is discovering an accessible route before it is needed. Keep medical and benefits details with the provider or insurer; this research does not require new medical-profile fields in My Safety.
+
+| Source | What it supports | Detail worth helping the person check |
+| --- | --- | --- |
+| [HHS: finding telehealth](https://telehealth.hhs.gov/patients/how-do-i-schedule-telehealth-appointment) | An insurer can help identify telehealth services; an existing doctor is not the only entry point. | Which service is actually available through her plan, and how does a first visit begin? |
+| [HHS: paying for telehealth](https://telehealth.hhs.gov/patients/how-do-i-pay-telehealth) | Coverage and personal cost vary; confirm them with the insurer or provider. | What would she pay for this service, rather than assuming that covered means free? |
+| [Teladoc: general FAQ](https://www.teladochealth.com/helpcenter/article/general-faqs) | Access may come through an employer or health plan; available services and prices depend on benefits. | Is this specific service included in her benefits? Do not send everyone to Teladoc or copy a headline price. |
+| [One Medical: service and insurance FAQ](https://health.amazon.com/onemedical) | On-Demand Care and scheduled visits have different payment arrangements. The site says On-Demand Care does not accept health insurance, while scheduled visits may be billed to insurance with copays and deductibles. | Which service is she comparing, and what is its current visit price? Do not call a membership an all-inclusive visit fee or claim this is the cheapest choice. |
+| [HRSA: affordable care](https://www.hrsa.gov/get-health-care/affordable) and [finder](https://findahealthcenter.hrsa.gov/) | Health centers are an access route for people with or without insurance or ability to pay. | Ask the chosen center about fees, accepting new patients and virtual-visit availability; the directory does not confirm these. |
+| [CVS: prescription delivery](https://www.cvshealth.com/services/pharmacy/prescription-delivery.html) and [delivery process and restrictions](https://www.cvshealth.com/news/pharmacy/cvs-pharmacy-delivers-medications-and-health-and-wellness-essentials-to-your-front-door.html) | Local prescription delivery exists; eligibility, plan restrictions, fees and cutoff times matter. Local delivery differs from mail-order supplies. | Can a new prescription reach her address, how soon after it is ready, and at what delivery cost? Confirm the particular prescription later. |
+
+The CVS process article is dated October 22, 2024. Its historical prices and membership claims are not used as current prices. The direct consumer delivery page could not be fetched reliably during this review; the corporate pages support the research direction, with local terms still to verify. Teladoc's official pages displayed differing self-pay prices, so no fixed price is copied into the task. Named sources are candidates for a reviewed knowledge packet, not newly connected runtime resources.

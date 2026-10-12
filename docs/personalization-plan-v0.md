@@ -8,6 +8,8 @@
 
 ### Content-quality reset — 12 October
 
+**Latest founder correction:** use known preparations to avoid repeating work, and focus the next suggestion on a useful option, understanding or access she still needs. Do not assume an existing doctor, pharmacy, prescription, insurance or employer benefit. Unknown stays unknown; ask one consequential question or choose a concise conditional route. Research tasks should contribute a checked starting point and one or two specific things to investigate. Standalone organization is appropriate only for a requested or described retrieval problem. The [English writing candidate](prompts/sick-day-content-en.md) now reflects this correction with care-access examples and official research. This is a writing revision, not a deployed matching rule or a new model test.
+
 The current writing artifact is now the [English prompt and ten candidates](prompts/sick-day-content-en.md), translated at Ada's request. A [three-case real writing trial](prompts/evaluations/2026-10-12-english-preparation/review.md) is complete; this is content testing, not a deployed matching/catalog change. Keep the next discussion focused on the actual wording and usefulness.
 
 **Latest simplification:** Ada asked us not to make this complex, formal or procedural. The questions below are background author judgment, not a new scoring workflow. Work directly on the prompt and suggestions together. Emphasize preparations before an event, including material supplies, knowledge, contacts and useful memoranda. The [ten sick-day candidates](prompts/sick-day-content-draft.md) are the current discussion draft; they are not a required sequence or published pool.
