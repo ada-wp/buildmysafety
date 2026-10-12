@@ -34,6 +34,7 @@ function setup(t, configuration = {}) {
   sqlite.exec('PRAGMA foreign_keys = ON');
   sqlite.exec(migration);
   sqlite.exec(readFileSync(new URL('../migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('../migrations/0004_ai_adaptation.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql) {

@@ -5,6 +5,11 @@ const PROFILE_COLUMNS = 'user_id, profile_json, revision, state_version, updated
 const TASK_COLUMNS = `user_id AS userId, action_key AS actionKey, content_ref AS contentRef,
   shown_at AS shownAt, saved_at AS savedAt, removed_at AS removedAt,
   completed_at AS completedAt, liked_at AS likedAt, feedback_code AS feedbackCode, feedback_at AS feedbackAt`;
+const OWNED_CONTENT_SQL = `SELECT c.content_ref, c.action_key, c.task_json FROM memory_task_content c
+  JOIN memory_task_states t ON t.content_ref = c.content_ref AND t.action_key = c.action_key WHERE t.user_id = ?
+  UNION ALL SELECT c.content_ref, c.action_key, c.task_json FROM memory_private_task_content c
+  JOIN memory_task_states t ON t.user_id = c.user_id AND t.content_ref = c.content_ref AND t.action_key = c.action_key
+  WHERE t.user_id = ?`;
 const emptyAnswers = () => ({ why: null, home: null, focus: null, difficulty: [], constraints: [],
   strengths: [], hope: [], style: null, country: null });
 const checkOwner = owner => requireRule(typeof owner === 'string' && owner.trim().length > 0 && owner.length <= 128, 'authentication_required');
@@ -113,8 +118,7 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
       const results = await execute(() => db.batch([
         stmt(`SELECT ${PROFILE_COLUMNS} FROM memory_profiles WHERE user_id = ?`, owner),
         stmt(`SELECT ${TASK_COLUMNS} FROM memory_task_states WHERE user_id = ? ORDER BY action_key`, owner),
-        stmt(`SELECT c.content_ref, c.action_key, c.task_json FROM memory_task_content c
-          JOIN memory_task_states t ON t.content_ref = c.content_ref AND t.action_key = c.action_key WHERE t.user_id = ?`, owner),
+        stmt(OWNED_CONTENT_SQL, owner, owner),
         stmt('SELECT COUNT(*) AS total FROM memory_completion_awards WHERE user_id = ?', owner)
       ]));
       fromRow(results[0].results[0]);
@@ -136,8 +140,7 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
       const results = await execute(() => db.batch([
         stmt(`SELECT ${PROFILE_COLUMNS} FROM memory_profiles WHERE user_id = ?`, owner),
         stmt('SELECT request_id, request_hash, payload_json FROM memory_latest_batch WHERE user_id = ?', owner),
-        stmt(`SELECT c.content_ref, c.action_key, c.task_json FROM memory_task_content c
-          JOIN memory_task_states t ON t.content_ref = c.content_ref AND t.action_key = c.action_key WHERE t.user_id = ?`, owner)
+        stmt(OWNED_CONTENT_SQL, owner, owner)
       ]));
       fromRow(results[0].results[0]);
       const row = results[1].results[0];
@@ -172,7 +175,10 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
         checkTask({ userId: owner, actionKey: item.actionKey, contentRef: item.contentRef,
           shownAt: at, savedAt: null, removedAt: null, completedAt: null, likedAt: null, feedbackCode: null, feedbackAt: null }, owner);
         checkContent(item.content, item.actionKey);
-        const existing = await execute(() => stmt('SELECT action_key, task_json FROM memory_task_content WHERE content_ref = ?', item.contentRef).first());
+        requireRule(Boolean(item.private) === item.contentRef.startsWith('ai_'), 'invalid_content_scope');
+        const existing = await execute(() => item.private
+          ? stmt('SELECT action_key, task_json FROM memory_private_task_content WHERE user_id = ? AND content_ref = ?', owner, item.contentRef).first()
+          : stmt('SELECT action_key, task_json FROM memory_task_content WHERE content_ref = ?', item.contentRef).first());
         requireRule(!existing || (existing.action_key === item.actionKey && existing.task_json === JSON.stringify(item.content)), 'immutable_content_ref');
       }
       // Store only the current small request and references. Text and steps live
@@ -192,7 +198,12 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
             commit_token = excluded.commit_token, payload_json = excluded.payload_json, created_at = excluded.created_at`,
           owner, requestId, requestHash, commitToken, JSON.stringify(payload), at),
         ...contents.flatMap(item => [
-          stmt(`INSERT INTO memory_task_content (content_ref, action_key, task_json, created_at)
+          item.private ? stmt(`INSERT INTO memory_private_task_content (user_id, content_ref, action_key, task_json, created_at)
+            SELECT ?, ?, ?, ?, ? WHERE ${guard}
+            ON CONFLICT(user_id, content_ref) DO UPDATE SET task_json = CASE
+              WHEN memory_private_task_content.action_key = excluded.action_key AND memory_private_task_content.task_json = excluded.task_json
+              THEN memory_private_task_content.task_json ELSE NULL END`, owner, item.contentRef, item.actionKey, JSON.stringify(item.content), at, owner, commitToken)
+          : stmt(`INSERT INTO memory_task_content (content_ref, action_key, task_json, created_at)
             SELECT ?, ?, ?, ? WHERE ${guard}
             ON CONFLICT(content_ref) DO UPDATE SET task_json = CASE
               WHEN memory_task_content.action_key = excluded.action_key AND memory_task_content.task_json = excluded.task_json

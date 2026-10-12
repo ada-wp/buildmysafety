@@ -99,7 +99,8 @@ function isRecommendation(value: unknown) {
   if (value.source === 'pool') return value.delivery === 'shown' && version(value.stateVersion) &&
     typeof value.reviewRequired === 'boolean' && value.metadata === null;
   const metadata = value.metadata;
-  return value.source === 'ai' && value.delivery === 'review_preview' && value.reviewRequired === true && record(metadata) &&
+  return ((value.source === 'ai' && value.delivery === 'review_preview') ||
+    (value.source === 'mixed' && value.delivery === 'shown' && version(value.stateVersion))) && value.reviewRequired === true && record(metadata) &&
     nullableText(metadata.responseId) && text(metadata.model) &&
     ['inputTokens', 'outputTokens'].every(key => metadata[key] === null ||
       (Number.isSafeInteger(metadata[key]) && (metadata[key] as number) >= 0));
@@ -107,7 +108,7 @@ function isRecommendation(value: unknown) {
 
 // Known machine codes only. Never surface arbitrary server error text or HTML to the UI.
 const serverCodes = new Set([
-  'task_not_saved', 'request_id_conflict', 'invalid_request_id', 'task_content_unavailable',
+  'task_not_saved', 'request_id_conflict', 'generation_in_progress', 'invalid_request_id', 'task_content_unavailable',
   'authentication_required', 'authentication_invalid', 'authentication_unavailable', 'origin_not_allowed', 'adaptation_disabled', 'authentication_not_configured',
   'd1_binding_required', 'storage_unavailable', 'api_key_required', 'model_required', 'profile_not_found', 'task_not_found',
   'route_not_found', 'method_not_allowed', 'profile_exists', 'stale_profile', 'stale_state', 'immutable_content_ref', 'task_already_shown',
@@ -212,7 +213,7 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
     },
     recommendations: (selection: RecommendationInput, options?: RequestOptions) => {
       input(validFields(selection, ['request', 'route', 'requestId', 'expectedStateVersion'], ['request']) &&
-        (selection.route === undefined || selection.route === 'pool' || selection.route === 'adapt'));
+        (selection.route === undefined || selection.route === 'pool' || selection.route === 'adapt' || selection.route === 'auto'));
       const r = selection.request;
       input(validFields(r, ['topicId', 'concernIds', 'note', 'country', 'maxMinutes', 'noSpend', 'localSupport'], ['topicId', 'concernIds']) &&
         text(r.topicId) && texts(r.concernIds));

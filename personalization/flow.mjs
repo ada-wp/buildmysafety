@@ -37,7 +37,7 @@ function memoryFor(profile, states, catalog, topic, effective) {
   const relevantTopics = new Set([topic.id, ...topic.relatedTopicIds]);
   const byRef = new Map(catalog.actions.map(action => [action.contentRef, action]));
   const signals = enabled ? states.flatMap(state => {
-    const action = byRef.get(state.contentRef);
+    const action = byRef.get(state.contentRef) || catalog.actions.find(item => item.actionKey === state.actionKey);
     if (!action || action.actionKey !== state.actionKey || !action.topicIds.includes(topic.id)) return [];
     const liked = activeAfter(state.likedAt, profile.signalsResetAt);
     const saved = activeAfter(state.savedAt, profile.signalsResetAt) && !state.removedAt;
@@ -191,7 +191,7 @@ export function validateBatch(batch, prepared) {
   return structuredClone(batch);
 }
 
-function poolBatch(prepared) {
+export function poolBatch(prepared) {
   const tasks = [];
   const groups = new Set();
   const covered = new Set();

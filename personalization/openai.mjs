@@ -1,7 +1,7 @@
 import { FlowError, requireRule } from './contracts.mjs';
 
 /** Server-only single-call transport. It never reads keys from files, logs prompts, or retries. */
-export function createOpenAIClient({ apiKey, fetchImpl = globalThis.fetch, timeoutMs = 45000 }) {
+export function createOpenAIClient({ apiKey, fetchImpl = (input, init) => globalThis.fetch(input, init), timeoutMs = 45000 }) {
   requireRule(typeof apiKey === 'string' && apiKey.trim().length > 0, 'api_key_required');
   requireRule(Number.isInteger(timeoutMs) && timeoutMs > 0 && timeoutMs <= 60000, 'invalid_timeout');
   return {
@@ -10,10 +10,11 @@ export function createOpenAIClient({ apiKey, fetchImpl = globalThis.fetch, timeo
       let data;
       try {
         response = await fetchImpl('https://api.openai.com/v1/responses', {
-          method: 'POST', redirect: 'error',
+          method: 'POST', redirect: 'manual',
           headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify(body), signal: AbortSignal.timeout(timeoutMs)
         });
+        if (response.status >= 300 && response.status < 400) throw new FlowError('upstream_error');
         if (!response.ok) throw new FlowError(response.status === 429 ? 'rate_limited' : 'upstream_error');
         data = await response.json();
       } catch (error) {

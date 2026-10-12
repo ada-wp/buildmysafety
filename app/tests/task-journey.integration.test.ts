@@ -13,7 +13,7 @@ const origin = 'https://journey.integration.invalid';
 type Statement = { sql: string; values: SQLInputValue[]; bind: (...values: SQLInputValue[]) => Statement;
   first: () => Promise<Record<string, unknown> | null> };
 
-function setup(t: TestContext) {
+function setup(t: TestContext, aiEnabled = false) {
   // Only a disposable SQL test double. The product worker uses remote D1.
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys = ON');
@@ -41,13 +41,19 @@ function setup(t: TestContext) {
   };
   const identities = new Map([['Bearer alice-test-token', 'journey_alice'], ['Bearer bob-test-token', 'journey_bob']]);
   const worker = createAppWorker({ contentReviewHosts: ['journey.integration.invalid'],
+    generate: async (body: { input: Array<{ content: Array<{ text: string }> }>; model: string }) => {
+      const { target_task: task } = JSON.parse(body.input[0].content[0].text);
+      return { batch: { decision: 'adapted', task: { ...task, title: 'Pick two no-cook food options', estimated_minutes: 5,
+        steps: ['List two familiar foods you already keep that need no cooking.', 'Check where they are and note anything missing.', 'Save both options in your usual note.'] } },
+        metadata: { responseId: 'resp_test', model: body.model, inputTokens: 100, outputTokens: 100 } };
+    },
     verifyIdentity: async (request: Request) => {
       const owner = identities.get(request.headers.get('Authorization') || '');
       if (!owner) throw new FlowError('authentication_required');
       return owner;
     }
   });
-  const env = { MEMORY_DB: db,
+  const env = { MEMORY_DB: db, AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false', OPENAI_MODEL: 'gpt-6-luna',
     get OPENAI_API_KEY() { throw new Error('Task tests must never request paid credentials'); },
     get SYNTHETIC_TEST_MODE() { throw new Error('Real catalog tests must never enable fictional content'); }
   };
@@ -112,6 +118,21 @@ test('real client, worker and D1 agree on owned catalog, batch, detail, completi
     error => error instanceof SafetyApiError && error.code === 'task_not_found');
   await assert.rejects(alice.taskAction({ actionKey: taskKey, expectedStateVersion: '1', event: { type: 'remove' } }),
     error => error instanceof SafetyApiError && error.conflict);
+});
+
+test('mixed AI result crosses real client/worker contract and stays stable across controller reload', async t => {
+  const { client, sqlite } = setup(t, true); const alice = client();
+  await alice.createMemory({ answers: { home: 'alone', constraints: ['cost'] } });
+  const session = createTaskSession(alice, () => 'mixed_client_request01'); t.after(() => session.dispose());
+  assert.equal(await session.load(), true);
+  assert.equal(await session.recommend({ topicId: 'sick_care', concernIds: ['food', 'daily_tasks'], note: 'I want food with no cooking.' }), true);
+  const result = session.getState().latest?.result;
+  assert.equal(result?.source, 'mixed'); assert.equal(result?.batch.tasks.length, 3);
+  const task = session.getState().collection!.tasks.find(t => t.state.contentRef.startsWith('ai_'))!;
+  assert.equal(await session.act(task.state.actionKey, { type: 'save' }), true);
+  const again = createTaskSession(client()); t.after(() => again.dispose()); await again.load();
+  assert.deepEqual(again.getState().collection!.tasks.find(t => t.state.actionKey === task.state.actionKey)?.content, task.content);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts').get()?.n, 1);
 });
 
 test('lost committed batch response recovers through an explicit controller reload without another generation request', async t => {

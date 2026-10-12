@@ -1,6 +1,7 @@
 import { createD1Store } from './d1-store.mjs';
 import { createOpenAIClient } from './openai.mjs';
 import { recommend } from './flow.mjs';
+import { deliverAutomatic } from './adaptation.mjs';
 import { FlowError, requireRule, hash, validRequest } from './contracts.mjs';
 
 const MAX_BODY_BYTES = 16384;
@@ -108,7 +109,7 @@ const STATUS = {
   api_key_required: 503, model_required: 503, profile_not_found: 404, task_not_found: 404,
   route_not_found: 404, method_not_allowed: 405, profile_exists: 409,
   stale_profile: 409, stale_state: 409, immutable_content_ref: 409, task_already_shown: 409,
-  request_id_conflict: 409, task_not_saved: 409, task_content_unavailable: 503,
+  request_id_conflict: 409, generation_in_progress: 409, task_not_saved: 409, task_content_unavailable: 503,
   body_too_large: 413, json_required: 415, unsupported_topic: 422, adaptation_needed: 422,
   rate_limited: 429, request_timeout: 504, upstream_error: 502,
   network_or_response_error: 502, model_refusal: 422, incomplete_output: 502,
@@ -128,7 +129,8 @@ export function safeError(error) {
  * catalog must be supplied by the deployment. No fictional content is a default.
  * A future email-login adapter may replace verifyIdentity with an equally trusted verifier.
  */
-export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, requireDeliveryIds = false, allowEditorialReview = false }) {
+export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, requireDeliveryIds = false, allowEditorialReview = false,
+  allowAutomatic = false, generate }) {
   if (!catalog || typeof verifyIdentity !== 'function') throw new Error('A catalog and trusted identity verifier are required.');
   return async function handle(request, env) {
     try {
@@ -181,9 +183,10 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, req
         const body = await readBody(request);
         fields(body, ['request', 'route', 'requestId', 'expectedStateVersion'], ['request']);
         const routeType = body.route ?? 'pool';
-        requireRule(routeType === 'pool' || routeType === 'adapt', 'invalid_route');
+        requireRule(['pool', 'adapt', 'auto'].includes(routeType), 'invalid_route');
+        requireRule(routeType !== 'auto' || allowAutomatic, 'adaptation_disabled');
         requireRule(validRequest(body.request), 'invalid_request');
-        const durable = routeType === 'pool' && (requireDeliveryIds || Object.hasOwn(body, 'requestId'));
+        const durable = routeType === 'auto' || (routeType === 'pool' && (requireDeliveryIds || Object.hasOwn(body, 'requestId')));
         let requestHash;
         if (durable) {
           requireRule(typeof body.requestId === 'string' && /^[a-zA-Z0-9_-]{16,80}$/.test(body.requestId), 'invalid_request_id');
@@ -198,6 +201,18 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, req
             return json(latest.result);
           }
           requireRule(body.expectedStateVersion === latest.stateVersion, 'stale_state');
+        }
+        if (routeType === 'auto') {
+          try {
+            return json(await deliverAutomatic({ owner, request: body.request, requestId: body.requestId, requestHash,
+              expectedStateVersion: body.expectedStateVersion, store, catalog, env, allowEditorialReview, generate }));
+          } catch (error) {
+            if (error instanceof FlowError && ['stale_state', 'generation_in_progress'].includes(error.code)) {
+              const latest = await store.readLatestBatch(owner);
+              if (latest.result?.requestId === body.requestId && latest.requestHash === requestHash) return json(latest.result);
+            }
+            throw error;
+          }
         }
         const testMode = env.SYNTHETIC_TEST_MODE === 'true' && owner.startsWith('synthetic-');
         // This deployment only rehearses paid adaptations with synthetic identities.

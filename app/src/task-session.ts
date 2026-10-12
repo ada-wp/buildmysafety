@@ -49,7 +49,7 @@ export function createTaskSession(client: TaskClient, makeId: () => string = () 
       if (!state.collection || state.error) return Promise.resolve(false);
       const expectedStateVersion = state.collection.stateVersion;
       const requestId = makeId();
-      return run(signal => client.recommendations({ request: structuredClone(request), requestId, expectedStateVersion, route: 'pool' }, { signal }));
+      return run(signal => client.recommendations({ request: structuredClone(request), requestId, expectedStateVersion, route: 'auto' }, { signal }));
     },
     act(actionKey: string, event: TaskActionEvent) {
       if (!state.collection || state.error) return Promise.resolve(false);

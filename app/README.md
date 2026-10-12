@@ -2,7 +2,7 @@
 
 Step 1 consolidated the preserved welcome/onboarding/interests/recap screens, portable API client and profile controller. **Step 2 is complete for the development build:** Clerk supplies verified email sign-in, while the existing [`personalization/`](../personalization/README.md) backend and Cloudflare D1 continue to own app profiles. The old second server remains [archived](../archive/app-server-draft-20261011/README.md).
 
-The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `4235e3b5` after the October 12 cloud-journey integration. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
+The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `6671e673` after the October 12 bounded-AI integration. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
 
 ## Boundaries
 
@@ -16,7 +16,7 @@ The current development preview is [app-auth-staging.buildmysafety.pages.dev](ht
 - `src/components/` and `src/App.tsx`: React presentation using the approved copy, palette and elephant. A fresh identity epoch remounts the private screen state; unchanged identity preserves edits after a failed save. Editing is disabled while a write is pending.
 - `src/runtime.ts` and `src/main.tsx`: compose the client, provider and controller at the same browser origin. The client/controller do not depend on React or DOM APIs.
 - `src/task-session.ts` and `src/components/TaskJourney.tsx`: cloud task recovery and the concern → suggestions → detail → My list → completion journey. Mutations use current versions; uncertain outcomes require an explicit reload, never automatic write replay.
-- `worker.mjs`: serves the built app, profile/onboarding routes, shared catalog, owned tasks, latest batch and pool recommendation routes. The memory reset route remains outside this app allowlist; paid adaptation remains disabled.
+- `worker.mjs`: serves the built app, profile/onboarding routes, shared catalog, owned tasks, latest batch and pool recommendation routes. The memory reset route remains outside this app allowlist; bounded adaptation is available only on the named preview host and explicit server switch.
 - `../personalization/onboarding.mjs`: signed-in draft checkpoints and atomic final profile/completion saves. Guest drafts remain page-memory-only.
 - `../personalization/clerk-identity.mjs`: verifies Clerk session tokens with `jose` and the configured issuer's public JWKS. Only a verified subject becomes the D1 owner. The issuer, exact authorized origins, signature, session status and token times are checked; request bodies cannot select an account.
 
@@ -28,7 +28,7 @@ Signed-in onboarding saves structured draft answers and a public checkpoint so i
 
 The first collection contains **nine authored tasks** in `personalization/catalog.mjs`, marked `editorial_review`. They are available only on the named founder preview host while Ada reviews content. This is connected functionality, not a synthetic task fixture; it is also not a publicly approved content release. Sources and limitations are in [catalog review](../personalization/catalog-review.md).
 
-Current automated checkpoint: **90 app tests and 104 backend tests pass**. Remote D1 migrations 0002 and 0003 are applied, and `4235e3b5` is deployed. Hosted browser verification is tracked separately in [technical status](../docs/technical-status.md); these counts do not claim that every release check has finished.
+Current automated checkpoint: **91 app tests and 119 backend tests pass**. Remote D1 migrations 0002, 0003 and 0004 are applied, and `6671e673` is deployed. Two actual hosted OpenAI adaptations and their save/reload checks are recorded in [AI verification](verification-ai-adaptation.json) and [technical status](../docs/technical-status.md); these results do not claim that every release check has finished.
 
 The earlier `b9ab91c6` navigation repair replaced a bubble dead end with a temporary sample journey. Its evidence remains in [the historical navigation record](verification-navigation.json). The sample component is no longer the active app journey. The unconfigured local state does not pretend to save tasks or provide fake login.
 
@@ -82,6 +82,6 @@ Build and inspect the output before deployment. Do not deploy the repository roo
 
 Before inviting real customers, confirm an owned domain and DNS, create/configure the Clerk production instance, switch to its production public key/issuer, and provision separate production D1 storage. Development users and production users are separate identities; do not assume a development account or draft will migrate automatically. Clerk development mode is not the launch solution for either 100 or 1,000 users. Follow the official [production checklist](https://clerk.com/docs/guides/development/deployment/production), [environment guidance](https://clerk.com/docs/guides/development/managing-environments) and [current pricing](https://clerk.com/pricing).
 
-Opening this app cannot trigger a paid AI request. The Worker passes no OpenAI credential to its handlers and rejects paid adaptation. Ada's next agreed feature is **automatic adaptation of at most one task within a batch of three when it meaningfully helps**, with three pool tasks when adaptation adds no value. It must not wait for exhaustion or add a fourth task. Server quotas, accepted private snapshots and adaptation validation are required before activation. See the [personalization plan](../docs/personalization-plan-v0.md).
+Opening, saving and completing tasks never calls the model. A deliberate Find my next steps request uses the automatic route: the pool stays primary; up to one useful adaptation can replace one existing action within the batch. The exact preview host and `AI_ADAPTATION_ENABLED=true` gate paid calls, with `OPENAI_MODEL=gpt-6-luna` and the encrypted server secret. D1 limits attempts to 3 per account and 30 globally per UTC day; failures count and are not retried. A 30-second provider timeout, 2,200-output-token cap, request replay, one active attempt per account and private immutable snapshots protect the flow. Ordinary pool matching continues on provider failure or quota exhaustion with clear copy. See the [personalization plan](../docs/personalization-plan-v0.md).
 
 For a future native client, reuse the contracts/client/session/backend. The React DOM screens and browser navigation may need adapting; this is not a claim of automatic native conversion.

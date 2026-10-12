@@ -49,6 +49,7 @@ function setup(t: TestContext) {
   sqlite.exec('PRAGMA foreign_keys = ON');
   sqlite.exec(migration);
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('../../personalization/migrations/0004_ai_adaptation.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql: string) {
@@ -74,7 +75,7 @@ function setup(t: TestContext) {
     contentReviewHosts: ['app.example'],
     verifyIdentity: async (request: Request, env: Record<string, unknown>) => {
       identityCalls++;
-      assert.deepEqual(Object.keys(env).sort(), ['CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'MEMORY_DB']);
+      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
       const owner = identities.get(request.headers.get('Authorization') || '');
       if (!owner) throw new FlowError('authentication_required');
       return owner;

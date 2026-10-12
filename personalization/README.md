@@ -1,6 +1,6 @@
 # Hosted memory and recommendation API
 
-Built October 11 and connected to the active mobile-web app October 12, 2026. Cloudflare D1 is the account-data store; Clerk supplies verified email identity. The app now connects signed-in onboarding checkpoints and the first sick-day pool → detail → list → completion journey. Public beta and paid AI remain disabled. Historical synthetic rehearsals below are retained as evidence, not the current authentication mechanism.
+Built October 11 and connected to the active mobile-web app October 12, 2026. Cloudflare D1 is the account-data store; Clerk supplies verified email identity. The app now connects signed-in onboarding checkpoints and the first sick-day pool → detail → list → completion journey. Public beta remains closed; controlled one-task AI adaptation is enabled only in the founder preview. Historical synthetic rehearsals below are retained as evidence, not the current authentication mechanism.
 
 Each new recommendation request follows this path:
 
@@ -11,22 +11,22 @@ Verified Clerk identity in the current app preview
   → exclude previously shown/saved/completed outcomes
   → create a small relevant memory packet
   → use existing eligible pool tasks by default
-       next step: automatically adapt at most one when useful, within three total
+       automatically adapt at most one when useful, within three total
   → validate the result and check memory has not changed
-  → pool: atomically pin content, record shown outcomes and latest-batch recovery
+  → atomically pin shared/private content, shown outcomes and latest-batch recovery
   → save/complete/undo against owned state; award each action only once
 ```
 
-The application owns memory. Saving changes a compact D1 task record without calling AI; the next request reads the latest snapshot. The shared backend also supports likes, feedback and preference reset, although those controls are not yet exposed in the app. Completion awards and stable shared content are implemented. Accepted private AI-content storage remains a next step.
+The application owns memory. Saving changes a compact D1 task record without calling AI; the next request reads the latest snapshot. The shared backend also supports likes, feedback and preference reset, although those controls are not yet exposed in the app. Completion awards and stable shared content are implemented. Accepted private AI content is owner-scoped in `memory_private_task_content`; it never becomes shared library content automatically.
 
-Ada's latest AI decision is **automatic adaptation of at most one task within the total three when it adds useful personal fit**. It does not wait for pool exhaustion; use three eligible pool tasks when no meaningful adaptation is justified. The current app still uses the pool only. Before activation, add per-user/global quotas, immutable private accepted snapshots and validation of the full mixed batch. A model call must not invent advice or add a fourth task.
+Ada's latest AI decision is **automatic adaptation of at most one task within the total three when it adds useful personal fit**. It does not wait for pool exhaustion; use up to three eligible pool tasks when no meaningful adaptation is justified. The current founder preview implements per-user/global quotas, immutable private accepted snapshots and validation of the full mixed batch. A model call must not invent advice or add a fourth task.
 
 The next request can be a completely different question. Only relevant past context follows her; an old sick-day concern must not take over a new question about home. The same-question paid comparison below is a controlled test, not a required sequence in the app.
 
 ## Hosted environment and evidence
 
-- Current app: [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `4235e3b5`. Migrations [0002](migrations/0002_task_journey.sql) and [0003](migrations/0003_onboarding.sql) are remotely applied after 0001. The current automated checkpoint is 104 backend and 90 app tests; [technical status](../docs/technical-status.md) records hosted browser checks separately.
-- [catalog.mjs](catalog.mjs) contains nine real authored tasks marked `editorial_review`, not synthetic fixtures or founder-approved content. Only the exact founder preview hostname opts into these records. [Catalog review](catalog-review.md) records checked sources and limitations. Other hosts exclude them; no OpenAI secret is forwarded by the app Worker.
+- Current app: [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `6671e673`. Migrations [0002](migrations/0002_task_journey.sql), [0003](migrations/0003_onboarding.sql) and [0004](migrations/0004_ai_adaptation.sql) are remotely applied after 0001. The current automated checkpoint is 119 backend and 91 app tests; [technical status](../docs/technical-status.md) records hosted browser checks separately.
+- [catalog.mjs](catalog.mjs) contains nine real authored tasks marked `editorial_review`, not synthetic fixtures or founder-approved content. Only the exact founder preview hostname opts into these records. [Catalog review](catalog-review.md) records checked sources and limitations. Other hosts exclude them. The encrypted OpenAI secret is available only to the server's gated automatic path and never to the browser.
 
 The following bullets record the earlier October 11 isolated memory-API rehearsal:
 
@@ -37,7 +37,7 @@ The following bullets record the earlier October 11 isolated memory-API rehearsa
 
 The identity verifier checks short-lived RS256 tokens against explicitly configured public keys, issuer and audience. This is an engineering test identity mechanism, **not email sign-in**. After testing, deployment `8cb55c55` locked the staging alias: synthetic public keys are disabled and `SYNTHETIC_TEST_MODE=false`; the temporary private signing key was removed locally. Two live lock checks passed: health returned 200, and the previously valid signer was rejected with 503 `authentication_not_configured`. A separate remote SQL read confirmed five synthetic profiles and ten task states persisted after redeployment; there is no customer data. The counts include one profile created by an earlier interrupted test. Temporary access must be deliberately reconfigured for any further authorized test.
 
-The production OpenAI secret was already present, but the Preview environment had no `OPENAI_API_KEY` at this checkpoint. Ada was asked to add the Preview secret. A later names-only check on October 12 confirmed encrypted OPENAI_API_KEY entries in both Preview and Production. The live Worker → OpenAI → validated response test remains pending bounded app integration; the two earlier paid Playground tests below are separate evidence. Do not report a mocked transport or Playground run as a hosted API-transport success.
+The production OpenAI secret was already present, but the Preview environment had no `OPENAI_API_KEY` at this checkpoint. Ada was asked to add the Preview secret. A later names-only check on October 12 confirmed encrypted OPENAI_API_KEY entries in both Preview and Production. The subsequent bounded app integration completed a real Worker → OpenAI → validated response test, documented in technical status; the two earlier paid Playground tests below are separate evidence. Do not report a mocked transport or Playground run as a hosted API-transport success.
 
 ## Run engineering checks without an API key
 
@@ -155,6 +155,6 @@ The local fix groups overlapping meal alternatives under `easy_food_ready`. A re
 
 Pool matching applies current topic/concerns, adjustable profile-derived limits, resource eligibility and nonrepetition, then uses relevant active save/like tags and selected-concern coverage. It does not interpret every strength or hope as a task rule. Country/free-paid filters do not establish availability or human safety. Mechanical validation does not replace content review; an allowed key could still receive weak or unsafe adapted prose. Historical AI rehearsal results remain review-only.
 
-Owned onboarding, pool delivery, shared content snapshots, current task state, batch recovery and unique completion awards are built and deployed. AI acceptance still needs private immutable content storage and a final compare-and-write transaction. Generation budgets, retention jobs and account deletion/export remain unbuilt. Existing resource/outcome checks are not professional review or proof of usefulness.
+Owned onboarding, pool delivery, shared content snapshots, current task state, batch recovery and unique completion awards are built and deployed. The app now accepts validated one-task adaptations using private immutable content and the final compare-and-write transaction. Generation budgets and seven-day operational-attempt pruning on the next reservation are implemented. Broader retention and account deletion/export remain unbuilt. Existing resource/outcome checks are not professional review or proof of usefulness.
 
-Next checkpoint: finish hosted journey verification and Ada's review of the small collection, then build/test automatic one-task adaptation within three with quotas, stable private snapshots and reviewed fallback behavior. Customer launch also requires production identity/storage, deletion/export and release testing. Past choices should add relevant context without continuing an old problem automatically. Hosted storage does not establish unlimited capacity. Deploy only the app's allowlisted output, never this repository root.
+Next checkpoint: review the small collection and the two actual hosted AI outputs with Ada before broadening content. The automatic path, quotas, stable private snapshots and fallback behavior are implemented; automated tests and bounded hosted checks are recorded separately. Customer launch also requires production identity/storage, deletion/export and release testing. Past choices should add relevant context without continuing an old problem automatically. Hosted storage does not establish unlimited capacity. Deploy only the app's allowlisted output, never this repository root.

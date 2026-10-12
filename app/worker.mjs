@@ -35,12 +35,12 @@ function reservedApiPath(pathname) {
  * Build with nodejs_compat for the shared backend's node:crypto dependency.
  */
 export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier(),
-  contentReviewHosts = ['app-auth-staging.buildmysafety.pages.dev'] } = {}) {
+  contentReviewHosts = ['app-auth-staging.buildmysafety.pages.dev'], generate } = {}) {
   // Editorial content can be exercised in the founder's named preview only.
   // This is real cloud persistence, with content review still pending. A main
   // website or future customer hostname does not inherit this review switch.
   const standardApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true });
-  const reviewApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true, allowEditorialReview: true });
+  const reviewApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true, allowEditorialReview: true, allowAutomatic: true, generate });
   const onboarding = createOnboardingHandler({ verifyIdentity });
   return {
     async fetch(request, env) {
@@ -56,12 +56,17 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
         if (!methods.includes(request.method)) {
           return failure('method_not_allowed', 405, { Allow: methods.join(', ') });
         }
-        // Deliberately omit OpenAI credentials and all synthetic test settings.
+        // AI is isolated to the named preview host and an explicit server switch.
+        // Credentials are lazy: pool paths never access them. Synthetic auth stays closed.
+        const aiEnabled = contentReviewHosts.includes(hostname) && env?.AI_ADAPTATION_ENABLED === 'true';
         const handler = pathname.startsWith('/api/onboarding') ? onboarding : api;
         const response = await handler(request, {
           MEMORY_DB: env?.MEMORY_DB,
           CLERK_ISSUER: env?.CLERK_ISSUER,
-          CLERK_AUTHORIZED_PARTIES: env?.CLERK_AUTHORIZED_PARTIES
+          CLERK_AUTHORIZED_PARTIES: env?.CLERK_AUTHORIZED_PARTIES,
+          AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false',
+          OPENAI_MODEL: aiEnabled ? env?.OPENAI_MODEL : undefined,
+          get OPENAI_API_KEY() { return aiEnabled ? env?.OPENAI_API_KEY : undefined; }
         });
         if (response.status >= 500) {
           // Only fixed operational codes. Never log credentials, profile content or email.

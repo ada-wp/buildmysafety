@@ -67,7 +67,7 @@ export type RecommendationRequest = {
   noSpend?: boolean | null;
   localSupport?: 'available' | 'unavailable' | 'unknown';
 };
-export type RecommendationInput = { request: RecommendationRequest; route?: 'pool' | 'adapt'; requestId?: string; expectedStateVersion?: string };
+export type RecommendationInput = { request: RecommendationRequest; route?: 'pool' | 'adapt' | 'auto'; requestId?: string; expectedStateVersion?: string };
 export type RecommendationTask = {
   action_key: string;
   concern_ids: string[];
@@ -104,7 +104,9 @@ export type RecommendationResponse = {
   requestId?: string;
   batch: TaskBatch;
   trace: RecommendationTrace;
+  adaptation?: { status: string; actionKey: string | null; message?: string | null };
 } & ({ source: 'pool'; delivery: 'shown'; stateVersion: string; reviewRequired: boolean; metadata: null } |
+  { source: 'mixed'; delivery: 'shown'; stateVersion: string; reviewRequired: true; metadata: GenerationMetadata } |
   { source: 'ai'; delivery: 'review_preview'; reviewRequired: true; metadata: GenerationMetadata });
 export type HealthResponse = { ok: true };
 export type RequestOptions = { signal?: AbortSignal };

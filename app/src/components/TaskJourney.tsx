@@ -58,11 +58,11 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
   const batch = state.latest?.result?.batch;
   const blocked = state.busy || !state.loaded || Boolean(state.error);
   async function suggest() {
-    if (note.trim()) { setNotice('This collection can match the choices above. It cannot interpret your own request yet. Keep your note here, or choose “Use my selected concerns” to continue without it.'); return; }
     const startingHash = location.hash;
     const okay = await session.recommend({ topicId: 'sick_care', concernIds: concerns, maxMinutes: short ? 10 : null,
-      noSpend, localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' });
-    if (okay && location.hash === startingHash) { setShowAll(draft.answers.style !== 'one'); navigate({ page: 'ideas' }); }
+      ...(note.trim() ? { note: note.trim() } : {}), noSpend,
+      localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' });
+    if (okay && location.hash === startingHash) { setNote(''); setShowAll(draft.answers.style !== 'one'); navigate({ page: 'ideas' }); }
   }
   async function act(task: RecommendationTask, event: TaskActionEvent) {
     const startingHash = location.hash;
@@ -78,7 +78,7 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
       <button className="task-title" onClick={() => open(task, from)}>{task.title}<span className="meta">{task.estimated_minutes} min</span></button>
       <button className={`add${added ? ' added' : ''}`} disabled={added || blocked} aria-label={`${added ? 'Added' : 'Add'} ${task.title}`}
         onClick={() => void act(task, { type: 'save' })}>{added ? '✓' : '+'}</button>
-    </div><p className="description">{task.summary}</p></article>;
+    </div><p className="description">{task.summary}</p>{entries.find(item => item.state.actionKey === task.action_key)?.state.contentRef.startsWith('ai_') && <p className="hint">AI-tailored to your request</p>}</article>;
   }
   function row(item: typeof entries[number]) {
     const complete = Boolean(item.state.completedAt);
@@ -101,8 +101,8 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
   if (!state.loaded && !state.error) return <div className="task-journey" role="status"><p>Finding your saved place…</p></div>;
   return <div className="task-journey" ref={root} aria-busy={state.busy}>
     {route.page !== 'explore' && route.page !== 'list' && <button className="back" onClick={back}><span aria-hidden>‹</span> Back</button>}
-    {state.busy && <p className="hint" role="status">Saving or checking your account…</p>}
-    {state.error && <div role="alert" className="message error"><p>{state.error.conflict ? 'Your list changed in another tab. Check the latest version before trying again.' : state.error.outcomeUnknown ? 'We couldn’t confirm the result. Check your saved progress before trying again.' : 'We couldn’t connect to your tasks just now.'}</p>
+    {state.busy && <p className="hint" role="status">Finding your next step or checking your saved progress…</p>}
+    {state.error && <div role="alert" className="message error"><p>{state.error.code === 'generation_in_progress' ? 'A suggestion is still being prepared. Give it a moment, then check your saved progress.' : state.error.conflict ? 'Your list changed in another tab. Check the latest version before trying again.' : state.error.outcomeUnknown ? 'We couldn’t confirm the result. Check your saved progress before trying again.' : 'We couldn’t connect to your tasks just now.'}</p>
       <button className="secondary" disabled={state.busy} onClick={() => void session.load()}>Check saved progress</button></div>}
     {notice && <p className="message" role="status">{notice}</p>}
     {route.page === 'explore' && <section><span className="eyebrow">Explore</span><h1 tabIndex={-1}>One small place<br />to begin.</h1>
@@ -124,23 +124,25 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
         <label className="choice"><span>No spending needed</span><input type="checkbox" checked={noSpend} onChange={e => setNoSpend(e.target.checked)} /></label>
         <p className="hint">Started from your preferences. You can change these for today.</p></details>
       <label className="manual-request">Something else? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => setNote(e.target.value)} placeholder="What would you like help preparing for?" /></label>
-      {note.trim() && <div className="message"><p>Your own request needs a more flexible response than this collection can give yet. It isn’t sent or saved. You can use the concerns above for now.</p>
-        <button className="text-button" onClick={() => { setNote(''); setNotice('Your note has been cleared. The next suggestions will use your selected concerns.'); }}>Use my selected concerns</button></div>}
-      <button className="primary" disabled={blocked || !topic || Boolean(note.trim())} onClick={() => void suggest()}>Find my next steps</button>
+      <p className="hint">We may use OpenAI to tailor one step using your request and relevant preferences. Leave out private or medical details. Your typed note isn’t saved; an accepted task is saved to your account.</p>
+      <button className="primary" disabled={blocked || !topic} onClick={() => void suggest()}>Find my next steps</button>
       {batch && <button className="text-button" onClick={() => navigate({ page: 'ideas' })}>Return to my latest ideas</button>}
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
     </section>}
     {route.page === 'ideas' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>A few small<br />places to start.</h1>
       <p>Take a look, then add what feels useful. You choose the pace.</p>
+      {batch?.message && batch.status !== 'no_more_ideas' && <p className="message" role="status">{batch.message}</p>}
+      {state.latest?.result?.adaptation?.message && <p className="message" role="status">{state.latest.result.adaptation.message}</p>}
       {batch?.tasks.slice(0, showAll ? 3 : 1).map(task => card(task))}
       {batch && !showAll && batch.tasks.length > 1 && <button className="text-button" onClick={() => setShowAll(true)}>See the other ideas</button>}
       {(!batch || batch.status === 'no_more_ideas') && <p className="message">{batch?.tasks.length ? 'These are the matching new options in this small collection. There’s no need to add them all.' : 'No new matching ideas right now. Your saved tasks and earlier ideas are still here.'}</p>}
       <button className="primary" onClick={() => navigate({ page: 'list' })}>Go to my list{saved.length ? ` (${saved.length})` : ''}</button>
-      <button className="secondary" disabled={blocked || batch?.tasks.length === 0} onClick={() => void suggest()}>{batch?.tasks.length === 0 ? 'All caught up for these choices' : 'See more ideas'}</button>
+      {(!batch || ['ready', 'no_more_ideas'].includes(batch.status)) && <button className="secondary" disabled={blocked || batch?.tasks.length === 0} onClick={() => void suggest()}>{batch?.tasks.length === 0 ? 'All caught up for these choices' : 'See more ideas'}</button>}
       <button className="text-button" onClick={() => navigate({ page: 'concerns' })}>Change my choices</button>
     </section>}
     {route.page === 'task' && (current ? <section className="detail"><div className="task-meta"><span className="pill">Sick-day care</span><span>{current.content.estimated_minutes} min</span></div>
       <h1 tabIndex={-1}>{current.content.title}</h1><p className="description">{current.content.summary}</p>
+      {current.state.contentRef.startsWith('ai_') && <p className="hint">AI-tailored to your request. Choose what fits; these steps don’t provide medical advice.</p>}
       <ol className="steps">{current.content.steps.map((s, i) => <li key={i}><span className="step-number" aria-hidden>{i + 1}</span><p>{s}</p></li>)}</ol>
       <div className="done-when"><strong>Done when</strong><p>{current.content.done_when}</p></div>
       {current.content.resources.length > 0 && <details className="more-topics"><summary>Helpful links · {current.content.resources.length}</summary>{current.content.resources.map(r => {

@@ -59,7 +59,7 @@ test('task session uses authoritative read order and committed versions without 
   assert.deepEqual(order, ['catalog', 'latest', 'tasks']);
   assert.equal(await session.recommend({ topicId: 'sick_care', concernIds: ['food'] }), true);
   assert.deepEqual(recommendations, [{ request: { topicId: 'sick_care', concernIds: ['food'] },
-    requestId: 'session_request_0001', expectedStateVersion: '1', route: 'pool' }]);
+    requestId: 'session_request_0001', expectedStateVersion: '1', route: 'auto' }]);
   assert.deepEqual(order.slice(3), ['recommend', 'latest', 'tasks']);
   assert.equal(session.getState().collection?.tasks[0].state.savedAt, null);
   assert.equal(await session.act('easy_food', { type: 'save' }), true);

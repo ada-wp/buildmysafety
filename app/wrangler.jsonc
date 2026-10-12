@@ -10,6 +10,8 @@
     "migrations_dir": "../personalization/migrations"
   }],
   "vars": {
+    "AI_ADAPTATION_ENABLED": "true",
+    "OPENAI_MODEL": "gpt-6-luna",
     "CLERK_ISSUER": "https://top-eel-9210.clerk.accounts.dev",
     "CLERK_AUTHORIZED_PARTIES": "[\"https://app-auth-staging.buildmysafety.pages.dev\"]"
   }
