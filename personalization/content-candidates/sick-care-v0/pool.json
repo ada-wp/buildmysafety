@@ -1,0 +1,509 @@
+{
+  "version": "sick-care-discovery-draft-2026-10-12",
+  "status": "founder_review",
+  "category_id": "sick_care",
+  "category_label": "Sick days & care",
+  "language": "en",
+  "scope": "Prepare before ordinary sick days or an explicitly mentioned planned recovery. Care access and everyday logistics, not clinical decisions or emergency response.",
+  "provenance": "Assistant-authored, researched candidates. Not live catalog entries, professionally reviewed advice or recorded OpenAI API outputs. Textual fit rules require implementation before automated selection.",
+  "source_ledger": "../../../research/sick-care-pool-sources.md",
+  "question": "What would you like to have figured out before a sick day?",
+  "helper_text": "Choose what matters to you. We'll start with a few useful options.",
+  "concerns": [
+    {"id":"care","label":"Where to get care, and what it might cost"},
+    {"id":"essentials","label":"Getting food, prescriptions and everyday essentials"},
+    {"id":"home","label":"Making things easier at home while I rest"},
+    {"id":"pets","label":"Having my pet cared for if I can't do the usual routine"},
+    {"id":"responsibilities","label":"Keeping work or study manageable if I need time off"},
+    {"id":"support","label":"Finding practical help or someone to check in with"}
+  ],
+  "manual_input": {"label":"Anything specific you'd like help with?","optional":true,"placeholder":"For example: I have a cat, no nearby help, and want to prepare without booking anything yet."},
+  "tasks": [
+    {
+      "id":"SC01","outcome_key":"care_entry_route","concerns":["care"],"stage":"discover","active_minutes":20,
+      "title":"Find a care option you can actually start with",
+      "summary":"You don't need a regular doctor to explore your options. Start with one route that fits your coverage and budget.",
+      "steps":[
+        "With insurance, look for virtual care in your plan or benefits portal. Without a suitable benefit, try HRSA's health-center finder.",
+        "Ask one service: 'Can a new patient in my state have a virtual first visit, and what would it cost?'",
+        "Check how to request that first visit. Keep the entry page and the answer; if you contacted the service, wait for its reply."
+      ],
+      "done_when":"One first-visit route has confirmed new-patient access and cost information. An unanswered inquiry is still pending.",
+      "use_when":"She wants an initial care route and has not already established a suitable one. US service variant only.",
+      "skip_when":"A suitable care route already exists, or the current request asks for symptom assessment or immediate care.",
+      "new_value":"Discover an entry point without presuming an existing doctor; learn whether it is usable before relying on it.",
+      "cost":"Research only; future care may cost money. No account, booking or subscription required by this task.",
+      "source_ids":["HHS_FIND","HRSA"],"resource_ids":["HHS_FIND","HRSA"],
+      "variants":"If explicitly interested in self-pay virtual care, use a reviewed pay-per-visit provider and check current first-patient eligibility and total cost. If uninsured and cost-sensitive, start with the health center. These are variants of one outcome, not extra tasks.",
+      "legacy_overlap":["sick_05_care_contact"],"waiting":"Provider reply if details are not published."
+    },
+    {
+      "id":"SC02","outcome_key":"in_person_care_entry","concerns":["care"],"stage":"discover","active_minutes":20,
+      "title":"Know where an in-person visit could start",
+      "summary":"An online option doesn't answer every access question. If you want an in-person route too, check one clinic before you need it.",
+      "steps":[
+        "Use your insurer's provider directory, or HRSA's finder without suitable coverage, to locate a nearby clinic accepting new patients.",
+        "Check whether first visits need advance registration and whether appointments or walk-ins are offered. Ask about your likely visit charge.",
+        "Confirm the clinic's address and booking route directly. Leave questions pending until answered; you don't need to book today."
+      ],
+      "done_when":"You know one clinic's new-patient process, location and cost information for a future nonurgent visit.",
+      "use_when":"She explicitly wants an in-person route and lacks one, or has an established virtual route with an identified in-person access gap.",
+      "skip_when":"Her existing clinic already meets this need. Do not add alongside SC01 merely to fill a batch.",
+      "new_value":"Find out whether a clinic can actually accept her, rather than treating a map result as access.",
+      "cost":"Research free; appointment costs vary.","source_ids":["HRSA","HC_NETWORK"],"resource_ids":["HRSA"],
+      "variants":"For insured users, replace the finder with their own plan directory. No AI judgment about which symptoms belong at which facility.",
+      "legacy_overlap":["sick_05_care_contact"],"waiting":"Clinic or insurer reply."
+    },
+    {
+      "id":"SC03","outcome_key":"virtual_visit_connection_tested","concerns":["care"],"stage":"make_workable","active_minutes":15,
+      "title":"Try the doorway to your first video visit",
+      "summary":"Finding care is one piece; being able to connect is another. A short practice now can uncover the awkward bits.",
+      "steps":[
+        "Open your chosen provider's joining instructions. Find its practice or device-check option without starting a paid consultation.",
+        "Try the camera and sound from a private spot. If video, captions or another feature doesn't work for you, contact support.",
+        "Ask how to reconnect or whether an appropriate phone alternative exists. Keep the provider's technical-help route with your visit link."
+      ],
+      "done_when":"You have tested the connection and know whom to contact if it fails; any needed accessibility arrangement is confirmed.",
+      "use_when":"A chosen virtual provider exists and the person has not successfully used its setup, or reports an access barrier.",
+      "skip_when":"She already uses this setup successfully. No new app installation or paid visit just for a test.",
+      "new_value":"Discover first-use technology or accessibility barriers while there is time to resolve them.",
+      "cost":"No purchase; use an existing device.","source_ids":["HHS_PREP","HHS_TECH"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Support reply if a test or accommodation is needed."
+    },
+    {
+      "id":"SC04","outcome_key":"nonurgent_appointment_transport","concerns":["care","support"],"stage":"discover","active_minutes":20,
+      "title":"Find a way to an appointment without driving",
+      "summary":"Some transport options need advance notice. Find out what you could use before the day you need a ride.",
+      "steps":[
+        "If you have Medicaid, ask your plan about nonemergency medical transport. Otherwise, ask the clinic or local 211 about suitable transport options.",
+        "Ask one provider about eligibility, booking notice and the full return-trip cost. Mention any access assistance you actually need.",
+        "Check how the journey home is arranged, especially if the appointment runs late. Keep a confirmed booking route; don't reserve a trip yet."
+      ],
+      "done_when":"You have an eligible transport option with confirmed booking and return-trip details. An unanswered inquiry is still pending.",
+      "use_when":"She identifies a nonurgent appointment-transport gap. Medicaid route requires confirmed enrollment; local 211 route is US-specific.",
+      "skip_when":"Transport is already arranged, she needs emergency transport, or this is an escort requirement after a procedure.",
+      "new_value":"Discover possible transport assistance and its advance-booking and return-trip conditions.",
+      "cost":"Research free; eligibility and ride charges vary. Do not promise free rides.","source_ids":["MEDICAID_RIDES","LOCAL_211"],"resource_ids":["MEDICAID_RIDES","LOCAL_211"],
+      "legacy_overlap":["sick_06_appointment_trip"],"waiting":"Transport-provider eligibility confirmation."
+    },
+    {
+      "id":"SC05","outcome_key":"procedure_escort_requirements_resolved","concerns":["care","support"],"stage":"make_workable","active_minutes":20,
+      "title":"Check what 'someone to take you home' really means",
+      "summary":"For a planned procedure, a ride and an approved escort can be different things. Let the clinic explain what your appointment requires.",
+      "steps":[
+        "Ask your procedure team who may accompany you home and whether someone must stay afterward. Use their instructions for your appointment.",
+        "If you have no suitable person, say so now. Ask the clinic's coordinator about acceptable arrangements and any referral or cost information.",
+        "Have the team confirm that your proposed arrangement meets its requirements before relying on it. Keep unresolved care needs with the team."
+      ],
+      "done_when":"Your procedure team has confirmed an acceptable arrangement. An unresolved gap or a ride booking alone isn't completion.",
+      "use_when":"She explicitly mentions a planned procedure or recovery with a possible escort requirement.",
+      "skip_when":"Ordinary sick-day preparation with no planned procedure. Never infer a procedure from living alone.",
+      "new_value":"Learn an easily missed requirement before an appointment is disrupted; access the clinic's coordination help.",
+      "cost":"Planning free; acceptable transport or support may cost money.","source_ids":["MEDLINE_SURGERY"],"resource_ids":["MEDLINE_SURGERY"],
+      "legacy_overlap":[],"waiting":"Clinical team and prospective escort confirmation."
+    },
+    {
+      "id":"SC06","outcome_key":"planned_visit_written_estimate","concerns":["care"],"stage":"make_workable","active_minutes":15,
+      "title":"Ask what your planned visit will actually cost",
+      "summary":"A headline consultation price may not cover everything. For a planned self-pay visit, you can ask for a written estimate.",
+      "steps":[
+        "For US care you won't pay for through insurance, ask the provider about a written 'good faith estimate' before the planned visit.",
+        "Ask whether it includes facility charges or likely separate services. If another provider bills separately, ask that provider for its estimate too.",
+        "Read the answers before deciding about the visit. Keep the estimate privately and ask about any charge you still don't understand."
+      ],
+      "done_when":"You have the estimate and understand what it includes; a request without an answer remains pending.",
+      "use_when":"A specific nonemergency US visit is being planned and the person will not use insurance to pay.",
+      "skip_when":"She is only exploring care generally, using insurance, or seeking emergency care. Do not suggest delaying needed care for an estimate.",
+      "new_value":"Learn a concrete way to clarify planned care costs, beyond saving a provider's advertised starting price.",
+      "cost":"No purchase or booking required to ask.","source_ids":["CMS_ESTIMATE"],"resource_ids":["CMS_ESTIMATE"],
+      "legacy_overlap":[],"waiting":"Written estimate from each relevant provider."
+    },
+    {
+      "id":"SC07","outcome_key":"local_prescription_delivery","concerns":["essentials","care"],"stage":"discover","active_minutes":15,
+      "title":"Find out whether a pharmacy can reach your door",
+      "summary":"A new prescription and a routine mail-order refill can have different delivery arrangements. Check the route you might actually need.",
+      "steps":[
+        "Choose a local pharmacy from your plan's directory, if insured, or an official pharmacy site. You don't need an existing prescription today.",
+        "Ask whether eligible new prescriptions can be delivered to your area, the cutoff time after they're ready, and the full delivery charge.",
+        "Check how delivery is requested and received. Keep the route if workable; confirm eligibility for any actual prescription with the pharmacy later."
+      ],
+      "done_when":"You understand the pharmacy's delivery process and restrictions. Eligibility for an actual future prescription still needs checking.",
+      "use_when":"She lacks a workable prescription-acquisition route or asks specifically about delivery. US linked example only.",
+      "skip_when":"Delivery already works for her, or she asks which medication to obtain.",
+      "new_value":"Discover local prescription delivery without assuming a regular pharmacy, and distinguish it from slower refill shipping.",
+      "cost":"Research only; delivery and prescriptions may cost money.","source_ids":["CVS_DELIVERY","HC_PHARMACY"],"resource_ids":["CVS_DELIVERY"],
+      "legacy_overlap":[],"waiting":"Pharmacy response; no ordering or transfers now."
+    },
+    {
+      "id":"SC08","outcome_key":"routine_refill_process_known","concerns":["essentials"],"stage":"strengthen","active_minutes":15,
+      "title":"Find out what could hold up your next refill",
+      "summary":"If you already use a regular prescription, a refill request may need more than a tap in an app. Ask before you're close to running out.",
+      "steps":[
+        "Ask your pharmacist how your usual refill process works and whether a prescriber renewal or other approval is needed next time.",
+        "Ask when they recommend starting the request and whom to contact if it stalls, including before a holiday closure.",
+        "Set a private reminder using that advice. Keep your prescribed routine unchanged; let the pharmacist or prescriber handle medication decisions."
+      ],
+      "done_when":"You know the next refill's process and lead time, with a reminder based on professional guidance.",
+      "use_when":"She explicitly reports an ongoing prescription and uncertainty or previous delays in getting refills.",
+      "skip_when":"No ongoing prescription is known, or the refill process is already reliable. An immediate missed-dose question requires professional advice.",
+      "new_value":"Uncover administrative lead times before a supply gap; delivery setup alone does not solve renewal delays.",
+      "cost":"No purchase or extra medicine requested.","source_ids":["CDC_RX"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Pharmacist or prescriber reply. Do not store medication details in My Safety."
+    },
+    {
+      "id":"SC09","outcome_key":"pharmacy_collection_by_helper","concerns":["essentials","support"],"stage":"make_workable","active_minutes":15,
+      "title":"Check whether someone else can collect for you",
+      "summary":"If delivery won't work, a willing person may be able to collect a prescription. Check the pharmacy's process before either of you makes a trip.",
+      "steps":[
+        "Ask your pharmacy what it requires when someone else collects on your behalf, including identification, payment and any prescription-specific restrictions.",
+        "Ask a person you already trust whether this is help they could offer. Explain the process without sharing account passwords.",
+        "Agree how you would request a pickup and share only the details the pharmacy needs, privately, when a real collection is arranged."
+      ],
+      "done_when":"The pharmacy has explained its process and a willing person understands how a future collection would work.",
+      "use_when":"A trusted willing local contact exists and pharmacy collection is an identified gap, especially when delivery is unsuitable.",
+      "skip_when":"No suitable contact, acquisition already works, or she wants to send an unverified stranger for medication.",
+      "new_value":"Resolve a practical permission and logistics question rather than assuming another person can simply show up.",
+      "cost":"Planning free; prescription charges remain separate.","source_ids":["HHS_PICKUP"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Both pharmacy answer and helper agreement."
+    },
+    {
+      "id":"SC10","outcome_key":"grocery_delivery_workable","concerns":["essentials"],"stage":"discover","active_minutes":15,
+      "title":"See whether groceries can reach your actual door",
+      "summary":"Delivery coverage is only the start. The useful question is whether the cost and handoff would work on a day you need rest.",
+      "steps":[
+        "Check your usual grocer's delivery page for your address. If it doesn't deliver, inspect one local alternative without buying a membership.",
+        "Preview a realistic small order. Check the final fees and minimum, then confirm whether the handoff is at your door or building entrance.",
+        "Check what happens when an essential item is unavailable. Save a workable option or ask support to resolve the specific obstacle; don't check out."
+      ],
+      "done_when":"You understand one service's total order cost, delivery location and substitution options well enough to decide whether it fits.",
+      "use_when":"Grocery delivery is untested or there is an explicit cost, access or substitution problem.",
+      "skip_when":"She already has a reliable suitable service. If no-spend includes future paid services, prefer SC11 or an agreed existing helper.",
+      "new_value":"Expose minimum-order charges, building handoffs and substitutions before relying on delivery.",
+      "cost":"No test purchase; future food and service costs must fit her budget.","source_ids":["WALMART_DELIVERY","INSTACART_EBT","REDDIT_ILLNESS"],"resource_ids":[],
+      "variants":"If she explicitly uses EBT, explain that provider fees may need another payment method and inspect that service's current terms. Do not collect benefit information just to personalize.",
+      "legacy_overlap":[],"waiting":"Support reply if the delivery location or fees are unclear."
+    },
+    {
+      "id":"SC11","outcome_key":"food_assistance_access_route","concerns":["essentials","support"],"stage":"discover","active_minutes":20,
+      "title":"Find food help without a delivery budget",
+      "summary":"When food costs are the obstacle, another shopping app may not help. A local food program is a different route worth checking.",
+      "steps":[
+        "Use Feeding America's finder to reach your local food bank and ask about a nearby pantry or meal program for temporary help.",
+        "Check who can use it, opening times and what a first visit requires. Say if transport or collecting food is the obstacle.",
+        "Ask whether delivery or collection by someone else is available there. Keep the confirmed access route; if it doesn't fit, ask for another referral."
+      ],
+      "done_when":"You have a confirmed local food option and a workable way to receive it. Unanswered referrals are still pending.",
+      "use_when":"She explicitly identifies food affordability or lack of paid-delivery access. US only for the linked route.",
+      "skip_when":"No affordability/access concern is expressed. Do not infer financial hardship from living alone or lack of insurance.",
+      "new_value":"Discover temporary community food support and check whether she could actually receive it.",
+      "cost":"Directory research free; program terms vary. Do not promise free home delivery.","source_ids":["FEEDING_AMERICA"],"resource_ids":["FEEDING_AMERICA"],
+      "legacy_overlap":["sick_03_local_help"],"waiting":"Local program reply. No eligibility promise."
+    },
+    {
+      "id":"SC12","outcome_key":"easy_meals_ready","concerns":["essentials","home"],"stage":"make_workable","active_minutes":20,
+      "title":"Give one easy meal a real-life try",
+      "summary":"'Easy' can still mean thawing, chopping or finding a missing ingredient. Try a meal while you have the energy to spot those catches.",
+      "steps":[
+        "Choose a familiar meal you'd want with little effort. Include a no-cook option if cooking is the part you want to avoid.",
+        "Make it during a normal mealtime. Notice packaging, tools, extra ingredients and cleanup; swap the part that makes it harder than expected.",
+        "Keep the ingredients available within their storage instructions and your budget. Put anything missing on your next usual shop, rather than buying a special kit."
+      ],
+      "done_when":"You have tried the meal and its ingredients are available. A shopping note alone means it is not ready yet.",
+      "use_when":"She lacks a tested low-effort meal, or her current options have a specific preparation barrier.",
+      "skip_when":"Suitable meals are already prepared. Avoid turning this into generic nutrition or treatment advice.",
+      "new_value":"A practical rehearsal exposes hidden effort; this is not another list of foods she already eats.",
+      "cost":"Use a normal meal and existing food; replacing missing ingredients may cost money.","source_ids":["CDC_NEEDS","REDDIT_SICKBOX"],"resource_ids":[],
+      "variants":"A freezer meal is an alternative within this outcome, not a second task called 'prepare soup'. No dietary prescriptions.",
+      "legacy_overlap":["sick_01_easy_food"],"waiting":"Cooking/storage time is additional to active effort."
+    },
+    {
+      "id":"SC13","outcome_key":"resting_spot_usable","concerns":["home"],"stage":"make_workable","active_minutes":10,
+      "title":"Make your resting spot work for you",
+      "summary":"Try the setup from where you'll actually sit or lie down. You'll notice more than you do while standing beside it.",
+      "steps":[
+        "Sit in your usual resting spot and try reaching your drink, tissues and phone. Test the charger from that position.",
+        "Move what you keep getting up for onto an existing stable surface. Keep liquids away from electrical equipment and cables out of walkways.",
+        "Try it again, including getting up normally. Keep only changes that make reaching things and moving around easier."
+      ],
+      "done_when":"Your chosen essentials are reachable and the setup leaves a clear way through.",
+      "use_when":"She reports repeated getting up, awkward reach or an unsuitable resting space, or explicitly wants a simple physical preparation.",
+      "skip_when":"The setup already works. Do not use this familiar task as the default for someone asking for overlooked services.",
+      "new_value":"Test usability rather than collecting more objects or purchasing an emergency basket.",
+      "cost":"No purchase; rearrange existing ordinary items.","source_ids":["CDC_NEEDS","REDDIT_SICKBOX"],"resource_ids":[],
+      "legacy_overlap":["sick_02_rest_shelf"],"waiting":"None."
+    },
+    {
+      "id":"SC14","outcome_key":"personal_essentials_gap_closed","concerns":["essentials","home"],"stage":"make_workable","active_minutes":10,
+      "title":"Take one last-minute shop off your future plate",
+      "summary":"Think of the everyday item that has actually sent you out at an inconvenient time. Prepare for that gap, instead of buying a generic sick-day kit.",
+      "steps":[
+        "Pick a nonmedical essential you regularly use and have run out of, such as tissues, menstrual products or pet litter.",
+        "Check what you have and its storage instructions. If useful and affordable, add a modest spare to your next normal shop.",
+        "Place the spare where you'll use it and add a replacement to your shopping list when you open it. Use your existing system."
+      ],
+      "done_when":"That specific supply gap is covered and you have a simple cue to replace it when used.",
+      "use_when":"She describes a recurring shortage or explicitly wants material preparation; the item must come from her own routine.",
+      "skip_when":"Adequate supplies already exist, buying anything is not feasible, or the request concerns medication quantities.",
+      "new_value":"Close an actual recurring shortage rather than prescribe a stockpile. Lower priority for users seeking unfamiliar options.",
+      "cost":"May require a routine purchase; never recommend stockpiling or automatic subscriptions.","source_ids":["CDC_NEEDS","REDDIT_ILLNESS"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Next ordinary shop, if needed."
+    },
+    {
+      "id":"SC15","outcome_key":"chosen_food_storage_understood","concerns":["essentials","home"],"stage":"strengthen","active_minutes":10,
+      "title":"Check how your go-to meal keeps",
+      "summary":"This is useful if food you set aside has spoiled or left you guessing. Learn the storage guidance for one meal you actually use.",
+      "steps":[
+        "Choose the food that leaves you unsure about storage. Read its packaging and look up the matching food in USDA's FoodKeeper.",
+        "Check guidance for your situation: unopened, opened or cooked. Follow the product's instructions and official guidance; don't judge safety by smell alone.",
+        "Use that guidance for the next portion you prepare or open. If you freeze it, label what it is and when it was prepared."
+      ],
+      "done_when":"You understand the relevant storage instructions and have applied them to your next portion.",
+      "use_when":"She reports uncertainty or waste around an existing prepared food. The exact food and storage circumstances must be known to her.",
+      "skip_when":"Storage already works or she wants a general sick-day starting task. Don't assess whether a particular questionable food is safe through AI.",
+      "new_value":"A reusable food-storage reference and a specific skill; not another meal-preparation card.",
+      "cost":"No purchase.","source_ids":["FOODKEEPER","FOOD_STORAGE"],"resource_ids":["FOODKEEPER"],
+      "legacy_overlap":[],"waiting":"Apply at the next normal meal; elapsed time may span days."
+    },
+    {
+      "id":"SC16","outcome_key":"laundry_help_route","concerns":["home","support"],"stage":"discover","active_minutes":15,
+      "title":"Let laundry leave the house without you",
+      "summary":"If carrying laundry is the hard part, wash-and-fold pickup may be more useful than another household checklist.",
+      "steps":[
+        "Check a local laundromat's pickup service or Taskrabbit laundry help for your area. Look for the work you need, not a recurring plan.",
+        "Ask about minimum charges, pickup location and return time. Check any detergent needs and which items the service will not accept.",
+        "Confirm whether you must be present or supply anything. Keep one workable option; no booking or payment needed now."
+      ],
+      "done_when":"You know one service's handoff, return time, total charging method and relevant restrictions.",
+      "use_when":"Laundry access is an expressed burden and future paid help is within her stated preferences.",
+      "skip_when":"Laundry is already covered or paid services are ruled out. Do not treat contaminated laundry as an ordinary service order.",
+      "new_value":"Discover a service that removes transport and lifting, including the handoff and minimum-charge details.",
+      "cost":"Research free; future service paid. Compare minimum total, not hourly rate alone.","source_ids":["TASK_LAUNDRY"],"resource_ids":["TASK_LAUNDRY"],
+      "legacy_overlap":[],"waiting":"Provider response."
+    },
+    {
+      "id":"SC17","outcome_key":"limited_cleaning_help_route","concerns":["home","support"],"stage":"discover","active_minutes":20,
+      "title":"Price the cleaning help you'd actually want",
+      "summary":"You may want the dishes and bathroom handled, not a whole-house deep clean. Find out whether a small, specific visit is possible.",
+      "steps":[
+        "Choose one or two chores you would want help with. Compare a local cleaner's service page with one Taskrabbit listing if available.",
+        "Ask about the minimum booking, supplies and full charge for that scope. Check cancellation and household-illness policies before planning a visit.",
+        "Decide whether the service and cost fit. Keep a suitable candidate and the agreed scope; don't book or share access details yet."
+      ],
+      "done_when":"A candidate has answered your scope and price questions, so you can decide whether the service fits.",
+      "use_when":"Specific household work is the concern and researching paid help is welcome.",
+      "skip_when":"No practical cleaning gap, paid help is excluded, or the need is medical/personal care rather than ordinary cleaning.",
+      "new_value":"Discover whether a limited job is available and worthwhile, rather than assuming a full cleaning package is necessary.",
+      "cost":"Research free; future paid minimum may make a small job unsuitable.","source_ids":["TASK_CLEANING"],"resource_ids":["TASK_CLEANING"],
+      "legacy_overlap":[],"waiting":"Cleaner reply. Follow the provider's illness policy."
+    },
+    {
+      "id":"SC18","outcome_key":"practical_errand_help_route","concerns":["support","home"],"stage":"discover","active_minutes":20,
+      "title":"Find help for an errand you can't postpone",
+      "summary":"Some errands fall outside grocery delivery. Start with the exact job, then look for a service or local program that handles it.",
+      "steps":[
+        "Choose one nonmedical errand, such as collecting a repaired item. For paid help, try Taskrabbit; for community options, contact local 211.",
+        "Ask about that exact job, area, notice and total charges. If collection is involved, check the shop's permission or identification requirements.",
+        "Keep one suitable contact and its booking process. If no service fits, leave the gap open rather than treating a directory as arranged help."
+      ],
+      "done_when":"A provider has confirmed it can handle that kind of errand and explained how you would arrange it.",
+      "use_when":"An identified nonmedical errand needs outside help. Choose the paid or community route from her preferences; linked coverage is US-first.",
+      "skip_when":"The errand already has a solution, it is medication collection, or she needs hands-on personal care.",
+      "new_value":"Convert an overlooked errand into a checked service option without assuming nearby friends.",
+      "cost":"Research free; paid and community routes have different terms. A referral is not a guarantee of free assistance.","source_ids":["TASK_ERRANDS","LOCAL_211"],"resource_ids":["TASK_ERRANDS","LOCAL_211"],
+      "legacy_overlap":["sick_03_local_help"],"waiting":"Service or referral response."
+    },
+    {
+      "id":"SC19","outcome_key":"agreed_social_checkin","concerns":["support"],"stage":"make_workable","active_minutes":10,
+      "title":"Make a check-in something you both want",
+      "summary":"A short chat can be welcome without becoming another obligation. Set it up with someone you already feel comfortable asking.",
+      "steps":[
+        "Choose a person you'd like to hear from on a sick day. They don't need to live nearby.",
+        "Ask what would suit you both: a message, short call or voice note, and a reasonable time. Make declining or rescheduling easy.",
+        "Agree how you'd ask for a check-in and let each other know if plans change. Keep it flexible."
+      ],
+      "done_when":"You both agree on a comfortable way to arrange a check-in; an unanswered message is still pending.",
+      "use_when":"She wants companionship and has named or confirmed a trusted person she is comfortable asking.",
+      "skip_when":"She prefers quiet, has no such contact, or wants emergency monitoring. Living alone is not evidence of loneliness.",
+      "new_value":"An actual mutual arrangement that respects both people's preferences, not a contact list or assumed availability.",
+      "cost":"No purchase.","source_ids":["REDDIT_ILLNESS","FOUNDER"],"resource_ids":[],
+      "legacy_overlap":["sick_04_remote_check_in"],"waiting":"The other person's reply."
+    },
+    {
+      "id":"SC20","outcome_key":"agreed_practical_favor","concerns":["support","essentials"],"stage":"make_workable","active_minutes":15,
+      "title":"Turn 'let me know' into one easy-to-ask favor",
+      "summary":"This is for someone who has already offered help. Make one practical arrangement so neither of you has to guess later.",
+      "steps":[
+        "Choose a concrete favor within their offer, such as adding your groceries to an errand they're already doing.",
+        "Ask when it might work, how much notice they need and how payment or reimbursement would be handled. Leave room for a no.",
+        "Agree how you would request that favor and arrange a handoff. Keep it flexible; a past offer doesn't guarantee help on every date."
+      ],
+      "done_when":"You have a mutually agreed way to request one practical favor, including timing and any costs.",
+      "use_when":"A suitable trusted person has offered practical help and the user wants to clarify it.",
+      "skip_when":"No available trusted helper, she dislikes asking this person, or the same errand has already been arranged.",
+      "new_value":"Resolve what an existing offer actually means; not a generic request-writing exercise for someone without support.",
+      "cost":"Favor may be free; purchases and reimbursement must be agreed.","source_ids":["FOUNDER","REDDIT_ILLNESS"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Mutual agreement."
+    },
+    {
+      "id":"SC21","outcome_key":"remote_practical_help_agreement","concerns":["support"],"stage":"make_workable","active_minutes":15,
+      "title":"Find something a faraway person could help with",
+      "summary":"Distance rules out dropping by, but it doesn't rule out practical help. Pick something useful that doesn't require access to your accounts.",
+      "steps":[
+        "Choose a trusted person who wants to help and one remote job, such as researching a laundry service or comparing appointment transport options.",
+        "Agree what they would check and when they'd send the result. Keep final booking, spending and provider decisions with you unless explicitly agreed.",
+        "Try the handoff while you're well using a real small question. Share only what they need; keep passwords and medical details private."
+      ],
+      "done_when":"You have tried one remote handoff and know what this person is comfortable helping with in future.",
+      "use_when":"She has a willing trusted distant contact and wants practical help, rather than only a social check-in.",
+      "skip_when":"No willing contact, delegation isn't wanted, or the useful work is already done. Do not create artificial research just to practice.",
+      "new_value":"Make distant support practical through a real, bounded handoff; preserve the user's decisions and privacy.",
+      "cost":"No purchase for the handoff.","source_ids":["FOUNDER"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"The other person's availability and result."
+    },
+    {
+      "id":"SC22","outcome_key":"absence_reporting_process_known","concerns":["responsibilities"],"stage":"discover","active_minutes":15,
+      "title":"Find the simplest way to take a sick day",
+      "summary":"Knowing the reporting process beforehand can remove a decision when you're tired. Check the rules that actually apply to your work or course.",
+      "steps":[
+        "Open your workplace policy or course guidance. Find whom to notify, the required channel and when notice is expected.",
+        "If unclear, ask the responsible office about the process and any required documentation. Don't assume paid leave or a particular entitlement.",
+        "Save a short ready-to-adapt message with only required details. For example: 'I'm unwell and need to be absent today. Please confirm the next step.'"
+      ],
+      "done_when":"The applicable absence process is clear and your message is ready to adapt.",
+      "use_when":"She works or studies, doesn't know the reporting process and wants to reduce that friction.",
+      "skip_when":"She already knows the process or works for herself without an employer/course. Legal eligibility questions need jurisdiction-specific guidance.",
+      "new_value":"Discover the actual notice and documentation requirements; the message is a useful byproduct, not the whole task.",
+      "cost":"No purchase. This does not promise paid time off.","source_ids":["DOL_LEAVE","FOUNDER"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Workplace or course-office reply if unclear."
+    },
+    {
+      "id":"SC23","outcome_key":"one_work_handoff_tested","concerns":["responsibilities"],"stage":"strengthen","active_minutes":25,
+      "title":"Make one work handoff usable without you",
+      "summary":"Pick the responsibility that really keeps pulling you back in. A tiny tested handoff is more useful than a long document nobody can use.",
+      "steps":[
+        "With your manager or teammate, choose one time-sensitive duty they can appropriately cover and confirm that they agree to take it.",
+        "Put its next action, authorized file location and decision contact in your work system. Use approved access permissions, never shared passwords.",
+        "Ask them to open the handoff and explain what they'd do first. Fix the missing information their attempt reveals."
+      ],
+      "done_when":"An agreed cover person can access and use the handoff for that duty.",
+      "use_when":"She has a real time-sensitive work responsibility, authorized cover is possible, and absence is difficult because information depends on her.",
+      "skip_when":"No teammate or authorized cover exists, or her work is already covered. Do not pressure her to keep working while ill.",
+      "new_value":"Test someone else's ability to act, rather than writing a vague absence note or duplicating known work information.",
+      "cost":"No purchase.","source_ids":["FOUNDER"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Colleague agreement and short trial. Keep business information out of My Safety."
+    },
+    {
+      "id":"SC24","outcome_key":"solo_business_pause_plan","concerns":["responsibilities"],"stage":"discover","active_minutes":20,
+      "title":"Find the pause button for your own business",
+      "summary":"If new orders or bookings keep arriving when you're unavailable, learn what your actual platform can pause—and what still needs attention.",
+      "steps":[
+        "Open the official help for your shop or booking platform. Look for vacation mode, booking availability or temporary closure.",
+        "Check whether it pauses only new work, and what happens to existing commitments, recurring fees and messages. Don't change live settings today.",
+        "Draft a customer notice and a short plan for existing commitments. Keep the official instructions ready for a future decision to pause."
+      ],
+      "done_when":"You know the platform's actual pause behavior and have a plan for commitments it doesn't pause.",
+      "use_when":"She runs a solo business through a named platform and needs a way to handle temporary unavailability.",
+      "skip_when":"No business/platform is known, or this process already exists. No tool action to close a real shop is authorized by this preparation task.",
+      "new_value":"Discover that pausing incoming work may leave existing orders and fees active; prepare for the actual limits.",
+      "cost":"Research free; existing business fees may continue during a future pause.","source_ids":["ETSY_PAUSE"],"resource_ids":[],
+      "variants":"Attach ETSY_PAUSE only for an Etsy seller; another platform needs its own reviewed official instructions, not guessed controls.",
+      "legacy_overlap":[],"waiting":"None for preparation. This task never changes live business settings."
+    },
+    {
+      "id":"SC25","outcome_key":"employer_practical_care_benefit_known","concerns":["responsibilities","pets","support"],"stage":"discover","active_minutes":15,
+      "title":"Look for practical care help in your work benefits",
+      "summary":"Some employers offer care support beyond health insurance. It is worth checking the actual benefit before paying for help yourself.",
+      "steps":[
+        "Search your benefits portal for care support, dependent care or pet care. If nothing is clear, ask benefits support whether such assistance exists.",
+        "Describe the practical situation you want to prepare for. Ask whether it qualifies, what you pay and whether advance registration is needed.",
+        "Keep the official claim or booking instructions if eligible. If the benefit doesn't cover your situation, mark that route as unsuitable."
+      ],
+      "done_when":"You know whether your employer's benefit fits your situation, and how to use it if eligible.",
+      "use_when":"She has employer benefits and an unresolved practical-care responsibility. Do not infer benefits from employment alone.",
+      "skip_when":"No employer benefit, already checked, or no relevant care need. Many programs support working employees during care disruptions; personal sick leave may not qualify.",
+      "new_value":"Discover a potentially overlooked subsidized service and check the specific restrictions before assuming coverage.",
+      "cost":"Research free; employer-specific copays, limits and registration may apply.","source_ids":["CARE_BENEFITS"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Benefits administrator reply. No promise that a branded provider is included."
+    },
+    {
+      "id":"SC26","outcome_key":"pet_care_candidate_checked","concerns":["pets","support"],"stage":"discover","active_minutes":20,
+      "title":"Find care that fits your kind of pet",
+      "summary":"A nearby listing is a starting point. Find out whether the person can handle your pet's routine and how future visits would be arranged.",
+      "steps":[
+        "Use PSI's sitter finder to locate one business serving your area and pet type. Check its experience and service details.",
+        "Ask about notice, total visit cost and any introductory meeting. Mention the routine you need help with, without sending home-access details.",
+        "Read the reply and decide whether to arrange an introduction. A good candidate is worth keeping; it isn't a confirmed future booking."
+      ],
+      "done_when":"One candidate has answered your practical questions and you can decide whether to meet them.",
+      "use_when":"She has a pet, lacks suitable care and is open to researching paid help. Resource coverage must match her country/area.",
+      "skip_when":"No pet is known, a suitable carer already exists, or paid care is not feasible.",
+      "new_value":"Learn service fit and first-use requirements before a pet-care need arises.",
+      "cost":"Research free; introductions and visits may carry charges. Ask first.","source_ids":["PSI_FIND"],"resource_ids":["PSI_FIND"],
+      "legacy_overlap":["sick_08_pet_sitter"],"waiting":"Candidate reply. Directory membership is not an endorsement."
+    },
+    {
+      "id":"SC27","outcome_key":"pet_carer_handoff_tested","concerns":["pets"],"stage":"make_workable","active_minutes":30,
+      "title":"Try the pet-care handoff together",
+      "summary":"A real walkthrough can reveal the detail a feeding note misses. Use it to decide whether the arrangement works for both you and your pet.",
+      "steps":[
+        "Arrange an introduction with a candidate you've chosen, confirming any charge first. Stay present while they meet your pet.",
+        "Show the ordinary routine and ask them to walk through it. Capture only the details they need, including who to contact with questions.",
+        "Resolve unclear instructions and discuss how visits would be requested if you're ill, including what happens if the carer becomes unavailable."
+      ],
+      "done_when":"You've met, checked the routine together and decided whether this carer fits. Future dates still need agreement.",
+      "use_when":"A suitable candidate exists and an introductory visit has not happened. The user wants to take that next step.",
+      "skip_when":"A trusted carer already knows the routine. Do not repeat an existing feeding note; address only a remaining handoff gap.",
+      "new_value":"Move from a listing to observed practical fit; make instructions usable by another person.",
+      "cost":"Meeting or trial charges may apply; ask before arranging.","source_ids":["PSI_STANDARDS","RED_CROSS_PETS"],"resource_ids":[],
+      "legacy_overlap":["sick_07_pet_care_note"],"waiting":"Scheduling and meeting time; travel additional. Never store access codes in My Safety."
+    },
+    {
+      "id":"SC28","outcome_key":"vet_permission_for_pet_carer","concerns":["pets"],"stage":"strengthen","active_minutes":20,
+      "title":"Ask your vet what a pet carer would need",
+      "summary":"Knowing the vet's number may not be the whole arrangement. Ask how they handle a carer's call when you aren't available.",
+      "steps":[
+        "Ask your vet what permission or paperwork they use when someone else brings your pet for care and you can't immediately answer.",
+        "Discuss the decisions and payment arrangements you are comfortable authorizing. Use the practice's process rather than an AI-written legal form.",
+        "Share the agreed process with your chosen carer through a private channel, and confirm the practice has what it needs."
+      ],
+      "done_when":"Your vet and chosen carer understand the permission and contact process you have agreed.",
+      "use_when":"A pet and chosen carer exist, and veterinary permission during the user's absence is an unresolved concern.",
+      "skip_when":"This is already arranged or the pet needs medical advice now. Do not suggest blanket authorization or unlimited spending.",
+      "new_value":"Discover an administrative gap that a phone number or feeding note alone does not cover.",
+      "cost":"Administrative preparation; ask about any charge. No treatment authorized by this app.","source_ids":["AVMA_PETS"],"resource_ids":[],
+      "legacy_overlap":[],"waiting":"Vet-practice confirmation. Keep permissions and payment details outside My Safety."
+    },
+    {
+      "id":"SC29","outcome_key":"temporary_pet_care_program_route","concerns":["pets","support"],"stage":"discover","active_minutes":25,
+      "title":"Explore temporary pet care when paid sitting won't stretch",
+      "summary":"For an expected longer absence, some communities have temporary foster support for owned pets. Find out whether anything local fits your situation.",
+      "steps":[
+        "Contact a local animal shelter or humane organization and ask about temporary care for an owned pet during a planned hospital stay or recovery.",
+        "Ask about eligibility, notice, space, duration and costs. Make clear that you are asking about temporary care, not giving up your pet.",
+        "If a program fits, ask about its written owner-caregiver agreement and return arrangements. If not, request a specific local referral."
+      ],
+      "done_when":"You understand a local program's suitability and next step, or have an honest answer that this route is unavailable.",
+      "use_when":"She has a pet, explicitly expects an extended absence and lacks affordable care. Local research is required; no nationwide availability promise.",
+      "skip_when":"Routine short sick-day planning, no pet, or a suitable carer already exists.",
+      "new_value":"Discover a possible community alternative to commercial boarding without assuming it exists or confusing fostering with surrender.",
+      "cost":"Inquiry free; program eligibility, fees and capacity vary.","source_ids":["HUMANE_FOSTER"],"resource_ids":["HUMANE_FOSTER"],
+      "legacy_overlap":[],"waiting":"Local organization reply; an inquiry never establishes a placement."
+    },
+    {
+      "id":"SC30","outcome_key":"planned_recovery_help_coordinated","concerns":["care","home","support"],"stage":"make_workable","active_minutes":25,
+      "title":"Help the care team understand your home situation",
+      "summary":"If a hospital stay or procedure is planned, the team needs to know when there isn't someone at home to do the practical parts.",
+      "steps":[
+        "Ask your procedure or hospital team who handles planning for help at home. Explain that you live alone and what help is actually available.",
+        "Discuss the daily activities you're unsure you could manage. Ask which need professional support and which could use ordinary practical help.",
+        "Request help coordinating the necessary arrangements, including costs and timing. Ask the team to confirm the plan before relying on it."
+      ],
+      "done_when":"You and the care team have an agreed support plan, with unresolved arrangements clearly assigned for follow-up.",
+      "use_when":"A hospital stay or procedure is explicitly planned and help at home is uncertain.",
+      "skip_when":"Ordinary sick-day preparation with no planned treatment. A cleaner or errand helper must not be substituted for clinical/personal care.",
+      "new_value":"Discover discharge or care-coordination support and explain the real home situation before a care plan assumes an available helper.",
+      "cost":"Ask about coordination and service costs; eligibility and coverage vary.","source_ids":["MEDLINE_DISCHARGE"],"resource_ids":["MEDLINE_DISCHARGE"],
+      "legacy_overlap":[],"waiting":"Team coordination; 25 minutes is active discussion/preparation, not total arrangement time."
+    }
+  ]
+}

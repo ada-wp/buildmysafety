@@ -1,0 +1,386 @@
+{
+  "version": "sick-care-discovery-draft-2026-10-12",
+  "status": "structural_checks_passed",
+  "task_count": 30,
+  "concern_count": 6,
+  "source_count": 34,
+  "unique_ids": 30,
+  "unique_outcome_keys": 30,
+  "coverage": {
+    "care": [
+      "SC01",
+      "SC02",
+      "SC03",
+      "SC04",
+      "SC05",
+      "SC06",
+      "SC07",
+      "SC30"
+    ],
+    "essentials": [
+      "SC07",
+      "SC08",
+      "SC09",
+      "SC10",
+      "SC11",
+      "SC12",
+      "SC14",
+      "SC15",
+      "SC20"
+    ],
+    "home": [
+      "SC12",
+      "SC13",
+      "SC14",
+      "SC15",
+      "SC16",
+      "SC17",
+      "SC18",
+      "SC30"
+    ],
+    "pets": [
+      "SC25",
+      "SC26",
+      "SC27",
+      "SC28",
+      "SC29"
+    ],
+    "responsibilities": [
+      "SC22",
+      "SC23",
+      "SC24",
+      "SC25"
+    ],
+    "support": [
+      "SC04",
+      "SC05",
+      "SC09",
+      "SC11",
+      "SC16",
+      "SC17",
+      "SC18",
+      "SC19",
+      "SC20",
+      "SC21",
+      "SC25",
+      "SC26",
+      "SC29",
+      "SC30"
+    ]
+  },
+  "tasks_over_current_ai_20_minute_cap": [
+    "SC23",
+    "SC27",
+    "SC29",
+    "SC30"
+  ],
+  "limitations": [
+    "Not a live backend selection test.",
+    "No new paid model test.",
+    "Textual prerequisites are not executable filters.",
+    "Unique keys do not prove distinct useful outcomes.",
+    "No publication or professional approval."
+  ],
+  "tasks": [
+    {
+      "id": "SC01",
+      "words": 108,
+      "step_words": [
+        20,
+        20,
+        23
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC02",
+      "words": 102,
+      "step_words": [
+        19,
+        20,
+        19
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC03",
+      "words": 105,
+      "step_words": [
+        17,
+        21,
+        20
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC04",
+      "words": 109,
+      "step_words": [
+        22,
+        19,
+        23
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC05",
+      "words": 114,
+      "step_words": [
+        21,
+        22,
+        22
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC06",
+      "words": 109,
+      "step_words": [
+        22,
+        22,
+        21
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC07",
+      "words": 112,
+      "step_words": [
+        22,
+        22,
+        22
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC08",
+      "words": 111,
+      "step_words": [
+        21,
+        19,
+        20
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC09",
+      "words": 112,
+      "step_words": [
+        20,
+        20,
+        22
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC10",
+      "words": 118,
+      "step_words": [
+        21,
+        23,
+        24
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC11",
+      "words": 116,
+      "step_words": [
+        22,
+        22,
+        24
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC12",
+      "words": 119,
+      "step_words": [
+        22,
+        22,
+        25
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC13",
+      "words": 102,
+      "step_words": [
+        20,
+        23,
+        18
+      ],
+      "active_minutes": 10
+    },
+    {
+      "id": "SC14",
+      "words": 115,
+      "step_words": [
+        20,
+        21,
+        23
+      ],
+      "active_minutes": 10
+    },
+    {
+      "id": "SC15",
+      "words": 111,
+      "step_words": [
+        21,
+        22,
+        24
+      ],
+      "active_minutes": 10
+    },
+    {
+      "id": "SC16",
+      "words": 100,
+      "step_words": [
+        23,
+        21,
+        19
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC17",
+      "words": 111,
+      "step_words": [
+        22,
+        21,
+        22
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC18",
+      "words": 114,
+      "step_words": [
+        21,
+        21,
+        24
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC19",
+      "words": 102,
+      "step_words": [
+        18,
+        22,
+        18
+      ],
+      "active_minutes": 10
+    },
+    {
+      "id": "SC20",
+      "words": 109,
+      "step_words": [
+        18,
+        23,
+        23
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC21",
+      "words": 115,
+      "step_words": [
+        23,
+        23,
+        22
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC22",
+      "words": 109,
+      "step_words": [
+        19,
+        21,
+        24
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC23",
+      "words": 105,
+      "step_words": [
+        21,
+        21,
+        19
+      ],
+      "active_minutes": 25
+    },
+    {
+      "id": "SC24",
+      "words": 108,
+      "step_words": [
+        19,
+        22,
+        22
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC25",
+      "words": 111,
+      "step_words": [
+        23,
+        22,
+        21
+      ],
+      "active_minutes": 15
+    },
+    {
+      "id": "SC26",
+      "words": 110,
+      "step_words": [
+        20,
+        21,
+        22
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC27",
+      "words": 110,
+      "step_words": [
+        19,
+        23,
+        21
+      ],
+      "active_minutes": 30
+    },
+    {
+      "id": "SC28",
+      "words": 106,
+      "step_words": [
+        22,
+        20,
+        20
+      ],
+      "active_minutes": 20
+    },
+    {
+      "id": "SC29",
+      "words": 116,
+      "step_words": [
+        24,
+        22,
+        20
+      ],
+      "active_minutes": 25
+    },
+    {
+      "id": "SC30",
+      "words": 115,
+      "step_words": [
+        24,
+        21,
+        21
+      ],
+      "active_minutes": 25
+    }
+  ]
+}
