@@ -55,6 +55,18 @@ Post-deployment checks confirmed the simplified recap renders at the hosted alia
 
 ## Pilot details worth preserving
 
+### October 12 navigation repair — reported by Ada
+
+Ada correctly reported that Continue led to another bubble screen with no forward action. The earlier tests accepted that unfinished endpoint; they did not establish a complete useful journey. The topic endpoint is now replaced by a distinct Explore card screen, and legacy `#/topics` links redirect to `#/app/explore`. App navigation no longer uses the onboarding Back path. Account round-trips preserve the mounted preview and restore the correct route/focus.
+
+An explicitly labeled **temporary task-flow preview** now connects Explore → sick-day concerns → three authored examples → task detail → add → My list → completion. Explore/My list navigation remains available; unsupported topics offer a clear exit and an explicit option to try the sick-day sample. No automatic cross-topic fallback is used. Sample tasks, list changes and completion live only in page memory and clear on refresh or account change; no cloud task persistence or real animal award is claimed. Concerns do not yet alter the fixed sample batch, and the UI says so. The real Clerk/D1 profile boundary is unchanged; no synthetic catalog or new task/AI API route was enabled.
+
+78 app tests and strict TypeScript/Pages packaging pass. Actual CUA testing walked all eleven questions, two selected interests, recap Continue, Explore cards, concern choices, all three idea cards, task detail, add, My list and completion. Both detail-button and list-checkbox completion were exercised. Further checks covered unsupported-topic exits, retained sample state across account/category navigation, repeated-completion protection, browser Back/Forward, exhaustion, the old URL redirect, refresh-cleared sample list, mobile layouts at 393/320px and no observed browser error logs. The maintained foundation script has matching regressions and passes syntax checking; it was not used to drive the browser in this task.
+
+This fixes the reported navigation dead end and supplies a complete **sample** interaction path, not production task recommendations. Real reviewed content, task storage integration, onboarding completion/resume markers and full release checks remain outstanding.
+
+Deployment `b9ab91c6` is live at the existing app-auth-staging alias. A fresh hosted tab loaded the existing saved profile; Continue saved those unchanged values and moved to Explore after confirmed success. Hosted checks also walked sick-day examples through adding to My list, then Account → Explore, preserving the sample count. No fictional profile values were entered. The published client bundle matches the repaired build; health remains 200, unauthenticated profile reads 401 and recommendations 404. See [navigation verification](../app/verification-navigation.json). Original in-progress tabs were preserved rather than reloaded.
+
 ### Mobile-web build checkpoint — October 11
 
 Ada confirmed mobile web first and native later, requested the full ordered roadmap, then authorized starting Step 1. The roadmap is kept in [current product](current-product.md#ordered-build-plan-to-a-usable-v0). Review found obsolete cookie-authenticated endpoints, incompatible response fields and task IDs in the earlier draft. The active app now uses the canonical API client and a separate profile-session controller. That controller is connected to the preserved onboarding/interest/recap screens through an explicitly unconfigured identity adapter; the email provider is Step 2.

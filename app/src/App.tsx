@@ -6,13 +6,12 @@ import { acknowledgementMessage, startingPointMessage } from './elephant-message
 import { emptyDraft, editableProfile, type ProfileDraft } from './profile-draft';
 import type { ProfileSession, ProfileSessionState } from './profile-session';
 import { questions } from './onboarding';
-import { interestLabels, interestEntries } from './interest-labels';
+import { interestEntries } from './interest-labels';
 import { createSignInHandoff } from './sign-in-handoff';
-import { orderTopics } from './topic-order';
-import type { TopicId } from './api-contracts';
+import { TaskJourneyPreview } from './components/TaskJourneyPreview';
 
-type Page = 'welcome' | 'question' | 'pause' | 'interests' | 'recap' | 'topics' | 'account';
-const pages: Page[] = ['welcome', 'question', 'pause', 'interests', 'recap', 'topics', 'account'];
+type Page = 'welcome' | 'question' | 'pause' | 'interests' | 'recap' | 'app' | 'account';
+const pages: Page[] = ['welcome', 'question', 'pause', 'interests', 'recap', 'app', 'account'];
 const feelingStep = questions.findIndex(question => question.id === 'feeling');
 
 /** An API rejection clears app data, but does not revoke the provider's session. */
@@ -79,7 +78,8 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
   const [note, setNote] = useState('');
   const [feeling, setFeeling] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
-  const [selectedTopic, setSelectedTopic] = useState<TopicId | null>(null);
+  const [appEntered, setAppEntered] = useState(false);
+  const accountReturn = useRef('#/welcome');
   const interestReturn = useRef<{ page: Page; step: number }>({ page: 'question', step: questions.length - 1 });
   const [notice, setNotice] = useState(initialDraft ? 'Your choices came with you. Review them before saving; your previous saved answers have not been replaced.' : '');
   const main = useRef<HTMLElement>(null);
@@ -88,13 +88,17 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
     if (state.snapshot && !dirty) setDraft(editableProfile(state.snapshot.profile));
   }, [state.snapshot, dirty]);
   useEffect(() => {
-    main.current?.querySelector('h1')?.focus();
+    [...(main.current?.querySelectorAll('h1') || [])].find(heading => !heading.closest('[hidden]'))?.focus();
     window.scrollTo(0, 0);
   }, [page, step]);
   useEffect(() => {
     const restore = () => {
-      const [value, questionId] = location.hash.slice(2).split('/') as [Page, string?];
+      const [rawPage, questionId] = location.hash.slice(2).split('/');
+      // Retire the dead-end topic URL as well as its UI. Old bookmarks move forward.
+      const value = (rawPage === 'topics' ? 'app' : rawPage) as Page;
+      if (rawPage === 'topics') history.replaceState(null, '', '#/app/explore');
       setPage(pages.includes(value) ? value : 'welcome');
+      if (value === 'app') setAppEntered(true);
       const savedNavigation = history.state?.onboarding;
       setEditing(['question', 'interests'].includes(value) && savedNavigation?.editing === true);
       const returnTo = savedNavigation?.interestReturn;
@@ -114,13 +118,16 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
 
   function nav(next: Page, nextStep = step, editMode = false) {
     if (state.busy) return;
+    if (next === 'account' && page !== 'account') accountReturn.current = location.hash || '#/welcome';
+    if (next === 'app') setAppEntered(true);
     setPage(next);
     setEditing(editMode);
     if (next === 'question') setStep(nextStep);
     // Only public question IDs enter the URL. Browser Back restores the question,
     // without putting any answers in history or claiming cloud draft recovery.
     history.pushState({ onboarding: { editing: editMode, interestReturn: { ...interestReturn.current } } }, '',
-      `#/${next}${next === 'question' ? `/${questions[nextStep].id}` : ''}`);
+      `#/${next}${next === 'question' ? `/${questions[nextStep].id}` : next === 'app' ? '/explore' : ''}`);
+    if (next === 'app') window.dispatchEvent(new PopStateEvent('popstate'));
   }
   function openInterests(editMode = false) {
     if (!editMode) interestReturn.current = { page, step };
@@ -166,14 +173,23 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
     else if (page === 'interests' && editing) nav('recap');
     else if (page === 'interests') nav(interestReturn.current.page, interestReturn.current.step);
     else if (page === 'recap') nav('interests');
-    else if (page === 'topics') nav('recap');
+    else if (page === 'account') {
+      history.pushState(null, '', accountReturn.current);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
     else nav('welcome');
   }
   async function continueToApp() {
-    if (state.status === 'unconfigured') { nav('topics'); return; }
+    if (state.status === 'unconfigured') { enterApp(); return; }
     if (await session.save(structuredClone(draft))) {
-      setDirty(false); setNotice(''); nav('topics');
+      setDirty(false); setNotice(''); enterApp();
     }
+  }
+  function enterApp() {
+    // Continue completes this transition instead of stacking another question page.
+    history.replaceState(null, '', '#/app/explore');
+    setAppEntered(true); setPage('app');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   }
   const canSave = state.status === 'new' || state.status === 'ready';
   const controls = accountControls(state.status, providerSignedIn);
@@ -182,7 +198,7 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
     <aside className="build-status">Early app preview · {state.status === 'unconfigured' ? 'email sign-in and cloud saving are not available yet' : state.busy ? 'Connecting…' : 'your profile, at your pace'}</aside>
     <div className="app-shell">
       <header className="topbar">
-        {page === 'welcome' ? <span className="wordmark">my safety</span> : <button className="back" disabled={state.busy} onClick={back}><span aria-hidden>‹</span> Back</button>}
+        {page === 'welcome' || page === 'app' ? <span className="wordmark">my safety</span> : <button className="back" disabled={state.busy} onClick={back}><span aria-hidden>‹</span> Back</button>}
         <button className="pet-button" disabled={state.busy} aria-label="Your account" onClick={() => nav('account')}><Elephant name={draft.elephantName} /></button>
       </header>
       <main ref={main} aria-busy={state.busy}>
@@ -233,17 +249,8 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
             </>}
             {canSave && <p className="hint">Continue saves your choices to your account.</p>}
           </section>}
-          {page === 'topics' && <section>
-            <span className="eyebrow">One area at a time</span>
-            <h1 tabIndex={-1}>Where would you<br />like to start?</h1>
-            <p>Choose one for now. There’s room for the others later.</p>
-            <div className="bubbles" role="group" aria-label="Choose one starting area">
-              {orderTopics(draft).map(([id, label]) => <button key={id} aria-pressed={selectedTopic === id}
-                className={selectedTopic === id ? 'selected' : ''} onClick={() => setSelectedTopic(id)}>
-                {label}{selectedTopic === id ? ' ✓' : ''}
-              </button>)}
-            </div>
-            <p className="hint" role="status">{selectedTopic ? `${interestLabels[selectedTopic]} is your starting area. ` : ''}This preview ends here for now. Your task ideas are being connected next.</p>
+          {appEntered && <section hidden={page !== 'app'}>
+            <TaskJourneyPreview draft={draft} />
           </section>}
           {page === 'account' && <section>
             <span className="eyebrow">Your little corner</span><h1 tabIndex={-1}>Growing<br />together.</h1><Elephant large name={draft.elephantName} />
@@ -253,7 +260,7 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
               <p>{controls.needsReconnection ? 'You’re signed in, but we couldn’t verify your connection. Check your saved answers, or sign out and try again.'
                 : state.status === 'signed_out' ? 'You are signed out.' : state.status === 'error' ? 'Your connection needs attention. You can check your saved answers or sign out.' : 'Your starting point is yours to revisit.'}</p>
               {providerSignedIn && accountLabel && <p className="hint">Signed in as {accountLabel}</p>}
-              <button className="primary" onClick={() => nav(canSave ? 'topics' : 'welcome')}>{canSave ? 'Explore topics' : 'Back to the beginning'}</button>
+              <button className="primary" onClick={() => nav(canSave ? 'app' : 'welcome')}>{canSave ? 'Explore topics' : 'Back to the beginning'}</button>
               {canSave && <button className="text-button" onClick={() => nav('question', 0)}>Update my preferences</button>}
               {controls.canSignIn && onSignIn && <button className="secondary" onClick={() => onSignIn()}>Sign in with email</button>}
               {controls.canSignOut && <button className="text-button" onClick={() => void session.signOut()}>Sign out</button>}

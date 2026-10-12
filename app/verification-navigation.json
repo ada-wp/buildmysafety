@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-12",
+  "scope": "Onboarding exit and explicit sample journey navigation",
+  "environment": "CUA in-app browser, localhost development + hosted staging",
+  "deployment": "b9ab91c6",
+  "automatedTests": 78,
+  "buildPassed": true,
+  "browserChecks": [
+    "Eleven question route and two interests to recap",
+    "Continue enters distinct Explore cards, not interest bubbles",
+    "Sick-day concerns to three fixed examples",
+    "Task detail, add, My list and checkbox completion",
+    "Task-detail Mark as done completion",
+    "Account Back retains sample list and focuses account heading",
+    "Unsupported topic has explicit exits and sample choice",
+    "Browser Back/Forward does not duplicate completion",
+    "More ideas returns honest exhaustion and retains list",
+    "Legacy topics hash redirects to app Explore",
+    "Refresh keeps app route but clears temporary sample list",
+    "393px visual inspection and 320px no horizontal overflow",
+    "Observed local browser error log empty"
+  ],
+  "limitations": [
+    "Task examples are fixed and do not depend on concern selections",
+    "Sample state is temporary and not synced to D1",
+    "Cloud profile service unchanged; no task or AI routes enabled",
+    "No physical-phone or production release verification"
+  ],
+  "hostedChecks": [
+    "Fresh hosted recap loaded the existing saved profile",
+    "Continue confirmed cloud profile save before opening app Explore; existing choices were not edited",
+    "Sick-day sample concerns to ideas to add to My list",
+    "Account Explore action restores Explore rather than stale list route; sample count retained",
+    "Health 200, unauthenticated memory 401, recommendations 404",
+    "Published client bundle matches repaired build"
+  ]
+}
