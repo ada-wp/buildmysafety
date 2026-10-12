@@ -8,6 +8,8 @@ Latest content checkpoint, October 12: the [three-case discovery follow-up](prom
 
 ## Purpose
 
+Content reference, October 12: Ada recommended Alone Actually for structuring categories and the potential solution pool. The [saved review](../research/alone-actually-reference.md) explores category → situation → useful task options. Its proposed labels are for discussion, and the first category remains sick-day preparation. This reference does not change the app or approve third-party advice.
+
 Primarily help women living solo build a sense of agency, safety and control through practical knowledge, preparation, supportive connections and chosen actions. Living solo remains the core audience and context, as Ada reconfirmed on October 1; the purpose includes enjoying life and trusting one's ability to act, not just household upkeep. Each visit should make one useful action feel possible. Follow [founder voice](founder-voice.md); do not frame solo living as a problem, manufacture fear or imply guaranteed protection.
 
 Onboarding adds focus; it does not determine or restrict the whole experience. The person's current topic, selected concerns and explicit request take priority over earlier answers. Keep all supported topics accessible and editable. Ada also requested restrained AI use: reviewed solution pools and simple selection rules should supply ordinary recommendations; generative AI is reserved for meaningful gaps or adaptations.
