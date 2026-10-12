@@ -8,6 +8,8 @@
 
 ### Category package — current direction
 
+**Additional research reference:** Ada supplied a [Buildpad pain-point report](../research/buildpad-reference.md) for future category discussions and explicitly clarified that it is reference material, not a direction to change categories now. Consult its source leads alongside existing research and verify relevant claims. Its rankings, emergency-centered framing and proposed money track do not supersede founder decisions. The linked review also contains proposed follow-up research briefs for her trial; these have not been run.
+
 Ada's latest October 12 direction is to perfect one category at a time, starting with sick-day preparation. Each category should have informative situation/concern checkboxes, a tailored prompt, at least thirty carefully crafted reusable tasks and a simple roadmap from easier to more involved preparation. Its prompt also serves specific personal requests within that category. The minimum-thirty direction updates the earlier rough targets; do not reach it with renamed duplicates or filler. It does not change the established three-suggestion, inspect, save and complete flow.
 
 Keep a shared foundation for voice, agency, memory use, source honesty, safety boundaries and task shape. Add category-specific knowledge, fit rules, examples and exclusions rather than trying to make one broad prompt supply every subject's expertise. Prompt revision means updating instructions and reviewed examples; tests do not automatically train model weights.

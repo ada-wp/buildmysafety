@@ -7,6 +7,7 @@ Research gathered September 23, 2026; open-source assessment September 29. Conso
 | [Market research](market-research.md) | Audience pain points, competitor positioning, market uncertainty and validation experiments |
 | [Preventive solution framework](preventive-solutions.md) | Concrete action, template and resource ideas across six research themes |
 | [Alone Actually reference](alone-actually-reference.md) | October 12 founder-supplied inspiration for category → situation → task organization and useful discovery/preparation content; proposed groupings, not approved navigation |
+| [Buildpad report and follow-up briefs](buildpad-reference.md) | October 12 additional founder-supplied reference for future category decisions; original preserved, selective source checks and three proposed research briefs; no product changes |
 | [Sick-day pool sources](sick-care-pool-sources.md) | October 12 official/resource checks and qualified social evidence supporting the first thirty-task writing draft; linked to task IDs, not a refresh of the historical 60-area dataset |
 | [Social observations](social-findings.md) | Discussion examples, attention signals and limits of social “hype” evidence |
 | [Competitor profiles](competitors/) | Fourteen product profiles plus agency-oriented tools such as Finch and Goblin Tools |
