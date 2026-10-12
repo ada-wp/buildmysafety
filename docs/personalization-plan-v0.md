@@ -6,6 +6,30 @@
 
 ## The product decision
 
+### Content-quality reset — 12 October
+
+**Confirmed direction:** Ada wants carefully crafted tasks that help a person discover what she has not considered, understand relevant options, research intelligently and prepare in ways that improve daily life. The early ten tasks matter especially. Aim for roughly three to five categories with about twenty strong tasks each; exact taxonomy and individual tasks need review. Simple topic levels/roadmaps are optional later work. A coherent purpose does not require a new roadmap screen or a compulsory sequence now. The existing task flow and runtime are unchanged.
+
+**Proposed editorial standard, for discussion:**
+
+| Review question | Evidence the author must supply |
+| --- | --- |
+| What relevant gap does this address? | A concrete overlooked dependency, decision, option or skill. Do not manufacture a threat or assume everyone has this gap. |
+| What knowledge does the app contribute? | A useful explanation, specific route to help, comparison criteria or practice method. “Research this online” alone is insufficient. |
+| What becomes possible afterward? | A meaningful decision, tested option, actual arrangement, preparation or skill. A note is useful only when its contents serve a real later action. |
+| What work have we already done for her? | Checked starting sources and an explanation of what to look for; avoid passing all discovery and evaluation back to the user. |
+| Does it fit this person? | Explicit prerequisites, resource region, effort and cost; distinguish research from purchase and a prospective helper from agreed support. |
+
+Short presentation must not flatten the task's substance. Discovery is valuable when it addresses a relevant gap, not because a suggestion sounds novel. Basic preparation can still be useful for someone who lacks it. Respect explicit user constraints; reconsider blanket limits that turn every task into an under-twenty-minute, no-other-person activity. A longer action may have a useful bounded first step, but do not fragment one outcome into filler cards. This is a proposed rules revision, not a runtime change.
+
+**Proposed working sequence:** craft ten candidate benchmark tasks in the established sick-day/temporarily-unavailable scope, review their concrete value with Ada, then expand the approved approach toward twenty per chosen category. These ten are editorial benchmarks, not a universal compulsory onboarding sequence. Do not recommend pet, driving or paid-service tasks to everyone. Create a compact shared editorial record of the gap, rationale, task, outcome, suitable circumstances and checked sources; no new user-profile fields or roadmap database are needed at this stage.
+
+For a specific request, teach the writer to identify what is missing, retrieve relevant reviewed knowledge/solutions, choose a useful approach and adapt its steps to the person's circumstances. The app should do more than restate her concern in three small steps. The same quality standard applies to authored tasks and AI output. Keep at most one linked suggestion per batch and up to two checked resources within it. Insufficient knowledge is a content gap, not permission to invent a provider or URL.
+
+**Illustrative research direction, not approved pool content:** someone preparing pet care may need to learn that choosing a sitter also involves a preliminary meeting, clear service terms, and what happens if the sitter cannot attend. A task could help her find one appropriate candidate and send specific questions about notice, total fees and cover arrangements. Sending an inquiry is not having care arranged. [Pet Sitters International's standards](https://www.petsit.com/standards), checked October 12, describe preliminary meetings, service terms and contingency plans. These are industry guidance, not a guarantee about any listed sitter. A different knowledge-led example is checking an account recovery option: [Apple's recovery-contact guidance](https://support.apple.com/en-us/102641), checked October 12, explains that a recovery contact can help recover access without gaining access to the account. Only offer it when device/account and trusted-contact prerequisites fit. Neither example has been added to the app or tested as a new AI output.
+
+### Established interaction
+
 Onboarding asks what matters to her and what gets in the way. The new interest screen asks what she would like to build, including things she is simply curious about. Both are useful: a worry is not her identity, and an interest is not evidence that she has a problem.
 
 Use three separate layers:

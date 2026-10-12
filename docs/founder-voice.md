@@ -4,6 +4,10 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- After the ten-answer review on October 12, Ada said the app should provide a way to build a sense of safety step by step. She then clarified the immediate priority: carefully crafted tasks, especially the first ten a person encounters. Many people do not know what to consider, research or prepare. Content must reveal relevant blind spots, explain useful options and help people make concrete improvements; easy microtasks and the existing abstract usefulness definition have not delivered that value for her.
+- She proposed narrowing the initial offering to roughly three to five categories with about twenty carefully prepared tasks in each. This is a content direction and approximate target, not approval of category names, a quota to fill, or approval of existing drafts. Specific-request AI guides also need substantive revision.
+- Her follow-up: “每个主题有个 简单的等级 roadmap 也是可以的，但是无需复杂，可以之后加上” — a simple per-topic level roadmap is acceptable later. Do not make a new roadmap interface, compulsory progression or elaborate leveling system a prerequisite for improving task quality now.
+
 - After the foundation reliability pass on October 12, Ada asked: “can you review the suggestions you gave, test 10 ai answers and we review how to improve.” This authorizes a concrete baseline evaluation and joint editorial review, not automatic approval or deployment of rewritten tasks. Preserve weak/declined outputs rather than selecting only flattering examples.
 
 - Later on October 12 she explicitly said “lets finish the app foundations first.” Finish the bounded account, navigation and reliability work before returning to recommendation quality; this does not approve poor suggestions or authorize public release.
