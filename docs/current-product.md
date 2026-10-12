@@ -44,7 +44,7 @@ The personalization direction stays simple: **interests guide where to start; an
 6. Open a saved task for two to four simple steps (usually three), a clear completion condition, and up to two useful resource links. Use the [approved Option A screen](../design/app/task-detail/README.md): steps visible together, optional links and purchase considerations in initially collapsed rows. Show two or three purchase checks only when relevant. Generate and save these details with the original task; opening it does not trigger another generation or silently change its instructions.
 7. Complete a real action in My list with one completion checkbox for the whole task. The elephant grows in acknowledgment. Generation and saving do not earn growth. A task can earn its completion award only once, including across undo/re-completion or request retries.
 
-No punishment for absence, regressing animal, distress-based streak, fear score or claimed level of real-world safety. The user may remove, defer or decide a task no longer matters. Detailed growth milestones and reminder behavior remain to be decided after this interaction is reviewed.
+No punishment for absence, regressing animal, distress-based streak, fear score or claimed level of real-world safety. The user may remove, defer or decide a task no longer matters. Ada's latest milestone direction is **1, 3, 6, 9 and 10** completed tasks per category, with a short optional preparedness check-in. The [new design](../design/app/roadmap/README.md) is reviewable; these thresholds and daily opening on My list are not yet connected to the live app. No daily/weekly logging for V0.
 
 ## Content and AI
 
@@ -96,7 +96,7 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 ## Next gates
 
-**Roadmap design update, October 12:** Ada requested a lean roadmap and progress design using the elephant and a symbol of what she is building. The [proposal](../design/app/roadmap/README.md) now brings that design into the current task-content review. Earlier references to a deferred roadmap concern implementation: no new live roadmap, category scoring or reward thresholds have been deployed. The current proposal keeps Explore/My list and uses optional paths plus factual outcome history.
+**Roadmap design update, October 12:** Ada rejected the path/scene proposal and its replacement elephant. The [replacement design](../design/app/roadmap/README.md) follows her simpler Finch-like direction: My list as the everyday opening screen, the exact original elephant, one category progress bar, tiny completion movement, milestones **1/3/6/9/10**, and an optional preparedness check-in. Feeling ready offers a choice to stay or explore another category, with earlier work retained. No safety score, new roadmap page or daily/weekly logging. The clickable design was tested; live app behavior and storage were not changed.
 
 ### Ordered build plan to a usable V0
 

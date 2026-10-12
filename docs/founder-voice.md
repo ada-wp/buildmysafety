@@ -63,6 +63,10 @@ Prefer everyday language: living on your own, your home, your cat or pets, someo
 
 Describe solo living with dignity and possibility. Respect readers' different budgets, energy, time, health, and available support. Present practical gaps as things someone may choose to work on.
 
+## Companion and progress — October 12 clarification
+
+Ada wants a simple Finch-like interaction: open My list, see the elephant and a category progress bar, complete a chosen task, and receive a tiny warm response. Keep the original elephant exactly consistent in all screens and future animations; the earlier replacement and emoji placeholder were explicitly rejected. Milestones are **1, 3, 6, 9 and 10**, with an optional question about how prepared she feels in that theme. If she feels ready, offer another category without requiring her to leave or preventing her return. No daily/weekly logging for V0. See the [current design direction](../design/app/roadmap/README.md); the mockup is not a live app change.
+
 ## Editorial boundaries
 
 - Do not manufacture fear, urgency, catastrophe scenarios, guilt, or pressure to keep people reading.

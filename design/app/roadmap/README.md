@@ -1,50 +1,42 @@
-# Gentle roadmap and progress — design proposal
+# My list, elephant and progress
 
-October 12, 2026. Ada requested a lean roadmap and progress experience using the elephant and a visual symbol of what the user is building. This is a proposed design, not approved production behavior. The accompanying conversational mockup is a synthetic pet-care example; it does not update accounts, tasks or the app.
+October 12, 2026. Ada rejected the earlier path/scene proposal and its replacement elephant. Her confirmed direction is a simple Finch-like home experience: My list, the original elephant, a category progress bar, small completion feedback, and milestones at **1, 3, 6, 9 and 10** completed tasks. This supersedes earlier 1/5/15 proposals. The new clickable design is for review; no live app, database or reward thresholds were changed.
 
-## Product structure
+## Four views to review
 
-Keep Explore and My list as the two navigation tabs. Place a compact active-topic path inside My list, with an optional detail view. Keep the existing category → concern choices → up to three suggestions → inspect → + save → complete flow. Saving a first action starts the path without another questionnaire or enrollment screen.
+1. **My list — the everyday opening screen.** Original elephant above one progress bar; saved tasks below with a completion checkbox and a way to inspect their steps. My list and Explore remain the two main tabs. The bar counts distinct completed tasks in the active category toward the first ten. It is not a safety score or a percentage of the thirty-task pool.
+2. **Task completed — a brief state on My list.** Completing from the list or task detail advances the same bar. The elephant makes a tiny warm movement, with short acknowledgement and Undo. No full-screen interruption for ordinary completions.
+3. **Milestone check-in — one reusable bottom sheet.** At 1, 3, 6, 9 and 10, celebrate the count and ask one optional question about feeling prepared in this category. Proposed sick-day copy: “How prepared do you feel for a sick day on your own?” Answers: “Still unsure,” “Somewhat prepared,” and “Prepared enough for now.” Not now and Close return to the list.
+4. **Ready to explore — an optional bottom sheet.** After “Prepared enough for now,” offer “Explore another area” or “Keep building here.” This is her own reported feeling, not app-certified safety or category mastery. She can move on before ten, stay beyond ten, and return with her earlier progress intact.
 
-The thirty-task collection supplies options for different circumstances. It is not a thirty-task assignment or the denominator of a completion percentage. With multiple selected concerns, the initial suggestions can cover several useful fits; the first action she chooses gives her a starting focus. She can switch focus and keep other saved actions available.
+Keep the established category → concerns/manual request → fitting suggestions → inspect → + save flow. The thirty tasks are options, not required assignments. An empty My list offers a next-step action; it never traps a new user. Category switching retains each category's tasks and count. Existing task-detail and Explore views are reused, not new roadmap pages.
 
-Use the existing editorial stages as flexible signposts:
+## Elephant consistency is permanent
 
-1. **Find an option** — discover a relevant service, process or resource.
-2. **Make it workable** — establish access or try an arrangement if needed.
-3. **Strengthen it, if useful** — resolve a specific remaining gap.
+Use [the existing original elephant](../../../app/public/elephant.svg), also embedded in the [approved task-detail design](../task-detail/README.md). Preserve its appearance, proportions, lavender palette and illustration style in every screen and future animation. No emoji placeholder, newly generated animal, or redesign.
 
-Do not create three tasks merely to fill three stages. Some needs require one action; independent actions can happen in either order. Real prerequisites matter, but viewing a later option is always allowed. A completed research task does not prove a provider fits or that a booking exists. Check the actual prerequisite before offering a dependent action; never infer it from a count.
+The new preview embeds that exact SVG unchanged. Motion translates and gently rotates the existing image, with a brief heart; it does not introduce an illustrated hug pose. Honor reduced-motion preferences. Keep ivory/lavender primary, earthy dark green for text/actions, Instrument Serif and Inter. Additional poses must keep this same character.
 
-Example: SC26 researches a pet-care candidate; SC27 applies when she has chosen someone to meet; SC28 addresses vet permission with a chosen carer if needed. The veterinary task does not require completing SC27 first. An existing trusted carer lets her start with a remaining gap.
+Finch is the interaction reference: companion and goals on the home screen, simple check-off feedback. Refer to its official [home page explanation](https://help.finchcare.com/hc/en-us/articles/37780000231309-Exploring-the-Finch-Home-Page) and [goal completion explanation](https://help.finchcare.com/hc/en-us/articles/37779940291213-Creating-and-Completing-Goals). Use My Safety's own art, copy and purpose.
 
-## What progress means
+## Progress rules
 
-- Saved tasks stay on My list. A whole-task completion records a real, user-reported outcome. A pending inquiry remains unfinished when the task needs a reply.
-- Show concrete history: a care route checked, a handoff tried, or a process agreed. If an option proved unsuitable, celebrate a clearer decision without claiming help is available.
-- Display completed preparations or, for an explicitly chosen finite set, completed chosen actions. Do not display a safety score, category mastery, or percent of the full library. Adding a task changes her chosen work, not her supposed safety level.
-- Reuse **Already in place** feedback to avoid unnecessary tasks. It is distinct from completing an action in the app and earns no growth award. Skip/removal is allowed and does not erase achievements.
-- Completion from the task page or list uses the same operation. Repeated taps, retries and undo/re-completion cannot award the same canonical outcome twice.
-- Undo restores the task state; the elephant retains previously earned growth, as in the established design. The factual completion history and lifetime playful rewards stay separate.
+- Count whole, distinct tasks completed in the category. Saving, reading, generating and substeps do not earn completion progress.
+- Keep factual completion state separate from one-time elephant awards. Undo corrects the count without taking away prior playful growth. Re-completing the same canonical action does not award twice or repeat a seen milestone.
+- Completed work is visible in a compact history. Research completion must match its stated outcome; a listing or unanswered inquiry does not prove help is available.
+- The bar fills at ten but useful preparation remains available. Do not automatically enroll her in another ten-step block or label her fully safe.
+- A reflection can be skipped and does not determine task eligibility. Current needs, explicit constraints and real prerequisites still determine suitable suggestions.
+- Keep supportive acknowledgement authored. No AI call for completion, navigation, progress or milestone copy.
+- No daily/weekly logging, streak penalties, coins, feeding, new building game, or loss for absence in V0.
 
-## Elephant and building symbol
+## Preview scope and verification
 
-Proposed metaphor: **Your little place**. The elephant accompanies the user as a small scene develops. A stone or building piece appears after a new distinct task completion. The imagery reflects effort and capability; it does not suggest the app or animal physically protects her.
+The conversational design uses fictional task state and three sick-day task examples. A single Home & repairs example demonstrates switching category; it is not a reviewed or deployed Home task collection. Optional preview controls jump to each milestone or screen state.
 
-Use one fixed scene and a few visual states for V0, not a construction game. Compare stepping stones with foundation blocks in the mockup. Keep ivory, lavender and earthy dark green. The preview uses an elephant emoji as a placeholder; final artwork remains the existing original elephant.
+The click-through check passed at widths 320, 393 and 736 pixels, including completion from both list and task detail, milestones 1/3/6/9/10, dismissal, Undo/re-completion without duplicate awards/check-ins, the ready choice, switching back with retained progress, Escape dismissal, reduced motion and no runtime errors. Main, milestone and ready states were visually inspected. These checks validate the design preview only.
 
-Retain the earlier proposed milestone pacing of 1, 5 and 15 unique completions as a hypothesis: first piece, a modest scene/elephant change, then a keepsake. Exact art and thresholds remain for review. No coins, shop, pet feeding, lost growth, sad-animal prompts or streak penalty.
+## Later connection to the app
 
-Ordinary completion: a brief optional-motion response, one truthful outcome sentence, and Undo. A milestone may use a slightly fuller elephant moment. Offer **Back to My list** and an optional **See another option**; never add or schedule the next task automatically. Use reviewed outcome-specific copy, not a model call for every celebration.
+Reuse owned task state and unique completion awards. Derive per-category counts from canonical actions; changing task wording cannot create a second award. Persist seen milestones and optional category check-in answers only when this design is connected. Exact storage migration and return-route changes remain implementation work.
 
-## A reason to return
-
-On return, make an unfinished chosen action easy to resume and show what is already in place. After a completed action, offer a relevant further option when one exists. It is fine to pause after a useful preparation. New needs and life changes can create a new path; V0 need not demand daily use or push reminders.
-
-Evaluate whether users understand the gain, choose a first action, complete it, and voluntarily return to finish or choose something else. Compare against the existing plain list in a small pilot before claiming better engagement. Do not optimize raw clicks or task count at the expense of usefulness.
-
-## Lean implementation boundary
-
-Reuse the existing task state, completed outcomes, feedback and one-time award records. Shared task metadata already supplies stage and outcome identifiers. Generate the visible path from suitable options and user choices; do not store duplicate copies of the task pool or a new inferred personality profile. Keep this derived presentation separate from recommendation eligibility.
-
-Next: review the signposts and completion interaction with Ada alongside the first sick-day task group, then connect the chosen treatment after the content/matching review. No live roadmap or new reward thresholds were deployed by this design work.
+Next: review this simpler interaction and the first sick-day task group, then connect the accepted design. The content review, matching rules and real prerequisites remain necessary; progress counts do not replace them.

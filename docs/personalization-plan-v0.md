@@ -8,7 +8,7 @@
 
 ### Category package — current direction
 
-**Roadmap design request:** Ada now wants a lean roadmap and progress experience using the elephant and a symbol of what the user builds. The [October 12 design proposal](../design/app/roadmap/README.md) describes optional paths, concrete outcome history and small scene changes using existing task/award state. This brings roadmap design into the current discussion; it does not approve a compulsory curriculum, a safety score or live implementation. Review it alongside the sick-day tasks.
+**Roadmap design correction:** Ada rejected the earlier path/scene design. The [replacement direction](../design/app/roadmap/README.md) is My list as the everyday opening screen, the unchanged original elephant and a simple category progress bar, with milestones **1, 3, 6, 9 and 10**. A short optional check-in asks how prepared she feels. Feeling ready may lead to exploring another category, while staying or returning remains possible. No daily/weekly logging, compulsory curriculum or safety score. Counts and check-ins do not override task suitability or real prerequisites. The new clickable design was tested, not deployed or connected to storage.
 
 **Additional research reference:** Ada supplied a [Buildpad pain-point report](../research/buildpad-reference.md) for future category discussions and explicitly clarified that it is reference material, not a direction to change categories now. Consult its source leads alongside existing research and verify relevant claims. Its rankings, emergency-centered framing and proposed money track do not supersede founder decisions. The linked review also contains proposed follow-up research briefs for her trial; these have not been run.
 
