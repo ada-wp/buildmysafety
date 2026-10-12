@@ -53,6 +53,41 @@ function fakeClient(overrides: Partial<SafetyClient> = {}): SafetyClient {
   };
 }
 
+test('learning controls write only the chosen setting or reset revision, then read confirmed cloud state', async () => {
+  let stored = snapshot();
+  const changes: unknown[] = [];
+  const identity = fakeIdentity();
+  const session = createProfileSession(fakeClient({
+    async getMemory() { return structuredClone(stored); },
+    async updateMemory(write) {
+      changes.push(write); stored.profile.personalizationEnabled = write.changes.personalizationEnabled!;
+      stored.profile.revision++; stored.stateVersion = '2'; return { profile: stored.profile };
+    },
+    async resetMemory(write) {
+      changes.push(write); stored.profile.signalsResetAt = '2026-10-12T12:00:00Z';
+      stored.profile.revision++; stored.stateVersion = '3'; return { profile: stored.profile };
+    }
+  }), identity.adapter);
+  await session.load();
+  assert.equal(await session.setPersonalization(false), true);
+  assert.equal(session.getState().snapshot?.profile.personalizationEnabled, false);
+  assert.equal(await session.resetLearning(), true);
+  assert.deepEqual(changes, [{ expectedRevision: 1, changes: { personalizationEnabled: false } }, { expectedRevision: 2 }]);
+  assert.ok(session.getState().snapshot?.profile.signalsResetAt);
+  session.dispose();
+});
+
+test('a reset response arriving after account switch cannot replace the new account', async () => {
+  const identity = fakeIdentity(); const reset = deferred<ProfileResponse>(); let owner = 'test-owner-a';
+  const session = createProfileSession(fakeClient({ async getMemory() { return snapshot(owner); },
+    async resetMemory() { return reset.promise; } }), identity.adapter);
+  await session.load(); const pending = session.resetLearning();
+  owner = 'test-owner-b'; identity.change('token-b'); await nextTurn();
+  reset.resolve({ profile: snapshot().profile });
+  assert.equal(await pending, false); assert.equal(session.getState().snapshot?.profile.userId, owner);
+  session.dispose();
+});
+
 test('unconfigured identity makes no token/API calls and cannot save', async () => {
   const identity = fakeIdentity(false);
   const session = createProfileSession(fakeClient(), identity.adapter);

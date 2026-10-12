@@ -140,15 +140,26 @@ test('stale and browser-owned profile changes are rejected without changing stor
   assert.deepEqual(sqlite.prepare('SELECT * FROM memory_profiles').all(), rows);
 });
 
-test('reserved API namespace and unsupported reset routes never reach auth, D1 or SPA fallback', async t => {
+test('reserved API namespace never reaches auth, D1 or SPA fallback', async t => {
   const { worker, env, counts } = setup(t);
-  for (const path of ['/api', '/api/', '/api/memory/reset',
+  for (const path of ['/api', '/api/',
     '/api/memory/', '/api/%6demory', '/api%2Fmemory', '/API/memory', '/api/memory/unknown']) {
     for (const method of ['GET', 'POST', 'OPTIONS']) {
       await errorIs(await worker.fetch(req(path, method), env), 404, 'route_not_found');
     }
   }
   assert.deepEqual(counts(), { identityCalls: 0, assetCalls: 0 });
+});
+
+test('learning reset is an authenticated POST, uses revision checks and preserves profile answers', async t => {
+  const { send } = setup(t);
+  const profile = await (await send('/api/memory', 'POST', { interests: ['sick_care'] })).json();
+  for (const method of ['GET', 'DELETE', 'OPTIONS']) await errorIs(await send('/api/memory/reset', method), 405, 'method_not_allowed');
+  const reset = await send('/api/memory/reset', 'POST', { expectedRevision: profile.profile.revision });
+  assert.equal(reset.status, 200); privateHeaders(reset);
+  const result = await reset.json(); assert.deepEqual(result.profile.interests, ['sick_care']); assert.ok(result.profile.signalsResetAt);
+  await errorIs(await send('/api/memory/reset', 'POST', { expectedRevision: profile.profile.revision }), 409, 'stale_profile');
+  await errorIs(await send('/api/memory/reset', 'POST', { expectedRevision: 2, userId: 'user_bob' }), 400, 'invalid_body');
 });
 
 test('memory method allowlist rejects deletion, HEAD and preflight without invoking backend', async t => {

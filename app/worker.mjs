@@ -5,6 +5,7 @@ import { createOnboardingHandler } from '../personalization/onboarding.mjs';
 
 const API_METHODS = new Map([
   ['/api/memory', ['GET', 'POST', 'PATCH']],
+  ['/api/memory/reset', ['POST']],
   ['/api/catalog', ['GET']], ['/api/tasks', ['GET']], ['/api/tasks/action', ['POST']],
   ['/api/recommendations', ['POST']], ['/api/recommendations/latest', ['GET']],
   ['/api/onboarding', ['GET', 'POST']], ['/api/onboarding/complete', ['POST']]

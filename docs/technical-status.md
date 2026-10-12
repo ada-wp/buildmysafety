@@ -2,7 +2,17 @@
 
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
-## New needs beyond the collection — October 12, current checkpoint
+## Step 9: explicit feedback and learning controls — October 12, current checkpoint
+
+Deployment `365cbd9a`, client `index-isuwpS-u.js`, is live on the existing app-auth-staging alias. Suggestion cards and task details expose More like this, Not for me with a compact reason, and undo. Account exposes personalization off/on and confirmed Reset learning. The Worker now allowlists the existing authenticated `POST /api/memory/reset` route. No schema migration, new database, increased quota or production deployment was needed.
+
+All feedback uses the existing owner-scoped, versioned task mutation. Latest explicit feedback wins; it cannot leave a like and a contradictory negative reaction together. Relevant signals now carry title/outcome into both writer prompts. Pool ranking uses positive shared tags; a negative reaction cancels that task's boost without globally excluding a topic. Completion remains progress rather than a preference. Historical outcome packets omit saved/completed flags, retaining deduplication without bypassing opt-out/reset. Reset retains answers, task snapshots, saved/completed state and awards. Profile writes use guarded cloud readback, including account-switch cancellation.
+
+**Verification:** 99 app tests and 142 backend tests pass, plus strict TypeScript and the allowlisted Pages build. New tests cover feedback replacement, positive ranking and negative cancellation, next-question priority, prompt context, opt-out, reset, preserved completion/awards, reset authentication/method/body checks, stale revisions and late writes after an account switch. Actual hosted Clerk/Worker/D1 checks used only the previously approved fictional B account, in an independent HTTP session that was ended afterward. Likes, negative feedback, undo, off/on and reset persisted, and all prior task content/progress remained unchanged. The canonical next-request builder was run locally against those freshly read cloud records to verify relevant feedback and reset behavior; this was not another paid generation. See [the verification record](../app/verification-feedback.json) and [repeatable cloud check](../app/scripts/check-feedback-cloud.mjs).
+
+CUA checked the hosted feedback controls, expanded/cancelled reasons, and expanded/cancelled the account reset explanation. No invented feedback or setting change was applied to Ada's account. Task feedback had no horizontal overflow at 393px, and account controls had none at 320px; temporary viewport overrides were reset. Observed browser error logs were empty. Hosted write evidence comes from the separate test-account API session, not browser clicks. **Zero paid calls in this step.** Ada still finds the suggestions poor; content quality remains unfinished and this checkpoint does not authorize category expansion or a public launch. Export/deletion, production separation and broader release checks remain later steps.
+
+## New needs beyond the collection — October 12, earlier checkpoint
 
 Ada reported that the direct “Something else?” field still returned no new ideas. The earlier fix addressed only the separate refinement route. Root cause: automatic adaptation required a remaining pool target, so an exhausted pool skipped AI; the UI also cleared the note after any HTTP-success response.
 

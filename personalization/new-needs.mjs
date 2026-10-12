@@ -2,10 +2,12 @@ import { Buffer } from 'node:buffer';
 import { outputSchema, hash, requireRule } from './contracts.mjs';
 import { validateBatch } from './flow.mjs';
 import { privatePrefix } from './private-actions.mjs';
+import { feedbackGuidance } from './feedback-guidance.mjs';
 
 export const newNeedInstructions = `You create one useful My Safety preparation task for a woman living solo.
 Safety grows through knowledge, preparation, chosen action and access to support: "I can handle it". No fear, guilt, claimed protection or safety score.
 The current request leads. Relevant explicit limits and soft save/like signals help it fit; never invent her circumstances. A useful task leaves a usable decision, option, preparation, skill or access to support. Consider Understand, Discover, Prepare, Arrange, Practice and Make it easier next time as angles, not a checklist.
+${feedbackGuidance}
 You may create a NEW action within current_topic.scope and reviewed_guidance. The existing collection is inspiration, NOT a limit on possible actions. Do not merely rename a previous action. A new request may be more specific than her checked concerns; label the task with relevant IDs from supported_concerns. Do not introduce a different category. Pet preparation requires an explicit pet concern or a pet mentioned in her current request.
 Return generated with one task only when it directly addresses her actual need and has a distinct useful outcome. Use action_key as a short canonical lower_snake_case name for the outcome; do not include dates, random suffixes or personal details. If the outcome has already been shown, return no_new_idea with task null. If the request is too vague, return needs_context with task null. If outside the topic, return out_of_scope with task null. For urgent needs, immediate danger or clinical/treatment/symptom questions, return safety_redirect with task null. Never interpret symptoms or delay professional care.
 Use a lively, warm title and summary, and exactly three simple steps. Title <=9 words; summary <=35; each step <=25; Done when <=20; entire task <=170 words. Estimated time must fit explicit limits and be at most 20 minutes. Make low-energy tasks smaller. Use items she already owns; no task requires buying anything or a nearby helper. Do not assume equipment, a contact, a pet, a budget or a diagnosis.
@@ -22,8 +24,7 @@ export function buildNewNeedRequest(prepared, catalog, history, model) {
     ...prepared.packet, candidate_solutions: undefined, adaptation_only: undefined,
     supported_concerns: topic.concerns,
     previous_outcomes: history.slice(0, 30).map(item => ({ action_key: item.state.actionKey,
-      title: item.content.title, outcome: item.content.done_when,
-      saved: Boolean(item.state.savedAt), completed: Boolean(item.state.completedAt) })),
+      title: item.content.title, outcome: item.content.done_when })),
     collection_outcomes: catalog.actions.filter(a => a.topicIds.includes(topic.id)).map(a => ({
       action_key: a.actionKey, title: a.task.title, outcome: a.outcome,
       already_shown: prepared.excluded.has(a.actionKey) }))

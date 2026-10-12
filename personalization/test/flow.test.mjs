@@ -160,6 +160,21 @@ test('explicit feedback stays local to a task, with no inferred permanent prefer
   assert.equal(p.packet.user_memory.preference_signals[0].feedback, 'too_expensive');
   assert.equal(p.effective.noSpend, null);
   assert.ok(p.candidates.some(c => c.requiresSpending));
+  assert.equal(p.packet.user_memory.preference_signals[0].title, o.catalog.actions.find(a => a.actionKey === 'rest_station').task.title);
+  assert.ok(p.packet.user_memory.preference_signals[0].outcome);
+});
+
+test('useful approach influences the next question; a negative response cancels its boost without banning the topic', async () => {
+  const o = options();
+  o.store.change(s => s.taskStates.push(taskState('outside_help', { likedAt: T1 })));
+  let p = await prepare(o);
+  assert.equal(p.candidates[0].actionKey, 'usual_delivery');
+  o.store.change(s => { s.taskStates[0].feedbackCode = 'too_generic'; s.taskStates[0].feedbackAt = T2; });
+  p = await prepare(o);
+  assert.notEqual(p.candidates[0].actionKey, 'usual_delivery');
+  assert.ok(p.candidates.some(c => c.actionKey === 'usual_delivery'));
+  assert.equal(p.packet.current_topic.id, o.request.topicId);
+  assert.deepEqual(p.packet.previous_actions, [{ action_key: 'outside_help' }]);
 });
 
 test('prompt injection stays user data; identity, name and old focus never enter instructions or input', async () => {

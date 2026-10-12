@@ -80,6 +80,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
   const [note, setNote] = useState('');
   const [feeling, setFeeling] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
   const [appEntered, setAppEntered] = useState(false);
   const accountReturn = useRef('#/welcome');
   const interestReturn = useRef<{ page: Page; step: number }>({ page: 'question', step: questions.length - 1 });
@@ -318,6 +319,24 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
               {providerSignedIn && accountLabel && <p className="hint">Signed in as {accountLabel}</p>}
               <button className="primary" onClick={() => nav(state.status === 'ready' ? 'app' : state.status === 'new' ? 'recap' : 'welcome')}>{state.status === 'ready' ? 'Explore topics' : state.status === 'new' ? 'Save my starting point' : 'Back to the beginning'}</button>
               {canSave && <button className="text-button" onClick={() => nav('question', 0)}>Update my preferences</button>}
+              {state.status === 'ready' && state.snapshot && <div className="learning-controls">
+                <label className="setting"><span>Personalize future suggestions</span>
+                  <input type="checkbox" checked={state.snapshot.profile.personalizationEnabled} onChange={async e => {
+                    const enabled = e.target.checked;
+                    if (await session.setPersonalization(enabled)) {
+                      setDraft(value => ({ ...value, personalizationEnabled: enabled }));
+                      setNotice(enabled ? 'Personalization is on. Your current request still comes first.' : 'Personalization is off. Past task choices won’t guide new suggestions.');
+                    }
+                  }} /></label>
+                <p className="hint">Use your saved preferences, tasks and feedback to help future ideas fit. Your current request leads. This doesn’t train a model on your account.</p>
+                <button className="text-button" onClick={() => setConfirmReset(value => !value)}>Reset learning</button>
+                {confirmReset && <div className="message"><p>Forget past likes and feedback, and stop using older saves as preference signals. Your answers, saved tasks and little wins stay.</p>
+                  <button className="secondary" onClick={async () => { if (await session.resetLearning()) {
+                    setConfirmReset(false); setNotice('Learning reset. Your answers, tasks and progress are still here.');
+                  } }}>Reset my learning</button>
+                  <button className="text-button" onClick={() => setConfirmReset(false)}>Cancel</button>
+                </div>}
+              </div>}
               {controls.canSignIn && onSignIn && <button className="secondary" onClick={() => onSignIn()}>Sign in with email</button>}
               {controls.canSignOut && <button className="text-button" onClick={() => void session.signOut()}>Sign out</button>}
             </>}

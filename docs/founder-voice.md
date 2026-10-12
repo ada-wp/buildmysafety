@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- On October 12 she said to move to the next step “even though the suggestion is really bad.” Keep recommendation quality explicitly unfinished. Her permission to continue building is not approval of the content or a reason to expand categories before reviewing useful examples.
+
 - Her public name is Ada.
 - She has lived alone for more than seven years, with a cat.
 - She dislikes fear-based content that keeps people scrolling without helping them take action.

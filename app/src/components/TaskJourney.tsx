@@ -7,6 +7,7 @@ import { orderTopics } from '../topic-order';
 import { createTaskSession } from '../task-session';
 import { recommendationFeedback } from '../recommendation-feedback';
 import { Elephant } from './Elephant';
+import { TaskFeedback } from './TaskFeedback';
 
 type Route = { page: 'explore' | 'list' | 'concerns' | 'ideas' | 'earlier' } | { page: 'topic'; topic: TopicId } |
   { page: 'task' | 'complete' | 'refine'; task: string };
@@ -100,12 +101,15 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
   function open(task: RecommendationTask, from: 'ideas' | 'list') { origin.current = from; navigate({ page: 'task', task: task.action_key }); }
   function card(task: RecommendationTask, from: 'ideas' | 'list' = 'ideas') {
     const added = saved.some(item => item.state.actionKey === task.action_key);
+    const owned = entries.find(item => item.state.actionKey === task.action_key);
     return <article className="task-card" key={task.action_key}><div className="task-card-main">
       <button className="task-title" onClick={() => open(task, from)}>{task.title}<span className="meta">{task.estimated_minutes} min</span></button>
       <button className={`add${added ? ' added' : ''}`} disabled={added || blocked} aria-label={`${added ? 'Added' : 'Add'} ${task.title}`}
         onClick={() => void act(task, { type: 'save' })}>{added ? '✓' : '+'}</button>
     </div><p className="description">{task.summary}</p>{entries.find(item => item.state.actionKey === task.action_key)?.state.contentRef.startsWith('ai_') && <p className="hint">AI-tailored to your request</p>}
-      {canRefine(task) && <button className="text-button" disabled={blocked} onClick={() => startRefining(task, from)}>Make this fit me</button>}</article>;
+      {canRefine(task) && <button className="text-button" disabled={blocked} onClick={() => startRefining(task, from)}>Make this fit me</button>}
+      {owned && <TaskFeedback task={owned.state} disabled={blocked} enabled={draft.personalizationEnabled}
+        onChange={event => session.act(task.action_key, event)} />}</article>;
   }
   function row(item: typeof entries[number]) {
     const complete = Boolean(item.state.completedAt);
@@ -202,6 +206,8 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
         : current.state.completedAt ? <><p className="message">Done, by you.</p><button className="text-button" disabled={blocked} onClick={() => void act(current.content, { type: 'undo_complete' })}>Mark as not done</button></>
           : <button className="primary" disabled={blocked} onClick={() => void act(current.content, { type: 'complete' })}>Mark as done</button>}
       <button className="text-button" onClick={() => navigate({ page: 'list' })}>View my list</button>
+      <TaskFeedback key={current.state.actionKey} task={current.state} disabled={blocked} enabled={draft.personalizationEnabled}
+        onChange={event => session.act(current.state.actionKey, event)} />
     </section> : <section><h1 tabIndex={-1}>Let’s find<br />your next step.</h1><p>This task isn’t in your account. Your list is still here.</p><button className="primary" onClick={() => navigate({ page: 'list' })}>Go to my list</button></section>)}
     {route.page === 'list' && <section><span className="eyebrow">My list</span><h1 tabIndex={-1}>One thing<br />at a time.</h1>
       {!saved.length ? <div className="empty"><Elephant large name={draft.elephantName} /><p>Your list has room for something small. Add an idea when it feels useful.</p><button className="primary" onClick={() => navigate({ page: 'concerns' })}>Find a first step</button></div>

@@ -319,10 +319,14 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
           break;
         case 'complete': if (!next.completedAt) next.completedAt = at; break;
         case 'undo_complete': next.completedAt = null; break;
-        case 'like': if (!next.likedAt) next.likedAt = at; break;
+        case 'like':
+          if (!next.likedAt) next.likedAt = at;
+          next.feedbackCode = null; next.feedbackAt = null;
+          break;
         case 'unlike': next.likedAt = null; break;
         case 'feedback':
           if (next.feedbackCode !== event.code) { next.feedbackCode = event.code; next.feedbackAt = event.code === null ? null : at; }
+          if (event.code && event.code !== 'helpful') next.likedAt = null;
           break;
       }
       checkTask(next, owner);

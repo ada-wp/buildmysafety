@@ -45,7 +45,8 @@ function memoryFor(profile, states, catalog, topic, effective) {
     const feedback = activeAfter(state.feedbackAt, profile.signalsResetAt) ? state.feedbackCode : null;
     if (!liked && !saved && !feedback) return [];
     const recent = Math.max(...[liked && state.likedAt, saved && state.savedAt, feedback && state.feedbackAt].filter(Boolean).map(Date.parse));
-    return [{ action_key: state.actionKey, tags: action.tags, liked, saved, feedback, recent }];
+    return [{ action_key: state.actionKey, tags: action.tags, title: action.task.title,
+      outcome: action.task.done_when, liked, saved, feedback, recent }];
   }).sort((a, b) => b.recent - a.recent || a.action_key.localeCompare(b.action_key))
     .slice(0, LIMITS.signals).map(({ recent, ...signal }) => signal) : [];
   // Only relevant explicit facts. Prior focus, identity, feelings and raw notes are omitted.
@@ -133,7 +134,7 @@ export async function prepare({ owner, request, store, catalog, testMode = false
   }
   const resources = new Map(resourceCandidates.map(resource => [resource.id, resource]));
   requireRule(resources.size === resourceCandidates.length, 'duplicate_resource_id');
-  const positives = memory.preference_signals.filter(signal => signal.liked || signal.saved);
+  const positives = memory.preference_signals.filter(signal => signal.liked || signal.saved || signal.feedback === 'helpful');
   const negativeKeys = new Set(memory.preference_signals.filter(signal => signal.feedback && signal.feedback !== 'helpful').map(s => s.action_key));
   const rank = action => {
     if (!profile.personalizationEnabled) return 0;
@@ -163,7 +164,7 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     } },
     user_memory: memory,
     previous_actions: taskStates.filter(state => memoryCatalog.actions.some(a => a.actionKey === state.actionKey && a.topicIds.includes(topic.id)))
-      .slice(-LIMITS.previous).map(state => ({ action_key: state.actionKey, completed: Boolean(state.completedAt), saved: Boolean(state.savedAt) })),
+      .slice(-LIMITS.previous).map(state => ({ action_key: state.actionKey })),
     reviewed_guidance: topic.guidance,
     eligible_resources: [...resources.values()].map(({ id, name, purpose, countries, cost, limits }) => ({ resource_id: id, name, purpose, countries, cost, limits })),
     candidate_solutions: candidates.map(action => ({ action_key: action.actionKey, outcome_group: outcomeGroup(action), concern_ids: action.concernIds,

@@ -7,6 +7,7 @@ import { catalog } from '../catalog.mjs';
 import { createD1Store } from '../d1-store.mjs';
 import { createAiBudget } from '../ai-budget.mjs';
 import { prepare } from '../flow.mjs';
+import { buildNewNeedRequest } from '../new-needs.mjs';
 
 function setup(t, generate) {
   const sqlite = new DatabaseSync(':memory:'); sqlite.exec('PRAGMA foreign_keys = ON');
@@ -50,6 +51,44 @@ const freshTask = () => ({ action_key: 'quiet_notifications', concern_ids: ['dai
   estimated_minutes: 5, steps: ['Open your phone’s focus settings.',
     'Choose which contacts can reach you during a rest break.', 'Save a quiet mode you can switch on when you need rest.'],
   done_when: 'A quiet mode is ready with your chosen contacts allowed.', resources: [], purchase_checks: [], no_purchase_option: null });
+
+test('feedback is atomic and reversible; learning controls preserve progress and current need', async t => {
+  let calls = 0;
+  const { request, store } = setup(t, async () => { calls++; throw new Error('No model calls for feedback'); });
+  await store.createProfile('alice', { answers: { country: 'US' } }); await store.createProfile('bob', {});
+  const first = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: ['food'] } }))).json();
+  const key = first.batch.tasks[0].action_key;
+  let action = await store.applyTaskAction('alice', first.stateVersion, key, { type: 'save' });
+  action = await store.applyTaskAction('alice', action.stateVersion, key, { type: 'complete' });
+  const savedAt = action.task.savedAt, completedAt = action.task.completedAt;
+  action = await store.applyTaskAction('alice', action.stateVersion, key, { type: 'like' });
+  assert.ok(action.task.likedAt);
+  action = await store.applyTaskAction('alice', action.stateVersion, key, { type: 'feedback', code: 'too_generic' });
+  assert.equal(action.task.likedAt, null); assert.equal(action.task.feedbackCode, 'too_generic');
+  const need = { topicId: 'sick_care', concernIds: ['daily_tasks'], note: 'Help me plan quiet rest breaks.' };
+  let prepared = await prepare({ owner: 'alice', request: need, store, catalog, allowEditorialReview: true });
+  let sent = packet(buildNewNeedRequest(prepared, catalog, (await store.readTasks('alice')).tasks, 'gpt-6-luna'));
+  assert.equal(sent.user_context.current_request, need.note);
+  assert.equal(sent.selected_concerns[0].id, 'daily_tasks');
+  assert.equal(sent.user_memory.preference_signals[0].feedback, 'too_generic');
+  assert.ok(sent.user_memory.preference_signals[0].title);
+  assert.equal(sent.previous_outcomes[0].saved, undefined);
+  action = await store.applyTaskAction('alice', action.stateVersion, key, { type: 'like' });
+  assert.equal(action.task.feedbackCode, null);
+  action = await store.applyTaskAction('alice', action.stateVersion, key, { type: 'unlike' });
+  assert.equal(action.task.likedAt, null);
+  const off = await store.editProfile('alice', 1, { personalizationEnabled: false });
+  prepared = await prepare({ owner: 'alice', request: need, store, catalog, allowEditorialReview: true });
+  assert.deepEqual(prepared.packet.user_memory.preference_signals, []); assert.ok(prepared.excluded.has(key));
+  const on = await store.editProfile('alice', off.revision, { personalizationEnabled: true });
+  assert.ok((await prepare({ owner: 'alice', request: need, store, catalog, allowEditorialReview: true })).packet.user_memory.preference_signals.length);
+  await store.resetPreferences('alice', on.revision);
+  prepared = await prepare({ owner: 'alice', request: need, store, catalog, allowEditorialReview: true });
+  assert.deepEqual(prepared.packet.user_memory.preference_signals, []); assert.ok(prepared.excluded.has(key));
+  const after = await store.readTasks('alice'); const task = after.tasks.find(t => t.state.actionKey === key);
+  assert.equal(task.state.savedAt, savedAt); assert.equal(task.state.completedAt, completedAt); assert.equal(after.earnedCount, 1);
+  assert.deepEqual((await store.readTasks('bob')).tasks, []); assert.equal(calls, 0);
+});
 
 test('new need after pool exhaustion creates a genuinely new private action, replays, saves and supplies memory', async t => {
   let calls = 0; let sent;

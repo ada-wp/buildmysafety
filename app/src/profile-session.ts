@@ -67,7 +67,7 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
     } finally { if (current(ticket)) pending = null; }
   }
 
-  async function save(draft: ProfileDraft): Promise<boolean> {
+  async function writeProfile(write: (snapshot: MemorySnapshot | null, signal: AbortSignal) => Promise<unknown>): Promise<boolean> {
     if (disposed || state.busy || !['new', 'ready'].includes(state.status)) return false;
     const snapshot = state.snapshot;
     const ticket = generation;
@@ -76,8 +76,7 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
     emit({ ...state, busy: true, error: null });
     try {
       // No owner ID comes from an editable draft. Do not replay an interrupted write.
-      if (snapshot) await client.updateMemory({ expectedRevision: snapshot.profile.revision, changes: draft }, { signal: controller.signal });
-      else await client.createMemory(draft, { signal: controller.signal });
+      await write(snapshot, controller.signal);
       if (!current(ticket)) return false;
       const fresh = await client.getMemory({ signal: controller.signal });
       if (!current(ticket)) return false;
@@ -88,6 +87,15 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
       return false;
     } finally { if (current(ticket)) pending = null; }
   }
+
+  const save = (draft: ProfileDraft) => writeProfile((snapshot, signal) => snapshot
+    ? client.updateMemory({ expectedRevision: snapshot.profile.revision, changes: draft }, { signal })
+    : client.createMemory(draft, { signal }));
+  const setPersonalization = (enabled: boolean) => state.status !== 'ready' ? Promise.resolve(false)
+    : writeProfile((snapshot, signal) => client.updateMemory({ expectedRevision: snapshot!.profile.revision,
+      changes: { personalizationEnabled: enabled } }, { signal }));
+  const resetLearning = () => state.status !== 'ready' ? Promise.resolve(false)
+    : writeProfile((snapshot, signal) => client.resetMemory({ expectedRevision: snapshot!.profile.revision }, { signal }));
 
   async function signOut(): Promise<void> {
     if (disposed) return;
@@ -111,7 +119,7 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
   return {
     getState: () => state,
     subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; },
-    load, save, signOut,
+    load, save, setPersonalization, resetLearning, signOut,
     dispose() { disposed = true; invalidate(); unsubscribeIdentity(); listeners.clear(); }
   };
 }
