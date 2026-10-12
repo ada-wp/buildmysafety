@@ -2,7 +2,15 @@
 
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
-## Ten-answer content baseline — October 12, current review checkpoint
+## English preparation trial — October 12, current content checkpoint
+
+Ada supported the preventive-preparation draft, requested English product copy and authorized trying it. The [English prompt and ten authored candidates](prompts/sick-day-content-en.md) are saved separately from [three genuine model outputs](prompts/evaluations/2026-10-12-english-preparation/review.md). Exactly three paid GPT-6 Luna Playground Responses runs used low reasoning, the existing strict one-task schema, independent cleared conversations, Store logs off and no tools. No example outputs were supplied. The English prompt and all three synthetic input packets matched source/browser checksums. Prompt SHA-256: `ab08b21b6ac4cc2fb4489dea5ba8d1a1b988fa7705f3a62406b12527ccd4fd19`.
+
+All three returned a task and passed offline replay of the existing application validators with the candidate resource collection. Cases A/B repeat earlier outside-help/cat-care requests; C is a new memo request with relevant completed-task history. The evaluation-only collection adds checked Taskrabbit/PSI records and clarifies service-research guidance. Therefore the observed improvement is not isolated to a prompt change. The unchanged deployed catalog rejects A/B with `invalid_resource`; C passes. Do not claim this is a hosted end-to-end app test or deploy the prompt without connecting and verifying its resources. The trial preserves raw model text and editorial notes, including formal wording and an awkward pending-versus-agreed sentence.
+
+The app's 2,200-token cap and transport timeout were not configured in Playground; exact billed cost was not retrieved. UI badges were 4.1s/204t, 3.6s/230t and 2.5s/169t, not full billing totals. No secrets were read, app quotas changed or user accounts modified. Deployment remains `cfb9661a`, and production remains unchanged. Scripts under the evaluation folder only prepare synthetic inputs or validate/render saved outputs; they make no paid calls. No prompt, catalog or schema changes were made in executable app code.
+
+## Ten-answer content baseline — October 12, preceding review checkpoint
 
 At Ada's request, ten independent real OpenAI Playground Responses calls used GPT-6 Luna, low reasoning, the unchanged runtime new-needs writer, its strict JSON schema and synthetic inputs assembled by the canonical preparation code. The prompt, schema and all ten packets matched source/browser transfer checks. Store logs was off, no tools were enabled, and the conversation was cleared between cases. The app's 2,200-token cap/30-second transport timeout were not configured in the UI. These are writer tests with post-hoc local validator replay, not ten hosted app deliveries or a load test. No credentials were read, app accounts changed, quotas raised or new endpoint deployed. Current app deployment remains `cfb9661a`.
 

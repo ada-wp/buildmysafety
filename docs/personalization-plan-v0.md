@@ -8,6 +8,8 @@
 
 ### Content-quality reset — 12 October
 
+The current writing artifact is now the [English prompt and ten candidates](prompts/sick-day-content-en.md), translated at Ada's request. A [three-case real writing trial](prompts/evaluations/2026-10-12-english-preparation/review.md) is complete; this is content testing, not a deployed matching/catalog change. Keep the next discussion focused on the actual wording and usefulness.
+
 **Latest simplification:** Ada asked us not to make this complex, formal or procedural. The questions below are background author judgment, not a new scoring workflow. Work directly on the prompt and suggestions together. Emphasize preparations before an event, including material supplies, knowledge, contacts and useful memoranda. The [ten sick-day candidates](prompts/sick-day-content-draft.md) are the current discussion draft; they are not a required sequence or published pool.
 
 **Confirmed direction:** Ada wants carefully crafted tasks that help a person discover what she has not considered, understand relevant options, research intelligently and prepare in ways that improve daily life. The early ten tasks matter especially. Aim for roughly three to five categories with about twenty strong tasks each; exact taxonomy and individual tasks need review. Simple topic levels/roadmaps are optional later work. A coherent purpose does not require a new roadmap screen or a compulsory sequence now. The existing task flow and runtime are unchanged.

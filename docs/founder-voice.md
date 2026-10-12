@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- Ada confirmed My Safety's user-facing product content should be English; discussion with her may remain Chinese. She said the preparation draft felt good and asked to turn it into English and try it. This supports the writing direction and a bounded real-model trial; it does not automatically approve every new model output or publish the content to the app.
+
 - In the following content discussion, Ada said “不要太复杂正规程序化” and agreed to carefully craft the prompt and suggestions together before settling them. Keep the collaboration natural and concrete; do not turn it into a formal scoring or approval program. She further emphasized preparation **before** an event: material supplies, knowledge, useful contacts and memoranda. A memo can be valuable when it contains information or instructions that will actually help later; do not reject notes categorically.
 
 - After the ten-answer review on October 12, Ada said the app should provide a way to build a sense of safety step by step. She then clarified the immediate priority: carefully crafted tasks, especially the first ten a person encounters. Many people do not know what to consider, research or prepare. Content must reveal relevant blind spots, explain useful options and help people make concrete improvements; easy microtasks and the existing abstract usefulness definition have not delivered that value for her.
