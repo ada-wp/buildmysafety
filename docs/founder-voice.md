@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- In the following content discussion, Ada said “不要太复杂正规程序化” and agreed to carefully craft the prompt and suggestions together before settling them. Keep the collaboration natural and concrete; do not turn it into a formal scoring or approval program. She further emphasized preparation **before** an event: material supplies, knowledge, useful contacts and memoranda. A memo can be valuable when it contains information or instructions that will actually help later; do not reject notes categorically.
+
 - After the ten-answer review on October 12, Ada said the app should provide a way to build a sense of safety step by step. She then clarified the immediate priority: carefully crafted tasks, especially the first ten a person encounters. Many people do not know what to consider, research or prepare. Content must reveal relevant blind spots, explain useful options and help people make concrete improvements; easy microtasks and the existing abstract usefulness definition have not delivered that value for her.
 - She proposed narrowing the initial offering to roughly three to five categories with about twenty carefully prepared tasks in each. This is a content direction and approximate target, not approval of category names, a quota to fill, or approval of existing drafts. Specific-request AI guides also need substantive revision.
 - Her follow-up: “每个主题有个 简单的等级 roadmap 也是可以的，但是无需复杂，可以之后加上” — a simple per-topic level roadmap is acceptable later. Do not make a new roadmap interface, compulsory progression or elaborate leveling system a prerequisite for improving task quality now.

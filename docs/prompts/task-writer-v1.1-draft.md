@@ -1,5 +1,7 @@
 # Task writer V1.1 — calibration draft
 
+**October 12 discussion update:** Ada wants the next writing revision to stay natural and simple, emphasizing useful preparations before something happens: supplies, knowledge, contacts and memoranda. We are first discussing the [plain-language writing core and ten sick-day candidates](sick-day-content-draft.md). These are authored proposals, not approved replacements or API outputs. The older technical candidate below remains unchanged for traceability; do not automatically promote either draft to the live writer.
+
 Created 1 October 2026; candidate revised 11 October after real tests and founder feedback. Ada asked to revisit the writing prompt and teach/test the writing before creating the solution pool. This is a reviewable successor to [approved V1](task-generator-v1.md), not an activated replacement. No app flow, production prompt, API connection or trained model was changed. The [calibration pack](task-writer-calibration.json) contains synthetic examples and test cases, not a published solution pool. Three October 11 test records preserve each tested prompt hash and Git revision. The latest new-neighborhood test used the founder-approved definition of usefulness and six suggestion angles below. Format checks passed; editorial review identified broad research instructions to improve. Founder review is pending; urgent-help behavior remains unapproved.
 
 ## What we are teaching
