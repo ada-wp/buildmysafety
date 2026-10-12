@@ -2,7 +2,17 @@
 
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
-## Bounded AI adaptation — October 12, current checkpoint
+## Explicit refinement after exhaustion — October 12, current checkpoint
+
+Ada reported that she could not find more ideas she liked. The live screen confirmed an empty batch and disabled “All caught up” action. The small collection excluded every shown action, and automatic AI only operated on unseen eligible tasks. Ada chose **“Tell the app what to change, then get a tailored alternative.”**
+
+Deployment `8a0f2ca2`, client `index-mHTYgJzc.js`, now adds My list → Revisit earlier ideas → Make this fit me → short feedback → one tailored alternative. An unsaved task card/detail also has the refinement action. The exhausted screen offers recovery instead of a disabled completion claim. Ordinary unseen recommendations still exclude previous outcomes. Explicit refinement can revisit exactly one owned, never-saved, never-completed idea; the current saved/completed list is not rewritten.
+
+The authenticated automatic route accepts `refineActionKey` only with nonempty current feedback. It reads the actual owned content, applies existing catalog/region/constraint checks, and uses the same one-task prompt, quotas, timeout and validation. An accepted alternative creates a new private immutable snapshot and atomically updates that unsaved task's content reference with a state-version and original-reference check. Its action key, first-shown marker and award identity do not change. Failed/refused/limited attempts keep the original and return clear feedback. No new tables, secret setup, quota increase or production deployment was needed. Raw feedback is not stored.
+
+**Verification:** 92 app tests and 126 backend tests pass, plus strict TypeScript and Pages packaging. Added cases cover exhaustion, one-task replacement, reload/replay, untouched saved content, another owner, invalid targets, saved/completed/removed targets, out-of-scope/unsafe handling, quota/provider fallback and a save racing generation. Actual hosted browser checks confirmed recovery navigation, the form's empty/filled/cleared button states and reachable mobile controls. The form check was never submitted; no account data or personal preferences were invented, and no new paid refinement call was made. The new path's generation/storage tests use a mocked provider; the prior two real hosted calls below establish the existing OpenAI transport. The feedback form is left open for Ada's own request. Public release gates remain unchanged.
+
+## Bounded AI adaptation — October 12, earlier connection checkpoint
 
 Deployment `6671e673` is live on the [app-auth-staging alias](https://app-auth-staging.buildmysafety.pages.dev), with client `index-DuMECxhm.js`. Migration `0004_ai_adaptation.sql` was applied remotely to the same staging D1. Production was not deployed. The app now submits the automatic route after an explicit recommendation request. Ordinary collection matching remains primary; a current typed request, an applicable low-energy constraint or unavailable nearby support can justify an attempt to adapt one eligible task. The model may decline. It never adds a fourth task or invents a new action/resource identity.
 

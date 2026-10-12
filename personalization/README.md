@@ -25,7 +25,7 @@ The next request can be a completely different question. Only relevant past cont
 
 ## Hosted environment and evidence
 
-- Current app: [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `6671e673`. Migrations [0002](migrations/0002_task_journey.sql), [0003](migrations/0003_onboarding.sql) and [0004](migrations/0004_ai_adaptation.sql) are remotely applied after 0001. The current automated checkpoint is 119 backend and 91 app tests; [technical status](../docs/technical-status.md) records hosted browser checks separately.
+- Current app: [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `8a0f2ca2`. Migrations [0002](migrations/0002_task_journey.sql), [0003](migrations/0003_onboarding.sql) and [0004](migrations/0004_ai_adaptation.sql) are remotely applied after 0001. The current automated checkpoint is 126 backend and 92 app tests; [technical status](../docs/technical-status.md) records hosted browser checks separately.
 - [catalog.mjs](catalog.mjs) contains nine real authored tasks marked `editorial_review`, not synthetic fixtures or founder-approved content. Only the exact founder preview hostname opts into these records. [Catalog review](catalog-review.md) records checked sources and limitations. Other hosts exclude them. The encrypted OpenAI secret is available only to the server's gated automatic path and never to the browser.
 
 The following bullets record the earlier October 11 isolated memory-API rehearsal:

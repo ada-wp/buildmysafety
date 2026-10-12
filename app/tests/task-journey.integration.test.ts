@@ -120,6 +120,28 @@ test('real client, worker and D1 agree on owned catalog, batch, detail, completi
     error => error instanceof SafetyApiError && error.conflict);
 });
 
+test('client sends explicit feedback to refine a previously shown unsaved task and reloads its replacement', async t => {
+  const { client } = setup(t, true);
+  const alice = client();
+  await alice.createMemory({ interests: ['sick_care'] });
+  const first = await alice.recommendations({ route: 'auto', requestId: 'refinement_seed_01', expectedStateVersion: '1',
+    request: { topicId: 'sick_care', concernIds: ['food'] } });
+  if (first.source !== 'pool') throw new Error('Expected the initial pool batch.');
+  const before = await alice.getTasks();
+  const target = before.tasks.find(item => item.state.actionKey === 'sick_01_easy_food')!;
+  const result = await alice.recommendations({ route: 'auto', requestId: 'refinement_client_01', expectedStateVersion: first.stateVersion,
+    request: { topicId: 'sick_care', concernIds: ['food'], refineActionKey: target.state.actionKey,
+      note: 'I have no microwave. Please use food with no cooking.' } });
+  assert.equal(result.source, 'mixed'); assert.equal(result.adaptation?.refinement, true);
+  assert.equal(result.batch.tasks.length, 1); assert.equal(result.request?.note, undefined);
+  const reloaded = await client().getTasks();
+  assert.equal(reloaded.tasks.length, before.tasks.length);
+  const revised = reloaded.tasks.find(item => item.state.actionKey === target.state.actionKey)!;
+  assert.equal(revised.content.title, 'Pick two no-cook food options');
+  assert.ok(revised.state.contentRef.startsWith('ai_')); assert.equal(revised.state.savedAt, null);
+  assert.deepEqual((await client().getLatestRecommendation()).result?.batch, result.batch);
+});
+
 test('mixed AI result crosses real client/worker contract and stays stable across controller reload', async t => {
   const { client, sqlite } = setup(t, true); const alice = client();
   await alice.createMemory({ answers: { home: 'alone', constraints: ['cost'] } });

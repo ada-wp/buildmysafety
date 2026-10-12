@@ -62,6 +62,7 @@ export type RecommendationRequest = {
   topicId: TopicId;
   concernIds: string[];
   note?: string;
+  refineActionKey?: string;
   country?: string | null;
   maxMinutes?: number | null;
   noSpend?: boolean | null;
@@ -104,7 +105,7 @@ export type RecommendationResponse = {
   requestId?: string;
   batch: TaskBatch;
   trace: RecommendationTrace;
-  adaptation?: { status: string; actionKey: string | null; message?: string | null };
+  adaptation?: { status: string; actionKey: string | null; message?: string | null; refinement?: boolean };
 } & ({ source: 'pool'; delivery: 'shown'; stateVersion: string; reviewRequired: boolean; metadata: null } |
   { source: 'mixed'; delivery: 'shown'; stateVersion: string; reviewRequired: true; metadata: GenerationMetadata } |
   { source: 'ai'; delivery: 'review_preview'; reviewRequired: true; metadata: GenerationMetadata });

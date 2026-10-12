@@ -108,7 +108,7 @@ function isRecommendation(value: unknown) {
 
 // Known machine codes only. Never surface arbitrary server error text or HTML to the UI.
 const serverCodes = new Set([
-  'task_not_saved', 'request_id_conflict', 'generation_in_progress', 'invalid_request_id', 'task_content_unavailable',
+  'task_not_saved', 'request_id_conflict', 'generation_in_progress', 'refinement_not_available', 'invalid_request_id', 'task_content_unavailable',
   'authentication_required', 'authentication_invalid', 'authentication_unavailable', 'origin_not_allowed', 'adaptation_disabled', 'authentication_not_configured',
   'd1_binding_required', 'storage_unavailable', 'api_key_required', 'model_required', 'profile_not_found', 'task_not_found',
   'route_not_found', 'method_not_allowed', 'profile_exists', 'stale_profile', 'stale_state', 'immutable_content_ref', 'task_already_shown',
@@ -215,13 +215,13 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
       input(validFields(selection, ['request', 'route', 'requestId', 'expectedStateVersion'], ['request']) &&
         (selection.route === undefined || selection.route === 'pool' || selection.route === 'adapt' || selection.route === 'auto'));
       const r = selection.request;
-      input(validFields(r, ['topicId', 'concernIds', 'note', 'country', 'maxMinutes', 'noSpend', 'localSupport'], ['topicId', 'concernIds']) &&
+      input(validFields(r, ['topicId', 'concernIds', 'note', 'refineActionKey', 'country', 'maxMinutes', 'noSpend', 'localSupport'], ['topicId', 'concernIds']) &&
         text(r.topicId) && texts(r.concernIds));
       const request: Record<string, unknown> = { topicId: r.topicId, concernIds: [...r.concernIds] };
-      for (const key of ['note', 'country', 'maxMinutes', 'noSpend', 'localSupport'] as const) {
+      for (const key of ['note', 'refineActionKey', 'country', 'maxMinutes', 'noSpend', 'localSupport'] as const) {
         if (!Object.hasOwn(r, key)) continue;
         const v = r[key];
-        input(key === 'note' || key === 'localSupport' ? text(v) : key === 'country' ? nullableText(v) :
+        input(key === 'note' || key === 'refineActionKey' || key === 'localSupport' ? text(v) : key === 'country' ? nullableText(v) :
           key === 'noSpend' ? v === null || typeof v === 'boolean' : v === null || positiveInt(v));
         request[key] = v;
       }

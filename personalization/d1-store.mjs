@@ -160,13 +160,16 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
       return { result, stateVersion, requestHash: row.request_hash };
     },
 
-    async deliverBatch(owner, expectedStateVersion, { requestId, requestHash, request, result, contents }) {
+    async deliverBatch(owner, expectedStateVersion, { requestId, requestHash, request, result, contents, replace = null }) {
       checkOwner(owner);
       checkStateVersion(expectedStateVersion);
       checkRequestId(requestId);
       requireRule(typeof requestHash === 'string' && /^[a-f0-9]{64}$/.test(requestHash), 'invalid_request_hash');
       requireRule(Array.isArray(contents) && contents.length <= 3 &&
         new Set(contents.map(item => item.actionKey)).size === contents.length, 'invalid_shown_batch');
+      requireRule(!replace || (contents.length === 1 && contents[0].private === true &&
+        contents[0].actionKey === replace.actionKey && typeof replace.contentRef === 'string' &&
+        contents[0].contentRef !== replace.contentRef), 'invalid_refinement');
       const profileRow = await getRow(owner);
       const profile = fromRow(profileRow);
       requireRule(String(profileRow.state_version) === expectedStateVersion, 'stale_state');
@@ -188,10 +191,16 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
         result: { ...result, batch: { ...result.batch, tasks: [] } } };
       const commitToken = crypto.randomUUID();
       const guard = 'EXISTS (SELECT 1 FROM memory_latest_batch WHERE user_id = ? AND commit_token = ?)';
-      const unseen = contents.length ? `AND NOT EXISTS (SELECT 1 FROM memory_task_states WHERE user_id = ? AND action_key IN (${contents.map(() => '?').join(',')}))` : '';
+      const eligibility = replace
+        ? `AND EXISTS (SELECT 1 FROM memory_task_states WHERE user_id = ? AND action_key = ? AND content_ref = ?
+          AND saved_at IS NULL AND completed_at IS NULL AND removed_at IS NULL)
+          AND NOT EXISTS (SELECT 1 FROM memory_completion_awards WHERE user_id = ? AND action_key = ?)`
+        : contents.length ? `AND NOT EXISTS (SELECT 1 FROM memory_task_states WHERE user_id = ? AND action_key IN (${contents.map(() => '?').join(',')}))` : '';
+      const eligibilityValues = replace ? [owner, replace.actionKey, replace.contentRef, owner, replace.actionKey]
+        : contents.length ? [owner, ...contents.map(item => item.actionKey)] : [];
       const statements = [
-        stmt(`UPDATE memory_profiles SET state_version = state_version + 1 WHERE user_id = ? AND state_version = ? ${unseen} RETURNING state_version`,
-          owner, Number(expectedStateVersion), ...(contents.length ? [owner, ...contents.map(item => item.actionKey)] : [])),
+        stmt(`UPDATE memory_profiles SET state_version = state_version + 1 WHERE user_id = ? AND state_version = ? ${eligibility} RETURNING state_version`,
+          owner, Number(expectedStateVersion), ...eligibilityValues),
         stmt(`INSERT INTO memory_latest_batch (user_id, request_id, request_hash, commit_token, payload_json, created_at)
           SELECT ?, ?, ?, ?, ?, ? WHERE changes() > 0
           ON CONFLICT(user_id) DO UPDATE SET request_id = excluded.request_id, request_hash = excluded.request_hash,
@@ -208,7 +217,9 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
             ON CONFLICT(content_ref) DO UPDATE SET task_json = CASE
               WHEN memory_task_content.action_key = excluded.action_key AND memory_task_content.task_json = excluded.task_json
               THEN memory_task_content.task_json ELSE NULL END`, item.contentRef, item.actionKey, JSON.stringify(item.content), at, owner, commitToken),
-          stmt(`INSERT INTO memory_task_states (user_id, action_key, content_ref, shown_at)
+          replace ? stmt(`UPDATE memory_task_states SET content_ref = ? WHERE user_id = ? AND action_key = ? AND content_ref = ? AND ${guard}`,
+            item.contentRef, owner, replace.actionKey, replace.contentRef, owner, commitToken)
+          : stmt(`INSERT INTO memory_task_states (user_id, action_key, content_ref, shown_at)
             SELECT ?, ?, ?, ? WHERE ${guard}`, owner, item.actionKey, item.contentRef, at, owner, commitToken)
         ])
       ];

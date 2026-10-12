@@ -2,7 +2,7 @@
 
 Step 1 consolidated the preserved welcome/onboarding/interests/recap screens, portable API client and profile controller. **Step 2 is complete for the development build:** Clerk supplies verified email sign-in, while the existing [`personalization/`](../personalization/README.md) backend and Cloudflare D1 continue to own app profiles. The old second server remains [archived](../archive/app-server-draft-20261011/README.md).
 
-The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `6671e673` after the October 12 bounded-AI integration. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
+The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `8a0f2ca2` after the October 12 explicit-refinement fix. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
 
 ## Boundaries
 
@@ -28,7 +28,7 @@ Signed-in onboarding saves structured draft answers and a public checkpoint so i
 
 The first collection contains **nine authored tasks** in `personalization/catalog.mjs`, marked `editorial_review`. They are available only on the named founder preview host while Ada reviews content. This is connected functionality, not a synthetic task fixture; it is also not a publicly approved content release. Sources and limitations are in [catalog review](../personalization/catalog-review.md).
 
-Current automated checkpoint: **91 app tests and 119 backend tests pass**. Remote D1 migrations 0002, 0003 and 0004 are applied, and `6671e673` is deployed. Two actual hosted OpenAI adaptations and their save/reload checks are recorded in [AI verification](verification-ai-adaptation.json) and [technical status](../docs/technical-status.md); these results do not claim that every release check has finished.
+Current automated checkpoint: **92 app tests and 126 backend tests pass**. Remote D1 migrations 0002, 0003 and 0004 are applied, and `8a0f2ca2` is deployed. Two actual hosted OpenAI adaptations and their save/reload checks are recorded in [AI verification](verification-ai-adaptation.json) and [technical status](../docs/technical-status.md); these results do not claim that every release check has finished.
 
 The earlier `b9ab91c6` navigation repair replaced a bubble dead end with a temporary sample journey. Its evidence remains in [the historical navigation record](verification-navigation.json). The sample component is no longer the active app journey. The unconfigured local state does not pretend to save tasks or provide fake login.
 

@@ -109,7 +109,7 @@ const STATUS = {
   api_key_required: 503, model_required: 503, profile_not_found: 404, task_not_found: 404,
   route_not_found: 404, method_not_allowed: 405, profile_exists: 409,
   stale_profile: 409, stale_state: 409, immutable_content_ref: 409, task_already_shown: 409,
-  request_id_conflict: 409, generation_in_progress: 409, task_not_saved: 409, task_content_unavailable: 503,
+  request_id_conflict: 409, generation_in_progress: 409, refinement_not_available: 409, task_not_saved: 409, task_content_unavailable: 503,
   body_too_large: 413, json_required: 415, unsupported_topic: 422, adaptation_needed: 422,
   rate_limited: 429, request_timeout: 504, upstream_error: 502,
   network_or_response_error: 502, model_refusal: 422, incomplete_output: 502,

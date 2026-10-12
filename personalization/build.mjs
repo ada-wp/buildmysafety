@@ -32,6 +32,7 @@ const requestSchema = {
     topicId: { ...id, enum: profileSchema.properties.interests.items.enum },
     concernIds: { type: 'array', maxItems: 5, uniqueItems: true, items: id },
     note: { type: 'string', maxLength: 1000 },
+    refineActionKey: id,
     country: { type: ['string', 'null'], pattern: '^[A-Z]{2}$' },
     maxMinutes: { type: ['integer', 'null'], minimum: 1, maximum: 120 },
     noSpend: { type: ['boolean', 'null'] },

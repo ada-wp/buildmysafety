@@ -75,12 +75,23 @@ function matchesConstraints(action, effective) {
 /** Server-only: owner comes from verified authentication, never the browser request body.
  * store.readSnapshot(owner) must return an atomic profile/task snapshot; this module has no DB.
  */
-export async function prepare({ owner, request, store, catalog, testMode = false, allowEditorialReview = false, useProfileDefaults = false }) {
+export async function prepare({ owner, request, store, catalog, testMode = false, allowEditorialReview = false, useProfileDefaults = false, allowRefinement = false }) {
   requireRule(typeof owner === 'string' && owner.length > 0, 'authentication_required');
   requireRule(validRequest(request), 'invalid_request');
   const snapshot = structuredClone(await store.readSnapshot(owner));
   validateSnapshot(snapshot, owner);
   const { profile, taskStates } = snapshot;
+  let refinement = null;
+  if (request.refineActionKey) {
+    requireRule(allowRefinement, 'unsupported_refinement');
+    requireRule(typeof request.note === 'string' && request.note.trim().length >= 5, 'invalid_refinement_note');
+    const state = taskStates.find(s => s.actionKey === request.refineActionKey);
+    requireRule(state && !state.savedAt && !state.completedAt && !state.removedAt, 'refinement_not_available');
+    const owned = await store.readTasks(owner);
+    requireRule(owned.stateVersion === snapshot.stateVersion, 'stale_state');
+    refinement = owned.tasks.find(item => item.state.actionKey === state.actionKey);
+    requireRule(refinement, 'task_content_unavailable');
+  }
   const constraints = useProfileDefaults && profile.personalizationEnabled ? profile.answers.constraints : [];
   const effective = {
     country: Object.hasOwn(request, 'country') ? request.country : profile.answers.country,
@@ -96,7 +107,9 @@ export async function prepare({ owner, request, store, catalog, testMode = false
   requireRule(request.concernIds.every(id => topic.concerns.some(concern => concern.id === id)), 'unknown_concern');
   requireRule(new Set(catalog.actions.map(a => a.actionKey)).size === catalog.actions.length, 'duplicate_catalog_key');
   requireRule(new Set(catalog.actions.map(a => a.contentRef)).size === catalog.actions.length, 'duplicate_content_ref');
-  const excluded = new Set(taskStates.map(state => state.actionKey));
+  // Only an explicit edit of one never-saved idea may revisit its outcome.
+  // Ordinary "more ideas" keeps the existing nonrepetition rule.
+  const excluded = new Set(taskStates.filter(state => state.actionKey !== refinement?.state.actionKey).map(state => state.actionKey));
   // Reviewed alternatives can have different keys but still accomplish the same thing.
   // Keep this grouping in shared content, not another per-user memory field.
   const excludedGroups = new Set(catalog.actions.filter(action => excluded.has(action.actionKey)).map(outcomeGroup));
@@ -119,11 +132,17 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     return positives.filter(signal => !negativeKeys.has(signal.action_key) && signal.tags.some(tag => action.tags.includes(tag))).length;
   };
   const candidates = catalog.actions.filter(action => approved(action, testMode, allowEditorialReview) &&
+    (!refinement || action.actionKey === refinement.state.actionKey) &&
     action.topicIds.includes(topic.id) && !excluded.has(action.actionKey) && !excludedGroups.has(outcomeGroup(action)) &&
     (action.requiresConcernIds || []).every(id => request.concernIds.includes(id)) &&
     (!request.concernIds.length || action.concernIds.some(id => request.concernIds.includes(id))) &&
     matchesConstraints(action, effective) && action.task.resources.every(r => resources.has(r.resource_id)))
     .sort((a, b) => rank(b) - rank(a) || a.actionKey.localeCompare(b.actionKey)).slice(0, LIMITS.candidates);
+  if (refinement) {
+    requireRule(candidates.length === 1, 'refinement_not_available');
+    // Tailor the version she actually saw, using the same catalog guidance/resources.
+    candidates[0] = { ...candidates[0], task: structuredClone(refinement.content) };
+  }
   const packet = {
     context_version: 1,
     current_topic: { id: topic.id, scope: topic.scope },
@@ -143,7 +162,7 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     adaptation_only: true
   };
   requireRule(Buffer.byteLength(JSON.stringify(packet), 'utf8') <= LIMITS.contextBytes, 'context_too_large');
-  return { packet, candidates, resources, excluded, excludedGroups, effective, snapshot, request: structuredClone(request), promptHash };
+  return { packet, candidates, resources, excluded, excludedGroups, effective, snapshot, refinement, request: structuredClone(request), promptHash };
 }
 
 export function buildRequest(prepared, model) {

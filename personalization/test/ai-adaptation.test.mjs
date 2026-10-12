@@ -45,7 +45,7 @@ function adapted(body) {
   return { batch: { decision: 'adapted', task }, metadata: { responseId: 'resp_fixture', model: body.model, inputTokens: 500, outputTokens: 180 } };
 }
 
-test('one paid adaptation replaces one task; private stable content, owned read, save, award and replay', async t => {
+test('one mocked adaptation replaces one task; private stable content, owned read, save, award and replay', async t => {
   let calls = 0; let sent;
   const { request, store, sqlite } = setup(t, async body => { calls++; sent = body; return adapted(body); });
   await store.createProfile('alice', { answers: { home: 'alone', constraints: ['cost'], country: 'US' } });
@@ -160,4 +160,107 @@ test('private adapted saves still supply relevant soft signals; shown action sta
   const next = await prepare({ owner: 'alice', request: { topicId: 'sick_care', concernIds: ['food'] }, store, catalog, allowEditorialReview: true });
   assert.equal(next.packet.user_memory.preference_signals[0].action_key, first.adaptation.actionKey);
   assert.ok(next.candidates.every(x => x.actionKey !== first.adaptation.actionKey));
+});
+
+test('explicit refinement works after exhaustion, changes only an unsaved idea and replays without another call', async t => {
+  let calls = 0; let sent;
+  const { request, store, sqlite } = setup(t, async body => { calls++; sent = packet(body); return adapted(body); });
+  await store.createProfile('alice', {}); await store.createProfile('bob', {});
+  const base = { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] };
+  let current = await store.readSnapshot('alice');
+  for (let i = 0; i < 4; i++) {
+    const result = await (await request('alice', input({ requestId: `exhaust_request_${i}`, expectedStateVersion: current.stateVersion, request: base }))).json();
+    current = await store.readSnapshot('alice');
+    if (!result.batch.tasks.length) break;
+  }
+  assert.equal((await store.readLatestBatch('alice')).result.batch.tasks.length, 0);
+  assert.equal(calls, 0);
+  const before = await store.readTasks('alice');
+  const food = before.tasks.find(x => x.state.actionKey === 'sick_01_easy_food');
+  const shelf = before.tasks.find(x => x.state.actionKey === 'sick_02_rest_shelf');
+  const saved = await store.applyTaskAction('alice', before.stateVersion, shelf.state.actionKey, { type: 'save' });
+  const body = input({ requestId: 'refine_request_001', expectedStateVersion: saved.stateVersion,
+    request: { ...base, refineActionKey: food.state.actionKey, note: 'I have no microwave. Please make this work without cooking.' } });
+  const response = await request('alice', body); assert.equal(response.status, 200);
+  const result = await response.json();
+  assert.equal(result.batch.tasks.length, 1); assert.equal(result.adaptation.refinement, true);
+  assert.equal(result.adaptation.status, 'adapted'); assert.equal(calls, 1);
+  assert.equal(sent.revision_requested, true); assert.deepEqual(sent.target_task, food.content);
+  assert.equal(result.request.note, undefined);
+  const after = await store.readTasks('alice');
+  assert.equal(after.tasks.length, before.tasks.length);
+  assert.deepEqual(after.tasks.find(x => x.state.actionKey === shelf.state.actionKey).content, shelf.content);
+  const changed = after.tasks.find(x => x.state.actionKey === food.state.actionKey);
+  assert.ok(changed.state.contentRef.startsWith('ai_')); assert.equal(changed.state.shownAt, food.state.shownAt);
+  assert.equal(changed.state.savedAt, null); assert.equal(after.earnedCount, 0);
+  assert.deepEqual((await store.readLatestBatch('alice')).result.batch, result.batch);
+  assert.equal((await request('alice', body)).status, 200); assert.equal(calls, 1);
+  assert.equal((await store.readTasks('bob')).tasks.length, 0);
+  assert.equal(sqlite.prepare('SELECT task_json FROM memory_task_content WHERE content_ref = ?').get(food.state.contentRef).task_json, JSON.stringify(food.content));
+  const next = await prepare({ owner: 'alice', request: base, store, catalog, allowEditorialReview: true });
+  assert.equal(next.candidates.length, 0, 'Refinement does not reopen the outcome for ordinary new batches.');
+  const savedFood = await store.applyTaskAction('alice', after.stateVersion, food.state.actionKey, { type: 'save' });
+  const completed = await store.applyTaskAction('alice', savedFood.stateVersion, food.state.actionKey, { type: 'complete' });
+  assert.equal(completed.earnedCount, 1);
+});
+
+test('refinement rejects unknown, other-owner, saved, removed and completed ideas before any paid call', async t => {
+  let calls = 0; const { request, store } = setup(t, async body => { calls++; return adapted(body); });
+  await store.createProfile('alice', {}); await store.createProfile('bob', {});
+  const initial = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] } }))).json();
+  const key = 'sick_01_easy_food';
+  const requestFor = (state, action = key) => input({ requestId: `refine_invalid_${state}`, expectedStateVersion: state,
+    request: { topicId: 'sick_care', concernIds: ['food'], refineActionKey: action, note: 'Use food with no cooking.' } });
+  assert.equal((await request('alice', requestFor(initial.stateVersion, 'not_owned'))).status, 409);
+  assert.equal((await request('bob', requestFor('1'))).status, 409);
+  const wrongConcern = requestFor(initial.stateVersion); wrongConcern.request.concernIds = ['pets'];
+  assert.equal((await request('alice', wrongConcern)).status, 409);
+  const pool = requestFor(initial.stateVersion); pool.route = 'pool';
+  assert.equal((await request('alice', pool)).status, 400);
+  let state = await store.applyTaskAction('alice', initial.stateVersion, key, { type: 'save' });
+  assert.equal((await request('alice', requestFor(state.stateVersion))).status, 409);
+  state = await store.applyTaskAction('alice', state.stateVersion, key, { type: 'complete' });
+  assert.equal((await request('alice', requestFor(state.stateVersion))).status, 409);
+  state = await store.applyTaskAction('alice', state.stateVersion, key, { type: 'remove' });
+  assert.equal((await request('alice', requestFor(state.stateVersion))).status, 409);
+  assert.equal(calls, 0);
+});
+
+for (const mode of ['keep_pool', 'failure', 'limit', 'unsafe']) test(`refinement ${mode} keeps the existing idea unchanged with honest feedback`, async t => {
+  const { request, store, db, sqlite } = setup(t, async () => {
+    if (mode === 'failure') throw new Error('Synthetic provider failure');
+    return { batch: { decision: 'keep_pool', task: null }, metadata: null };
+  });
+  await store.createProfile('alice', {});
+  const initial = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: ['food'] } }))).json();
+  const before = await store.readTasks('alice');
+  if (mode === 'limit') {
+    const budget = createAiBudget(db);
+    for (let i = 0; i < 3; i++) { const r = await budget.reserve('alice', `limit_attempt_${i}`, initial.stateVersion); await budget.finish('alice', r.token, 'unavailable', null); }
+  }
+  const result = await (await request('alice', input({ requestId: 'refine_failure_01', expectedStateVersion: initial.stateVersion,
+    request: { topicId: 'sick_care', concernIds: ['food'], refineActionKey: 'sick_01_easy_food',
+      note: mode === 'unsafe' ? 'I need urgent medication advice.' : 'Please use ready-to-eat food with no cooking.' } }))).json();
+  assert.equal(result.batch.tasks.length, 0); assert.ok(result.batch.message);
+  assert.equal(result.batch.status, mode === 'unsafe' ? 'safety_redirect' : 'needs_context');
+  if (mode === 'limit') assert.match(result.batch.message, /limit/);
+  assert.deepEqual((await store.readTasks('alice')).tasks, before.tasks);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_private_task_content').get().n, 0);
+});
+
+test('saving during refinement prevents replacement and leaves the saved version untouched', async t => {
+  let storeRef; let before;
+  const { request, store, sqlite } = setup(t, async body => {
+    await storeRef.applyTaskAction('alice', before.stateVersion, 'sick_01_easy_food', { type: 'save' });
+    return adapted(body);
+  });
+  storeRef = store; await store.createProfile('alice', {});
+  const initial = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: ['food'] } }))).json();
+  before = await store.readTasks('alice');
+  const res = await request('alice', input({ requestId: 'refine_race_0001', expectedStateVersion: initial.stateVersion,
+    request: { topicId: 'sick_care', concernIds: ['food'], refineActionKey: 'sick_01_easy_food', note: 'Please use food with no cooking.' } }));
+  assert.equal(res.status, 409);
+  const after = await store.readTasks('alice');
+  assert.deepEqual(after.tasks[0].content, before.tasks[0].content); assert.ok(after.tasks[0].state.savedAt);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_private_task_content').get().n, 0);
 });
