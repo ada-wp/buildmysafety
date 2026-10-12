@@ -2,7 +2,9 @@
 
 English writing candidate, 12 October 2026. Ada supported the Chinese direction and asked to translate it and try it. These ten tasks are authored examples, not model outputs or published pool entries. The [Chinese discussion draft](sick-day-content-draft.md) remains the source reference. The app is unchanged.
 
-Revised after Ada's review: help someone discover and establish options she does not yet have, understand or know how to access. Do not turn her existing knowledge into another organizing task. The clinic and pharmacy candidates below now include a starting point without an existing provider. This revision has not been model-tested; the three earlier tests retain their exact original prompt and outputs.
+Revised after Ada's review: help someone discover and establish options she does not yet have, understand or know how to access. Do not turn her existing knowledge into another organizing task. The clinic and pharmacy candidates below now include a starting point without an existing provider. The [discovery follow-up](evaluations/2026-10-12-discovery-followup/review.md) has now tested this writing core in three real independent calls. All generated tasks; content and integration issues remain. All trials retain their exact original prompts and outputs.
+
+Ada's latest direction is a category-specific prompt/knowledge package, approximately thirty carefully crafted reusable tasks and an optional simple roadmap, starting with this category. These ten candidates are an initial working set, not the completed pool. See the [category-package plan](../personalization-plan-v0.md#category-package--current-direction).
 
 [Three real English writing tests](evaluations/2026-10-12-english-preparation/review.md) are now complete. All returned tasks and passed the existing validators with the evaluation's candidate resources. The two new-resource tasks do not yet pass against the unchanged app catalog. Natural wording and pending-arrangement copy still need polish. No authored examples were passed to these three model calls.
 

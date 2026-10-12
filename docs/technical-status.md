@@ -2,7 +2,15 @@
 
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
-## English preparation trial — October 12, current content checkpoint
+## Discovery follow-up — October 12, current content checkpoint
+
+The [three independent discovery tests](prompts/evaluations/2026-10-12-discovery-followup/review.md) used the revised English core, GPT-6 Luna with low reasoning, the unchanged one-task schema/adapter and manually selected reviewed resource packets. Exactly three paid Playground calls, no retries, no authored task examples; Store logs and tools off. Source-to-browser prompt/input checksums matched. Prompt SHA-256: `d77d55822aa4c3921274c53aa6268e538f6150dc5e143f462b0fa90f49fb679e`. Output/UI observations and original inputs are frozen in that folder.
+
+All three generated tasks. Candidate-resource output replay accepts A/C; B fails `copy_too_long` (first step 28 words, limit 25). B also contains `self-pay`, which conflicts with the separate blanket spending-keyword rule. The unchanged app catalog rejects all three for new resource IDs. Additionally, request preflight stops C before any model call because `prescri\w*` matches the already-arranged prescription delivery; replacing only that phrase with pharmacy delivery removes the preflight rejection in an offline diagnostic. These are integration findings, not successful end-to-end deliveries. Preserve urgent/clinical protections while designing a bounded correction; do not simply disable the checks.
+
+Editorial gaps include dense research instructions, formal voice and completion conditions weaker than the stated steps. C follows the new cat-care need and does not repeat known preparation, but the request states that progress as well as including stored task history, so this does not isolate the effect of memory. The app's output cap/timeout were not configured in Playground, and exact costs were not retrieved. Deployment remains `cfb9661a`; runtime prompt, catalog, account data and quotas are unchanged. Category-specific prompts, a thirty-task target and optional content roadmaps are now the founder's direction, not completed runtime features.
+
+## English preparation trial — October 12, preceding content checkpoint
 
 Ada supported the preventive-preparation draft, requested English product copy and authorized trying it. The [English prompt and ten authored candidates](prompts/sick-day-content-en.md) are saved separately from [three genuine model outputs](prompts/evaluations/2026-10-12-english-preparation/review.md). Exactly three paid GPT-6 Luna Playground Responses runs used low reasoning, the existing strict one-task schema, independent cleared conversations, Store logs off and no tools. No example outputs were supplied. The English prompt and all three synthetic input packets matched source/browser checksums. Prompt SHA-256: `ab08b21b6ac4cc2fb4489dea5ba8d1a1b988fa7705f3a62406b12527ccd4fd19`.
 

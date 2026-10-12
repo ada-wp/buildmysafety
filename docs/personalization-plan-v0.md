@@ -6,15 +6,33 @@
 
 ## The product decision
 
+### Category package — current direction
+
+Ada's latest October 12 direction is to perfect one category at a time, starting with sick-day preparation. Each category should have a tailored prompt, approximately thirty carefully crafted reusable tasks and a simple roadmap from easier to more involved preparation. Its prompt also serves specific personal requests within that category. This updates the earlier twenty-task estimate and roadmap-later direction. It does not change the established three-suggestion, inspect, save and complete flow.
+
+Keep a shared foundation for voice, agency, memory use, source honesty, safety boundaries and task shape. Add category-specific knowledge, fit rules, examples and exclusions rather than trying to make one broad prompt supply every subject's expertise. Prompt revision means updating instructions and reviewed examples; tests do not automatically train model weights.
+
+| Part | What it contains |
+| --- | --- |
+| Shared foundation | Founder philosophy, natural writing, meaningful new value, no repetition of handled work, relevant memory, resource limits and task format. |
+| Category prompt and knowledge | Supported situations, overlooked practical details, starting routes for people without existing arrangements, checked resources, conditions and examples of good/bad answers. |
+| Reviewed task pool | About thirty distinct, useful options with stable outcomes, suitable circumstances, effort and source references. Reuse and adapt them; do not generate every ordinary suggestion afresh. |
+| Simple roadmap | Optional organization from accessible first steps to more involved preparation. Respect prerequisites and skip what is already handled; no safety score or compulsory ladder. |
+| Personal request | Current need plus relevant explicit context/completed outcomes, the category prompt and applicable knowledge. Generate a fitting action when it adds value, within existing scope and batch limits. |
+
+For sick-day preparation, a proposed three-part organization is **Start with one useful option → Make it workable → Strengthen your arrangements**. For example, discover a care route, check its first-use requirements, then address a real remaining access gap; or find a pet-care candidate, arrange an introduction, then agree on service expectations. These are editorial examples, not final task names, obligatory sequences or three versions of the same task. Do not split one meaningful action into filler to reach thirty. Pet care and other conditional options belong only to people who need them.
+
+Next, review the [three original discovery answers](prompts/evaluations/2026-10-12-discovery-followup/review.md), settle a small set of strong sick-day examples, sketch the thirty distinct outcomes, then craft and review them in small groups. Freeze the category prompt with the chosen examples and retest new situations before connecting it and its resources to the app. The current artifacts are content candidates, not a completed thirty-task pool. A reusable category package and roadmap renderer remain implementation work.
+
 ### Content-quality reset — 12 October
 
 **Latest founder correction:** use known preparations to avoid repeating work, and focus the next suggestion on a useful option, understanding or access she still needs. Do not assume an existing doctor, pharmacy, prescription, insurance or employer benefit. Unknown stays unknown; ask one consequential question or choose a concise conditional route. Research tasks should contribute a checked starting point and one or two specific things to investigate. Standalone organization is appropriate only for a requested or described retrieval problem. The [English writing candidate](prompts/sick-day-content-en.md) now reflects this correction with care-access examples and official research. This is a writing revision, not a deployed matching rule or a new model test.
 
-The current writing artifact is now the [English prompt and ten candidates](prompts/sick-day-content-en.md), translated at Ada's request. A [three-case real writing trial](prompts/evaluations/2026-10-12-english-preparation/review.md) is complete; this is content testing, not a deployed matching/catalog change. Keep the next discussion focused on the actual wording and usefulness.
+The current writing artifact is the [English prompt and ten candidates](prompts/sick-day-content-en.md), translated and then revised at Ada's request. The initial [English writing trial](prompts/evaluations/2026-10-12-english-preparation/review.md) and later [discovery follow-up](prompts/evaluations/2026-10-12-discovery-followup/review.md) are complete; these are content tests, not deployed matching/catalog changes. Keep the next discussion focused on actual wording and usefulness.
 
 **Latest simplification:** Ada asked us not to make this complex, formal or procedural. The questions below are background author judgment, not a new scoring workflow. Work directly on the prompt and suggestions together. Emphasize preparations before an event, including material supplies, knowledge, contacts and useful memoranda. The [ten sick-day candidates](prompts/sick-day-content-draft.md) are the current discussion draft; they are not a required sequence or published pool.
 
-**Confirmed direction:** Ada wants carefully crafted tasks that help a person discover what she has not considered, understand relevant options, research intelligently and prepare in ways that improve daily life. The early ten tasks matter especially. Aim for roughly three to five categories with about twenty strong tasks each; exact taxonomy and individual tasks need review. Simple topic levels/roadmaps are optional later work. A coherent purpose does not require a new roadmap screen or a compulsory sequence now. The existing task flow and runtime are unchanged.
+**Confirmed direction:** Ada wants carefully crafted tasks that help a person discover what she has not considered, understand relevant options, research intelligently and prepare in ways that improve daily life. The early ten tasks matter especially. The latest target is approximately thirty strong options with a simple optional roadmap per category, developed one category at a time. Exact taxonomy and individual tasks need review. The roadmap starts as content organization; a new screen or compulsory sequence is not required for this writing step. The existing task flow and runtime are unchanged.
 
 **Proposed editorial standard, for discussion:**
 
@@ -28,7 +46,7 @@ The current writing artifact is now the [English prompt and ten candidates](prom
 
 Short presentation must not flatten the task's substance. Discovery is valuable when it addresses a relevant gap, not because a suggestion sounds novel. Basic preparation can still be useful for someone who lacks it. Respect explicit user constraints; reconsider blanket limits that turn every task into an under-twenty-minute, no-other-person activity. A longer action may have a useful bounded first step, but do not fragment one outcome into filler cards. This is a proposed rules revision, not a runtime change.
 
-**Proposed working sequence:** craft ten candidate benchmark tasks in the established sick-day/temporarily-unavailable scope, review their concrete value with Ada, then expand the approved approach toward twenty per chosen category. These ten are editorial benchmarks, not a universal compulsory onboarding sequence. Do not recommend pet, driving or paid-service tasks to everyone. Create a compact shared editorial record of the gap, rationale, task, outcome, suitable circumstances and checked sources; no new user-profile fields or roadmap database are needed at this stage.
+**Working sequence, updated by the category direction above:** craft ten candidate benchmark tasks in the established sick-day/temporarily-unavailable scope, review their concrete value with Ada, then expand the approved approach toward roughly thirty per category. These ten are editorial benchmarks, not a universal compulsory onboarding sequence. Do not recommend pet, driving or paid-service tasks to everyone. Create a compact shared editorial record of the gap, rationale, task, outcome, suitable circumstances and checked sources; no new user-profile fields or roadmap database are needed for this writing step.
 
 For a specific request, teach the writer to identify what is missing, retrieve relevant reviewed knowledge/solutions, choose a useful approach and adapt its steps to the person's circumstances. The app should do more than restate her concern in three small steps. The same quality standard applies to authored tasks and AI output. Keep at most one linked suggestion per batch and up to two checked resources within it. Insufficient knowledge is a content gap, not permission to invent a provider or URL.
 
