@@ -2,7 +2,15 @@
 
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
-## Step 10: navigation and recovery pass — October 12, current checkpoint
+## Ten-answer content baseline — October 12, current review checkpoint
+
+At Ada's request, ten independent real OpenAI Playground Responses calls used GPT-6 Luna, low reasoning, the unchanged runtime new-needs writer, its strict JSON schema and synthetic inputs assembled by the canonical preparation code. The prompt, schema and all ten packets matched source/browser transfer checks. Store logs was off, no tools were enabled, and the conversation was cleared between cases. The app's 2,200-token cap/30-second transport timeout were not configured in the UI. These are writer tests with post-hoc local validator replay, not ten hosted app deliveries or a load test. No credentials were read, app accounts changed, quotas raised or new endpoint deployed. Current app deployment remains `cfb9661a`.
+
+Seven calls generated tasks, three returned `no_new_idea` despite empty history; six generated tasks passed current validators, and the Canada output was rejected by the blanket `order` keyword check. A diagnostic replay changing only “place an order” to “request the service” passed, confirming that false-positive trigger; the raw output was preserved. The Canada output also named an unsupplied service in plain text and used the founder-rejected word “backup.” All seven generated tasks met the step word/time limits, but none used a resource ID/link. Correct format is not usefulness or grounded-resource approval.
+
+Assistant editorial review considers three answers promising, with other cases needing a real solution, stronger fit or coherent steps. No founder approval, model training or improved-writer result is claimed. The precise reason for model declines is unknown; the review identifies overly broad novelty wording and routing as hypotheses, plus confirmed code/catalog gaps. New official resource candidates were researched after baseline generation and appear only in authored proposals. Live prompt/catalog code is unchanged. See [complete review](prompts/evaluations/2026-10-12-ten-answer-review/review.md), [raw outputs/method limits](prompts/evaluations/2026-10-12-ten-answer-review/outputs.json) and [validator results](prompts/evaluations/2026-10-12-ten-answer-review/validation.json). Exact billed cost was not retrieved. Review the proposed changes with Ada, then run a comparable second evaluation after an agreed revision.
+
+## Step 10: navigation and recovery pass — October 12, current implementation checkpoint
 
 Deployment `cfb9661a`, client `index-DKPReIrK.js`, completes the bounded foundation reliability pass on the existing app-auth-staging preview. No backend/schema/dependency change, production deployment or paid model call was needed. The account/privacy controls from the preceding checkpoint remain in place.
 

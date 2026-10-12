@@ -29,6 +29,8 @@ Links were checked on 12 October 2026. Provider facts can change; recheck before
 
 ## Review and verification
 
+October 12 quality follow-up: the [ten-answer baseline](../docs/prompts/evaluations/2026-10-12-ten-answer-review/review.md) found zero linked-resource tasks, three no-idea responses with empty history, and gaps in cleaner/errand and non-US resource coverage. The supplied unshown pet-sitter and transport actions were still declined by the new-needs writer. These are review findings, not approval of this collection. Taskrabbit/211 Canada candidates in the authored proposals have not been added here. Preserve immutable task versions and obtain founder content review before publishing changes.
+
 Six focused tests cover the explicit review gate, complete task-output contracts, concern relevance/short coverage, resource-country and no-spend eligibility, explicit pet-interest gating, short-effort matching and nonrepetition of shown outcomes. These are mechanical checks, not proof that each task will help a customer.
 
 Founder review should focus on whether each result leaves a usable option, whether the writing feels warm and practical, and whether the small sick-day collection is sufficient for the first audience test. More content can be added after those concrete outcomes are reviewed.

@@ -1,0 +1,37 @@
+{
+  "method": "Ten independent real OpenAI Playground Responses conversations through CUA; current new-needs writer, frozen synthetic packets and strict schema. No app account data or deployed prompt changed.",
+  "date": "2026-10-12",
+  "model": "gpt-6-luna",
+  "reasoningEffort": "low",
+  "storeLogs": false,
+  "toolsEnabled": false,
+  "paidRuns": 10,
+  "retries": 0,
+  "promptHash": "68ebf1b4b875d55bd4c8fed7ea943a563193a2cdbed26878756f90286eaf8b1b",
+  "fidelity": {
+    "check": "Source and browser-input character lengths/FNV-1a checksums matched before capture. Checksums are transfer checks, not security proofs.",
+    "promptChars": 4029,
+    "promptChecksum": "8aa9344f",
+    "packetChecksums": ["6fe33dfe","df71034b","5f420c80","47197dd4","e102da2e","3a453b3e","a752893e","6e643e52","57ac8051","f5c4c4c7"],
+    "schemaChecksum": "b1a154b3"
+  },
+  "limitations": [
+    "This evaluates the writer and post-hoc app validators, not ten end-to-end Worker/D1 deliveries.",
+    "Playground used its standard mode and medium verbosity defaults; the app's 2200-token output cap and 30-second transport timeout were not configured in the UI.",
+    "Displayed time/token badges are copied verbatim. They are not a complete usage invoice; exact dollar cost and input/output billing totals were not retrieved.",
+    "One sample per case, selected diagnostic scenarios, no statistical reliability claim and no blinded human evaluation.",
+    "No provider reasoning text was inspected. Causes attributed to prompt wording are hypotheses supported by outputs and code review."
+  ],
+  "results": [
+    {"id":"01","output":{"decision":"no_new_idea","task":null},"observed":"6.3s · 181t"},
+    {"id":"02","output":{"decision":"generated","task":{"action_key":"stage_no_cook_sick_day_food","concern_ids":["food"],"title":"Set up a no-cook food spot","summary":"Gather your crackers, peanut butter and canned beans in one place so an easy meal is ready to find on a low-energy day.","estimated_minutes":5,"steps":["Choose a spot that’s easy for you to reach.","Put the crackers, peanut butter and beans together there.","Check whether you already have what you need to open the can and eat the beans; keep it with them if useful."],"done_when":"Your no-cook food and any needed tools are together and easy to reach.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"8.5s · 408t"},
+    {"id":"03","output":{"decision":"generated","task":{"action_key":"test_voice_task_entry","concern_ids":["daily_tasks"],"title":"Try adding a task hands-free","summary":"Test whether your phone can capture one household task by voice, so you have an option when getting up feels like too much.","estimated_minutes":5,"steps":["Open the reminders or notes app you already use.","Use its voice input to add one ordinary task you could postpone on a sick day.","Check that the task was captured correctly, then leave or delete the test entry as you prefer."],"done_when":"You’ve confirmed whether voice entry works for one task.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"10.5s · 576t"},
+    {"id":"04","output":{"decision":"generated","task":{"action_key":"sick_day_reach_map","concern_ids":["food","daily_tasks"],"title":"Make your usual storage sick-day friendly","summary":"Reposition a few everyday essentials within storage you already use, so they’re easier to reach without making a new pile.","estimated_minutes":8,"steps":["Pick one place you’d likely rest, and name two essentials that are awkward to reach from there.","Look for an existing shelf, drawer, or cupboard spot that’s easier to access.","Move those items there, swapping with less-needed items so everything still has a home."],"done_when":"Two essentials have easier-to-reach homes, with no new container or pile.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"4.5s · 368t"},
+    {"id":"05","output":{"decision":"no_new_idea","task":null},"observed":"1.7s · 81t"},
+    {"id":"06","output":{"decision":"no_new_idea","task":null},"observed":"763ms · 24t"},
+    {"id":"07","output":{"decision":"generated","task":{"action_key":"agree_text_checkin_plan","concern_ids":["check_in"],"title":"Agree on a low-pressure sick-day text","summary":"Set expectations together now: one chosen check-in time, an easy reply, and no all-day monitoring.","estimated_minutes":8,"steps":["Draft a text proposing one check-in time that would work for both of you on a sick day.","Agree on a simple reply, such as “I’m okay” or “I’d like to talk,” and that no reply doesn’t mean all-day monitoring.","Send it and note the agreed plan somewhere easy to find; if she hasn’t replied, keep it as a draft until you decide together."],"done_when":"You have a shared plan, or a draft ready to discuss.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"2s · 187t"},
+    {"id":"08","output":{"decision":"generated","task":{"action_key":"sick_email_availability_note","concern_ids":["daily_tasks"],"title":"Let work know you’re offline—your way","summary":"Draft a brief email boundary for a sick day that shares only what you choose, so you can rest without composing it in the moment.","estimated_minutes":5,"steps":["In a draft, choose a simple boundary: when you’ll next check email, or that you’re unavailable until further notice.","Write a short reply, such as: “I’m away today and will respond when I’m back.” Add a work-approved alternate contact only if you choose.","Save it as a draft or template, and decide when you’d use it; send it only when it suits you."],"done_when":"A privacy-preserving message is ready, with your chosen availability boundary.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"5.1s · 197t"},
+    {"id":"09","output":{"decision":"generated","task":{"action_key":"laundry_fallback_plan","concern_ids":["daily_tasks"],"title":"Make laundry manageable on low-energy days","summary":"Choose a simple fallback for getting clean essentials when laundry feels like too much—without adding more chores to your plan.","estimated_minutes":7,"steps":["Pick one clean clothing item you’d most want available, such as underwear or a shirt.","Decide on a no-spend fallback using what you own: rewear something, choose another clean item, or hand-wash one item if manageable.","Write your chosen fallback in a note or reminder you can find easily."],"done_when":"Your preferred clean-clothes fallback is written somewhere easy to find.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"2.2s · 171t"},
+    {"id":"10","output":{"decision":"generated","task":{"action_key":"compare_canadian_grocery_delivery_options","concern_ids":["food","daily_tasks"],"title":"Map out a grocery-delivery backup","summary":"Find one Canada-relevant service to investigate, and note what to confirm before relying on it on a sick day.","estimated_minutes":15,"steps":["Search your province or city’s official community-services directory, or 211 Canada, for grocery delivery or errands.","Open one relevant lead and check its service area, eligibility, fees, and how to place an order.","Save its name and contact or booking details, plus one question about availability when you’re unwell."],"done_when":"One relevant lead and a clear question are saved, or you know what information is missing.","resources":[],"purchase_checks":[],"no_purchase_option":null}},"observed":"2.1s · 180t"}
+  ]
+}

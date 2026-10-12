@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- After the foundation reliability pass on October 12, Ada asked: “can you review the suggestions you gave, test 10 ai answers and we review how to improve.” This authorizes a concrete baseline evaluation and joint editorial review, not automatic approval or deployment of rewritten tasks. Preserve weak/declined outputs rather than selecting only flattering examples.
+
 - Later on October 12 she explicitly said “lets finish the app foundations first.” Finish the bounded account, navigation and reliability work before returning to recommendation quality; this does not approve poor suggestions or authorize public release.
 
 - On October 12 she said to move to the next step “even though the suggestion is really bad.” Keep recommendation quality explicitly unfinished. Her permission to continue building is not approval of the content or a reason to expand categories before reviewing useful examples.
