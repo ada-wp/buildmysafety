@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 
 .screen-fields{border:0;margin:0;padding:0;min-width:0}
+
+.sign-in-screen,.connection-screen{padding:46px 24px}.sign-in-screen h1{font-size:48px}

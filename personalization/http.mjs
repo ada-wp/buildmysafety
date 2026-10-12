@@ -104,7 +104,7 @@ async function readBody(request) {
 
 const STATUS = {
   authentication_required: 401, authentication_invalid: 401, origin_not_allowed: 403, adaptation_disabled: 403,
-  authentication_not_configured: 503, d1_binding_required: 503, storage_unavailable: 503,
+  authentication_not_configured: 503, authentication_unavailable: 503, d1_binding_required: 503, storage_unavailable: 503,
   api_key_required: 503, model_required: 503, profile_not_found: 404, task_not_found: 404,
   route_not_found: 404, method_not_allowed: 405, profile_exists: 409,
   stale_profile: 409, stale_state: 409, immutable_content_ref: 409, task_already_shown: 409,

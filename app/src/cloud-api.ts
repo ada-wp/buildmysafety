@@ -103,7 +103,7 @@ function isRecommendation(value: unknown) {
 
 // Known machine codes only. Never surface arbitrary server error text or HTML to the UI.
 const serverCodes = new Set([
-  'authentication_required', 'authentication_invalid', 'origin_not_allowed', 'adaptation_disabled', 'authentication_not_configured',
+  'authentication_required', 'authentication_invalid', 'authentication_unavailable', 'origin_not_allowed', 'adaptation_disabled', 'authentication_not_configured',
   'd1_binding_required', 'storage_unavailable', 'api_key_required', 'model_required', 'profile_not_found', 'task_not_found',
   'route_not_found', 'method_not_allowed', 'profile_exists', 'stale_profile', 'stale_state', 'immutable_content_ref', 'task_already_shown',
   'body_too_large', 'json_required', 'unsupported_topic', 'adaptation_needed', 'rate_limited', 'request_timeout', 'upstream_error',

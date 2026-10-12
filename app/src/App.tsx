@@ -1,31 +1,81 @@
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { Elephant } from './components/Elephant';
 import { OnboardingQuestion } from './components/OnboardingQuestion';
 import { emptyDraft, editableProfile, type ProfileDraft } from './profile-draft';
 import type { ProfileSession, ProfileSessionState } from './profile-session';
 import { questions } from './onboarding';
 import { interestLabels, interestEntries } from './interest-labels';
+import { createSignInHandoff } from './sign-in-handoff';
 
 type Page = 'welcome' | 'question' | 'interests' | 'recap' | 'account';
 const pages: Page[] = ['welcome', 'question', 'interests', 'recap', 'account'];
 const labelFor = (key: string, value: string) => questions.find(q => q.id === key)?.options?.find(o => o[0] === value)?.[1] || value;
 
-export default function App({ session }: { session: ProfileSession }) {
-  const state = useSyncExternalStore(session.subscribe, session.getState);
-  useEffect(() => { void session.load(); }, [session]);
-  // A changed identity discards all private UI state, including unsaved reflections.
-  return <ProfileScreens key={state.identityEpoch} session={session} state={state} />;
+/** An API rejection clears app data, but does not revoke the provider's session. */
+export function accountControls(status: ProfileSessionState['status'], providerSignedIn: boolean) {
+  return {
+    canSignIn: status === 'signed_out' && !providerSignedIn,
+    canSignOut: providerSignedIn || !['signed_out', 'unconfigured'].includes(status),
+    needsReconnection: status === 'signed_out' && providerSignedIn
+  };
 }
 
-function ProfileScreens({ session, state }: { session: ProfileSession; state: ProfileSessionState }) {
+export default function App({ session, renderSignIn, accountLabel, providerSignedIn = false }: {
+  session: ProfileSession; renderSignIn?: () => ReactNode; accountLabel?: string; providerSignedIn?: boolean
+}) {
+  const state = useSyncExternalStore(session.subscribe, session.getState);
+  const controls = accountControls(state.status, providerSignedIn);
+  const handoff = useRef(createSignInHandoff());
+  const signInEpoch = useRef<number | null>(null);
+  const [signingIn, setSigningIn] = useState(false);
+  useEffect(() => { void session.load(); }, [session]);
+  useEffect(() => {
+    if (signingIn && signInEpoch.current !== null && state.identityEpoch > signInEpoch.current && !state.busy) {
+      // Expose storage/auth errors as well as success; never trap a signed-in user in the login form.
+      history.replaceState(null, '', `${location.pathname}#/recap`);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      setSigningIn(false);
+      signInEpoch.current = null;
+    }
+    if (!signingIn && state.status === 'signed_out') handoff.current.clear();
+  }, [state.status, state.identityEpoch, state.busy, signingIn]);
+  function beginSignIn(draft?: ProfileDraft) {
+    if (!renderSignIn || !controls.canSignIn) return;
+    if (draft) handoff.current.begin(draft, state.identityEpoch); else handoff.current.clear();
+    signInEpoch.current = state.identityEpoch;
+    setSigningIn(true);
+  }
+  return <>
+    <div hidden={signingIn}>
+      <ProfileScreens key={state.identityEpoch} session={session} state={state}
+        initialDraft={handoff.current.peek(state.identityEpoch)} onSignIn={renderSignIn ? beginSignIn : undefined}
+        accountLabel={accountLabel} providerSignedIn={providerSignedIn} />
+    </div>
+    {signingIn && <div className="app-shell sign-in-screen"><h1>Keep your<br />little wins.</h1>
+      <p>A code in your inbox. A place for your progress.</p>
+      {renderSignIn?.()}
+      <button className="text-button" onClick={() => {
+        handoff.current.clear(); signInEpoch.current = null;
+        history.replaceState(null, '', `${location.pathname}#/recap`);
+        window.dispatchEvent(new PopStateEvent('popstate')); setSigningIn(false);
+      }}>Back to my answers</button>
+      <p className="hint">Your email is used for sign-in. Your profile and task choices are stored separately in My Safety.</p>
+    </div>}
+  </>;
+}
+
+function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, providerSignedIn }: {
+  session: ProfileSession; state: ProfileSessionState; initialDraft: ProfileDraft | null;
+  onSignIn?: (draft?: ProfileDraft) => void; accountLabel?: string; providerSignedIn: boolean
+}) {
   const [page, setPage] = useState<Page>('welcome');
   const [step, setStep] = useState(0);
-  const [draft, setDraft] = useState<ProfileDraft>(emptyDraft);
-  const [dirty, setDirty] = useState(false);
+  const [draft, setDraft] = useState<ProfileDraft>(() => initialDraft || emptyDraft());
+  const [dirty, setDirty] = useState(Boolean(initialDraft));
   const [note, setNote] = useState('');
   const [feeling, setFeeling] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
-  const [notice, setNotice] = useState('');
+  const [notice, setNotice] = useState(initialDraft ? 'Your choices came with you. Review them before saving; your previous saved answers have not been replaced.' : '');
   const main = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -92,9 +142,10 @@ function ProfileScreens({ session, state }: { session: ProfileSession; state: Pr
     if (await session.save(structuredClone(draft))) { setDirty(false); setNotice('Your starting point is saved.'); }
   }
   const canSave = state.status === 'new' || state.status === 'ready';
+  const controls = accountControls(state.status, providerSignedIn);
 
   return <>
-    <aside className="build-status">Early app preview · {state.status === 'unconfigured' ? 'email sign-in and cloud saving are not available yet' : state.busy ? 'Connecting…' : 'profile connection'}</aside>
+    <aside className="build-status">Early app preview · {state.status === 'unconfigured' ? 'email sign-in and cloud saving are not available yet' : state.busy ? 'Connecting…' : 'your profile, at your pace'}</aside>
     <div className="app-shell">
       <header className="topbar">
         {page === 'welcome' ? <span className="wordmark">my safety</span> : <button className="back" disabled={state.busy} onClick={back}><span aria-hidden>‹</span> Back</button>}
@@ -137,9 +188,13 @@ function ProfileScreens({ session, state }: { session: ProfileSession; state: Pr
             {canSave ? <button className="primary" onClick={() => void save()}>Save my starting point</button> : <>
               <div className="message">{state.status === 'unconfigured'
                 ? 'Your starting point is ready to review. Email sign-in and saving are being connected; these answers are kept only while this page is open.'
+                : controls.needsReconnection ? 'Your sign-in needs to reconnect before you can save. Check your saved answers, or sign out and try again.'
                 : state.status === 'signed_out' ? 'Sign in to save your starting point.'
                 : 'We haven’t confirmed these changes as saved. Your edits stay here while you check your connection.'}</div>
-              <button className="primary" onClick={() => nav('welcome')}>Back to the beginning</button>
+              {controls.canSignIn && onSignIn
+                ? <button className="primary" onClick={() => onSignIn(draft)}>Continue with email</button>
+                : controls.needsReconnection ? <button className="primary" onClick={() => nav('account')}>Go to my account</button>
+                : <button className="primary" onClick={() => nav('welcome')}>Back to the beginning</button>}
             </>}
             <p className="hint">Task suggestions and My list will be connected in the next build steps.</p>
           </section>}
@@ -148,9 +203,12 @@ function ProfileScreens({ session, state }: { session: ProfileSession; state: Pr
             {state.status === 'unconfigured' ? <>
               <p>Email sign-in is being connected. You can explore the welcome questions for now.</p><button className="primary" onClick={() => nav('welcome')}>Back to the beginning</button>
             </> : <>
-              <p>{state.status === 'signed_out' ? 'You are signed out.' : state.status === 'error' ? 'Your connection needs attention. You can check your saved answers or sign out.' : 'Your starting point is yours to revisit.'}</p>
+              <p>{controls.needsReconnection ? 'You’re signed in, but we couldn’t verify your connection. Check your saved answers, or sign out and try again.'
+                : state.status === 'signed_out' ? 'You are signed out.' : state.status === 'error' ? 'Your connection needs attention. You can check your saved answers or sign out.' : 'Your starting point is yours to revisit.'}</p>
+              {providerSignedIn && accountLabel && <p className="hint">Signed in as {accountLabel}</p>}
               <button className="primary" onClick={() => nav(canSave ? 'recap' : 'welcome')}>{canSave ? 'Review my starting point' : 'Back to the beginning'}</button>
-              {state.status !== 'signed_out' && <button className="text-button" onClick={() => void session.signOut()}>Sign out</button>}
+              {controls.canSignIn && onSignIn && <button className="secondary" onClick={() => onSignIn()}>Sign in with email</button>}
+              {controls.canSignOut && <button className="text-button" onClick={() => void session.signOut()}>Sign out</button>}
             </>}
           </section>}
         </fieldset>
