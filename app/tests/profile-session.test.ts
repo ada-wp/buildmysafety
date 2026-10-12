@@ -54,6 +54,19 @@ function fakeClient(overrides: Partial<SafetyClient> = {}): SafetyClient {
   };
 }
 
+test('pending or completed deletion discovered on reload clears private screens', async () => {
+  for (const [code, status] of [['account_deleted', 410], ['account_deletion_pending', 409]] as const) {
+    const identity = fakeIdentity(); let leaving = false;
+    const session = createProfileSession(fakeClient({ getMemory: async () => {
+      if (leaving) throw new SafetyApiError(code, status); return snapshot();
+    } }), identity.adapter);
+    await session.load(); const epoch = session.getState().identityEpoch; leaving = true;
+    assert.equal(await session.load(), false);
+    assert.equal(session.getState().snapshot, null); assert.equal(session.getState().identityEpoch, epoch + 1);
+    assert.equal(session.getState().error?.code, code); session.dispose();
+  }
+});
+
 test('accepted pending deletion clears private state and remounts screens without claiming provider success', async () => {
   const identity = fakeIdentity();
   const session = createProfileSession(fakeClient({ getMemory: async () => snapshot(),

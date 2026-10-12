@@ -2,6 +2,7 @@ import { SafetyApiError, type SafetyClient } from './cloud-api.ts';
 import type { MemorySnapshot } from './api-contracts.ts';
 import type { ProfileDraft } from './profile-draft.ts';
 import type { IdentityAdapter } from './identity.ts';
+import { accountIsLeaving } from './navigation.ts';
 
 export type ProfileSessionState = {
   status: 'unconfigured' | 'signed_out' | 'loading' | 'new' | 'ready' | 'error';
@@ -33,7 +34,7 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
     const safe = errorOf(error);
     if (safe.status === 401) observedIdentity = false;
     emit({ ...state, status: safe.status === 401 ? 'signed_out' : 'error', snapshot: null, busy: false, error: safe,
-      identityEpoch: state.identityEpoch + (safe.status === 401 ? 1 : 0) });
+      identityEpoch: state.identityEpoch + (safe.status === 401 || accountIsLeaving(safe.code) ? 1 : 0) });
   };
 
   async function load(): Promise<boolean> {

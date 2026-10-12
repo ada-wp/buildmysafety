@@ -10,8 +10,10 @@ import { interestEntries } from './interest-labels';
 import { createSignInHandoff } from './sign-in-handoff';
 import { TaskJourney } from './components/TaskJourney';
 import { PrivacyScreen } from './components/PrivacyScreen';
+import { ConnectionNotice } from './components/ConnectionNotice';
 import type { SafetyClient } from './cloud-api';
 import type { OnboardingResponse } from './api-contracts';
+import { accountBack, accountIsLeaving, signInDestination } from './navigation';
 
 type Page = 'welcome' | 'question' | 'pause' | 'interests' | 'recap' | 'app' | 'account' | 'privacy' | 'goodbye';
 const pages: Page[] = ['welcome', 'question', 'pause', 'interests', 'recap', 'app', 'account', 'privacy', 'goodbye'];
@@ -27,19 +29,20 @@ export function accountControls(status: ProfileSessionState['status'], providerS
 }
 
 export default function App({ session, client, renderSignIn, accountLabel, providerSignedIn = false }: {
-  session: ProfileSession; client: SafetyClient; renderSignIn?: () => ReactNode; accountLabel?: string; providerSignedIn?: boolean
+  session: ProfileSession; client: SafetyClient; renderSignIn?: (returnHash: string) => ReactNode; accountLabel?: string; providerSignedIn?: boolean
 }) {
   const state = useSyncExternalStore(session.subscribe, session.getState);
   const controls = accountControls(state.status, providerSignedIn);
   const handoff = useRef(createSignInHandoff());
   const signInEpoch = useRef<number | null>(null);
+  const signInReturn = useRef('#/account');
   const [signingIn, setSigningIn] = useState(false);
   const [deletionConfirmed, setDeletionConfirmed] = useState(false);
   useEffect(() => { void session.load(); }, [session]);
   useEffect(() => {
     if (signingIn && signInEpoch.current !== null && state.identityEpoch > signInEpoch.current && !state.busy) {
       // Expose storage/auth errors as well as success; never trap a signed-in user in the login form.
-      history.replaceState(null, '', `${location.pathname}#/recap`);
+      history.replaceState(null, '', signInReturn.current);
       window.dispatchEvent(new PopStateEvent('popstate'));
       setSigningIn(false);
       signInEpoch.current = null;
@@ -49,6 +52,7 @@ export default function App({ session, client, renderSignIn, accountLabel, provi
   function beginSignIn(draft?: ProfileDraft) {
     if (!renderSignIn || !controls.canSignIn) return;
     setDeletionConfirmed(false);
+    signInReturn.current = signInDestination(location.hash, Boolean(draft));
     if (draft) handoff.current.begin(draft, state.identityEpoch); else handoff.current.clear();
     signInEpoch.current = state.identityEpoch;
     setSigningIn(true);
@@ -62,12 +66,12 @@ export default function App({ session, client, renderSignIn, accountLabel, provi
     </div>
     {signingIn && <div className="app-shell sign-in-screen"><h1>Keep your<br />little wins.</h1>
       <p>A code in your inbox. A place for your progress.</p>
-      {renderSignIn?.()}
+      {renderSignIn?.(signInReturn.current)}
       <button className="text-button" onClick={() => {
         handoff.current.clear(); signInEpoch.current = null;
-        history.replaceState(null, '', `${location.pathname}#/recap`);
+        history.replaceState(null, '', signInReturn.current);
         window.dispatchEvent(new PopStateEvent('popstate')); setSigningIn(false);
-      }}>Back to my answers</button>
+      }}>{signInReturn.current === '#/recap' ? 'Back to my answers' : 'Back'}</button>
       <p className="hint">Your email is used for sign-in. Your profile and task choices are stored separately in My Safety.</p>
     </div>}
   </>;
@@ -87,7 +91,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
   const [editing, setEditing] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const [appEntered, setAppEntered] = useState(false);
-  const accountReturn = useRef('#/welcome');
+  const accountReturn = useRef('');
   const interestReturn = useRef<{ page: Page; step: number }>({ page: 'question', step: questions.length - 1 });
   const [notice, setNotice] = useState(initialDraft ? 'Your choices came with you. Review them before saving; your previous saved answers have not been replaced.' : '');
   const main = useRef<HTMLElement>(null);
@@ -108,7 +112,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
       if (initialDraft) return;
       if (saved.progress?.draft && !saved.progress.completedAt) {
         setDraft(saved.progress.draft as ProfileDraft); setDirty(true);
-        if (!['#/privacy', '#/goodbye'].includes(location.hash)) {
+        if (!['#/account', '#/privacy', '#/goodbye'].includes(location.hash)) {
           history.replaceState(null, '', `#/${saved.progress.checkpoint}`);
           window.dispatchEvent(new PopStateEvent('popstate'));
         }
@@ -124,6 +128,12 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
     if (state.snapshot && !dirty) setDraft(editableProfile(state.snapshot.profile));
   }, [state.snapshot, dirty]);
   useEffect(() => {
+    if (accountIsLeaving(state.error?.code) && !['#/privacy', '#/goodbye'].includes(location.hash)) {
+      history.replaceState(null, '', '#/privacy');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  }, [state.error]);
+  useEffect(() => {
     [...(main.current?.querySelectorAll('h1') || [])].find(heading => !heading.closest('[hidden]'))?.focus();
     window.scrollTo(0, 0);
   }, [page, step]);
@@ -136,6 +146,8 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
       setPage(pages.includes(value) ? value : 'welcome');
       if (value === 'app') setAppEntered(true);
       const savedNavigation = history.state?.onboarding;
+      if (['account', 'privacy'].includes(value) && typeof history.state?.accountReturn === 'string')
+        accountReturn.current = history.state.accountReturn;
       setEditing(['question', 'interests'].includes(value) && savedNavigation?.editing === true);
       const returnTo = savedNavigation?.interestReturn;
       interestReturn.current = returnTo && pages.includes(returnTo.page) &&
@@ -149,7 +161,8 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
     };
     restore();
     window.addEventListener('popstate', restore);
-    return () => window.removeEventListener('popstate', restore);
+    window.addEventListener('hashchange', restore);
+    return () => { window.removeEventListener('popstate', restore); window.removeEventListener('hashchange', restore); };
   }, []);
 
   async function nav(next: Page, nextStep = step, editMode = false, nextDraft = draft) {
@@ -168,14 +181,14 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
       } catch { if (alive.current) setCheckpointError('We couldn’t confirm that save. Your choices are still here. Check saved progress before continuing.'); return; }
       finally { if (alive.current) setCheckpointBusy(false); }
     }
-    if (next === 'account' && page !== 'account') accountReturn.current = location.hash || '#/welcome';
+    if (next === 'account' && !['account', 'privacy', 'goodbye'].includes(page)) accountReturn.current = location.hash || '#/welcome';
     if (next === 'app') setAppEntered(true);
     setPage(next);
     setEditing(editMode);
     if (next === 'question') setStep(nextStep);
     // Only public question IDs enter the URL. Browser Back restores the question,
     // without putting any answers in history or claiming cloud draft recovery.
-    history.pushState({ onboarding: { editing: editMode, interestReturn: { ...interestReturn.current } } }, '',
+    history.pushState({ accountReturn: accountBack(accountReturn.current, Boolean(state.snapshot)), onboarding: { editing: editMode, interestReturn: { ...interestReturn.current } } }, '',
       `#/${next}${next === 'question' ? `/${questions[nextStep].id}` : next === 'app' ? '/explore' : ''}`);
     if (next === 'app') window.dispatchEvent(new PopStateEvent('popstate'));
   }
@@ -226,7 +239,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
     else if (page === 'recap') nav('interests');
     else if (page === 'privacy') nav('account');
     else if (page === 'account') {
-      history.pushState(null, '', accountReturn.current);
+      history.pushState(null, '', accountBack(accountReturn.current, Boolean(state.snapshot)));
       window.dispatchEvent(new PopStateEvent('popstate'));
     }
     else nav('welcome');
@@ -261,15 +274,16 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
         <button className="pet-button" disabled={state.busy || checkpointBusy} aria-label="Your account" onClick={() => nav('account')}><Elephant name={draft.elephantName} /></button>
       </header>
       <main ref={main} aria-busy={state.busy}>
+        <ConnectionNotice />
         {state.error && page !== 'privacy' && page !== 'goodbye' && <div role="alert" className="message error">
           {state.error.conflict ? 'Your saved answers changed elsewhere. Your edits are still here. Load the latest version before reviewing and saving again.' : state.error.message}
           <button className="text-button" disabled={state.busy} onClick={() => { setNotice('Your unsaved choices stay here while we check the saved version.'); void session.load(); }}>Check saved answers</button>
         </div>}
         {notice && <div role="status" className="message">{notice}</div>}
-        {checkpointError && <div className="message error" role="alert"><p>{checkpointError}</p><button className="text-button" disabled={checkpointBusy} onClick={() => {
+        {checkpointError && <div className="message error" role="alert"><p>{checkpointError}</p><p>Loading saved progress replaces unsaved choices on this page with the last confirmed cloud version.</p><button className="text-button" disabled={checkpointBusy} onClick={() => {
           progress.current = null; setCheckpointReady(false); setCheckpointRetry(value => value + 1);
           void session.load();
-        }}>Check saved progress</button></div>}
+        }}>Load saved progress</button></div>}
         {state.snapshot && dirty && <button className="text-button" disabled={state.busy} onClick={() => { setDirty(false); setNotice('Showing your last saved answers.'); }}>Use my last saved answers</button>}
         <fieldset className="screen-fields" disabled={state.busy || checkpointBusy || (canSave && !checkpointReady && ['question', 'pause', 'interests', 'recap'].includes(page))}>
           {page === 'privacy' && <PrivacyScreen client={client} session={session} signedIn={providerSignedIn} onDeleted={onDeleted} connectionError={state.error?.message}
@@ -319,7 +333,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
             {canSave && <p className="hint">Continue saves your choices to your account.</p>}
           </section>}
           {appEntered && state.status === 'ready' && <section hidden={page !== 'app'}>
-            <TaskJourney key={state.snapshot!.profile.revision} draft={editableProfile(state.snapshot!.profile)} client={client} active={page === 'app'} />
+            <TaskJourney key={state.snapshot!.profile.revision} draft={editableProfile(state.snapshot!.profile)} client={client} active={page === 'app'} onIdentityError={() => void session.load()} />
           </section>}
           {page === 'app' && state.status !== 'ready' && <section><h1 tabIndex={-1}>Your next step<br />has a place here.</h1><p>Sign in and save your starting point to open your tasks.</p><button className="primary" onClick={() => nav('recap')}>Continue with my account</button></section>}
           {page === 'account' && <section>

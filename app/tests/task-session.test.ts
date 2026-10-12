@@ -139,6 +139,18 @@ test('expired authentication clears private task data and suppresses further wri
   session.dispose();
 });
 
+test('deletion discovered in another tab clears private task data and prevents more changes', async () => {
+  for (const [code, status] of [['account_deleted', 410], ['account_deletion_pending', 409]] as const) {
+    const { client, session } = setup();
+    await session.load(); await session.recommend({ topicId: 'sick_care', concernIds: ['food'] });
+    client.getLatestRecommendation = async () => { throw new SafetyApiError(code, status); };
+    assert.equal(await session.load(), false);
+    assert.equal(session.getState().collection, null); assert.equal(session.getState().latest, null);
+    assert.equal(await session.act('easy_food', { type: 'save' }), false);
+    session.dispose();
+  }
+});
+
 test('dispose aborts pending action and prevents its late result from publishing into a new screen', async () => {
   const { client, session } = setup();
   await session.load();

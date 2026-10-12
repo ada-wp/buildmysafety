@@ -8,6 +8,7 @@ import { createTaskSession } from '../task-session';
 import { recommendationFeedback } from '../recommendation-feedback';
 import { Elephant } from './Elephant';
 import { TaskFeedback } from './TaskFeedback';
+import { accountIsLeaving } from '../navigation';
 
 type Route = { page: 'explore' | 'list' | 'concerns' | 'ideas' | 'earlier' } | { page: 'topic'; topic: TopicId } |
   { page: 'task' | 'complete' | 'refine'; task: string };
@@ -15,12 +16,13 @@ function readRoute(): Route {
   const [, , page, id] = location.hash.split('/');
   if ((page === 'task' || page === 'complete' || page === 'refine') && /^[a-z0-9_-]{1,100}$/.test(id || '')) return { page, task: id };
   if (page === 'topic' && interestEntries.some(([value]) => value === id)) return { page, topic: id as TopicId };
-  if (['list', 'concerns', 'ideas', 'earlier'].includes(page)) return { page: page as 'list' | 'concerns' | 'ideas' | 'earlier' };
+  if (['list', 'earlier'].includes(page) && !id) return { page: page as 'list' | 'earlier' };
+  if (['concerns', 'ideas'].includes(page) && id === 'sick_care') return { page: page as 'concerns' | 'ideas' };
   return { page: 'explore' };
 }
 const hash = (r: Route) => `#/app/${r.page}${'task' in r ? `/${r.task}` : 'topic' in r ? `/${r.topic}` : ['concerns', 'ideas'].includes(r.page) ? '/sick_care' : ''}`;
 
-export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; client: SafetyClient; active: boolean }) {
+export function TaskJourney({ draft, client, active, onIdentityError }: { draft: ProfileDraft; client: SafetyClient; active: boolean; onIdentityError: () => void }) {
   const [session] = useState(() => createTaskSession(client));
   const state = useSyncExternalStore(session.subscribe, session.getState);
   const [route, setRoute] = useState<Route>(readRoute);
@@ -31,15 +33,21 @@ export function TaskJourney({ draft, client, active }: { draft: ProfileDraft; cl
   const [noSpend, setNoSpend] = useState(draft.answers.constraints.includes('cost'));
   const [notice, setNotice] = useState('');
   const [showAll, setShowAll] = useState(draft.answers.style !== 'one');
-  const origin = useRef<'ideas' | 'list'>('ideas');
+  const origin = useRef<'ideas' | 'list'>(history.state?.taskOrigin === 'list' ? 'list' : 'ideas');
   const restored = useRef(false);
   const root = useRef<HTMLDivElement>(null);
+  const identityError = useRef(onIdentityError);
+  identityError.current = onIdentityError;
   useEffect(() => { session.connect(); void session.load(); return () => session.dispose(); }, [session]);
   useEffect(() => {
+    if (state.error && (state.error.status === 401 || accountIsLeaving(state.error.code))) identityError.current();
+  }, [state.error]);
+  useEffect(() => {
     const restore = () => { if (location.hash.startsWith('#/app')) { setRoute(readRoute()); origin.current = history.state?.taskOrigin === 'list' ? 'list' : 'ideas'; } };
-    window.addEventListener('popstate', restore); return () => window.removeEventListener('popstate', restore);
+    window.addEventListener('popstate', restore); window.addEventListener('hashchange', restore);
+    return () => { window.removeEventListener('popstate', restore); window.removeEventListener('hashchange', restore); };
   }, []);
-  useEffect(() => { if (active) { root.current?.querySelector<HTMLElement>('h1')?.focus(); window.scrollTo(0, 0); } }, [route, active]);
+  useEffect(() => { if (active) { root.current?.querySelector<HTMLElement>('h1')?.focus(); window.scrollTo(0, 0); } }, [route, active, state.loaded]);
   useEffect(() => {
     if (!restored.current && state.loaded) {
       const request = state.latest?.result?.request;

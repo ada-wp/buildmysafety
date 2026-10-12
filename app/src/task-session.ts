@@ -1,5 +1,6 @@
 import { SafetyApiError, type SafetyClient } from './cloud-api.ts';
 import type { CatalogResponse, LatestRecommendation, RecommendationRequest, TaskActionEvent, TaskCollection } from './api-contracts.ts';
+import { accountIsLeaving } from './navigation.ts';
 
 type TaskClient = Pick<SafetyClient, 'getCatalog' | 'getTasks' | 'getLatestRecommendation' | 'recommendations' | 'taskAction'>;
 export type TaskSessionState = { catalog: CatalogResponse | null; collection: TaskCollection | null;
@@ -36,7 +37,7 @@ export function createTaskSession(client: TaskClient, makeId: () => string = () 
     } catch (error) {
       if (!valid(id)) return false;
       const safe = error instanceof SafetyApiError ? error : new SafetyApiError('request_failed');
-      publish({ busy: false, error: safe, ...(safe.status === 401 ? { collection: null, latest: null, loaded: false } : {}) });
+      publish({ busy: false, error: safe, ...(safe.status === 401 || accountIsLeaving(safe.code) ? { collection: null, latest: null, loaded: false } : {}) });
       return false;
     }
   }
