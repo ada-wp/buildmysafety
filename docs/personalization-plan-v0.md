@@ -8,6 +8,8 @@
 
 ### Category package — current direction
 
+**Roadmap design request:** Ada now wants a lean roadmap and progress experience using the elephant and a symbol of what the user builds. The [October 12 design proposal](../design/app/roadmap/README.md) describes optional paths, concrete outcome history and small scene changes using existing task/award state. This brings roadmap design into the current discussion; it does not approve a compulsory curriculum, a safety score or live implementation. Review it alongside the sick-day tasks.
+
 **Additional research reference:** Ada supplied a [Buildpad pain-point report](../research/buildpad-reference.md) for future category discussions and explicitly clarified that it is reference material, not a direction to change categories now. Consult its source leads alongside existing research and verify relevant claims. Its rankings, emergency-centered framing and proposed money track do not supersede founder decisions. The linked review also contains proposed follow-up research briefs for her trial; these have not been run.
 
 Ada's latest October 12 direction is to perfect one category at a time, starting with sick-day preparation. Each category should have informative situation/concern checkboxes, a tailored prompt, at least thirty carefully crafted reusable tasks and a simple roadmap from easier to more involved preparation. Its prompt also serves specific personal requests within that category. The minimum-thirty direction updates the earlier rough targets; do not reach it with renamed duplicates or filler. It does not change the established three-suggestion, inspect, save and complete flow.

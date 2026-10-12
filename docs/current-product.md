@@ -96,6 +96,8 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 ## Next gates
 
+**Roadmap design update, October 12:** Ada requested a lean roadmap and progress design using the elephant and a symbol of what she is building. The [proposal](../design/app/roadmap/README.md) now brings that design into the current task-content review. Earlier references to a deferred roadmap concern implementation: no new live roadmap, category scoring or reward thresholds have been deployed. The current proposal keeps Explore/My list and uses optional paths plus factual outcome history.
+
 ### Ordered build plan to a usable V0
 
 October 11: Ada requested the complete step-by-step roadmap before further screen integration. The following is the implementation sequence, not a claim that these features already work. Existing design choices stay in place. Complete and verify a bounded step, then explicitly report completion and the next step; do not build every block at once.
