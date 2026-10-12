@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- On October 12, Ada specified that all future project documents should be in English. This includes internal research, specifications, prompts and test reports, as well as user-facing product content. Conversation with her may still follow her chosen language.
+
 - Ada confirmed My Safety's user-facing product content should be English; discussion with her may remain Chinese. She said the preparation draft felt good and asked to turn it into English and try it. This supports the writing direction and a bounded real-model trial; it does not automatically approve every new model output or publish the content to the app.
 
 - In the following content discussion, Ada said “不要太复杂正规程序化” and agreed to carefully craft the prompt and suggestions together before settling them. Keep the collaboration natural and concrete; do not turn it into a formal scoring or approval program. She further emphasized preparation **before** an event: material supplies, knowledge, useful contacts and memoranda. A memo can be valuable when it contains information or instructions that will actually help later; do not reject notes categorically.

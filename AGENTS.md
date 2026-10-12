@@ -2,6 +2,8 @@
 
 This file is a navigation and continuity aid, not another product specification.
 
+Write all new project documents and documentation updates in English, including specifications, research, prompts, task content and test reports. This applies to internal documents as well as user-facing content. Follow Ada's language when discussing the work with her.
+
 - Read `docs/current-product.md` for the current audience, philosophy, established flow, scope and next step.
 - Read `docs/founder-voice.md` for Ada's own statements and the project's voice. Her latest direct instructions take precedence over historical plans and assistant proposals.
 - For task content/personalization, read `docs/personalization-plan-v0.md`. Keep the approved prompt and candidate calibration revision distinct; their paths and status are recorded in the current product document.
