@@ -17,6 +17,8 @@ Reviewed September 29, 2026. The local review inventoried 212 files across the S
 
 ## Deliberately excluded
 
+October 11 app cleanup: the incompatible early server and coupled UI draft are preserved in [the retired app draft](../archive/app-server-draft-20261011/README.md). The active [app foundation](../app/README.md) uses the canonical personalization API. Old mock identity/task routes are outside its build and tests; the approved clickable designs remain unchanged. This is source cleanup, not a user-data migration.
+
 Node modules, build outputs, caches, `.wrangler`, generated binding types, runtime logs, Office lock files, repeated QA page renders, empty research placeholders, raw web-search responses and superseded split datasets are not useful active project documents. They were excluded from the curated collection. License notices and original vendor snapshots are intentionally retained, even when similar text appears more than once. Unique rejected design concepts are retained locally, not deleted as duplicates.
 
 The only byte-identical group in the inspected source inventory consists of four raw search/scrape responses; it is excluded. Most redundancy was semantic (multiple evolving plans), so consolidation preserves unique details rather than deleting similar files blindly. The standalone design and editable fragment, and JSON/workbook, are intentional source/export pairs.

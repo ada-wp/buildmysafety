@@ -13,3 +13,5 @@ dist/
 *.log
 
 design/app/qa-output/
+app/.local/
+app/test-output/
