@@ -37,6 +37,15 @@ export type ProfileChanges = {
 export type ProfileResponse = { profile: UserProfile };
 export type ProfileUpdate = { expectedRevision: number; changes: ProfileChanges };
 export type PreferenceReset = { expectedRevision: number };
+export type AccountDeletion = { status: 'pending' | 'deleted'; requestedAt: string; completedAt: string | null };
+export type AccountStatus = { deletion: AccountDeletion | null; deletionAvailable: boolean };
+export type AccountExport = {
+  schemaVersion: 1; exportedAt: string; accountId: string; scope: string;
+  profile: Record<string, unknown> | null; onboarding: Record<string, unknown> | null;
+  tasks: Record<string, unknown>[]; sharedTaskContent: Record<string, unknown>[];
+  privateTaskContent: Record<string, unknown>[]; awards: Record<string, unknown>[];
+  latestBatch: Record<string, unknown> | null; aiUsage: Record<string, unknown>[];
+};
 
 export type FeedbackCode = 'helpful' | 'too_generic' | 'too_much_effort' | 'too_expensive' |
   'already_done' | 'not_relevant_now';

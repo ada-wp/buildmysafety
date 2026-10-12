@@ -104,6 +104,7 @@ export async function readBody(request) {
 }
 
 const STATUS = {
+  account_deleted: 410, account_deletion_pending: 409, account_deletion_not_configured: 503, account_identity_unavailable: 503,
   authentication_required: 401, authentication_invalid: 401, origin_not_allowed: 403, adaptation_disabled: 403,
   authentication_not_configured: 503, authentication_unavailable: 503, d1_binding_required: 503, storage_unavailable: 503,
   api_key_required: 503, model_required: 503, profile_not_found: 404, task_not_found: 404,

@@ -47,11 +47,45 @@ function fakeClient(overrides: Partial<SafetyClient> = {}): SafetyClient {
   const unexpected = async () => { throw new Error('Unexpected API method'); };
   return {
     health: unexpected, getMemory: unexpected, createMemory: unexpected,
+    getAccount: unexpected, exportAccount: unexpected, deleteAccount: unexpected,
     updateMemory: unexpected, resetMemory: unexpected, taskAction: unexpected,
     recommendations: unexpected, getCatalog: unexpected, getTasks: unexpected, getLatestRecommendation: unexpected,
     getOnboarding: unexpected, saveOnboarding: unexpected, ...overrides
   };
 }
+
+test('accepted pending deletion clears private state and remounts screens without claiming provider success', async () => {
+  const identity = fakeIdentity();
+  const session = createProfileSession(fakeClient({ getMemory: async () => snapshot(),
+    deleteAccount: async () => ({ deletion: { status: 'pending', requestedAt: '2026-10-12', completedAt: null } }) }), identity.adapter);
+  await session.load(); const before = session.getState().identityEpoch;
+  assert.equal(await session.deleteAccount(), 'pending');
+  assert.equal(session.getState().snapshot, null);
+  assert.equal(session.getState().error?.code, 'account_deletion_pending');
+  assert.equal(session.getState().identityEpoch, before + 1); assert.equal(identity.signOuts(), 0);
+});
+
+test('late deletion response cannot clear a newly signed-in account or navigate it to goodbye', async () => {
+  const identity = fakeIdentity();
+  const pending = deferred<{ deletion: { status: 'deleted'; requestedAt: string; completedAt: string } }>();
+  let owner = 'test-owner-a';
+  const session = createProfileSession(fakeClient({ getMemory: async () => snapshot(owner), deleteAccount: async () => pending.promise }), identity.adapter);
+  await session.load(); const deletion = session.deleteAccount();
+  owner = 'test-owner-b'; identity.change('token-b'); await nextTurn();
+  pending.resolve({ deletion: { status: 'deleted', requestedAt: '2026-10-12', completedAt: '2026-10-12' } });
+  assert.equal(await deletion, null); assert.equal(session.getState().snapshot?.profile.userId, owner);
+});
+
+test('unconfirmed deletion clears local private state, returns no success and makes no automatic retry', async () => {
+  const identity = fakeIdentity(); let calls = 0;
+  const session = createProfileSession(fakeClient({ getMemory: async () => snapshot(), deleteAccount: async () => {
+    calls++; throw new SafetyApiError('network_error', null, true);
+  } }), identity.adapter);
+  await session.load(); const before = session.getState().identityEpoch;
+  assert.equal(await session.deleteAccount(), null); assert.equal(calls, 1);
+  assert.equal(session.getState().snapshot, null); assert.equal(session.getState().identityEpoch, before + 1);
+  assert.equal(session.getState().error?.outcomeUnknown, true);
+});
 
 test('learning controls write only the chosen setting or reset revision, then read confirmed cloud state', async () => {
   let stored = snapshot();

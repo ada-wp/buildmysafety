@@ -2,8 +2,10 @@ import { createHandler } from '../personalization/http.mjs';
 import { createClerkIdentityVerifier } from '../personalization/clerk-identity.mjs';
 import { catalog } from '../personalization/catalog.mjs';
 import { createOnboardingHandler } from '../personalization/onboarding.mjs';
+import { createAccountHandler, assertAccountActive } from '../personalization/account.mjs';
 
 const API_METHODS = new Map([
+  ['/api/account', ['GET']], ['/api/account/export', ['GET']], ['/api/account/delete', ['POST']],
   ['/api/memory', ['GET', 'POST', 'PATCH']],
   ['/api/memory/reset', ['POST']],
   ['/api/catalog', ['GET']], ['/api/tasks', ['GET']], ['/api/tasks/action', ['POST']],
@@ -36,13 +38,19 @@ function reservedApiPath(pathname) {
  * Build with nodejs_compat for the shared backend's node:crypto dependency.
  */
 export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier(),
-  contentReviewHosts = ['app-auth-staging.buildmysafety.pages.dev'], generate } = {}) {
+  contentReviewHosts = ['app-auth-staging.buildmysafety.pages.dev'], generate, deleteIdentity, checkIdentity } = {}) {
   // Editorial content can be exercised in the founder's named preview only.
   // This is real cloud persistence, with content review still pending. A main
   // website or future customer hostname does not inherit this review switch.
-  const standardApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true });
-  const reviewApi = createHandler({ catalog, verifyIdentity, requireDeliveryIds: true, allowEditorialReview: true, allowAutomatic: true, generate });
-  const onboarding = createOnboardingHandler({ verifyIdentity });
+  const activeIdentity = async (request, env) => {
+    const owner = await verifyIdentity(request, env);
+    await assertAccountActive(env.MEMORY_DB, owner);
+    return owner;
+  };
+  const standardApi = createHandler({ catalog, verifyIdentity: activeIdentity, requireDeliveryIds: true });
+  const reviewApi = createHandler({ catalog, verifyIdentity: activeIdentity, requireDeliveryIds: true, allowEditorialReview: true, allowAutomatic: true, generate });
+  const onboarding = createOnboardingHandler({ verifyIdentity: activeIdentity });
+  const account = createAccountHandler({ verifyIdentity, deleteIdentity, checkIdentity });
   return {
     async fetch(request, env) {
       const { pathname, hostname } = new URL(request.url);
@@ -60,11 +68,12 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
         // AI is isolated to the named preview host and an explicit server switch.
         // Credentials are lazy: pool paths never access them. Synthetic auth stays closed.
         const aiEnabled = contentReviewHosts.includes(hostname) && env?.AI_ADAPTATION_ENABLED === 'true';
-        const handler = pathname.startsWith('/api/onboarding') ? onboarding : api;
+        const handler = pathname.startsWith('/api/account') ? account : pathname.startsWith('/api/onboarding') ? onboarding : api;
         const response = await handler(request, {
           MEMORY_DB: env?.MEMORY_DB,
           CLERK_ISSUER: env?.CLERK_ISSUER,
           CLERK_AUTHORIZED_PARTIES: env?.CLERK_AUTHORIZED_PARTIES,
+          get CLERK_SECRET_KEY() { return handler === account ? env?.CLERK_SECRET_KEY : undefined; },
           AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false',
           AI_NEW_NEEDS_ENABLED: aiEnabled && env?.AI_NEW_NEEDS_ENABLED === 'true' ? 'true' : 'false',
           OPENAI_MODEL: aiEnabled ? env?.OPENAI_MODEL : undefined,

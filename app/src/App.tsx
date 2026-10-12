@@ -9,11 +9,12 @@ import { questions } from './onboarding';
 import { interestEntries } from './interest-labels';
 import { createSignInHandoff } from './sign-in-handoff';
 import { TaskJourney } from './components/TaskJourney';
+import { PrivacyScreen } from './components/PrivacyScreen';
 import type { SafetyClient } from './cloud-api';
 import type { OnboardingResponse } from './api-contracts';
 
-type Page = 'welcome' | 'question' | 'pause' | 'interests' | 'recap' | 'app' | 'account';
-const pages: Page[] = ['welcome', 'question', 'pause', 'interests', 'recap', 'app', 'account'];
+type Page = 'welcome' | 'question' | 'pause' | 'interests' | 'recap' | 'app' | 'account' | 'privacy' | 'goodbye';
+const pages: Page[] = ['welcome', 'question', 'pause', 'interests', 'recap', 'app', 'account', 'privacy', 'goodbye'];
 const feelingStep = questions.findIndex(question => question.id === 'feeling');
 
 /** An API rejection clears app data, but does not revoke the provider's session. */
@@ -33,6 +34,7 @@ export default function App({ session, client, renderSignIn, accountLabel, provi
   const handoff = useRef(createSignInHandoff());
   const signInEpoch = useRef<number | null>(null);
   const [signingIn, setSigningIn] = useState(false);
+  const [deletionConfirmed, setDeletionConfirmed] = useState(false);
   useEffect(() => { void session.load(); }, [session]);
   useEffect(() => {
     if (signingIn && signInEpoch.current !== null && state.identityEpoch > signInEpoch.current && !state.busy) {
@@ -46,6 +48,7 @@ export default function App({ session, client, renderSignIn, accountLabel, provi
   }, [state.status, state.identityEpoch, state.busy, signingIn]);
   function beginSignIn(draft?: ProfileDraft) {
     if (!renderSignIn || !controls.canSignIn) return;
+    setDeletionConfirmed(false);
     if (draft) handoff.current.begin(draft, state.identityEpoch); else handoff.current.clear();
     signInEpoch.current = state.identityEpoch;
     setSigningIn(true);
@@ -54,7 +57,8 @@ export default function App({ session, client, renderSignIn, accountLabel, provi
     <div hidden={signingIn}>
       <ProfileScreens key={state.identityEpoch} session={session} client={client} state={state}
         initialDraft={handoff.current.peek(state.identityEpoch)} onSignIn={renderSignIn ? beginSignIn : undefined}
-        accountLabel={accountLabel} providerSignedIn={providerSignedIn} />
+        accountLabel={accountLabel} providerSignedIn={providerSignedIn}
+        deletionConfirmed={deletionConfirmed} onDeleted={() => setDeletionConfirmed(true)} />
     </div>
     {signingIn && <div className="app-shell sign-in-screen"><h1>Keep your<br />little wins.</h1>
       <p>A code in your inbox. A place for your progress.</p>
@@ -69,9 +73,10 @@ export default function App({ session, client, renderSignIn, accountLabel, provi
   </>;
 }
 
-function ProfileScreens({ session, client, state, initialDraft, onSignIn, accountLabel, providerSignedIn }: {
+function ProfileScreens({ session, client, state, initialDraft, onSignIn, accountLabel, providerSignedIn, deletionConfirmed, onDeleted }: {
   session: ProfileSession; client: SafetyClient; state: ProfileSessionState; initialDraft: ProfileDraft | null;
-  onSignIn?: (draft?: ProfileDraft) => void; accountLabel?: string; providerSignedIn: boolean
+  onSignIn?: (draft?: ProfileDraft) => void; accountLabel?: string; providerSignedIn: boolean;
+  deletionConfirmed: boolean; onDeleted: () => void
 }) {
   const [page, setPage] = useState<Page>('welcome');
   const [step, setStep] = useState(0);
@@ -103,10 +108,12 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
       if (initialDraft) return;
       if (saved.progress?.draft && !saved.progress.completedAt) {
         setDraft(saved.progress.draft as ProfileDraft); setDirty(true);
-        history.replaceState(null, '', `#/${saved.progress.checkpoint}`);
-        window.dispatchEvent(new PopStateEvent('popstate'));
+        if (!['#/privacy', '#/goodbye'].includes(location.hash)) {
+          history.replaceState(null, '', `#/${saved.progress.checkpoint}`);
+          window.dispatchEvent(new PopStateEvent('popstate'));
+        }
         setNotice('Welcome back. Your saved choices are here; optional feelings and notes stay private to each visit.');
-      } else if ((saved.legacyComplete || saved.progress?.completedAt) && !location.hash.startsWith('#/app/') && location.hash !== '#/account') {
+      } else if ((saved.legacyComplete || saved.progress?.completedAt) && !location.hash.startsWith('#/app/') && !['#/account', '#/privacy', '#/goodbye'].includes(location.hash)) {
         enterApp();
       }
     }).catch(() => { if (!abort.signal.aborted && alive.current) setCheckpointError('We couldn’t load your onboarding progress. Try connecting again before saving changes.'); });
@@ -217,6 +224,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
     else if (page === 'interests' && editing) nav('recap');
     else if (page === 'interests') nav(interestReturn.current.page, interestReturn.current.step);
     else if (page === 'recap') nav('interests');
+    else if (page === 'privacy') nav('account');
     else if (page === 'account') {
       history.pushState(null, '', accountReturn.current);
       window.dispatchEvent(new PopStateEvent('popstate'));
@@ -253,7 +261,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
         <button className="pet-button" disabled={state.busy || checkpointBusy} aria-label="Your account" onClick={() => nav('account')}><Elephant name={draft.elephantName} /></button>
       </header>
       <main ref={main} aria-busy={state.busy}>
-        {state.error && <div role="alert" className="message error">
+        {state.error && page !== 'privacy' && page !== 'goodbye' && <div role="alert" className="message error">
           {state.error.conflict ? 'Your saved answers changed elsewhere. Your edits are still here. Load the latest version before reviewing and saving again.' : state.error.message}
           <button className="text-button" disabled={state.busy} onClick={() => { setNotice('Your unsaved choices stay here while we check the saved version.'); void session.load(); }}>Check saved answers</button>
         </div>}
@@ -264,6 +272,11 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
         }}>Check saved progress</button></div>}
         {state.snapshot && dirty && <button className="text-button" disabled={state.busy} onClick={() => { setDirty(false); setNotice('Showing your last saved answers.'); }}>Use my last saved answers</button>}
         <fieldset className="screen-fields" disabled={state.busy || checkpointBusy || (canSave && !checkpointReady && ['question', 'pause', 'interests', 'recap'].includes(page))}>
+          {page === 'privacy' && <PrivacyScreen client={client} session={session} signedIn={providerSignedIn} onDeleted={onDeleted} connectionError={state.error?.message}
+            onSignIn={controls.canSignIn && onSignIn ? () => onSignIn() : undefined} />}
+          {page === 'goodbye' && <section><h1 tabIndex={-1}>{deletionConfirmed ? <>Your account<br />is deleted.</> : <>Your little<br />corner.</>}</h1><p>{deletionConfirmed ? 'Your app data has been removed and your sign-in account deleted. Thank you for spending a little time here.' : 'Visit Your account to check your sign-in and data controls.'}</p>
+            <button className="primary" onClick={() => nav('welcome')}>Back to welcome</button>
+            {providerSignedIn && <button className="text-button" onClick={() => void session.signOut()}>Finish signing out</button>}</section>}
           {page === 'welcome' && <section className="welcome">
             <span className="eyebrow">A little more “I can handle this.”</span><h1 tabIndex={-1}>Meet your<br />little protector.</h1>
             <Elephant large /><p>Build a life that feels more like yours. One preparation, one choice, one small action at a time.</p>
@@ -311,6 +324,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
           {page === 'app' && state.status !== 'ready' && <section><h1 tabIndex={-1}>Your next step<br />has a place here.</h1><p>Sign in and save your starting point to open your tasks.</p><button className="primary" onClick={() => nav('recap')}>Continue with my account</button></section>}
           {page === 'account' && <section>
             <span className="eyebrow">Your little corner</span><h1 tabIndex={-1}>Growing<br />together.</h1><Elephant large name={draft.elephantName} />
+            <button className="text-button" onClick={() => nav('privacy')}>Privacy &amp; my data</button>
             {state.status === 'unconfigured' ? <>
               <p>Email sign-in is being connected. You can explore the welcome questions for now.</p><button className="primary" onClick={() => nav('welcome')}>Back to the beginning</button>
             </> : <>

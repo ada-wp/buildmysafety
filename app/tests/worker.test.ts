@@ -50,6 +50,8 @@ function setup(t: TestContext) {
   sqlite.exec(migration);
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0004_ai_adaptation.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('../../personalization/migrations/0003_onboarding.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('../../personalization/migrations/0005_account_privacy.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql: string) {
@@ -75,7 +77,7 @@ function setup(t: TestContext) {
     contentReviewHosts: ['app.example'],
     verifyIdentity: async (request: Request, env: Record<string, unknown>) => {
       identityCalls++;
-      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_NEW_NEEDS_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
+      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_NEW_NEEDS_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'CLERK_SECRET_KEY', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
       const owner = identities.get(request.headers.get('Authorization') || '');
       if (!owner) throw new FlowError('authentication_required');
       return owner;
@@ -85,6 +87,7 @@ function setup(t: TestContext) {
     ...clerkConfig, MEMORY_DB: db,
     ASSETS: { async fetch() { assetCalls++; return new Response('<!doctype html><title>App</title>'); } },
     get OPENAI_API_KEY() { throw new Error('The profile worker must not read AI secrets'); },
+    get CLERK_SECRET_KEY() { throw new Error('Ordinary app routes must not read identity admin secrets'); },
     get SYNTHETIC_TEST_MODE() { throw new Error('The profile worker must not enable test content'); },
     get AUTH_JWKS_JSON() { throw new Error('The profile worker must not read synthetic identity config'); }
   };

@@ -97,6 +97,25 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
   const resetLearning = () => state.status !== 'ready' ? Promise.resolve(false)
     : writeProfile((snapshot, signal) => client.resetMemory({ expectedRevision: snapshot!.profile.revision }, { signal }));
 
+  async function deleteAccount(): Promise<'pending' | 'deleted' | null> {
+    if (disposed || state.busy || ['unconfigured', 'signed_out', 'loading'].includes(state.status)) return null;
+    invalidate();
+    const ticket = generation;
+    const controller = new AbortController(); pending = controller;
+    emit({ ...state, busy: true, error: null });
+    try {
+      const result = await client.deleteAccount('DELETE', { signal: controller.signal });
+      if (!current(ticket)) return null;
+      // Remount private screens: temporary drafts/notes/tasks must also disappear.
+      emit({ ...state, snapshot: null, busy: false, status: 'error', identityEpoch: state.identityEpoch + 1,
+        error: new SafetyApiError(result.deletion.status === 'deleted' ? 'account_deleted' : 'account_deletion_pending') });
+      return result.deletion.status;
+    } catch (error) {
+      if (current(ticket)) { failure(error); emit({ ...state, identityEpoch: state.identityEpoch + 1 }); }
+      return null;
+    } finally { if (current(ticket)) pending = null; }
+  }
+
   async function signOut(): Promise<void> {
     if (disposed) return;
     invalidate();
@@ -119,7 +138,7 @@ export function createProfileSession(client: SafetyClient, identity: IdentityAda
   return {
     getState: () => state,
     subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; },
-    load, save, setPersonalization, resetLearning, signOut,
+    load, save, setPersonalization, resetLearning, deleteAccount, signOut,
     dispose() { disposed = true; invalidate(); unsubscribeIdentity(); listeners.clear(); }
   };
 }

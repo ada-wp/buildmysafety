@@ -1,7 +1,8 @@
 import type {
   HealthResponse, MemorySnapshot, PreferenceReset, ProfileChanges, ProfileResponse, ProfileUpdate,
   RecommendationInput, RecommendationResponse, RequestOptions, TaskActionInput, TaskActionResponse,
-  CatalogResponse, TaskCollection, LatestRecommendation, OnboardingResponse, OnboardingWrite
+  CatalogResponse, TaskCollection, LatestRecommendation, OnboardingResponse, OnboardingWrite,
+  AccountStatus, AccountExport, AccountDeletion
 } from './api-contracts.ts';
 
 export type SafetyClientOptions = {
@@ -37,6 +38,8 @@ export class SafetyApiError extends Error {
 const record = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value);
 const text = (value: unknown): value is string => typeof value === 'string';
 const nullableText = (value: unknown) => value === null || text(value);
+const isDeletion = (v: unknown) => record(v) && ['pending', 'deleted'].includes(v.status as string) &&
+  text(v.requestedAt) && nullableText(v.completedAt);
 const texts = (value: unknown): value is string[] => Array.isArray(value) && value.every(text);
 const positiveInt = (value: unknown) => Number.isSafeInteger(value) && (value as number) >= 1;
 const version = (value: unknown) => text(value) && /^[1-9]\d*$/.test(value);
@@ -108,6 +111,7 @@ function isRecommendation(value: unknown) {
 
 // Known machine codes only. Never surface arbitrary server error text or HTML to the UI.
 const serverCodes = new Set([
+  'account_deleted', 'account_deletion_pending', 'account_deletion_not_configured', 'account_identity_unavailable', 'invalid_confirmation',
   'task_not_saved', 'request_id_conflict', 'generation_in_progress', 'refinement_not_available', 'invalid_request_id', 'task_content_unavailable',
   'authentication_required', 'authentication_invalid', 'authentication_unavailable', 'origin_not_allowed', 'adaptation_disabled', 'authentication_not_configured',
   'd1_binding_required', 'storage_unavailable', 'api_key_required', 'model_required', 'profile_not_found', 'task_not_found',
@@ -189,6 +193,17 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
   }
 
   return {
+    getAccount: (options?: RequestOptions) => call<AccountStatus>('/api/account', 'GET', undefined,
+      v => record(v) && typeof v.deletionAvailable === 'boolean' && (v.deletion === null || isDeletion(v.deletion)), options),
+    exportAccount: (options?: RequestOptions) => call<AccountExport>('/api/account/export', 'GET', undefined,
+      v => record(v) && v.schemaVersion === 1 && text(v.exportedAt) && text(v.accountId) && text(v.scope) &&
+        ['profile', 'onboarding', 'latestBatch'].every(k => v[k] === null || record(v[k])) &&
+        ['tasks', 'sharedTaskContent', 'privateTaskContent', 'awards', 'aiUsage'].every(k => Array.isArray(v[k]) && v[k].every(record)), options),
+    deleteAccount: (confirmation: string, options?: RequestOptions) => {
+      input(confirmation === 'DELETE');
+      return call<{ deletion: AccountDeletion }>('/api/account/delete', 'POST', { confirmation },
+        v => record(v) && isDeletion(v.deletion), options);
+    },
     health: (options?: RequestOptions) => call<HealthResponse>('/health', 'GET', undefined, v => record(v) && v.ok === true, options, false),
     getMemory: (options?: RequestOptions) => call<MemorySnapshot>('/api/memory', 'GET', undefined, isMemory, options),
     createMemory: (fields: ProfileChanges = {}, options?: RequestOptions) => call<ProfileResponse>('/api/memory', 'POST', profileBody(fields), isProfileResponse, options),
