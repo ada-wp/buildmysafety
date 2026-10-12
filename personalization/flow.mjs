@@ -1,4 +1,5 @@
 import { Buffer } from 'node:buffer';
+import { privatePrefix, privateAction } from './private-actions.mjs';
 import {
   validProfile, validTaskState, validRequest, validOutput, validCountry,
   outputSchema, instructions, promptHash, hash, requireRule, FlowError
@@ -104,6 +105,14 @@ export async function prepare({ owner, request, store, catalog, testMode = false
   requireRule(validCountry(effective.country), 'invalid_country');
   const topic = catalog.topics.find(item => item.id === request.topicId && approved(item, testMode, allowEditorialReview));
   requireRule(topic, 'unsupported_topic');
+  let privateActions = [];
+  if (taskStates.some(state => state.actionKey.startsWith(privatePrefix(topic.id)))) {
+    const owned = await store.readTasks(owner);
+    requireRule(owned.stateVersion === snapshot.stateVersion, 'stale_state');
+    privateActions = owned.tasks.filter(item => item.state.actionKey.startsWith(privatePrefix(topic.id)))
+      .map(item => privateAction(item, topic));
+  }
+  const memoryCatalog = { ...catalog, actions: [...catalog.actions, ...privateActions] };
   requireRule(request.concernIds.every(id => topic.concerns.some(concern => concern.id === id)), 'unknown_concern');
   requireRule(new Set(catalog.actions.map(a => a.actionKey)).size === catalog.actions.length, 'duplicate_catalog_key');
   requireRule(new Set(catalog.actions.map(a => a.contentRef)).size === catalog.actions.length, 'duplicate_content_ref');
@@ -112,8 +121,8 @@ export async function prepare({ owner, request, store, catalog, testMode = false
   const excluded = new Set(taskStates.filter(state => state.actionKey !== refinement?.state.actionKey).map(state => state.actionKey));
   // Reviewed alternatives can have different keys but still accomplish the same thing.
   // Keep this grouping in shared content, not another per-user memory field.
-  const excludedGroups = new Set(catalog.actions.filter(action => excluded.has(action.actionKey)).map(outcomeGroup));
-  const memory = memoryFor(profile, taskStates, catalog, topic, effective);
+  const excludedGroups = new Set(memoryCatalog.actions.filter(action => excluded.has(action.actionKey)).map(outcomeGroup));
+  const memory = memoryFor(profile, taskStates, memoryCatalog, topic, effective);
   const resourceCandidates = catalog.resources.filter(resource => approved(resource, testMode, allowEditorialReview) &&
     resource.topicIds.includes(topic.id) &&
     (resource.countries.includes('*') || (effective.country && resource.countries.includes(effective.country))) &&
@@ -131,7 +140,8 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     // At most one vote per action, even when both liked and saved. Feedback is not a diagnosis.
     return positives.filter(signal => !negativeKeys.has(signal.action_key) && signal.tags.some(tag => action.tags.includes(tag))).length;
   };
-  const candidates = catalog.actions.filter(action => approved(action, testMode, allowEditorialReview) &&
+  // Private tasks can be edited explicitly, but never enter the shared pool.
+  const candidates = [...catalog.actions, ...(refinement ? privateActions : [])].filter(action => approved(action, testMode, allowEditorialReview) &&
     (!refinement || action.actionKey === refinement.state.actionKey) &&
     action.topicIds.includes(topic.id) && !excluded.has(action.actionKey) && !excludedGroups.has(outcomeGroup(action)) &&
     (action.requiresConcernIds || []).every(id => request.concernIds.includes(id)) &&
@@ -152,7 +162,7 @@ export async function prepare({ owner, request, store, catalog, testMode = false
       nearby_support: effective.localSupport, country: effective.country
     } },
     user_memory: memory,
-    previous_actions: taskStates.filter(state => catalog.actions.some(a => a.actionKey === state.actionKey && a.topicIds.includes(topic.id)))
+    previous_actions: taskStates.filter(state => memoryCatalog.actions.some(a => a.actionKey === state.actionKey && a.topicIds.includes(topic.id)))
       .slice(-LIMITS.previous).map(state => ({ action_key: state.actionKey, completed: Boolean(state.completedAt), saved: Boolean(state.savedAt) })),
     reviewed_guidance: topic.guidance,
     eligible_resources: [...resources.values()].map(({ id, name, purpose, countries, cost, limits }) => ({ resource_id: id, name, purpose, countries, cost, limits })),

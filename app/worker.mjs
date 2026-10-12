@@ -65,6 +65,7 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
           CLERK_ISSUER: env?.CLERK_ISSUER,
           CLERK_AUTHORIZED_PARTIES: env?.CLERK_AUTHORIZED_PARTIES,
           AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false',
+          AI_NEW_NEEDS_ENABLED: aiEnabled && env?.AI_NEW_NEEDS_ENABLED === 'true' ? 'true' : 'false',
           OPENAI_MODEL: aiEnabled ? env?.OPENAI_MODEL : undefined,
           get OPENAI_API_KEY() { return aiEnabled ? env?.OPENAI_API_KEY : undefined; }
         });

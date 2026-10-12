@@ -19,6 +19,7 @@ Use this reference for future My Safety website content. Ada's direct statements
 - She asked to standardize what the app saves about a user, keep it uncomplicated and avoid unnecessary storage. The compact profile/task contract is an engineering response to that request, not a reason to collect more personal detail or remove her agency-focused onboarding.
 - After asking to begin one small working journey, she clarified that implementation must proceed step by step, not build all parts at once. Keep memory, recommendation rules and interface connection as separate reviewable steps.
 - After the memory test, she clarified that prior choices should help with the next question or problem, not automatically continue the same concern. She also agreed with tightening duplicate-suggestion checks.
+- On October 12 she clarified: “basically i want users can always get new suggestions when they have new needs, that's why we have AI”. The shared task collection is a useful starting point, not the ceiling on possible suggestions. A specific request can justify a new action in a supported category without waiting for exhaustion or requiring an old-task edit. Clear limits and honest failure messages still apply; this is not a promise of unlimited successful generation.
 
 ## Core direction
 

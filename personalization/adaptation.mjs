@@ -3,6 +3,8 @@ import { prepare, poolBatch, validateBatch } from './flow.mjs';
 import { outputSchema, hash, requireRule, FlowError } from './contracts.mjs';
 import { createOpenAIClient } from './openai.mjs';
 import { createAiBudget } from './ai-budget.mjs';
+import { buildNewNeedRequest, acceptNewNeed, newNeedPromptHash } from './new-needs.mjs';
+import { privatePrefix } from './private-actions.mjs';
 
 export const adaptationInstructions = `You write one practical My Safety task for women living solo.
 Our philosophy: knowledge, preparation, chosen action and access to support can build agency and the feeling "I can handle it". Never manufacture fear or promise protection.
@@ -35,6 +37,14 @@ export function requestBoundary(note) {
   if (urgentPattern.test(note) || clinicalPattern.test(note)) return 'safety_redirect';
   if (privatePattern.test(note)) return 'needs_context';
   return null;
+}
+
+export function checkTaskCopy(task, effective) {
+  const copy = [task.title, task.summary, ...task.steps, task.done_when,
+    ...task.resources.map(r => r.why), ...task.purchase_checks, task.no_purchase_option || ''].join(' ');
+  requireRule(!copyRisk.test(copy) && !privatePattern.test(copy), 'unsupported_task_copy');
+  if (effective.noSpend) requireRule(!/\b(buy|purchase|order|pay|subscribe)\b/i.test(copy), 'constraint_violation');
+  if (effective.localSupport === 'unavailable') requireRule(!/\b(ask|have) (?:a |your )?(friend|neighbor|neighbour|family)\b/i.test(copy), 'constraint_violation');
 }
 
 function selectTarget(prepared, batch) {
@@ -111,33 +121,61 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
   let message = null;
   let metadata = null; let adaptedActionKey = null; let token = null;
   const budget = createAiBudget(env.MEMORY_DB);
+  const newNeed = Boolean(request.note?.trim() && !prepared.refinement && env.AI_NEW_NEEDS_ENABLED === 'true');
   const target = status === 'not_needed' ? selectTarget(prepared, batch) : null;
   try {
-    if (target && env.AI_ADAPTATION_ENABLED === 'true') {
+    if ((target || newNeed) && status === 'not_needed' && env.AI_ADAPTATION_ENABLED === 'true') {
       const reservation = await budget.reserve(owner, requestId, expectedStateVersion);
       token = reservation.token;
       status = reservation.reason || 'unavailable';
       if (token) {
         try {
-          const body = buildAdaptationRequest(prepared, batch, target, env.OPENAI_MODEL);
+          let history = [];
+          if (newNeed) {
+            const owned = await store.readTasks(owner);
+            requireRule(owned.stateVersion === expectedStateVersion, 'stale_state');
+            history = owned.tasks.filter(item => item.state.actionKey.startsWith(privatePrefix(request.topicId)) ||
+              catalog.actions.some(a => a.actionKey === item.state.actionKey && a.topicIds.includes(request.topicId)))
+              .sort((a, b) => b.state.shownAt.localeCompare(a.state.shownAt));
+          }
+          const body = newNeed ? buildNewNeedRequest(prepared, catalog, history, env.OPENAI_MODEL)
+            : buildAdaptationRequest(prepared, batch, target, env.OPENAI_MODEL);
           const response = await (generate || (input => createOpenAIClient({ apiKey: env.OPENAI_API_KEY, timeoutMs: 30000 }).generate(input)))(body);
           metadata = response.metadata;
-          const accepted = acceptAdaptation(response.batch, prepared, batch, target);
-          batch = accepted.batch; status = accepted.decision;
-          if (status === 'adapted') adaptedActionKey = target.action_key;
+          if (newNeed) {
+            const accepted = acceptNewNeed(response.batch, prepared, catalog, history, checkTaskCopy);
+            status = accepted.decision;
+            if (accepted.task) {
+              adaptedActionKey = accepted.task.action_key;
+              batch = { status: 'no_more_ideas', message: 'One new step for what you need now.', tasks: [accepted.task] };
+            }
+          } else {
+            const accepted = acceptAdaptation(response.batch, prepared, batch, target);
+            batch = accepted.batch; status = accepted.decision;
+            if (status === 'adapted') adaptedActionKey = target.action_key;
+          }
         } catch (error) {
-          status = 'unavailable';
+          status = error instanceof FlowError && ['repeated_action', 'repeated_outcome'].includes(error.code) ? 'no_new_idea' : 'unavailable';
           // Fixed operational code only; never log input, raw output or provider text.
           console.warn('ai_adaptation_fallback', { code: error instanceof FlowError ? error.code : 'generation_failed' });
         }
       }
-    } else if (target) status = 'unavailable';
+    } else if ((target || newNeed) && status === 'not_needed') status = 'unavailable';
     if (['safety_redirect', 'out_of_scope', 'needs_context'].includes(status)) {
       batch = { status, message: messages[status], tasks: [] };
     } else if (['unavailable', 'already_attempted', 'limit_reached'].includes(status)) {
       if (request.note?.trim() && request.concernIds.length === 0) {
         batch = { status: 'needs_context', message: 'I couldn’t tailor your request this time. Choose a concern to use the prepared collection.', tasks: [] };
       } else message = messages[status === 'limit_reached' ? 'limit_reached' : 'fallback'];
+    }
+    if (newNeed && !adaptedActionKey && !['safety_redirect', 'out_of_scope'].includes(status)) {
+      const reason = status === 'limit_reached'
+        ? 'The preview’s AI allowance is used up for today (up to 3 attempts per person, with a shared limit). It resets at midnight UTC.'
+        : status === 'no_new_idea' ? 'That would repeat an earlier outcome. Tell me what still feels missing or what you need to do differently.'
+          : status === 'needs_context' ? requestBoundary(request.note) ? messages.needs_context : 'What would you like to have ready, or what makes this difficult for you? Add one detail and try again.'
+            : 'I couldn’t create a useful new step just now. Your words are still here—please try again later.';
+      batch = { status: 'needs_context', message: reason, tasks: [] };
+      message = null;
     }
     if (prepared.refinement) {
       if (adaptedActionKey) {
@@ -153,15 +191,16 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
     }
     // Persist no raw note. Only the accepted private task survives this request.
     const cleanRequest = { ...request }; delete cleanRequest.note;
+    if (newNeed && adaptedActionKey) cleanRequest.concernIds = [...new Set([...request.concernIds, ...batch.tasks[0].concern_ids])];
     const result = { status: 'ok', source: adaptedActionKey ? 'mixed' : 'pool', delivery: 'shown', reviewRequired: true,
       metadata: adaptedActionKey ? metadata : null, batch,
-      adaptation: { status, actionKey: adaptedActionKey, message, refinement: Boolean(prepared.refinement) },
+      adaptation: { status, actionKey: adaptedActionKey, message, refinement: Boolean(prepared.refinement), newNeed },
       trace: { contextVersion: 1, profileRevision: prepared.snapshot.profile.revision,
-        stateVersion: expectedStateVersion, promptHash: adaptationPromptHash, candidateCount: prepared.candidates.length } };
+        stateVersion: expectedStateVersion, promptHash: newNeed ? newNeedPromptHash : adaptationPromptHash, candidateCount: prepared.candidates.length } };
     const contents = batch.tasks.map(task => {
-      const action = catalog.actions.find(a => a.actionKey === task.action_key);
+      const action = prepared.candidates.find(a => a.actionKey === task.action_key);
       return task.action_key === adaptedActionKey
-        ? { actionKey: action.actionKey, contentRef: `ai_${crypto.randomUUID()}`, private: true, content: task }
+        ? { actionKey: task.action_key, contentRef: `ai_${crypto.randomUUID()}`, private: true, content: task }
         : { actionKey: action.actionKey, contentRef: action.contentRef, content: action.task };
     });
     const replace = adaptedActionKey && prepared.refinement ? {

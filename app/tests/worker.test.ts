@@ -75,7 +75,7 @@ function setup(t: TestContext) {
     contentReviewHosts: ['app.example'],
     verifyIdentity: async (request: Request, env: Record<string, unknown>) => {
       identityCalls++;
-      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
+      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_NEW_NEEDS_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
       const owner = identities.get(request.headers.get('Authorization') || '');
       if (!owner) throw new FlowError('authentication_required');
       return owner;

@@ -2,7 +2,21 @@
 
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
-## Explicit refinement after exhaustion — October 12, current checkpoint
+## New needs beyond the collection — October 12, current checkpoint
+
+Ada reported that the direct “Something else?” field still returned no new ideas. The earlier fix addressed only the separate refinement route. Root cause: automatic adaptation required a remaining pool target, so an exhausted pool skipped AI; the UI also cleared the note after any HTTP-success response.
+
+The named preview now runs deployment `8ae21aea`, client `index-BeZWN7kR.js`. A typed current need takes a separate one-task generation path with `AI_NEW_NEEDS_ENABLED=true`, gated by the existing exact-host and AI enablement checks. Pool matching and explicit same-outcome refinement retain their own behavior. The new prompt may create an action outside the nine authored tasks, within the supported sick-day scope. Resource IDs, regional eligibility, effort/copy limits and no-clinical boundaries remain checked. It sends relevant compact memory and the newest thirty prior outcomes; full owned content is checked server-side for identical/near-identical outcomes. This is a heuristic, not guaranteed semantic deduplication or comprehensive safety review.
+
+New private task snapshots use the existing owner-scoped D1 tables; no migration, second database, raw-note storage or training pipeline was introduced. A server-controlled topic prefix plus canonical outcome name identifies the task. Stored concern IDs provide future soft signals without another user-memory record. Private generated tasks never enter the shared pool automatically. Save/reload/awards use the existing atomic routes; explicit refinement may update only an unsaved task. Failed, declined and quota-limited manual requests keep their page-memory draft and display an explanation. Drafts still clear on page refresh; they are not stored locally or in D1.
+
+Verification: **96 app tests and 140 backend tests pass**, plus strict TypeScript and the allowlisted Pages build. New regression coverage includes generation before/after exhaustion, manual-only requests, current need overriding checked concerns, invalid resources/copy/time, duplicate outcomes under a different slug, quota/urgent/private input failures, preservation of older tasks, owner isolation, request replay, private-task refinement and future memory signals. UI result handling explicitly distinguishes an HTTP success from a generated answer.
+
+One actual paid call ran on deployment `93922835` using approved fictional account B and an independent Clerk development sign-in through its documented Frontend API. It exhausted the eligible pool, generated “Set up a phone-friendly rest break”, replayed without regeneration, saved and read the same private task through hosted APIs, and confirmed old saved tasks unchanged. Usage: 2,113 input / 335 output tokens. The isolated session was ended; Ada's browser sign-in and records were untouched. See [actual output and verification](../app/verification-new-needs.json) and [explicit paid smoke script](../app/scripts/check-new-needs-cloud.mjs). The final deployment only extracted/tested equivalent UI feedback logic after this call; the tested Worker path is unchanged.
+
+CUA verified the hosted exhaustion exit and current-request form in Ada's existing signed-in tab. No fabricated request was submitted through her account. The real paid check used the hosted APIs, not a browser-button submission. Public-launch gates below remain; only sick-day preparation is connected. Existing limits remain three attempts per account and thirty globally per UTC day, with failures counted and no automatic paid retries. The UI now discloses the limit and preserves the draft when it is reached.
+
+## Explicit refinement after exhaustion — October 12, earlier checkpoint
 
 Ada reported that she could not find more ideas she liked. The live screen confirmed an empty batch and disabled “All caught up” action. The small collection excluded every shown action, and automatic AI only operated on unseen eligible tasks. Ada chose **“Tell the app what to change, then get a tailored alternative.”**
 

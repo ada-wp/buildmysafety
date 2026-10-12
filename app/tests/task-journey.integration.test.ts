@@ -13,7 +13,7 @@ const origin = 'https://journey.integration.invalid';
 type Statement = { sql: string; values: SQLInputValue[]; bind: (...values: SQLInputValue[]) => Statement;
   first: () => Promise<Record<string, unknown> | null> };
 
-function setup(t: TestContext, aiEnabled = false) {
+function setup(t: TestContext, aiEnabled = false, newNeeds = false) {
   // Only a disposable SQL test double. The product worker uses remote D1.
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys = ON');
@@ -43,6 +43,12 @@ function setup(t: TestContext, aiEnabled = false) {
   const worker = createAppWorker({ contentReviewHosts: ['journey.integration.invalid'],
     generate: async (body: { input: Array<{ content: Array<{ text: string }> }>; model: string }) => {
       const { target_task: task } = JSON.parse(body.input[0].content[0].text);
+      if (!task && newNeeds) return { batch: { decision: 'generated', task: {
+        action_key: 'quiet_phone', concern_ids: ['daily_tasks'], title: 'Make room for a quiet break',
+        summary: 'Set up a little quiet for your next rest break.', estimated_minutes: 5,
+        steps: ['Open your phone’s focus settings.', 'Choose which contacts can reach you.', 'Save a quiet mode for your next rest break.'],
+        done_when: 'Your quiet mode is ready.', resources: [], purchase_checks: [], no_purchase_option: null
+      } }, metadata: { responseId: 'resp_new_need', model: body.model, inputTokens: 100, outputTokens: 100 } };
       return { batch: { decision: 'adapted', task: { ...task, title: 'Pick two no-cook food options', estimated_minutes: 5,
         steps: ['List two familiar foods you already keep that need no cooking.', 'Check where they are and note anything missing.', 'Save both options in your usual note.'] } },
         metadata: { responseId: 'resp_test', model: body.model, inputTokens: 100, outputTokens: 100 } };
@@ -53,7 +59,7 @@ function setup(t: TestContext, aiEnabled = false) {
       return owner;
     }
   });
-  const env = { MEMORY_DB: db, AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false', OPENAI_MODEL: 'gpt-6-luna',
+  const env = { MEMORY_DB: db, AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false', AI_NEW_NEEDS_ENABLED: newNeeds ? 'true' : 'false', OPENAI_MODEL: 'gpt-6-luna',
     get OPENAI_API_KEY() { throw new Error('Task tests must never request paid credentials'); },
     get SYNTHETIC_TEST_MODE() { throw new Error('Real catalog tests must never enable fictional content'); }
   };
@@ -154,6 +160,26 @@ test('mixed AI result crosses real client/worker contract and stays stable acros
   assert.equal(await session.act(task.state.actionKey, { type: 'save' }), true);
   const again = createTaskSession(client()); t.after(() => again.dispose()); await again.load();
   assert.deepEqual(again.getState().collection!.tasks.find(t => t.state.actionKey === task.state.actionKey)?.content, task.content);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts').get()?.n, 1);
+});
+
+test('typed new need crosses controller, enabled worker, private storage and returning-user reload', async t => {
+  const { client, sqlite } = setup(t, true, true);
+  await client().createMemory({}); await client('bob').createMemory({});
+  let id = 0;
+  const session = createTaskSession(client(), () => `new_need_client_${++id}`); t.after(() => session.dispose());
+  await session.load();
+  for (let i = 0; i < 4; i++) await session.recommend({ topicId: 'sick_care', concernIds: ['daily_tasks'] });
+  assert.equal(session.getState().latest?.result?.batch.tasks.length, 0);
+  assert.equal(await session.recommend({ topicId: 'sick_care', concernIds: ['daily_tasks'], note: 'Help me reduce phone interruptions while resting.' }), true);
+  const result = session.getState().latest!.result!;
+  assert.equal(result.adaptation?.status, 'generated'); assert.equal(result.adaptation?.newNeed, true);
+  const task = result.batch.tasks[0]; assert.equal(task.action_key, 'custom_sick_care_quiet_phone');
+  assert.equal(await session.act(task.action_key, { type: 'save' }), true);
+  const returning = createTaskSession(client()); t.after(() => returning.dispose()); await returning.load();
+  assert.deepEqual(returning.getState().latest?.result?.batch.tasks, [task]);
+  assert.ok(returning.getState().collection?.tasks.find(t => t.state.actionKey === task.action_key)?.state.savedAt);
+  assert.deepEqual((await client('bob').getTasks()).tasks, []);
   assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts').get()?.n, 1);
 });
 
