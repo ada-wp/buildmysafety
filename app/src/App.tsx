@@ -1,15 +1,19 @@
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { Elephant } from './components/Elephant';
 import { OnboardingQuestion } from './components/OnboardingQuestion';
+import { ElephantMessage } from './components/ElephantMessage';
+import { acknowledgementMessage, startingPointMessage } from './elephant-messages';
 import { emptyDraft, editableProfile, type ProfileDraft } from './profile-draft';
 import type { ProfileSession, ProfileSessionState } from './profile-session';
 import { questions } from './onboarding';
 import { interestLabels, interestEntries } from './interest-labels';
 import { createSignInHandoff } from './sign-in-handoff';
+import { orderTopics } from './topic-order';
+import type { TopicId } from './api-contracts';
 
-type Page = 'welcome' | 'question' | 'interests' | 'recap' | 'account';
-const pages: Page[] = ['welcome', 'question', 'interests', 'recap', 'account'];
-const labelFor = (key: string, value: string) => questions.find(q => q.id === key)?.options?.find(o => o[0] === value)?.[1] || value;
+type Page = 'welcome' | 'question' | 'pause' | 'interests' | 'recap' | 'topics' | 'account';
+const pages: Page[] = ['welcome', 'question', 'pause', 'interests', 'recap', 'topics', 'account'];
+const feelingStep = questions.findIndex(question => question.id === 'feeling');
 
 /** An API rejection clears app data, but does not revoke the provider's session. */
 export function accountControls(status: ProfileSessionState['status'], providerSignedIn: boolean) {
@@ -75,6 +79,8 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
   const [note, setNote] = useState('');
   const [feeling, setFeeling] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<TopicId | null>(null);
+  const interestReturn = useRef<{ page: Page; step: number }>({ page: 'question', step: questions.length - 1 });
   const [notice, setNotice] = useState(initialDraft ? 'Your choices came with you. Review them before saving; your previous saved answers have not been replaced.' : '');
   const main = useRef<HTMLElement>(null);
 
@@ -87,18 +93,38 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
   }, [page, step]);
   useEffect(() => {
     const restore = () => {
-      const value = location.hash.slice(2) as Page;
+      const [value, questionId] = location.hash.slice(2).split('/') as [Page, string?];
       setPage(pages.includes(value) ? value : 'welcome');
+      const savedNavigation = history.state?.onboarding;
+      setEditing(['question', 'interests'].includes(value) && savedNavigation?.editing === true);
+      const returnTo = savedNavigation?.interestReturn;
+      interestReturn.current = returnTo && pages.includes(returnTo.page) &&
+        Number.isInteger(returnTo.step) && returnTo.step >= 0 && returnTo.step < questions.length
+        ? { page: returnTo.page, step: returnTo.step }
+        : { page: 'question', step: questions.length - 1 };
+      if (value === 'question') {
+        const restoredStep = questions.findIndex(question => question.id === questionId);
+        setStep(restoredStep >= 0 ? restoredStep : 0);
+      }
     };
     restore();
     window.addEventListener('popstate', restore);
     return () => window.removeEventListener('popstate', restore);
   }, []);
 
-  function nav(next: Page) {
+  function nav(next: Page, nextStep = step, editMode = false) {
     if (state.busy) return;
     setPage(next);
-    history.pushState(null, '', `#/${next}`);
+    setEditing(editMode);
+    if (next === 'question') setStep(nextStep);
+    // Only public question IDs enter the URL. Browser Back restores the question,
+    // without putting any answers in history or claiming cloud draft recovery.
+    history.pushState({ onboarding: { editing: editMode, interestReturn: { ...interestReturn.current } } }, '',
+      `#/${next}${next === 'question' ? `/${questions[nextStep].id}` : ''}`);
+  }
+  function openInterests(editMode = false) {
+    if (!editMode) interestReturn.current = { page, step };
+    nav('interests', step, editMode);
   }
   function update(next: ProfileDraft) { setDirty(true); setNotice(''); setDraft(next); }
   function values(key: string): string[] {
@@ -127,19 +153,27 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
     setAnswer(q.id, next);
   }
   function nextQuestion() {
-    if (editing) { setEditing(false); nav('recap'); }
-    else if (step < questions.length - 1) setStep(value => value + 1);
-    else nav('interests');
+    if (editing) nav('recap');
+    else if (step === feelingStep) nav('pause');
+    else if (step < questions.length - 1) nav('question', step + 1);
+    else openInterests();
   }
   function back() {
-    if (page === 'question' && editing) { setEditing(false); nav('recap'); }
-    else if (page === 'question' && step > 0) setStep(value => value - 1);
-    else if (page === 'interests') { setStep(questions.length - 1); nav('question'); }
+    if (page === 'question' && editing) nav('recap');
+    else if (page === 'pause') nav('question', feelingStep);
+    else if (page === 'question' && step === feelingStep + 1) nav('pause');
+    else if (page === 'question' && step > 0) nav('question', step - 1);
+    else if (page === 'interests' && editing) nav('recap');
+    else if (page === 'interests') nav(interestReturn.current.page, interestReturn.current.step);
     else if (page === 'recap') nav('interests');
+    else if (page === 'topics') nav('recap');
     else nav('welcome');
   }
-  async function save() {
-    if (await session.save(structuredClone(draft))) { setDirty(false); setNotice('Your starting point is saved.'); }
+  async function continueToApp() {
+    if (state.status === 'unconfigured') { nav('topics'); return; }
+    if (await session.save(structuredClone(draft))) {
+      setDirty(false); setNotice(''); nav('topics');
+    }
   }
   const canSave = state.status === 'new' || state.status === 'ready';
   const controls = accountControls(state.status, providerSignedIn);
@@ -162,11 +196,20 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
           {page === 'welcome' && <section className="welcome">
             <span className="eyebrow">A little more “I can handle this.”</span><h1 tabIndex={-1}>Meet your<br />little protector.</h1>
             <Elephant large /><p>Build a life that feels more like yours. One preparation, one choice, one small action at a time.</p>
-            <button className="primary" onClick={() => { setStep(0); nav('question'); }}>Let’s begin</button>
+            <button className="primary" onClick={() => nav('question', 0)}>Let’s begin</button>
+            <button className="text-button" onClick={() => openInterests()}>I’ll pick a topic instead</button>
             <button className="text-button" onClick={() => nav('account')}>I already have a list</button>
           </section>}
           {page === 'question' && <OnboardingQuestion step={step} draft={draft} values={values(questions[step].id)} note={note} editing={editing}
-            onChoose={choose} onNote={setNote} onNext={nextQuestion} onSkip={() => { if (questions[step].kind === 'text') setNote(''); else setAnswer(questions[step].id, []); nextQuestion(); }} />}
+            onChoose={choose} onNote={setNote} onNext={nextQuestion} onPickTopic={() => openInterests()}
+            onSkip={() => { if (questions[step].kind === 'text') setNote(''); else setAnswer(questions[step].id, []); nextQuestion(); }} />}
+          {page === 'pause' && <section className="companion-pause">
+            <ElephantMessage name={draft.elephantName} message={acknowledgementMessage({
+              why: draft.answers.why, difficulty: draft.answers.difficulty, feeling: feeling[0] ?? null
+            })} />
+            <button className="primary" onClick={() => nav('question', feelingStep + 1)}>Continue</button>
+            <button className="text-button" onClick={() => openInterests()}>I’ll pick a topic instead</button>
+          </section>}
           {page === 'interests' && <section>
             <span className="eyebrow">Follow your curiosity</span><h1 tabIndex={-1}>What would you<br />like to build?</h1>
             <p>Choose what would make life on your own feel a little easier.</p>
@@ -176,27 +219,31 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
             <button className="primary" onClick={() => nav('recap')}>Continue</button>
             <button className="text-button" onClick={() => { update({ ...draft, interests: [] }); nav('recap'); }}>I’ll explore along the way</button>
           </section>}
-          {page === 'recap' && <section>
-            <span className="eyebrow">Yours to change</span><h1 tabIndex={-1}>A starting point<br />that feels like you.</h1>
-            <p>These choices add a little focus. You can always explore something different.</p>
-            {draft.answers.hope.length > 0 && <div className="hope-card"><span className="eyebrow">A feeling you’d like to build</span>{draft.answers.hope.map(id => <p key={id}>{labelFor('hope', id)}</p>)}</div>}
-            <div className="recap-row"><div><small>What draws you in</small><p>{draft.interests.map(id => interestLabels[id]).join(' · ') || 'Explore along the way'}</p></div><button className="text-button" onClick={() => nav('interests')}>Edit</button></div>
-            <details className="answer-review"><summary>Review my answers</summary>{questions.filter(q => !['note', 'feeling'].includes(q.id)).map(q => <div className="recap-row" key={q.id}>
-              <div><small>{q.title}</small><p>{values(q.id).map(id => labelFor(q.id, id)).join(' · ') || 'Skipped'}</p></div>
-              <button className="text-button" aria-label={`Edit ${q.title}`} onClick={() => { setStep(questions.indexOf(q)); setEditing(true); nav('question'); }}>Edit</button>
-            </div>)}</details>
-            {canSave ? <button className="primary" onClick={() => void save()}>Save my starting point</button> : <>
-              <div className="message">{state.status === 'unconfigured'
-                ? 'Your starting point is ready to review. Email sign-in and saving are being connected; these answers are kept only while this page is open.'
-                : controls.needsReconnection ? 'Your sign-in needs to reconnect before you can save. Check your saved answers, or sign out and try again.'
+          {page === 'recap' && <section className="companion-recap">
+            <ElephantMessage compact name={draft.elephantName} message={startingPointMessage(draft)} />
+            <p className="hint recap-intro">You can change direction whenever you like.</p>
+            {canSave || state.status === 'unconfigured' ? <button className="primary" onClick={() => void continueToApp()}>Continue</button> : <>
+              <div className="message">{controls.needsReconnection ? 'Your sign-in needs to reconnect before you can save. Check your saved answers, or sign out and try again.'
                 : state.status === 'signed_out' ? 'Sign in to save your starting point.'
                 : 'We haven’t confirmed these changes as saved. Your edits stay here while you check your connection.'}</div>
               {controls.canSignIn && onSignIn
                 ? <button className="primary" onClick={() => onSignIn(draft)}>Continue with email</button>
                 : controls.needsReconnection ? <button className="primary" onClick={() => nav('account')}>Go to my account</button>
-                : <button className="primary" onClick={() => nav('welcome')}>Back to the beginning</button>}
+                : <button className="primary" onClick={() => void session.load()}>Try connecting again</button>}
             </>}
-            <p className="hint">Task suggestions and My list will be connected in the next build steps.</p>
+            {canSave && <p className="hint">Continue saves your choices to your account.</p>}
+          </section>}
+          {page === 'topics' && <section>
+            <span className="eyebrow">One area at a time</span>
+            <h1 tabIndex={-1}>Where would you<br />like to start?</h1>
+            <p>Choose one for now. There’s room for the others later.</p>
+            <div className="bubbles" role="group" aria-label="Choose one starting area">
+              {orderTopics(draft).map(([id, label]) => <button key={id} aria-pressed={selectedTopic === id}
+                className={selectedTopic === id ? 'selected' : ''} onClick={() => setSelectedTopic(id)}>
+                {label}{selectedTopic === id ? ' ✓' : ''}
+              </button>)}
+            </div>
+            <p className="hint" role="status">{selectedTopic ? `${interestLabels[selectedTopic]} is your starting area. ` : ''}This preview ends here for now. Your task ideas are being connected next.</p>
           </section>}
           {page === 'account' && <section>
             <span className="eyebrow">Your little corner</span><h1 tabIndex={-1}>Growing<br />together.</h1><Elephant large name={draft.elephantName} />
@@ -206,7 +253,8 @@ function ProfileScreens({ session, state, initialDraft, onSignIn, accountLabel, 
               <p>{controls.needsReconnection ? 'You’re signed in, but we couldn’t verify your connection. Check your saved answers, or sign out and try again.'
                 : state.status === 'signed_out' ? 'You are signed out.' : state.status === 'error' ? 'Your connection needs attention. You can check your saved answers or sign out.' : 'Your starting point is yours to revisit.'}</p>
               {providerSignedIn && accountLabel && <p className="hint">Signed in as {accountLabel}</p>}
-              <button className="primary" onClick={() => nav(canSave ? 'recap' : 'welcome')}>{canSave ? 'Review my starting point' : 'Back to the beginning'}</button>
+              <button className="primary" onClick={() => nav(canSave ? 'topics' : 'welcome')}>{canSave ? 'Explore topics' : 'Back to the beginning'}</button>
+              {canSave && <button className="text-button" onClick={() => nav('question', 0)}>Update my preferences</button>}
               {controls.canSignIn && onSignIn && <button className="secondary" onClick={() => onSignIn()}>Sign in with email</button>}
               {controls.canSignOut && <button className="text-button" onClick={() => void session.signOut()}>Sign out</button>}
             </>}

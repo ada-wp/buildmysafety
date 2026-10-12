@@ -2,7 +2,7 @@
 
 Step 1 consolidated the preserved welcome/onboarding/interests/recap screens, portable API client and profile controller. **Step 2 is complete for the development build:** Clerk supplies verified email sign-in, while the existing [`personalization/`](../personalization/README.md) backend and Cloudflare D1 continue to own app profiles. The old second server remains [archived](../archive/app-server-draft-20261011/README.md).
 
-The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `5288f337` at the October 11 verification checkpoint. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
+The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `e1324275` after the October 12 onboarding update. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website.
 
 ## Boundaries
 
@@ -19,6 +19,8 @@ The current development preview is [app-auth-staging.buildmysafety.pages.dev](ht
 - `../personalization/clerk-identity.mjs`: verifies Clerk session tokens with `jose` and the configured issuer's public JWKS. Only a verified subject becomes the D1 owner. The issuer, exact authorized origins, signature, session status and token times are checked; request bodies cannot select an account.
 
 ## Current behavior and verification status
+
+October 12 adds two authored elephant moments: after the feelings question, and as a short recap. The message uses known answers/interests, with neutral fallbacks; no AI call or reward is involved. The recap has one Continue action, no answer-review section or restart button. For signed-in users, Continue confirms a profile save before opening the new first-topic screen; Account provides preference editing. A skip-to-topics shortcut preserves existing choices and a return path. Public question IDs support browser Back without exposing answers. The topic screen puts interests first, permits one current topic, and honestly ends before unconnected task delivery. Cloud draft resume/completion markers and task matching remain later work. This bounded Step 3 update passes 76 app tests and the Pages build; see technical status for browser coverage.
 
 Visitors can walk through onboarding, review their choices and intentionally continue with email. During sign-in, the guest screen remains mounted; only the structured profile choices enter the handoff. After authentication, the user reviews those choices before explicitly saving. Existing saved answers are not automatically replaced. Account changes and sign-out clear private screen state. Feelings/reflection remain temporary and do not enter profile storage.
 

@@ -41,6 +41,18 @@ The server pins the Clerk issuer and exact `app-auth-staging` authorized origin,
 
 Before public launch, an owned domain, separately configured Clerk production instance, production keys/issuer/origin, and separate production D1 storage are still required. Development users do not automatically become production users. An SMS MFA feature remains enabled for development testing and must be reviewed against the chosen production plan before activation; no subscription or paid upgrade was purchased. Do not describe this development preview as ready for 100 or 1,000 customers.
 
+## Onboarding UI checkpoint — October 12
+
+The isolated app preview now runs deployment `e1324275`, built only from `app/dist/client`. This bounded Step 3 update adds an authored elephant acknowledgment after question five, a short elephant recap, and skip-to-topics navigation. The recap has no answer-review section or restart button: signed-in Continue saves through the existing profile controller and moves forward only after confirmed success; guests use the existing email handoff. Preferences remain accessible from Account. Unconfigured local previews can inspect the next screen without claiming a cloud save.
+
+Continue opens “Where would you like to start?” with all sixteen topics. Explicit interests lead, the existing focus breaks ties, and selecting one current topic does not overwrite interests. The screen clearly ends at topic selection: the concern catalogs for these topics and real task delivery are not connected. The Worker remains profile-only; no task/AI routes, schema migration or model calls were introduced.
+
+**76 app tests pass**, including authored-copy fallbacks and deterministic topic ordering; strict TypeScript and the allowlisted Pages build pass. CUA browser checks covered the eleven-question route, overwhelm/support/neutral elephant responses, retained answers on Back, skipped feelings, multiple interests, simplified recap, interest-led topic order and single-topic choice without rewriting interests. The new pause/recap/topic layouts were checked at narrow mobile widths, with no horizontal overflow at 320px. The maintained foundation smoke script was updated and syntax-checked, not rerun; October 11's recorded automated browser results remain historical. The backend/auth implementation is unchanged, so its prior 75-test result is not represented as a new run.
+
+Still required for full Step 3: cloud draft resume/completion markers and the complete save/edit/return journey in another browser. Topic-specific concerns, reviewed tasks and recommendation matching belong to the next integration step. The optional typed answer is still temporary page state, not persistent memory or a connected recommendation input. No fictional profile was saved into Ada's account during this UI verification.
+
+Post-deployment checks confirmed the simplified recap renders at the hosted alias and the current client bundle is served. Health returns 200, an unauthenticated memory read returns 401, and recommendations remain 404. The original in-progress user tab was not reloaded. Hosted profile-save behavior was not re-tested with invented answers on Ada's account; the earlier ownership verification and current automated profile tests remain the evidence for that unchanged service.
+
 ## Pilot details worth preserving
 
 ### Mobile-web build checkpoint — October 11
