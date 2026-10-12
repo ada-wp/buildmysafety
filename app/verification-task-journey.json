@@ -6,7 +6,10 @@
   "initialTestDeployment": "e152ab6c",
   "clientBundle": "index-BNCfI94D.js",
   "database": "buildmysafety-memory-staging",
-  "migrationsAppliedRemotely": ["0002_task_journey.sql", "0003_onboarding.sql"],
+  "migrationsAppliedRemotely": [
+    "0002_task_journey.sql",
+    "0003_onboarding.sql"
+  ],
   "automated": {
     "appTestsPassed": 90,
     "backendTestsPassed": 104,
@@ -57,5 +60,14 @@
     "Guest onboarding draft is temporary page state",
     "Production identity/database, account export/deletion and release checks remain"
   ],
-  "cleanup": "Two approved fictional accounts retained as test fixtures in staging and signed out; no fictional answers saved to Ada's account; original user tabs preserved"
+  "cleanup": "Two approved fictional accounts retained as test fixtures in staging and signed out; no fictional answers saved to Ada's account; original user tabs preserved",
+  "followUpSecretCheck": {
+    "date": "2026-10-12",
+    "method": "Wrangler pages secret list; names and encryption status only",
+    "preview": "OPENAI_API_KEY: Value Encrypted",
+    "production": "OPENAI_API_KEY: Value Encrypted",
+    "valuesRead": false,
+    "credentialValidityTested": false,
+    "appAiActivation": false
+  }
 }
