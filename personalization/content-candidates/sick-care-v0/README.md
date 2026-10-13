@@ -31,6 +31,20 @@ No selections: offer help choosing a starting area or allow a specific typed nee
 
 ## Selecting a useful first batch
 
+**October 13 ranking addition:** Ada wants a natural default importance ranking informed by market research, alongside personal fit. Keep this as a shared editorial priority for each task, not a user safety score or a fresh model judgment on every request. Consider repeated evidence of the problem, the practical burden of leaving the gap unresolved, and the useful preparation an action creates. Popularity/upvotes alone do not establish importance or effectiveness.
+
+Proposed simple priority bands for task review:
+
+| Default priority | Role | Examples, only when relevant |
+| --- | --- | --- |
+| Core preparation | Establish a missing essential option or arrangement. | Usable food access, a first care route, practical help, pet care; an agreed check-in when she wants one. |
+| Make it reliable | Resolve a real remaining dependency in an existing option. | Try a chosen pet-care handoff or check the setup for a first virtual visit. |
+| Extra ease | Reduce inconvenience after essential gaps are covered. | Optional laundry services or a more convenient resting setup. |
+
+These are proposed editorial defaults, not a statistically demonstrated ordering, a clinical urgency scale, roadmap levels or compulsory stages. Individual task bands will be reviewed with the content. What is extra ease for one person may be core preparation for another; an explicit limitation can move it first. Do not split one meaningful action into multiple tasks just to fill bands.
+
+Selection order: enforce eligibility and remove repeats; match the current typed need and selected concerns; use default importance among similarly relevant, feasible tasks; then use effort preferences and soft feedback to break ties. Cover different selected concerns when useful without displacing a precise current request. Important-but-inapplicable tasks never enter the batch. If context is insufficient, offer a starting choice or one useful clarification rather than treating every common gap as present. This ranking needs no AI call. The research supports recurring needs more strongly than an exact task order; keep a brief rationale and source references with each eventual default priority and revise through user benefit evidence. No runtime ordering or pool records are changed by this design note.
+
 Use a few understandable rules, not a safety score:
 
 1. **Start with her current selections and words.** Today's request overrides earlier interests. Use relevant explicit onboarding constraints only as defaults.
