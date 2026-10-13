@@ -96,6 +96,8 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 ## Next gates
 
+**Latest navigation addition, October 13:** Ada requested **My progress** to show progress in each category. The [updated interactive design](../design/app/roadmap/README.md) uses three tabs: My list, Explore and My progress. My list remains the everyday opening screen. Each progress card shows completed steps toward the first ten, the next milestone, pending tasks and her latest check-in only if she answered one. Counts and feelings remain separate by category; tapping continues that category. Two existing preview categories illustrate the pattern, without finalizing launch categories. Completion/undo, category independence, saved-state restoration and existing milestone/navigation checks passed. This supersedes the earlier two-tab design, but is not yet connected to or deployed in the live app.
+
 **Roadmap design update, October 12:** Ada rejected the path/scene proposal and its replacement elephant. The [replacement design](../design/app/roadmap/README.md) follows her simpler Finch-like direction: My list as the everyday opening screen, the exact original elephant, one category progress bar, tiny completion movement, milestones **1/3/6/9/10**, and an optional preparedness check-in. Feeling ready offers a choice to stay or explore another category, with earlier work retained. No safety score, new roadmap page or daily/weekly logging. The clickable design was tested; live app behavior and storage were not changed.
 
 ### Ordered build plan to a usable V0

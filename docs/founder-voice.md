@@ -65,6 +65,8 @@ Describe solo living with dignity and possibility. Respect readers' different bu
 
 ## Companion and progress — October 12 clarification
 
+October 13 navigation addition: Ada requested “a my progress tab” showing “where we are at the each category.” Keep this as a simple cross-category overview alongside My list and Explore, using the same original elephant. My list remains the everyday opening screen. Proposed card details are completed tasks, next milestone and her last explicitly answered check-in; these do not turn task counts into a safety score.
+
 Ada wants a simple Finch-like interaction: open My list, see the elephant and a category progress bar, complete a chosen task, and receive a tiny warm response. Keep the original elephant exactly consistent in all screens and future animations; the earlier replacement and emoji placeholder were explicitly rejected. Milestones are **1, 3, 6, 9 and 10**, with an optional question about how prepared she feels in that theme. If she feels ready, offer another category without requiring her to leave or preventing her return. No daily/weekly logging for V0. See the [current design direction](../design/app/roadmap/README.md); the mockup is not a live app change.
 
 October 13 addition: Ada wants the elephant to speak directly on milestone screens, with a growing-stronger/protector feeling and a hug animation. She explicitly rejected “little protector” because it sounds weak; use “your protector” and a warm, confident voice. Preserve the original character. The latest preview tries short first-person speech, a replayable hug motion and an optional check-in afterward; the exact messages remain draft copy. This uses authored messages rather than generative AI.
