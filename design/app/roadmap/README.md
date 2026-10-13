@@ -39,6 +39,7 @@ Finch is the interaction reference: companion and goals on the home screen, simp
 
 - Count whole, distinct tasks completed in the category. Saving, reading, generating and substeps do not earn completion progress.
 - Keep factual completion state separate from one-time elephant awards. Undo corrects the count without taking away prior playful growth. Re-completing the same canonical action does not award twice or repeat a seen milestone.
+- A reached milestone can be replayed deliberately from My list. Replaying changes neither task state nor awards and can recover a missed celebration.
 - Completed work is visible in a compact history. Research completion must match its stated outcome; a listing or unanswered inquiry does not prove help is available.
 - The bar fills at ten but useful preparation remains available. Do not automatically enroll her in another ten-step block or label her fully safe.
 - A reflection can be skipped and does not determine task eligibility. Current needs, explicit constraints and real prerequisites still determine suitable suggestions.
@@ -50,6 +51,12 @@ Finch is the interaction reference: companion and goals on the home screen, simp
 The conversational design uses fictional task state, three initially saved sick-day tasks and six further examples from the existing review draft: SC10, SC16, SC22, SC12, SC14 and SC17. These fixed examples demonstrate navigation and batches; they are not a newly personalized, founder-approved or live recommendation set. A single Home & repairs example demonstrates switching category; it is not a reviewed or deployed Home task collection. Optional preview controls jump to each milestone or screen state.
 
 The click-through check passed at widths 320, 393 and 736 pixels, including completion from both list and task detail, milestones 1/3/6/9/10, dismissal, Undo/re-completion without duplicate awards/check-ins, the ready choice, switching back with retained progress, Escape dismissal, reduced motion and no runtime errors. The October 13 hug revision also verifies the celebration-to-check-in transition, replay without count changes, and a byte-for-byte match with the original elephant asset. Navigation checks cover both Find buttons, detail → same suggestions, adding from detail while preserving My list, distinct next batches and explicit revisit excluding saved actions. Main, suggestions, milestone, hug and ready states were visually inspected. These checks validate the design preview only.
+
+**Sixth-task repair, October 13:** Ada reported no elephant reaction at six. Two issues were found: the older list-only preview did not contain the hug treatment, and the hug preview marked a milestone seen before a delayed callback displayed it. A host state update could cancel that callback. A new test reproduced the cancellation with a metadata-only update; earlier tests did not simulate host updates.
+
+The milestone sheet now becomes visible in the same state change as completion. Metadata-only updates and echoes of this preview's own saved snapshots do not reset its interaction or animation. Saved snapshots are copied before publication; older self-echoes cannot roll back newer state. The old list preview is now a compatibility copy of the same hug flow, not a different design option. Existing version 2/3 state remains readable, and Replay milestone allows recovery when a previous version recorded a celebration without showing it. The fresh preview opens the six-task moment for review; saved state still takes precedence.
+
+Verification walked from zero through six actual list completions, adding the next batch through Suggestions, without jumping counts. Celebrations at 1/3/6 appeared with no host updates, metadata-only updates, immediate full-state echoes and delayed echoes. Replay preserved task/award state; an older self-echo was ignored; legacy state remained usable. The existing navigation and milestone 1/3/6/9/10 checks also passed. The six-task screen was visually inspected. This fixes the conversational prototype only, not the deployed app.
 
 ## Later connection to the app
 

@@ -104,6 +104,8 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 **Preview navigation correction, October 13:** Ada found that Find ideas / Find a next step did not return useful suggestions. Both progress previews now route to a three-card suggestion list with further fixed draft examples, preserve the list when adding, return task detail to its source suggestions, and offer a distinct next batch. These interactions were checked; live catalog coverage and AI matching were not changed. See the [design record](../design/app/roadmap/README.md).
 
+**Preview sixth-task correction, October 13:** Ada then reported a missing elephant reaction at six. A reproduced state-update race could cancel the delayed celebration after marking it seen; the old list-only preview also lacked the hug. The two entry points now use the same hug flow, milestone display is immediate, and saved-state echoes do not cancel it. Replay milestone recovers a missed moment without adding awards. A continuous zero-to-six click-through passed under four host-update conditions, alongside existing navigation/milestone checks. This remains a prototype fix; no live app deployment or user database changed.
+
 October 11: Ada requested the complete step-by-step roadmap before further screen integration. The following is the implementation sequence, not a claim that these features already work. Existing design choices stay in place. Complete and verify a bounded step, then explicitly report completion and the next step; do not build every block at once.
 
 | Step | Work | Finished when |
