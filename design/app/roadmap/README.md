@@ -19,15 +19,15 @@ The preview embeds that exact SVG unchanged. The October 13 hug treatment brings
 
 ## Elephant speech — October 13 draft
 
-Ada asked for the elephant to speak at milestones, using growing stronger as a little protector and a hug. Keep the voice warm, brief and authored; the companion grows alongside her own preparation. Exact wording below is proposed in the preview, not newly approved production copy.
+Ada asked for the elephant to speak at milestones, growing stronger as her protector and offering a hug. She explicitly rejected “little protector” because it sounds weak. Use “your protector” with a warm, confident voice. Keep messages brief and authored; the companion grows alongside her own preparation. Exact wording below is proposed in the preview, not newly approved production copy.
 
 | Completed tasks | Elephant says |
 | --- | --- |
 | 1 | Your first step! I’m growing with you. Here’s a little hug. |
-| 3 | I’m getting stronger with you. A big hug from your little protector. |
+| 3 | I’m getting stronger with you. A big hug from your protector. |
 | 6 | Look at what you’re building. I’m growing right alongside you. Come here. |
-| 9 | Nine steps! I’m one proud little protector. Here’s an extra squeeze. |
-| 10 | Look how far we’ve grown together. I’m one proud little protector. Biggest hug yet. |
+| 9 | Nine steps! I’m proud to be your protector. Here’s an extra squeeze. |
+| 10 | Look how far we’ve grown together. I’m proud to be your protector. Biggest hug yet. |
 
 No AI call is needed for these messages or animations. Protector language is the companion's playful role, not a claim of emergency monitoring or physical protection.
 

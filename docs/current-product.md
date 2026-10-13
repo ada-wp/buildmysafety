@@ -100,7 +100,7 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 ### Ordered build plan to a usable V0
 
-**Milestone companion update, October 13:** Ada requested first-person elephant speech and a hug at milestones. The [design preview](../design/app/roadmap/README.md#elephant-speech--october-13-draft) now shows a short growing-together/little-protector message, a replayable hug motion using the unchanged original asset, then an optional preparedness check-in. Authored copy and animation require no AI call; this is still design work, not a deployment.
+**Milestone companion update, October 13:** Ada requested first-person elephant speech and a hug at milestones. The [design preview](../design/app/roadmap/README.md#elephant-speech--october-13-draft) now shows a short growing-together/protector message, a replayable hug motion using the unchanged original asset, then an optional preparedness check-in. Her follow-up rejects “little protector” as weak; use “your protector” with warmth and confidence. Authored copy and animation require no AI call; this is still design work, not a deployment.
 
 October 11: Ada requested the complete step-by-step roadmap before further screen integration. The following is the implementation sequence, not a claim that these features already work. Existing design choices stay in place. Complete and verify a bounded step, then explicitly report completion and the next step; do not build every block at once.
 
