@@ -9,6 +9,8 @@ October 12, 2026. **Thirty complete authored task candidates, proposed checkboxe
 
 ## The concern screen
 
+**October 13 research proposal, awaiting Ada's review:** keep six choices but merge home-rest logistics with practical household/errand help, and give optional check-ins their own choice. Proposed wording: “Food and essentials without going out”; “Knowing where to get care, and what it costs”; “Help with errands and things at home”; “Someone to check in with”; “My pet being cared for”; “Taking time off work or study.” Proposed question: “What would help you feel more prepared for a sick day?” Keep multi-select and optional typing. Work/study has weaker direct demand evidence in the reviewed sources; placing it last is a proposed default, not a market ranking. Food access, physical help and contact needs should not be treated as interchangeable. See the [research refresh](../../../research/sick-care-pool-sources.md#october-13-checkbox-review--research-interpretation). The original draft below, pool IDs and live choices have not been changed or approved. Any later change must preserve older answers and give affected tasks deliberate new mappings.
+
 **What would you like to have figured out before a sick day?**
 
 Choose what matters to you. We'll start with a few useful options.
