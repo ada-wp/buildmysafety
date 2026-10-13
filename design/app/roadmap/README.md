@@ -11,6 +11,8 @@ October 12, 2026. Ada rejected the earlier path/scene proposal and its replaceme
 
 Keep the established category → concerns/manual request → fitting suggestions → inspect → + save flow. The thirty tasks are options, not required assignments. An empty My list offers a next-step action; it never traps a new user. Category switching retains each category's tasks and count. Existing task-detail and Explore views are reused, not new roadmap pages.
 
+**October 13 navigation correction:** “Find ideas” and “Find a next step” must return to the category's suggestion list. The earlier mock only contained the three already-saved tasks, so both routes appeared exhausted. Both progress previews now include two further three-card batches from the existing sick-day draft for navigation review. A task opened from suggestions returns there; adding with + stays in suggestions and preserves the saved action on My list. “Show other ideas” advances to an unseen batch; explicitly labeled “Revisit earlier ideas” can revisit unselected options. Saved/completed actions are excluded from fresh batches. At real exhaustion, provide clear My list/Explore exits. Runtime specific-request AI remains a separate established capability, not a claim that this mock generates new tasks.
+
 ## Elephant consistency is permanent
 
 Use [the existing original elephant](../../../app/public/elephant.svg), also embedded in the [approved task-detail design](../task-detail/README.md). Preserve its appearance, proportions, lavender palette and illustration style in every screen and future animation. No emoji placeholder, newly generated animal, or redesign.
@@ -45,9 +47,9 @@ Finch is the interaction reference: companion and goals on the home screen, simp
 
 ## Preview scope and verification
 
-The conversational design uses fictional task state and three sick-day task examples. A single Home & repairs example demonstrates switching category; it is not a reviewed or deployed Home task collection. Optional preview controls jump to each milestone or screen state.
+The conversational design uses fictional task state, three initially saved sick-day tasks and six further examples from the existing review draft: SC10, SC16, SC22, SC12, SC14 and SC17. These fixed examples demonstrate navigation and batches; they are not a newly personalized, founder-approved or live recommendation set. A single Home & repairs example demonstrates switching category; it is not a reviewed or deployed Home task collection. Optional preview controls jump to each milestone or screen state.
 
-The click-through check passed at widths 320, 393 and 736 pixels, including completion from both list and task detail, milestones 1/3/6/9/10, dismissal, Undo/re-completion without duplicate awards/check-ins, the ready choice, switching back with retained progress, Escape dismissal, reduced motion and no runtime errors. The October 13 hug revision also verifies the celebration-to-check-in transition, replay without count changes, and a byte-for-byte match with the original elephant asset. Main, milestone, hug and ready states were visually inspected. These checks validate the design preview only.
+The click-through check passed at widths 320, 393 and 736 pixels, including completion from both list and task detail, milestones 1/3/6/9/10, dismissal, Undo/re-completion without duplicate awards/check-ins, the ready choice, switching back with retained progress, Escape dismissal, reduced motion and no runtime errors. The October 13 hug revision also verifies the celebration-to-check-in transition, replay without count changes, and a byte-for-byte match with the original elephant asset. Navigation checks cover both Find buttons, detail → same suggestions, adding from detail while preserving My list, distinct next batches and explicit revisit excluding saved actions. Main, suggestions, milestone, hug and ready states were visually inspected. These checks validate the design preview only.
 
 ## Later connection to the app
 

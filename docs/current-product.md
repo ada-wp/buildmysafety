@@ -102,6 +102,8 @@ Defer payments, memberships, App Store releases, community, social integrations,
 
 **Milestone companion update, October 13:** Ada requested first-person elephant speech and a hug at milestones. The [design preview](../design/app/roadmap/README.md#elephant-speech--october-13-draft) now shows a short growing-together/protector message, a replayable hug motion using the unchanged original asset, then an optional preparedness check-in. Her follow-up rejects “little protector” as weak; use “your protector” with warmth and confidence. Authored copy and animation require no AI call; this is still design work, not a deployment.
 
+**Preview navigation correction, October 13:** Ada found that Find ideas / Find a next step did not return useful suggestions. Both progress previews now route to a three-card suggestion list with further fixed draft examples, preserve the list when adding, return task detail to its source suggestions, and offer a distinct next batch. These interactions were checked; live catalog coverage and AI matching were not changed. See the [design record](../design/app/roadmap/README.md).
+
 October 11: Ada requested the complete step-by-step roadmap before further screen integration. The following is the implementation sequence, not a claim that these features already work. Existing design choices stay in place. Complete and verify a bounded step, then explicitly report completion and the next step; do not build every block at once.
 
 | Step | Work | Finished when |
