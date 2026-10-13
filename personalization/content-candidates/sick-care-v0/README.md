@@ -9,24 +9,23 @@ October 12, 2026. **Thirty complete authored task candidates, proposed checkboxe
 
 ## The concern screen
 
-**October 13 research proposal, awaiting Ada's review:** keep six choices but merge home-rest logistics with practical household/errand help, and give optional check-ins their own choice. Proposed wording: “Food and essentials without going out”; “Knowing where to get care, and what it costs”; “Help with errands and things at home”; “Someone to check in with”; “My pet being cared for”; “Taking time off work or study.” Proposed question: “What would help you feel more prepared for a sick day?” Keep multi-select and optional typing. Work/study has weaker direct demand evidence in the reviewed sources; placing it last is a proposed default, not a market ranking. Food access, physical help and contact needs should not be treated as interchangeable. See the [research refresh](../../../research/sick-care-pool-sources.md#october-13-checkbox-review--research-interpretation). The original draft below, pool IDs and live choices have not been changed or approved. Any later change must preserve older answers and give affected tasks deliberate new mappings.
+**October 13 founder correction:** remove “Taking time off work or study” and keep optional manual input for AI generation. The current five choices below supersede the six-choice proposal and earlier wording. See the [research rationale](../../../research/sick-care-pool-sources.md#october-13-checkbox-review--research-interpretation) for separating practical help and check-ins. This is a content/design decision; the pool's older editorial tags and generated reading view still need deliberate remapping before live integration. Removing a checkbox does not delete task candidates or reinterpret stored answers.
 
-**What would you like to have figured out before a sick day?**
+**What would help you feel more prepared for a sick day?**
 
 Choose what matters to you. We'll start with a few useful options.
 
 | Checkbox | What it helps us choose | What it does not tell us |
 | --- | --- | --- |
-| Where to get care, and what it might cost | Initial care routes, access barriers and practical appointment preparation. | Whether she has insurance, a doctor, a diagnosis or an appointment. |
-| Getting food, prescriptions and everyday essentials | Acquisition routes, usable meals and concrete supply gaps. | That she takes medicine, needs food assistance or lacks delivery. |
-| Making things easier at home while I rest | A usable resting setup and specific household help. | That she wants to buy supplies or hire someone. |
-| Having my pet cared for if I can't do the usual routine | Pet-care options and missing parts of a real care arrangement. | The species, routine, medical needs or whether a sitter already exists. |
-| Keeping work or study manageable if I need time off | Absence processes, feasible cover or a solo-business pause plan. | Her employment type, benefits or entitlement to leave. |
-| Finding practical help or someone to check in with | Suitable services or mutually agreed personal support. | That she has no friends, is lonely or wants monitoring. |
+| Food and essentials without going out | Acquisition routes, usable meals and concrete supply gaps. | That she takes medicine, needs food assistance or lacks delivery. |
+| Knowing where to get care, and what it costs | Initial care routes, access barriers and practical appointment preparation. | Whether she has insurance, a doctor, a diagnosis or an appointment. |
+| Help with errands and things at home | A usable resting setup, practical services or specific agreed help. | That she has a nearby helper or can afford paid help. |
+| Someone to check in with | An optional, mutually agreed contact arrangement. | That she is lonely, has an available contact or wants monitoring. |
+| My pet being cared for | Pet-care options and missing parts of a real care arrangement. | The species, routine, medical needs or whether a sitter already exists. |
 
-**Why six rather than the previous five:** pet care and work/study need different prerequisites. Separating them makes a selection informative and avoids an additional question merely to find out which she meant. This is proposed screen copy, not a deployed menu change.
+Keep multiple selection, optional manual input and the same Continue route. Manual label: **Anything specific you'd like help with?** Example placeholder: “I have a cat, no nearby help, and want to prepare without booking anything yet.” Helper: **We'll use what you share to create a personalized suggestion with AI.** Do not require personal disclosure or replay onboarding.
 
-Keep multiple selection, optional manual input and the same Continue route. Manual label: **Anything specific you'd like help with?** Example placeholder: “I have a cat, no nearby help, and want to prepare without booking anything yet.” Do not require personal disclosure or replay onboarding.
+Checkboxes alone use the reviewed pool and the established optional one-task adaptation. Submitted specific text leads to one focused AI task within sick-day preparation, with or without boxes checked, using relevant allowed context and prior outcomes. It is not merely used to classify a checkbox, and does not require pool exhaustion. In a mixed batch the AI task is within the total three; a direct request can return one task without filler. Generate on submission, not each keystroke. Preserve drafts and explain unsupported requests or failures. Keep existing category, resource, duplicate and privacy rules; raw text is temporary and accepted task content is saved privately through the task flow.
 
 No selections: offer help choosing a starting area or allow a specific typed need. Do not pretend to personalize a random batch. Checking every box does not show thirty tasks or make her complete a program.
 
@@ -42,7 +41,7 @@ Use a few understandable rules, not a safety score:
 
 Use a ready pool task or authored variant first. Automatically adapt at most one of the three only when her circumstances materially change the task. A specific new supported need can generate one new action even when unused pool items remain. No AI call just to rank checkboxes, change a greeting or repeat research already in the library.
 
-Some critical facts genuinely matter. If absent, use a concise conditional route or ask one relevant question only when it would change the next suggestion. For work, for example: “Is this for a job, your own business, or study?” Do not collect a new permanent biography or medical profile. A pet-care interest can justify showing a pet-care option, but it cannot justify inventing a cat or a paid-care budget.
+Some critical facts genuinely matter. If absent, use a concise conditional route or ask one relevant question only when it would change the next suggestion. For pet care, establish whether she needs to find a carer or already has someone willing. Do not collect a new permanent biography or medical profile. A pet-care interest can justify showing a pet-care option, but it cannot justify inventing a cat or a paid-care budget.
 
 **Resource limit:** at most one linked task per batch, up to two reviewed links in it. Do not strip away a necessary starting link just to fill three cards. Return fewer useful options if several research tasks all require links. Internal evidence citations are not additional user-facing links.
 
@@ -68,7 +67,7 @@ These are editorial selection examples, not claims of executed backend tests:
 | No nearby support and paid errands are unaffordable | SC18's specific community-referral route, with honest local limits. | Inventing a friend or promising 211 will supply a helper. |
 | Has a distant willing friend, wants practical help | SC21; SC19 only if she also wants a social check-in. | Assuming distance makes help useless. |
 | Already has care, food and pet arrangements; asks for something new | Identify an explicit remaining need or ask one focused question. | Repeat those tasks or invent a new vulnerability. |
-| All concerns selected; pets and work circumstances unknown | Use a fitting current request/conditional route; ask one consequential question if needed. | Automatically prescribe six arrangements or infer a job, insurance and a pet species. |
+| All concerns selected; pet details and support unknown | Use a fitting current request/conditional route; ask one consequential question if needed. | Automatically prescribe five arrangements or infer insurance, a willing helper or a pet species. |
 | Outside the US | Use self-contained preparation that fits; require reviewed local routes for provider discovery. | Present HRSA, US 211 or Medicaid as local options. |
 | Planned procedure, no escort | SC05; team decides acceptable arrangements. | Claim a rideshare solves the requirement. |
 | Immediate symptoms, emergency or medication question | Separate appropriate safety/professional-help response. | Give a preventive roadmap or infer treatment. |
@@ -77,7 +76,7 @@ These are editorial selection examples, not claims of executed backend tests:
 
 This folder is intentionally outside the runtime catalog. `use_when`, `skip_when` and `variants` are editorial conditions, not executable matching code. Don't import the JSON and claim those rules are enforced.
 
-The existing `food`, `check_in`, `getting_care`, `pets`, `daily_tasks` IDs are still in use. The proposed concern IDs need an explicit mapping and versioned release. In particular, an old `daily_tasks` answer does not prove work obligations; the added work/study checkbox needs a fresh choice. Preserve older answers rather than silently reinterpreting them.
+The existing `food`, `check_in`, `getting_care`, `pets`, `daily_tasks` IDs are still in use. The pool's older six editorial concern tags are not the current five-choice screen. Deliberately map the revised screen and tasks before a versioned release; do not import the old menu unchanged. Neither an old `daily_tasks` answer nor household help proves work obligations. Work/study is removed from the menu. Preserve older answers and task candidates rather than silently deleting or reinterpreting them.
 
 `legacy_overlap` flags old outcomes for semantic review; it is not a blanket alias. Completing the old care-contact note does not prove access to a new provider. Honor explicit new gaps while avoiding ordinary repeated suggestions. Do not overwrite saved task versions.
 
@@ -85,6 +84,6 @@ The current new-need runtime also has a 20-minute cap, broad medication-word pre
 
 ## Next category packages
 
-The broader candidate categories remain Home & repairs, Practical help & connections, and Going out & travel. Before writing each pool, choose checkboxes that distinguish practical solutions, then research and craft at least thirty meaningful options. Do not reuse the six sick-day labels across every category or make thirty rewordings of a few ideas. Sick-day preparation is the first completed draft package, not evidence that all categories are ready.
+The broader candidate categories remain Home & repairs, Practical help & connections, and Going out & travel. Before writing each pool, choose checkboxes that distinguish practical solutions, then research and craft at least thirty meaningful options. Do not reuse the sick-day labels across every category or make thirty rewordings of a few ideas. Sick-day preparation is the first completed draft package, not evidence that all categories are ready.
 
 Edit `pool.json`, then run `node personalization/content-candidates/sick-care-v0/render-review.mjs` from the repository root to refresh the reading view and structural check. Editorial judgments and future real-model tests are separate from that check.

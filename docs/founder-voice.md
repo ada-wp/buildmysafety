@@ -73,6 +73,8 @@ October 13 addition: Ada wants the elephant to speak directly on milestone scree
 
 ## Editorial boundaries
 
+October 13 concern-screen decision: Ada explicitly removed “Taking time off work or study” from the sick-day choices. She also reaffirmed that users can type a specific need and that this text should be used for AI generation. Keep the five remaining choices and optional typing; do not treat the removal of a checkbox as authorization to delete stored answers or draft tasks.
+
 - Do not manufacture fear, urgency, catastrophe scenarios, guilt, or pressure to keep people reading.
 - Do not equate living alone with loneliness, vulnerability, or dissatisfaction.
 - Do not invent Ada's emotions, incidents, professional qualifications, location, relationship status, surname, or her cat's name.
