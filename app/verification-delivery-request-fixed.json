@@ -1,0 +1,85 @@
+{
+  "testedAt": "2026-10-14T17:25:17.240Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "account": "a",
+  "evidence": "Independent approved fictional Clerk session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.",
+  "input": {
+    "topicId": "sick_care",
+    "concernIds": [],
+    "country": "US",
+    "note": "I want to understand how to have medicine delivered to my home without going out."
+  },
+  "httpStatus": 200,
+  "result": {
+    "status": "ok",
+    "source": "mixed",
+    "delivery": "shown",
+    "reviewRequired": true,
+    "metadata": {
+      "responseId": "resp_0ffc4f00d0107453016acfbb0220d487d281d05051260e3300",
+      "model": "gpt-6-luna",
+      "inputTokens": 5916,
+      "outputTokens": 213
+    },
+    "batch": {
+      "status": "no_more_ideas",
+      "message": "One new step for what you need now.",
+      "tasks": [
+        {
+          "action_key": "custom_sick_care_research_pharmacy_delivery",
+          "concern_ids": [
+            "getting_care"
+          ],
+          "title": "Find out how pharmacy delivery works",
+          "summary": "Delivery rules depend on the pharmacy and the prescription. A pharmacy can clarify whether delivery is available to your address and what the process requires.",
+          "estimated_minutes": 10,
+          "steps": [
+            "Choose a pharmacy’s official website or customer-service route; CVS’s delivery information is one place to start.",
+            "Check which prescriptions and delivery areas are eligible, and whether charges or timing differ by prescription or location.",
+            "Look for identification and handoff requirements, and note what would still need confirming for a specific future prescription."
+          ],
+          "done_when": "You understand the delivery route’s main limits and what the pharmacy would need to confirm for a specific prescription.",
+          "resources": [
+            {
+              "resource_id": "cvs_delivery",
+              "why": "A reviewed US pharmacy-delivery starting point; its actual eligibility, charges and handoff rules need checking."
+            }
+          ],
+          "purchase_checks": [],
+          "no_purchase_option": null
+        }
+      ]
+    },
+    "adaptation": {
+      "status": "generated",
+      "actionKey": "custom_sick_care_research_pharmacy_delivery",
+      "message": null,
+      "refinement": false,
+      "newNeed": true
+    },
+    "trace": {
+      "contextVersion": 1,
+      "concernPolicy": "category",
+      "profileRevision": 2,
+      "stateVersion": "10",
+      "promptHash": "5c10754ac82140df4f2bc8a4595abcb1b5b7b1e6ec825d06abe5d600900848e3",
+      "candidateCount": 22
+    },
+    "requestId": "28390676-01df-4ca5-b140-04dc4248f4f3",
+    "request": {
+      "topicId": "sick_care",
+      "concernIds": [
+        "getting_care"
+      ],
+      "country": "US"
+    },
+    "stateVersion": "11",
+    "replayed": false
+  },
+  "checks": {
+    "persisted": true,
+    "replayedWithoutNewAttempt": true,
+    "priorTasksUnchanged": true,
+    "rawNoteNotInLatest": true
+  }
+}

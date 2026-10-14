@@ -1,0 +1,1365 @@
+{
+  "date": "2026-10-13",
+  "status": "superseded_strict_candidate_rehearsal",
+  "poolVersion": "sick-care-learning-draft-2026-10-13",
+  "supersededBy": "Founder requested priority-first selection after this rehearsal. See docs/personalization-plan-v0.md, Shared ranking rules. These historical checks do not validate that correction.",
+  "poolSha256": "4486a6b7bad9f8b9b5ea197f7040c65c365b8416a51ddfe25223b5811a0863a8",
+  "limitations": "Synthetic authored inputs and eligibility annotations. Executes filtering/ranking checks for the candidate review only. Does not test production matching, text interpretation, AI, authentication, D1, UI or deployment. No source re-verification or quality/market-effectiveness claim.",
+  "checks": [
+    {
+      "name": "All 30 candidates assessed in each case; at most 3 distinct outcomes and one resource task",
+      "passed": true
+    },
+    {
+      "name": "Care gap leads; limited budget alone does not create insurance, food or benefits facts",
+      "passed": true
+    },
+    {
+      "name": "Handled care and food stay excluded; one fitting pet task is not padded to three",
+      "passed": true
+    },
+    {
+      "name": "Learning preference can produce a 100% learning batch; pool ratio is not a per-batch quota",
+      "passed": true
+    },
+    {
+      "name": "More ideas uses remaining fits without repeating earlier shown outcomes",
+      "passed": true
+    },
+    {
+      "name": "Completing pet learning does not establish a selected carer or unlock a handoff",
+      "passed": true
+    },
+    {
+      "name": "An explicit paid-services exclusion removes pet-marketplace research",
+      "passed": true
+    },
+    {
+      "name": "Exact current interest can promote an Extra ease task ahead of a higher default band",
+      "passed": true
+    },
+    {
+      "name": "Check-in choice does not infer a willing contact or route to household services",
+      "passed": true
+    },
+    {
+      "name": "Unknown benefit access differs from a confirmed route; named service still consumes allowance",
+      "passed": true
+    },
+    {
+      "name": "Time limits filter tasks rather than fabricating shorter instructions",
+      "passed": true
+    },
+    {
+      "name": "Unsupported geography and urgent mode do not reuse this US preventive rehearsal",
+      "passed": true
+    },
+    {
+      "name": "A broad checkbox without a known gap is insufficient for these strict fit annotations",
+      "passed": true
+    },
+    {
+      "name": "Rehearsal preserves source input and user-case fixtures",
+      "passed": true
+    }
+  ],
+  "results": [
+    {
+      "input": {
+        "id": "care_and_outside_help",
+        "title": "No care route, limited budget, no nearby help",
+        "description": "A fictional US user selects care and practical help. She has no workable first-care route and wants to discover local support outside her social circle. Insurance, employment benefits, food affordability and specific errands are unknown.",
+        "concerns": [
+          "getting_care",
+          "daily_tasks"
+        ],
+        "country": "US",
+        "needs": [
+          "first_care_route",
+          "local_resource_discovery"
+        ],
+        "primaryNeed": "first_care_route",
+        "facts": {
+          "limitedBudget": true,
+          "nearbyHelp": false
+        },
+        "mode": "any",
+        "unknown": [
+          "insurance",
+          "foodAffordabilityGap",
+          "benefitAccess",
+          "trustedWillingContact"
+        ],
+        "handled": [],
+        "history": [],
+        "explanation": "Start with an actual route to care. Keep the insured/other-route wording conditional. Local 211 discovery fits next, but would be a second resource task in this batch.",
+        "importantSkips": [
+          "SC06",
+          "SC11",
+          "SC18",
+          "SC19",
+          "SC25"
+        ],
+        "gap": "The care and local-support tasks both need resources, so the first batch contains one. Limited budget must not silently become uninsured, food insecurity or a permanent ban on researching paid services."
+      },
+      "selected": [
+        "SC01"
+      ],
+      "deferred": [
+        {
+          "id": "SC21",
+          "reason": "One resource task is already selected; still eligible for a later batch."
+        }
+      ],
+      "assessments": [
+        {
+          "id": "SC01",
+          "eligible": true,
+          "reasons": [],
+          "fit": 2,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC02",
+          "eligible": false,
+          "reasons": [
+            "No stated need for in_person_route; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC03",
+          "eligible": false,
+          "reasons": [
+            "No stated need for video_visit_setup; a checkbox alone does not establish it.",
+            "Prerequisite chosenVirtualProvider=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC04",
+          "eligible": false,
+          "reasons": [
+            "No stated need for appointment_transport; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC05",
+          "eligible": false,
+          "reasons": [
+            "No stated need for procedure_escort; a checkbox alone does not establish it.",
+            "Prerequisite plannedProcedure=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC06",
+          "eligible": false,
+          "reasons": [
+            "No stated need for care_estimate; a checkbox alone does not establish it.",
+            "Prerequisite selfPayVisit=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC07",
+          "eligible": false,
+          "reasons": [
+            "No stated need for prescription_delivery; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC08",
+          "eligible": false,
+          "reasons": [
+            "No stated need for refill_process; a checkbox alone does not establish it.",
+            "Prerequisite ongoingPrescription=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC09",
+          "eligible": false,
+          "reasons": [
+            "No stated need for pharmacy_collection_rules; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC10",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for grocery_delivery; a checkbox alone does not establish it.",
+            "Openness to researching future paid services is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC11",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for food_assistance; a checkbox alone does not establish it.",
+            "Prerequisite foodAffordabilityGap=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC12",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for meal_service_formats; a checkbox alone does not establish it.",
+            "Openness to researching future paid services is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC13",
+          "eligible": false,
+          "reasons": [
+            "No stated need for resting_space; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": false
+        },
+        {
+          "id": "SC14",
+          "eligible": false,
+          "reasons": [
+            "No stated need for recurring_supply_shortage; a checkbox alone does not establish it.",
+            "Prerequisite purchaseFeasible=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": false
+        },
+        {
+          "id": "SC15",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for food_storage_reference; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC16",
+          "eligible": false,
+          "reasons": [
+            "No stated need for laundry_service_terms; a checkbox alone does not establish it.",
+            "Openness to researching future paid services is not confirmed."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": true
+        },
+        {
+          "id": "SC17",
+          "eligible": false,
+          "reasons": [
+            "No stated need for cleaning_service_scope; a checkbox alone does not establish it.",
+            "Openness to researching future paid services is not confirmed."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": true
+        },
+        {
+          "id": "SC18",
+          "eligible": false,
+          "reasons": [
+            "No stated need for specific_errand; a checkbox alone does not establish it.",
+            "Prerequisite identifiedNonmedicalErrand=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC19",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for wanted_check_in; a checkbox alone does not establish it.",
+            "Prerequisite trustedWillingContact=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC20",
+          "eligible": false,
+          "reasons": [
+            "No stated need for home_help_types; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC21",
+          "eligible": true,
+          "reasons": [],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC22",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for absence_process; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC23",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for work_handoff; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC24",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for business_pause; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC25",
+          "eligible": false,
+          "reasons": [
+            "No stated need for care_benefits; a checkbox alone does not establish it.",
+            "Prerequisite benefitAccess=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC26",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for pet_service_options; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Openness to researching future paid services is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC27",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for pet_carer_introduction; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Prerequisite chosenCarer=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC28",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for vet_permission; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Prerequisite chosenCarer=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC29",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for extended_pet_care; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Prerequisite extendedAbsence=true is not confirmed.",
+            "Prerequisite affordablePetCareGap=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC30",
+          "eligible": false,
+          "reasons": [
+            "No stated need for planned_return_home; a checkbox alone does not establish it.",
+            "Prerequisite plannedProcedureOrStay=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        }
+      ],
+      "nextBatch": [
+        "SC21"
+      ],
+      "tasks": [
+        {
+          "id": "SC01",
+          "outcome_key": "care_entry_route",
+          "concerns": [
+            "care"
+          ],
+          "stage": "discover",
+          "active_minutes": 20,
+          "task_kind": "preparation",
+          "priority": {
+            "band": "core_preparation",
+            "reason": "Establishes a missing first route to care, including access and cost, without assuming an existing doctor.",
+            "adjust_when": "Offer for an explicit care-access gap. If a suitable route already exists, skip rather than add a second provider by default."
+          },
+          "title": "Find a care option you can actually start with",
+          "summary": "You don't need a regular doctor to explore your options. Start with one route that fits your coverage and budget.",
+          "steps": [
+            "With insurance, look for virtual care in your plan or benefits portal. Without a suitable benefit, try HRSA's health-center finder.",
+            "Ask one service: 'Can a new patient in my state have a virtual first visit, and what would it cost?'",
+            "Check how to request that first visit. Keep the entry page and the answer; if you contacted the service, wait for its reply."
+          ],
+          "done_when": "One first-visit route has confirmed new-patient access and cost information. An unanswered inquiry is still pending.",
+          "use_when": "She wants an initial care route and has not already established a suitable one. US service variant only.",
+          "skip_when": "A suitable care route already exists, or the current request asks for symptom assessment or immediate care.",
+          "new_value": "Discover an entry point without presuming an existing doctor; learn whether it is usable before relying on it.",
+          "cost": "Research only; future care may cost money. No account, booking or subscription required by this task.",
+          "source_ids": [
+            "HHS_FIND",
+            "HRSA"
+          ],
+          "resource_ids": [
+            "HHS_FIND",
+            "HRSA"
+          ],
+          "variants": "If explicitly interested in self-pay virtual care, use a reviewed pay-per-visit provider and check current first-patient eligibility and total cost. If uninsured and cost-sensitive, start with the health center. These are variants of one outcome, not extra tasks.",
+          "legacy_overlap": [
+            "sick_05_care_contact"
+          ],
+          "waiting": "Provider reply if details are not published."
+        }
+      ]
+    },
+    {
+      "input": {
+        "id": "pet_care_after_basics",
+        "title": "Food and care handled; pet care is the missing piece",
+        "description": "A fictional US cat owner has workable care and grocery routes. She wants to understand pet-care services, is open to researching future paid care, and has not chosen a carer. There is no planned extended absence or urgent event.",
+        "concerns": [
+          "food",
+          "getting_care",
+          "pets"
+        ],
+        "country": "US",
+        "needs": [
+          "pet_service_options"
+        ],
+        "primaryNeed": "pet_service_options",
+        "facts": {
+          "hasPet": true,
+          "petSpecies": "cat",
+          "futurePaidResearch": true,
+          "chosenCarer": false,
+          "extendedAbsence": false
+        },
+        "mode": "any",
+        "unknown": [
+          "benefitAccess"
+        ],
+        "handled": [
+          "SC01",
+          "SC10"
+        ],
+        "history": [],
+        "explanation": "Offer pet-service discovery, with Rover and the conditional cat-specific Meowtel example. Do not repeat care or groceries, assume a selected sitter, or suggest extended-absence foster care.",
+        "importantSkips": [
+          "SC01",
+          "SC10",
+          "SC25",
+          "SC27",
+          "SC28",
+          "SC29"
+        ],
+        "gap": "After service discovery, the pool lacks a strong standalone bridge to choosing one suitable sitter candidate. SC27 needs an actual candidate, not merely a completed learning task. Do not offer a handoff or vet permissions prematurely."
+      },
+      "selected": [
+        "SC26"
+      ],
+      "deferred": [],
+      "assessments": [
+        {
+          "id": "SC01",
+          "eligible": false,
+          "reasons": [
+            "The synthetic user explicitly says this outcome is already handled.",
+            "No stated need for first_care_route; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC02",
+          "eligible": false,
+          "reasons": [
+            "No stated need for in_person_route; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC03",
+          "eligible": false,
+          "reasons": [
+            "No stated need for video_visit_setup; a checkbox alone does not establish it.",
+            "Prerequisite chosenVirtualProvider=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC04",
+          "eligible": false,
+          "reasons": [
+            "No stated need for appointment_transport; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC05",
+          "eligible": false,
+          "reasons": [
+            "No stated need for procedure_escort; a checkbox alone does not establish it.",
+            "Prerequisite plannedProcedure=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC06",
+          "eligible": false,
+          "reasons": [
+            "No stated need for care_estimate; a checkbox alone does not establish it.",
+            "Prerequisite selfPayVisit=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC07",
+          "eligible": false,
+          "reasons": [
+            "No stated need for prescription_delivery; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC08",
+          "eligible": false,
+          "reasons": [
+            "No stated need for refill_process; a checkbox alone does not establish it.",
+            "Prerequisite ongoingPrescription=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC09",
+          "eligible": false,
+          "reasons": [
+            "No stated need for pharmacy_collection_rules; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC10",
+          "eligible": false,
+          "reasons": [
+            "The synthetic user explicitly says this outcome is already handled.",
+            "No stated need for grocery_delivery; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC11",
+          "eligible": false,
+          "reasons": [
+            "No stated need for food_assistance; a checkbox alone does not establish it.",
+            "Prerequisite foodAffordabilityGap=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC12",
+          "eligible": false,
+          "reasons": [
+            "No stated need for meal_service_formats; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC13",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for resting_space; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": false
+        },
+        {
+          "id": "SC14",
+          "eligible": false,
+          "reasons": [
+            "No stated need for recurring_supply_shortage; a checkbox alone does not establish it.",
+            "Prerequisite purchaseFeasible=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": false
+        },
+        {
+          "id": "SC15",
+          "eligible": false,
+          "reasons": [
+            "No stated need for food_storage_reference; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC16",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for laundry_service_terms; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": true
+        },
+        {
+          "id": "SC17",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for cleaning_service_scope; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": true
+        },
+        {
+          "id": "SC18",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for specific_errand; a checkbox alone does not establish it.",
+            "Prerequisite identifiedNonmedicalErrand=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC19",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for wanted_check_in; a checkbox alone does not establish it.",
+            "Prerequisite trustedWillingContact=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC20",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for home_help_types; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC21",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for local_resource_discovery; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC22",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for absence_process; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC23",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for work_handoff; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC24",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for business_pause; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC25",
+          "eligible": false,
+          "reasons": [
+            "No stated need for care_benefits; a checkbox alone does not establish it.",
+            "Prerequisite benefitAccess=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC26",
+          "eligible": true,
+          "reasons": [],
+          "fit": 2,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC27",
+          "eligible": false,
+          "reasons": [
+            "No stated need for pet_carer_introduction; a checkbox alone does not establish it.",
+            "Prerequisite chosenCarer=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC28",
+          "eligible": false,
+          "reasons": [
+            "No stated need for vet_permission; a checkbox alone does not establish it.",
+            "Prerequisite chosenCarer=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC29",
+          "eligible": false,
+          "reasons": [
+            "No stated need for extended_pet_care; a checkbox alone does not establish it.",
+            "Prerequisite extendedAbsence=true is not confirmed.",
+            "Prerequisite affordablePetCareGap=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC30",
+          "eligible": false,
+          "reasons": [
+            "No stated need for planned_return_home; a checkbox alone does not establish it.",
+            "Prerequisite plannedProcedureOrStay=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        }
+      ],
+      "nextBatch": [],
+      "tasks": [
+        {
+          "id": "SC26",
+          "outcome_key": "pet_care_options_compared",
+          "concerns": [
+            "pets",
+            "support"
+          ],
+          "stage": "discover",
+          "active_minutes": 10,
+          "priority": {
+            "band": "core_preparation",
+            "reason": "Builds awareness of possible pet-care routes when the user has not known where to start.",
+            "adjust_when": "Once she knows the service type, help with the next real gap. An existing sitter should not trigger another app-comparison task."
+          },
+          "title": "Discover the pet-care options you could use",
+          "summary": "Pet care isn't only boarding. Learn which services let your pet stay home and what you would check before choosing a sitter.",
+          "steps": [
+            "Explore Rover's pet-sitting and dog-walking options. If you have a cat, also explore Meowtel's in-home cat-care services.",
+            "Compare drop-in visits, overnight care in your home, and boarding where offered. Check species, area coverage and how much time each service includes.",
+            "Choose a service type worth researching further. Check how introductions, fees and cancellations work before any future booking; no contact or payment needed today."
+          ],
+          "done_when": "You understand the relevant care options and which service type you would explore next.",
+          "use_when": "A pet-care interest is explicit and she wants to understand available services before choosing a carer; future paid research is welcome.",
+          "skip_when": "She already understands the services and has suitable care, excludes paid options, or needs someone to care for the pet immediately.",
+          "new_value": "Introduce useful apps and service differences without making a stranger meeting or relationship exercise the task.",
+          "cost": "Browsing free; future care may require payment. Check current booking and introduction rules before committing.",
+          "source_ids": [
+            "ROVER_SERVICES",
+            "MEOWTEL_SERVICES"
+          ],
+          "resource_ids": [
+            "ROVER_SERVICES",
+            "MEOWTEL_SERVICES"
+          ],
+          "legacy_overlap": [
+            "sick_08_pet_sitter"
+          ],
+          "waiting": "None for learning. No sitter is vetted, available or booked by completion.",
+          "variants": "Use Meowtel only for cats and where covered. For dogs, Rover is enough unless a second reviewed local resource adds value. Do not force two names or imply either is free.",
+          "learning_takeaway": "Drop-ins, overnight stays and boarding are different arrangements; choose the format before investigating a particular sitter.",
+          "task_kind": "learning",
+          "replaces_draft_outcome": "pet_care_candidate_checked"
+        }
+      ]
+    },
+    {
+      "input": {
+        "id": "learn_before_arranging",
+        "title": "Discover help first, without arranging anything",
+        "description": "A fictional US user wants to learn where local support exists, how household help differs from personal care, and what laundry services involve. She is open to researching future paid options but wants no contact, booking or trial now.",
+        "concerns": [
+          "daily_tasks"
+        ],
+        "country": "US",
+        "needs": [
+          "local_resource_discovery",
+          "home_help_types",
+          "laundry_service_terms"
+        ],
+        "primaryNeed": "local_resource_discovery",
+        "facts": {
+          "futurePaidResearch": true
+        },
+        "mode": "learning",
+        "unknown": [
+          "benefitAccess",
+          "trustedWillingContact"
+        ],
+        "handled": [],
+        "history": [],
+        "explanation": "Start with local resource discovery. Service-type knowledge and laundry terms are useful alternatives for later batches, not instructions to arrange help now.",
+        "importantSkips": [
+          "SC13",
+          "SC18",
+          "SC19",
+          "SC25"
+        ],
+        "gap": "All three fitting learning tasks use a resource. The existing limit yields one per batch; do not strip the useful source, add a trivial chore, or enforce the 40% pool ratio on this person."
+      },
+      "selected": [
+        "SC21"
+      ],
+      "deferred": [
+        {
+          "id": "SC20",
+          "reason": "One resource task is already selected; still eligible for a later batch."
+        },
+        {
+          "id": "SC16",
+          "reason": "One resource task is already selected; still eligible for a later batch."
+        }
+      ],
+      "assessments": [
+        {
+          "id": "SC01",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for first_care_route; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC02",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for in_person_route; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC03",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for video_visit_setup; a checkbox alone does not establish it.",
+            "Prerequisite chosenVirtualProvider=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC04",
+          "eligible": false,
+          "reasons": [
+            "No stated need for appointment_transport; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC05",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for procedure_escort; a checkbox alone does not establish it.",
+            "Prerequisite plannedProcedure=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC06",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for care_estimate; a checkbox alone does not establish it.",
+            "Prerequisite selfPayVisit=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC07",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for prescription_delivery; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC08",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for refill_process; a checkbox alone does not establish it.",
+            "Prerequisite ongoingPrescription=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC09",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for pharmacy_collection_rules; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC10",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for grocery_delivery; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC11",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for food_assistance; a checkbox alone does not establish it.",
+            "Prerequisite foodAffordabilityGap=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC12",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for meal_service_formats; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC13",
+          "eligible": false,
+          "reasons": [
+            "No stated need for resting_space; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": false
+        },
+        {
+          "id": "SC14",
+          "eligible": false,
+          "reasons": [
+            "No stated need for recurring_supply_shortage; a checkbox alone does not establish it.",
+            "Prerequisite purchaseFeasible=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": false
+        },
+        {
+          "id": "SC15",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for food_storage_reference; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC16",
+          "eligible": true,
+          "reasons": [],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": true
+        },
+        {
+          "id": "SC17",
+          "eligible": false,
+          "reasons": [
+            "No stated need for cleaning_service_scope; a checkbox alone does not establish it."
+          ],
+          "fit": 1,
+          "band": "extra_ease",
+          "resourceTask": true
+        },
+        {
+          "id": "SC18",
+          "eligible": false,
+          "reasons": [
+            "No stated need for specific_errand; a checkbox alone does not establish it.",
+            "Prerequisite identifiedNonmedicalErrand=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC19",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for wanted_check_in; a checkbox alone does not establish it.",
+            "Prerequisite trustedWillingContact=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC20",
+          "eligible": true,
+          "reasons": [],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC21",
+          "eligible": true,
+          "reasons": [],
+          "fit": 2,
+          "band": "make_it_reliable",
+          "resourceTask": true
+        },
+        {
+          "id": "SC22",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for absence_process; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC23",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for work_handoff; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC24",
+          "eligible": false,
+          "reasons": [
+            "Parked outside default checkbox suggestions.",
+            "Does not match a selected current concern.",
+            "No stated need for business_pause; a checkbox alone does not establish it.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": false
+        },
+        {
+          "id": "SC25",
+          "eligible": false,
+          "reasons": [
+            "No stated need for care_benefits; a checkbox alone does not establish it.",
+            "Prerequisite benefitAccess=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC26",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for pet_service_options; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC27",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for pet_carer_introduction; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Prerequisite chosenCarer=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC28",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for vet_permission; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Prerequisite chosenCarer=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "make_it_reliable",
+          "resourceTask": false
+        },
+        {
+          "id": "SC29",
+          "eligible": false,
+          "reasons": [
+            "Does not match a selected current concern.",
+            "No stated need for extended_pet_care; a checkbox alone does not establish it.",
+            "Prerequisite hasPet=true is not confirmed.",
+            "Prerequisite extendedAbsence=true is not confirmed.",
+            "Prerequisite affordablePetCareGap=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        },
+        {
+          "id": "SC30",
+          "eligible": false,
+          "reasons": [
+            "No stated need for planned_return_home; a checkbox alone does not establish it.",
+            "Prerequisite plannedProcedureOrStay=true is not confirmed.",
+            "She currently wants learning, not arranging or physical preparation."
+          ],
+          "fit": 1,
+          "band": "core_preparation",
+          "resourceTask": true
+        }
+      ],
+      "nextBatch": [
+        "SC20"
+      ],
+      "tasks": [
+        {
+          "id": "SC21",
+          "outcome_key": "local_211_resource_awareness",
+          "concerns": [
+            "support",
+            "home"
+          ],
+          "stage": "discover",
+          "active_minutes": 10,
+          "priority": {
+            "band": "make_it_reliable",
+            "reason": "Improves future help-seeking by teaching a reusable route to relevant local resources.",
+            "adjust_when": "Offer for resource awareness. If she requests concrete help for a particular errand, use SC18 or a fitting action rather than repeat directory browsing."
+          },
+          "title": "Discover local help beyond people you already know",
+          "summary": "You don't need a local network to start learning what support exists. In the US, 211 is one place to explore community resources.",
+          "steps": [
+            "Open your local 211 website and see which support areas it covers, such as food access or transportation.",
+            "Choose one area relevant to you and read a listing's service description, eligibility and contact route where available.",
+            "Find how to reach 211 if searching is confusing. It offers information and referrals; a listing does not guarantee assistance."
+          ],
+          "done_when": "You know a local starting point and how to investigate one relevant type of support.",
+          "use_when": "She is in the US, wants awareness of community resources and does not already know a suitable local starting point.",
+          "skip_when": "She already uses local 211, has a confirmed route for the need, is outside the resource's coverage, or needs immediate intervention.",
+          "new_value": "Discover a reusable local information route without needing a willing friend, placing a practice call or arranging help today.",
+          "cost": "Information and referrals are free; referred programs have their own costs and eligibility.",
+          "source_ids": [
+            "LOCAL_211"
+          ],
+          "resource_ids": [
+            "LOCAL_211"
+          ],
+          "legacy_overlap": [],
+          "waiting": "None for learning. Directory details need confirmation before relying on a particular service.",
+          "learning_takeaway": "A local information service can help identify options beyond an existing social circle; referrals and available assistance are different things.",
+          "task_kind": "learning",
+          "replaces_draft_outcome": "remote_practical_help_agreement"
+        }
+      ]
+    }
+  ]
+}

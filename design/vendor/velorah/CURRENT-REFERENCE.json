@@ -1,0 +1,101 @@
+{
+  "template": "Velorah",
+  "purpose": "Current template reference for branding-and-content-only customization",
+  "observedAt": "2026-09-24T02:06:26.530Z",
+  "sourcePreview": "https://hirael.com/embed/templates/velorah",
+  "registryFile": "velorah.registry.json",
+  "registrySha256": "d68324924f87e52a6d31c2959e5b1503dbb501b447b569f51dd4ba5edc7095d9",
+  "repositoryCommit": "72fa5c747912adb192b0a8dd0306bad044afbe9f",
+  "mediaBase": "https://hirael.com/media/templates/velorah/",
+  "files": [
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/velorah.tsx",
+      "registryContentSha256": "ed6cb568a3318ce5c1d3d82d752c802cafd3b0cb4ea3c2c3b6e552aa32fb5ff9",
+      "repositoryContentSha256": "685a10d681b110f95c131dec0d7f16c99333cb04b6cbc478164cb6b2a5e524ae",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/velorah.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/navbar.tsx",
+      "registryContentSha256": "7626f55d4c5a626f6dbbb63d78ad62725f603e3a56115db2e46cc52bee6c7a5d",
+      "repositoryContentSha256": "6447789530342de21ff2391c465897e0d524130f54e5ef33d41d9c65929d6c77",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/navbar.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/hero.tsx",
+      "registryContentSha256": "43b95b438e08d258b16083ec49942afc9dcfd391b5fc7bd582f05fa450c2b437",
+      "repositoryContentSha256": "b0994420bda55be0393c2f341f0330311a79e1cdbb79313d2e2f7d9046e4d8b8",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/hero.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/tagline.tsx",
+      "registryContentSha256": "f8e516246f56ea8700d8a4444b0f723f36ff0dcc37e1f9a55924d67462062901",
+      "repositoryContentSha256": "ab92dc61a8404390a5e0fa6037b485b3aabe85fddb579888d25f0e996c2e9e1a",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/tagline.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/feature.tsx",
+      "registryContentSha256": "a0542fe267e3e2199d5ddf330c48afb22417b4fefd8bb5976eab89647cc6095a",
+      "repositoryContentSha256": "a3774ee12a730278d060e7bdd36805f09981144671f2d906ec637e17a40bc7a1",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/feature.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/statement.tsx",
+      "registryContentSha256": "e4bfec2710fcc4b088f839a1104a9b042f273c9bc0ed32c809710d568d145ef1",
+      "repositoryContentSha256": "2b40291fbdae5043fc21a0959f9e612e47b8de468e3075a7604a826b67fdc42f",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/statement.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/cta.tsx",
+      "registryContentSha256": "8644ace4ddcfda746f4b2da01612f8b005b9827ea9fb6aeb5f374412c43277fa",
+      "repositoryContentSha256": "a892aa6d44e001cc0b5c9ae7c37d37bb727f208375c9360d48a9504080c2d1b7",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/cta.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/footer.tsx",
+      "registryContentSha256": "034f84327e040b3d6e971d99876bf2fea5d0ae0d4a4a17ab46c34d9bf77d2306",
+      "repositoryContentSha256": "21b210f67a623a58bc16265b5d327535d5284c2973c9a4a45cd6d0f93d2c44c0",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/footer.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/primitives.tsx",
+      "registryContentSha256": "89ab9847b00d0faa22284b660ed6daf029bdc5f69fca2475df2d79928580d20d",
+      "repositoryContentSha256": "6c41bc2711e58c5fd5adf643dba8eb5b569b8cdafb00fcfa27d6ff5344c3793d",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/primitives.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/styles.tsx",
+      "registryContentSha256": "594f335682c777a4b102547416d192faeeeb019a25e287593366144b02eb52f8",
+      "repositoryContentSha256": "598da1b862411ca82251e80e74422a4f2f8fdf9ac7e266223f6980a5cb75475b",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/styles.tsx",
+      "matchesAfterRegistryTransforms": true
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/velorah/fonts.ts",
+      "registryContentSha256": "42c6853a079ded85da0d42d19e9381ba19c3c489e9409637d4cf89c44cc38f9a",
+      "repositoryContentSha256": "6286d994c7caa7c932d868b14e6a8060143b8c19ecdda7475f407d3f3985f641",
+      "matchesRepository": false,
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/velorah/fonts.ts",
+      "matchesAfterRegistryTransforms": true
+    }
+  ],
+  "registryTransforms": "Registry prepends source/license comments and makes media URLs absolute."
+}

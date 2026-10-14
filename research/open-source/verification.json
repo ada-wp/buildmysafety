@@ -1,0 +1,37 @@
+{
+  "reviewedOn": "2026-09-29",
+  "repository": "https://github.com/maciekt07/TodoApp",
+  "commit": "426d979b895cd61577af763c4eb0dd4589aaf4cf",
+  "build": "passed",
+  "tests": {
+    "passed": 67,
+    "files": 5
+  },
+  "lint": "passed",
+  "audit": {
+    "allDependencies": {
+      "critical": 2,
+      "high": 26,
+      "moderate": 7,
+      "low": 3,
+      "total": 38
+    },
+    "production": {
+      "high": 3,
+      "moderate": 1,
+      "total": 4
+    },
+    "interpretation": "Package-level advisory findings, not a count of exploitable application flaws."
+  },
+  "runtime": {
+    "node": "24.14.0",
+    "npm": "11.9.0"
+  },
+  "adoptedWholeApp": false,
+  "notVerified": [
+    "native notification delivery",
+    "multi-user privacy",
+    "offline conflict recovery",
+    "exhaustive security review"
+  ]
+}

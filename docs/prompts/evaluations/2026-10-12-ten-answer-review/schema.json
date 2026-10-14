@@ -1,0 +1,112 @@
+{
+  "name": "safety_new_need_v1",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "decision",
+      "task"
+    ],
+    "properties": {
+      "decision": {
+        "type": "string",
+        "enum": [
+          "generated",
+          "no_new_idea",
+          "needs_context",
+          "out_of_scope",
+          "safety_redirect"
+        ]
+      },
+      "task": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "action_key": {
+                "type": "string"
+              },
+              "concern_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "title": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "estimated_minutes": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "steps": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 4,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "done_when": {
+                "type": "string"
+              },
+              "resources": {
+                "type": "array",
+                "maxItems": 2,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "resource_id": {
+                      "type": "string"
+                    },
+                    "why": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "resource_id",
+                    "why"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "purchase_checks": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "no_purchase_option": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "action_key",
+              "concern_ids",
+              "title",
+              "summary",
+              "estimated_minutes",
+              "steps",
+              "done_when",
+              "resources",
+              "purchase_checks",
+              "no_purchase_option"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    }
+  }
+}

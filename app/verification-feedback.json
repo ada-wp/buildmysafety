@@ -1,0 +1,21 @@
+{
+  "testedAt": "2026-10-12T17:30:28.826Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "account": "approved fictional B",
+  "deployment": "365cbd9a",
+  "clientBundle": "index-isuwpS-u.js",
+  "evidence": "Real hosted Clerk/Worker/D1 writes and reads; canonical next-request builder run locally on fresh remote records. No model call or browser-button submission.",
+  "likePersisted": true,
+  "latestFeedbackWins": true,
+  "undoPersisted": true,
+  "nextQuestionContainsRelevantFeedback": true,
+  "currentConcernPreserved": true,
+  "optOutHidesSignals": true,
+  "resetHidesOldSignals": true,
+  "savedInstructionsAndProgressUnchanged": true,
+  "duplicatePreventionPreserved": true,
+  "originalPersonalizationSettingRestored": true,
+  "aiCalls": 0,
+  "browserChecks": "Hosted controls inspected; feedback reasons and reset confirmation expanded/cancelled, with no Ada account mutations. No horizontal overflow at 393px for task feedback or 320px for account; viewport reset; observed error logs empty.",
+  "suggestionQuality": "Still awaiting founder approval"
+}

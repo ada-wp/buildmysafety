@@ -1,0 +1,57 @@
+{
+  "version": "seven-day-v1",
+  "summary": "You report home support is solid, pet support is not applicable, and digital and coverage both need attention. A good focus for this week is one important digital account, because it is your stated priority and can be handled in small steps.",
+  "recommendation": "Work on one important digital account first. This fits your priority and the attention status. The goal is to review the provider’s official recovery settings, confirm one existing recovery channel, look at available multifactor authentication, and note any recovery codes the provider offers, without changing anything risky or sharing secrets.",
+  "next_step": "Today, pick one important account and open the provider’s official help or security page for recovery and sign-in settings.",
+  "days": [
+    {
+      "day": 1,
+      "title": "Choose one account",
+      "action": "Pick one important digital account and open the provider’s official help or security page for recovery and sign-in settings.",
+      "minutes": 10,
+      "done_when": "You have one account selected and the official recovery information page open."
+    },
+    {
+      "day": 2,
+      "title": "Review recovery settings",
+      "action": "Read the provider’s official instructions for account recovery and note the recovery options it says are available.",
+      "minutes": 10,
+      "done_when": "You can name the recovery settings or options shown by the provider."
+    },
+    {
+      "day": 3,
+      "title": "Verify one recovery channel",
+      "action": "Check whether an existing recovery email or phone channel is still correct in the account settings, using official steps only.",
+      "minutes": 10,
+      "done_when": "You have confirmed one existing recovery channel is up to date or noted what needs attention."
+    },
+    {
+      "day": 4,
+      "title": "Look at multifactor options",
+      "action": "Review the available multifactor authentication choices in the provider’s official guidance and note any you already use.",
+      "minutes": 10,
+      "done_when": "You have a short note about which multifactor option is available or already in use."
+    },
+    {
+      "day": 5,
+      "title": "Store recovery codes privately",
+      "action": "If the provider offers recovery codes, save them in a private place you already use; if not, note that no codes were offered in the instructions.",
+      "minutes": 10,
+      "done_when": "You have either stored offered recovery codes privately or written down that the provider did not offer them."
+    },
+    {
+      "day": 6,
+      "title": "Write a simple checklist",
+      "action": "Write a non-secret recovery checklist for this account: where to find official recovery help, which recovery channel is current, and which multifactor option is available.",
+      "minutes": 10,
+      "done_when": "You have a short checklist with only non-secret recovery steps."
+    },
+    {
+      "day": 7,
+      "title": "Gentle review",
+      "action": "Review your notes for the account and check that the recovery plan is understandable and kept in a private place.",
+      "minutes": 5,
+      "done_when": "You can find your notes and explain the next recovery step without looking for new information."
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "method": "Offline replay of unedited outputs; current validators; no hosted delivery",
+  "checks": [
+    {
+      "id": "A",
+      "decision": "generated",
+      "preflight": null,
+      "resourceCount": 1,
+      "suppliedResourceIdsOnly": true,
+      "stepWords": [
+        20,
+        22,
+        25
+      ],
+      "spendingKeywordMatches": [],
+      "candidateResources": {
+        "passes": true,
+        "hasTask": true
+      },
+      "unchangedApp": {
+        "passes": false,
+        "error": "invalid_resource"
+      }
+    },
+    {
+      "id": "B",
+      "decision": "generated",
+      "preflight": null,
+      "resourceCount": 2,
+      "suppliedResourceIdsOnly": true,
+      "stepWords": [
+        28,
+        19,
+        24
+      ],
+      "spendingKeywordMatches": [
+        "pay"
+      ],
+      "candidateResources": {
+        "passes": false,
+        "error": "copy_too_long"
+      },
+      "unchangedApp": {
+        "passes": false,
+        "error": "invalid_resource"
+      }
+    },
+    {
+      "id": "C",
+      "decision": "generated",
+      "preflight": "safety_redirect",
+      "resourceCount": 2,
+      "suppliedResourceIdsOnly": true,
+      "stepWords": [
+        15,
+        18,
+        18
+      ],
+      "spendingKeywordMatches": [],
+      "preflightDiagnostic": {
+        "change": "Replace only prescription delivery with pharmacy delivery; diagnostic input, not another model call",
+        "result": null
+      },
+      "candidateResources": {
+        "passes": true,
+        "hasTask": true
+      },
+      "unchangedApp": {
+        "passes": false,
+        "error": "invalid_resource"
+      }
+    }
+  ]
+}

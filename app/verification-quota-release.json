@@ -1,0 +1,87 @@
+{
+  "testedAt": "2026-10-14T17:42:32.170Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "account": "b",
+  "evidence": "Independent approved fictional Clerk session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.",
+  "input": {
+    "topicId": "sick_care",
+    "concernIds": [],
+    "country": "US",
+    "note": "I want to understand how to have medicine delivered to my home without going out."
+  },
+  "httpStatus": 200,
+  "result": {
+    "status": "ok",
+    "source": "mixed",
+    "delivery": "shown",
+    "reviewRequired": true,
+    "metadata": {
+      "responseId": "resp_04d95061c612fa82016acfbf0ea56087d1977f1eca7a166da7",
+      "model": "gpt-6-luna",
+      "inputTokens": 6563,
+      "outputTokens": 223
+    },
+    "batch": {
+      "status": "no_more_ideas",
+      "message": "One new step for what you need now.",
+      "tasks": [
+        {
+          "action_key": "custom_sick_care_sick_care_pharmacy_delivery",
+          "concern_ids": [
+            "getting_care"
+          ],
+          "title": "Find out if a pharmacy can deliver",
+          "summary": "Prescription delivery is different from routine refill shipping, and each pharmacy sets its own limits. Check a possible route without needing a prescription or choosing a medicine.",
+          "estimated_minutes": 10,
+          "steps": [
+            "Open CVS’s prescription-delivery information as one starting point; you can also check a pharmacy you already use, if applicable.",
+            "Check whether delivery serves your area and which prescriptions qualify; confirm charges, timing, and any ID or handoff requirements directly with the pharmacy.",
+            "Keep in mind that checking the service does not confirm eligibility for any future prescription or arrange a delivery."
+          ],
+          "done_when": "You understand what to verify and whether this delivery route is worth considering.",
+          "resources": [
+            {
+              "resource_id": "cvs_delivery",
+              "why": "A US pharmacy’s delivery information provides a concrete starting point; its limits and costs need direct confirmation."
+            }
+          ],
+          "purchase_checks": [],
+          "no_purchase_option": null
+        }
+      ]
+    },
+    "adaptation": {
+      "status": "generated",
+      "actionKey": "custom_sick_care_sick_care_pharmacy_delivery",
+      "message": null,
+      "refinement": false,
+      "newNeed": true
+    },
+    "trace": {
+      "contextVersion": 1,
+      "concernPolicy": "category",
+      "profileRevision": 7,
+      "stateVersion": "44",
+      "promptHash": "5c10754ac82140df4f2bc8a4595abcb1b5b7b1e6ec825d06abe5d600900848e3",
+      "candidateCount": 16
+    },
+    "requestId": "d34d5240-e730-4ff1-a6b5-65061be0706d",
+    "request": {
+      "topicId": "sick_care",
+      "concernIds": [
+        "getting_care"
+      ],
+      "country": "US"
+    },
+    "stateVersion": "45",
+    "replayed": false
+  },
+  "checks": {
+    "cloudAccountAttemptsToday": 4,
+    "cloudRowsForVerifiedRequest": 1,
+    "persisted": true,
+    "replayedWithoutNewAttempt": true,
+    "priorTasksUnchanged": true,
+    "rawNoteNotInLatest": true
+  }
+}

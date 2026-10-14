@@ -1,0 +1,74 @@
+{
+  "testedAt": "2026-10-12T18:23:35.479Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "apiTestDeployment": "3493775a",
+  "finalDeployment": "cfb9661a",
+  "finalClient": "index-DKPReIrK.js",
+  "backendUnchangedSinceApiTest": true,
+  "aiCalls": 0,
+  "evidence": "Hosted Clerk, Worker and D1 through an independent fictional-B HTTP session; not browser-button evidence.",
+  "onboarding": {
+    "draftResumed": true,
+    "completedInCloud": true,
+    "priorAnswersPreserved": true
+  },
+  "tasks": {
+    "poolAndReplay": true,
+    "latestRecovered": true,
+    "batchCount": 0,
+    "lostResponseReadback": true,
+    "staleTabRejected": true,
+    "removeRestore": true,
+    "oneAwardAcrossUndoRecompletion": true,
+    "existingInstructionsUnchanged": true
+  },
+  "returningRead": {
+    "completedOnboarding": true,
+    "sameInstructions": true
+  },
+  "testBoundaries": [
+    "The eligible pool was exhausted; this run returned zero new tasks, not a fresh-batch/content-quality test.",
+    "Lost-response readback discarded a successful completion response; actual transport failure is injected in automated integration tests.",
+    "Only approved fictional B's cloud state changed. Prior visible membership/completion was restored, but fixture timestamps, revisions, latest batch and any new one-time award may advance.",
+    "No real user answers, task state, feedback or credentials were modified. Independent test session ended."
+  ],
+  "automated": {
+    "appTestsPassed": 115,
+    "backendLatestPassed": 142,
+    "backendEvidence": "Previous privacy checkpoint; unchanged backend not rerun in this frontend-only pass.",
+    "strictTypeScript": "passed",
+    "pagesOutputAllowlist": "passed"
+  },
+  "browser": {
+    "tool": "CUA, desktop in-app browser; read-only founder-account navigation",
+    "accountPrivacyReloadBackToOriginalList": "passed on 3493775a",
+    "taskRefreshBackToMyList": "passed on cfb9661a",
+    "unsupportedTopicExit": "passed",
+    "latestIdeasRecovery": "passed",
+    "browserBackForward": "passed, concern choices retained",
+    "headingFocusAfterDataLoad": "passed",
+    "tabToFirstTaskControl": "passed",
+    "horizontalOverflow": [
+      { "screen": "ideas", "viewport": 320, "documentWidth": 305, "overflow": false },
+      { "screen": "list", "viewport": 393, "documentWidth": 378, "overflow": false }
+    ],
+    "viewportReset": true,
+    "observedErrorLogs": 0,
+    "liveSignInCancelRetest": false,
+    "physicalDeviceOrSecondEngine": false,
+    "note": "Cloud task mutations were exercised through the separate fictional-account HTTP session, not Ada's UI."
+  },
+  "pendingDeletions": {
+    "checkedAt": "2026-10-12T18:24:33.556Z",
+    "database": "buildmysafety-memory-staging",
+    "pendingCount": 0,
+    "oldestRequestAt": null,
+    "followUp": "On-demand read-only checker plus manual runbook; no scheduled monitor, automatic reconciliation or Clerk deletion webhook."
+  },
+  "releaseGates": [
+    "Founder review of authored and generated content; current suggestions are not approved.",
+    "Real mobile browsers, another engine, interrupted connections and full accessibility checks.",
+    "Pilot workload measurements, verified external resources and urgent/out-of-scope evaluation.",
+    "Separate production identity/data, operational ownership/monitoring, retention and deployment/rollback checks."
+  ]
+}

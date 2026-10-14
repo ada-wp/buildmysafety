@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-11",
+  "scope": "Cloudflare D1 memory and authenticated API staging; broader customer app remains paused",
+  "node": "v24.14.0",
+  "automated": {
+    "command": "npm.cmd test",
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "real_api_calls": 0
+  },
+  "demo": {
+    "command": "npm.cmd run demo",
+    "status": "passed after outcome-group refinement"
+  },
+  "paid_comparison": {
+    "surface": "OpenAI Playground",
+    "model": "gpt-6-luna",
+    "completed_calls": 2,
+    "record": "../docs/prompts/evaluations/2026-10-11-personalization-pair.json",
+    "original_structural_validation": "both passed",
+    "editorial_review": "revision required",
+    "regression_replay": "original after output rejected after outcome-group fix",
+    "calls_after_fix": 0,
+    "actual_billed_cost_usd": null
+  },
+  "implementation": {
+    "durable_storage": "Cloudflare D1 staging, verified",
+    "preview_deployment": "https://8cb55c55.buildmysafety.pages.dev",
+    "production_deployment": false,
+    "private_branch_sync": "Consult Git history; no deployment is triggered by this review branch",
+    "new_transport_live_call": false,
+    "login_connected": false,
+    "test_identity": "temporary RS256 synthetic identities; final deployment disabled"
+  },
+  "hashes": {
+    "flow.mjs": "c02d87e9539bbfb2ff84a5c036caa5032b79ab4f6e736dd2d635a5b19b09d0d8",
+    "openai.mjs": "b16a92c2859cb455e36b9b8151ead9694a080326223b5fbc30bdd74fc9ebe81b",
+    "contracts.mjs": "5859f26d5989a95d069875a846604ce176dde3fff73122a95aa38ebd850ab434",
+    "http.mjs": "2ab978588da135d92757e02af664c7481257316accebd952cc2ac9f920accb0a",
+    "d1-store.mjs": "767d80722f533b1cb56475d8e35adcee116e319cb4cb6af4975e3bc158d4efa3",
+    "migrations/0001_user_memory.sql": "f0e8aaee9ce9cfc1e27b5a37cb652966a35f581e39e74d0ae0c5c2e33e2ce87b"
+  },
+  "promptHash": "cb7bb43ca80c303f5ebacb388da4b21317869242787ce1ca8ed8d85b5acfbf21",
+  "cloud": {
+    "lock_checks_passed": 2,
+    "provider": "Cloudflare D1",
+    "all_records_synthetic": true,
+    "integration_checks_passed": 21,
+    "actual_customer_accounts": 0,
+    "lock_record": "verification-lock.json",
+    "real_api_calls": 0,
+    "integration_record": "verification-cloud.json",
+    "pending": "OPENAI_API_KEY must be added as a Preview secret; production secret was visibly present but cannot be copied from its encrypted value",
+    "database_name": "buildmysafety-memory-staging",
+    "after_redeployment_profiles": 5,
+    "database_id": "0c4fb649-fb6a-4a8e-9a02-9f9c76ece796",
+    "after_redeployment_task_states": 10
+  }
+}

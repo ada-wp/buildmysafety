@@ -1,0 +1,206 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500&display=swap">
+<style>
+#safety-sick-day-journey{--ss-paper:#faf7f2;--ss-ink:#292d4c;--ss-muted:#716b79;--ss-lilac:#eae5f2;--ss-white:#fffdfb;--ss-line:#e5dfe5;--ss-purple:#8a7da6;--ss-radius:22px;font-family:Inter,sans-serif;color:var(--ss-ink);background:transparent;color-scheme:light}
+#safety-sick-day-journey *{box-sizing:border-box}
+#safety-sick-day-journey [hidden]{display:none!important}
+#safety-sick-day-journey .ss-phone{max-width:410px;margin:0 auto;background:var(--ss-paper);border-radius:30px;overflow:clip;padding:23px 25px 12px;min-height:770px;display:flex;flex-direction:column}
+#safety-sick-day-journey button,#safety-sick-day-journey input,#safety-sick-day-journey textarea{font:inherit}
+#safety-sick-day-journey button{color:inherit}
+#safety-sick-day-journey button:disabled{cursor:default}
+#safety-sick-day-journey .ss-top{display:flex;align-items:center;justify-content:space-between;min-height:46px;margin-bottom:27px;gap:8px}
+#safety-sick-day-journey .ss-top-label{font-size:11px;letter-spacing:.15em;font-weight:500;text-transform:uppercase;color:var(--ss-muted)}
+#safety-sick-day-journey .ss-icon-button{width:44px;height:44px;display:grid;place-items:center;border:0;background:transparent;border-radius:50%;padding:0;flex-shrink:0}
+#safety-sick-day-journey .ss-icon-button svg{width:20px;height:20px}
+#safety-sick-day-journey .ss-avatar{width:45px;height:45px;object-fit:contain}
+#safety-sick-day-journey .ss-screen{display:flex;flex-direction:column;flex:1}
+#safety-sick-day-journey .ss-heading{font-family:'Instrument Serif',Georgia,serif;font-size:47px;line-height:1.02;letter-spacing:-.025em;font-weight:400;margin:0 0 25px;max-width:100%}
+#safety-sick-day-journey .ss-stack{display:flex;flex-direction:column;gap:12px}
+#safety-sick-day-journey .ss-task{position:relative;background:var(--ss-white);border-radius:var(--ss-radius);padding:19px 18px;transition:background .18s ease}
+#safety-sick-day-journey .ss-task:has(details[open]){background:var(--ss-lilac)}
+#safety-sick-day-journey .ss-task summary{list-style:none;min-height:69px;padding-right:51px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+#safety-sick-day-journey summary::-webkit-details-marker{display:none}
+#safety-sick-day-journey .ss-task-title{font-size:16px;line-height:1.4;font-weight:500;letter-spacing:-.015em}
+#safety-sick-day-journey .ss-time{font-size:12px;line-height:1.4;color:var(--ss-muted);display:flex;align-items:center;gap:8px}
+#safety-sick-day-journey .ss-time svg{width:13px;height:13px}
+#safety-sick-day-journey details[open] .ss-chevron{transform:rotate(180deg)}
+#safety-sick-day-journey .ss-add{position:absolute;right:17px;top:29px;width:44px;height:44px;border:0;border-radius:50%;background:var(--ss-ink);color:var(--ss-paper);display:grid;place-items:center;padding:0}
+#safety-sick-day-journey .ss-add svg{width:21px;height:21px;stroke-width:1.6}
+#safety-sick-day-journey .ss-add:disabled{background:#ddd5e8;color:var(--ss-ink)}
+#safety-sick-day-journey .ss-description{font-size:14px;line-height:1.65;margin:15px 0 7px;color:var(--ss-ink)}
+#safety-sick-day-journey .ss-resource{display:inline-flex;align-items:center;gap:6px;color:var(--ss-ink);font-size:12px;line-height:1.5;text-underline-offset:4px;text-decoration-thickness:1px;min-height:44px;max-width:100%}
+#safety-sick-day-journey .ss-resource svg{width:13px;height:13px;flex-shrink:0}
+#safety-sick-day-journey .ss-actions{margin-top:auto;padding-top:26px;display:flex;flex-direction:column;gap:9px}
+#safety-sick-day-journey .ss-primary{border:0;background:var(--ss-ink);color:var(--ss-paper);border-radius:30px;min-height:54px;padding:15px 21px;font-size:14px;font-weight:500;width:100%;display:flex;align-items:center;justify-content:center;gap:9px}
+#safety-sick-day-journey .ss-primary:disabled{background:#dfdae4;color:#79737f}
+#safety-sick-day-journey .ss-secondary{border:0;background:transparent;padding:11px 8px;font-size:13px;line-height:1.5;min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px}
+#safety-sick-day-journey .ss-secondary svg{width:15px;height:15px}
+#safety-sick-day-journey .ss-secondary:disabled{color:var(--ss-muted)}
+#safety-sick-day-journey .ss-bottom{display:grid;grid-template-columns:1fr 1fr;margin-top:21px;border-top:1px solid var(--ss-line);padding-top:9px;gap:10px}
+#safety-sick-day-journey .ss-nav{border:0;background:transparent;color:var(--ss-muted);border-radius:17px;min-height:50px;display:flex;justify-content:center;align-items:center;gap:8px;font-size:12px;font-weight:500;padding:10px}
+#safety-sick-day-journey .ss-nav[aria-current="page"]{background:var(--ss-lilac);color:var(--ss-ink)}
+#safety-sick-day-journey .ss-nav svg{width:17px;height:17px;stroke-width:1.7}
+#safety-sick-day-journey .ss-list-heading{margin-bottom:8px}
+#safety-sick-day-journey .ss-garden{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:192px;margin:0 0 22px;position:relative}
+#safety-sick-day-journey .ss-garden img{width:155px;height:155px;object-fit:contain;transform:scale(var(--ss-elephant-scale,1));transform-origin:bottom center;transition:transform .35s ease}
+#safety-sick-day-journey .ss-progress-caption{font-size:12px;color:var(--ss-muted);margin:12px 0 0}
+#safety-sick-day-journey .ss-leaf{position:absolute;left:calc(50% + 59px);top:119px;color:#6c8066;display:grid;place-items:center;width:34px;height:34px;background:var(--ss-paper);border-radius:50%}
+#safety-sick-day-journey .ss-leaf svg{width:22px;height:22px;stroke-width:1.5}
+#safety-sick-day-journey .ss-list-task{padding-left:64px}
+#safety-sick-day-journey .ss-list-task summary{padding-right:0;min-height:54px}
+#safety-sick-day-journey .ss-complete-label{position:absolute;left:11px;top:24px;width:44px;height:44px;display:grid;place-items:center}
+#safety-sick-day-journey .ss-complete{width:22px;height:22px;margin:0;accent-color:var(--ss-purple)}
+#safety-sick-day-journey .ss-list-task.ss-done{background:#f0ecef}
+#safety-sick-day-journey .ss-done .ss-task-title{color:var(--ss-muted);text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#aaa1b4}
+#safety-sick-day-journey .ss-section-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ss-muted);margin:24px 0 11px}
+#safety-sick-day-journey .ss-remove{padding:0;min-height:44px;border:0;background:transparent;color:var(--ss-muted);font-size:12px;text-decoration:underline;text-underline-offset:4px;display:block}
+#safety-sick-day-journey .ss-empty{font-family:'Instrument Serif',Georgia,serif;font-size:29px;line-height:1.18;font-weight:400;text-align:center;margin:5px 16px 30px}
+#safety-sick-day-journey .ss-growth{align-items:center;text-align:center}
+#safety-sick-day-journey .ss-growth .ss-heading{font-size:53px;margin-top:10px;margin-bottom:17px}
+#safety-sick-day-journey .ss-growth-art{width:100%;height:284px;position:relative;display:grid;place-items:center;margin:15px 0 17px}
+#safety-sick-day-journey .ss-growth-art img{width:246px;max-width:90%;height:auto;transform:scale(var(--ss-elephant-scale,1));transition:transform .35s ease}
+#safety-sick-day-journey .ss-growth-art .ss-leaf{top:211px;left:calc(50% + 81px);width:45px;height:45px}
+#safety-sick-day-journey .ss-growth-art .ss-leaf svg{width:29px;height:29px}
+#safety-sick-day-journey .ss-growth-copy{font-size:14px;line-height:1.7;margin:0 15px 18px;max-width:260px;color:var(--ss-muted)}
+#safety-sick-day-journey .ss-growth .ss-actions{width:100%}
+#safety-sick-day-journey .ss-growth-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ss-muted);margin:0 0 8px}
+#safety-sick-day-journey .ss-bloom{animation:ss-bloom .6s ease both}
+#safety-sick-day-journey .ss-choices{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+#safety-sick-day-journey .ss-choice{background:var(--ss-white);border-radius:17px;padding:17px 16px;display:flex;align-items:center;gap:13px;min-height:61px;font-size:14px;line-height:1.4}
+#safety-sick-day-journey .ss-choice:has(input:checked){background:var(--ss-lilac)}
+#safety-sick-day-journey .ss-choice input{width:19px;height:19px;accent-color:var(--ss-purple);flex-shrink:0;margin:0}
+#safety-sick-day-journey .ss-text-label{font-size:12px;color:var(--ss-muted);margin-bottom:10px;display:block}
+#safety-sick-day-journey textarea{background:transparent;border:1px solid #cbc2d0;border-radius:17px;padding:15px;color:var(--ss-ink);width:100%;min-height:93px;resize:vertical;font-size:16px;line-height:1.5}
+#safety-sick-day-journey textarea::placeholder{color:#807885}
+#safety-sick-day-journey .ss-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@keyframes ss-bloom{from{opacity:.6;transform:translateY(6px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:370px){#safety-sick-day-journey .ss-phone{padding:19px 18px 10px;border-radius:24px;min-height:735px}#safety-sick-day-journey .ss-heading{font-size:42px}#safety-sick-day-journey .ss-growth .ss-heading{font-size:46px}#safety-sick-day-journey .ss-task{padding-right:15px;padding-left:15px}#safety-sick-day-journey .ss-task-title{font-size:15px}#safety-sick-day-journey .ss-list-task{padding-left:61px}#safety-sick-day-journey .ss-add{right:13px}#safety-sick-day-journey .ss-growth-art{height:250px}#safety-sick-day-journey .ss-growth-art img{width:215px}#safety-sick-day-journey .ss-growth-art .ss-leaf{top:190px;left:calc(50% + 67px)}}
+@media(prefers-reduced-motion:reduce){#safety-sick-day-journey *,#safety-sick-day-journey *::before,#safety-sick-day-journey *::after{animation:none!important;transition:none!important}}
+</style>
+<div id="safety-sick-day-journey" aria-label="My Safety sick-day app design">
+  <section class="ss-phone" aria-label="My Safety mobile app"></section>
+  <div class="ss-live" aria-live="polite" role="status"></div>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('safety-sick-day-journey');
+  const phone = root.querySelector('.ss-phone');
+  const elephantArt = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+CjxwYXRoIGZpbGw9IiNFQUU1RjIiIGQ9Ik0zNCAxMThDNDMgNDMgMTAzIDE5IDE2NCAzNWM2OCAxOCAxMTkgNjggMTExIDEzNy02IDUxLTU5IDkxLTEzMyA5MUM2NSAyNjMgMjIgMjEzIDM0IDExOFoiLz4KPGVsbGlwc2UgY3g9IjE1MSIgY3k9IjI2NSIgcng9IjEwMyIgcnk9IjE0IiBmaWxsPSIjRERENUU5Ii8+CjxwYXRoIGZpbGw9IiNCREI2RDIiIGQ9Ik05OSAxNjRjLTEwIDI0LTMyIDYwLTIzIDg0IDYgMTYgMzUgMjUgNTkgMTlsMTMtMTkgMTUgMjBjMjYgNCA2MCAwIDY1LTEzIDgtMTgtMTMtMzUtMjctNDVsLTEzLTQ5WiIvPgo8cGF0aCBmaWxsPSIjQURBM0M1IiBkPSJNMTExIDk1Yy0yNi01Ni03Ny01MS04NC0xMy02IDMxIDcgNjggMzQgODQgMTcgMTAgMzUgNCA1NC0xN1oiLz4KPHBhdGggZmlsbD0iI0FEQTNDNSIgZD0iTTE4NyA5NWMyNS01NSA3Ni00OSA4NC0xMiA3IDI5LTQgNjctMzEgODQtMTkgMTAtMzYgMy01NS0xN1oiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTkwIDExOWMwLTUzIDI1LTcwIDU5LTcwIDM1IDAgNjMgMjEgNjIgNjgtMSAzNC0xNyA1OC00MSA2M2wtNDQtMWMtMjMtNi0zNi0yOC0zNi02MFoiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTEzNSAxMzdjLTIgMjMgMyA1NCAyNiA2NiAyOSAxNSA1Ni0zIDU5LTIyIDItMTAtMTAtMTUtMTYtNi03IDExLTE2IDEyLTIyIDctNy02LTQtMjMtNi0zNVoiLz4KPHBhdGggZD0iTTE0NiAxNTljOS0zIDE4LTEgMjUgNE0xNDkgMTcyYzgtMiAxNCAwIDIwIDMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0FEQTNDNSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGVsbGlwc2UgY3g9IjExNyIgY3k9IjEyNCIgcng9IjMuNCIgcnk9IjUiIGZpbGw9IiMyNjJCNTAiLz48ZWxsaXBzZSBjeD0iMTgxIiBjeT0iMTI0IiByeD0iMy40IiByeT0iNSIgZmlsbD0iIzI2MkI1MCIvPgo8cGF0aCBkPSJNMTA0IDExM3E1LTUgMTAtM00xODIgMTA5cTYtMSAxMCA0TTExNyAxNDNxMiA4IDcgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI2MkI1MCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIzIDIwMmMwIDI0IDQgNDAgMTIgNTNNMTg0IDIxMWMxIDE5IDAgMzEtNCA0NSIgc3Ryb2tlPSIjOEU4NUE4IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGZpbGw9IiNGQUY3RjIiIGQ9Ik05MyAyNjBjLTEtOSA1LTE0IDEwLTdsMyAxMVpNMTA5IDI2NWMtMS0xMCA1LTE1IDExLTdsMiA5Wk0xNDcgMjY0Yy0xLTExIDYtMTYgMTEtNmwxIDEwWk0xNjQgMjY4Yy0xLTExIDYtMTYgMTEtNmwxIDZaTTE5MSAyNjRjMC05IDYtMTQgMTEtNmwyIDRaIi8+CjxwYXRoIGZpbGw9IiNDOTk1NDQiIGQ9Im0yMzcgMzMgNCAxMSAxMSA0LTExIDQtNCAxMS00LTExLTExLTQgMTEtNFoiLz4KPHBhdGggZD0iTTUyIDI1M2MtNS0xNy0xMy0yNy0xOC0zOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQTA5NkJEIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBmaWxsPSIjQkRCNkQyIiBkPSJNMzggMjI2Yy0xNy0xLTIzLTktMjAtMTggMTIgMCAxOCA4IDIwIDE4Wm01IDEyYy00LTE3IDAtMjQgNy0yNSA1IDEyIDMgMjAtNyAyNVoiLz4KPC9zdmc+';
+  const resources = {
+    supplies:{label:'Supply checklist · Red Cross',url:'https://www.redcross.org/get-help/how-to-prepare-for-emergencies/survival-kit-supplies.html'},
+    people:{label:'Building connections · CDC',url:'https://www.cdc.gov/social-connectedness/about/index.html'},
+    food:{label:'Local food support · 211, US',url:'https://www.211.org/get-help/food-programs-food-benefits'}
+  };
+  const tasks = [
+    {id:'shelf',title:'Set up a sick-day shelf',minutes:10,tags:['food'],description:'Put a few easy meals, water and tissues in one easy-to-reach spot. Start with what you already have.',resource:'supplies'},
+    {id:'checkin',title:'Arrange a simple check-in',minutes:5,tags:['people'],description:'Ask someone you trust if they could check in when you are unwell. Agree on a time and what they should do if you do not reply.',resource:'people'},
+    {id:'delivery',title:'Save an easy food option',minutes:5,tags:['food'],description:'Find a grocery delivery service or local food-support option that covers your area. Save its details and check any fees before you need it.',resource:'food'},
+    {id:'contacts',title:'Keep key contacts together',minutes:5,tags:['care','people'],description:'Create a phone note with the people and services you would actually contact on a sick day. Give it a clear name so it is easy to find.'},
+    {id:'tray',title:'Make a little comfort tray',minutes:5,tags:['everyday'],description:'Choose a spot for water, tissues, a charger and something comforting. Use a tray or basket you already own.'},
+    {id:'handover',title:'Write a rest-day handover',minutes:10,tags:['everyday','pets'],description:'Note the daily responsibilities that cannot wait while you rest. Draft one specific request you could send to someone who agrees to help.'},
+    {id:'meals',title:'Write a no-cook meal list',minutes:5,tags:['food'],description:'List three familiar meals you can put together with little effort. Check your cupboards before adding anything to a shopping list.'},
+    {id:'pet',title:'Make a one-page pet note',minutes:10,tags:['pets'],description:'Write down your pet’s normal routine, where their supplies are and your vet’s contact details. Share it only with someone who agrees to help.'},
+    {id:'message',title:'Draft a simple help request',minutes:5,tags:['people','everyday'],description:'Write a message asking for one practical thing, such as collecting groceries. Keep it ready to adapt and send when you want help.'}
+  ];
+  const choices = [['food','Food & essentials when I’m unwell'],['people','Someone to check in on me'],['care','Getting to care or appointments'],['pets','Pet care while I recover'],['everyday','Daily tasks when I need to rest']];
+  const ids = new Set(tasks.map(t => t.id));
+  const state = {screen:'ideas',saved:[],done:[],awarded:[],shown:['shelf','checkin','delivery'],batch:['shelf','checkin','delivery'],expanded:[],concerns:['food','people'],note:'',celebrating:false};
+  const design = {corners:22,ink:'#292d4c',type:'Editorial',elephant:155};
+  const icon = name => '<i data-lucide="'+name+'" aria-hidden="true"></i>';
+  const escape = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const taskById = id => tasks.find(t=>t.id===id);
+  const validIds = value => Array.isArray(value) ? [...new Set(value.filter(id=>ids.has(id)))] : [];
+  function restore(snapshot) {
+    if(!snapshot || snapshot.modelContent?.version!==1) return;
+    const model=snapshot.modelContent,local=snapshot.privateContent||{};
+    state.saved=validIds(model.saved);
+    state.done=validIds(model.done).filter(id=>state.saved.includes(id));
+    state.awarded=validIds(model.awarded);
+    state.screen=['ideas','concerns','list','growth'].includes(model.screen)?model.screen:'ideas';
+    state.batch=validIds(local.batch).slice(0,3);
+    if(!state.batch.length)state.batch=['shelf','checkin','delivery'];
+    state.shown=[...new Set([...validIds(local.shown),...state.batch])];
+    state.expanded=validIds(local.expanded);
+    state.concerns=Array.isArray(local.concerns)?local.concerns.filter(v=>choices.some(c=>c[0]===v)):['food','people'];
+    state.celebrating=false;
+  }
+  function persist() {
+    if(window.openai?.setWidgetState) {
+      Promise.resolve(window.openai.setWidgetState({modelContent:{version:1,screen:state.screen,saved:state.saved,done:state.done,awarded:state.awarded},privateContent:{batch:state.batch,shown:state.shown,expanded:state.expanded,concerns:state.concerns}})).catch(()=>{});
+    }
+  }
+  function say(message){root.querySelector('.ss-live').textContent=message;}
+  function resourceLink(key){const r=resources[key];return r?'<a class="ss-resource cursor-interaction" href="'+r.url+'" target="_blank" rel="noopener noreferrer">'+escape(r.label)+icon('arrow-up-right')+'</a>':'';}
+  function remaining(){return tasks.filter(t=>!state.shown.includes(t.id)&&!state.saved.includes(t.id));}
+  function taskCard(task,list=false){
+    const saved=state.saved.includes(task.id),done=state.done.includes(task.id);
+    return '<article class="ss-task'+(list?' ss-list-task':'')+(done?' ss-done':'')+'" data-card="'+task.id+'">'+
+      (list?'<label class="ss-complete-label cursor-interaction"><input class="ss-complete cursor-interaction" type="checkbox" data-complete="'+task.id+'" aria-label="Mark '+escape(task.title)+(done?' incomplete':' complete')+'"'+(done?' checked':'')+'></label>':'')+
+      '<details data-detail="'+task.id+'"'+(state.expanded.includes(task.id)?' open':'')+'><summary class="cursor-interaction"><span class="ss-task-title">'+escape(task.title)+'</span><span class="ss-time">'+task.minutes+' min '+icon('chevron-down').replace('aria-hidden','class="ss-chevron" aria-hidden')+'</span></summary><p class="ss-description">'+escape(task.description)+'</p>'+resourceLink(task.resource)+(list?'<button type="button" class="ss-remove cursor-interaction" data-remove="'+task.id+'">Remove from list</button>':'')+'</details>'+
+      (list?'':'<button type="button" class="ss-add cursor-interaction" data-add="'+task.id+'" aria-label="'+(saved?'Added ':'Add ')+escape(task.title)+(saved?'':' to my list')+'"'+(saved?' disabled':'')+'>'+icon(saved?'check':'plus')+'</button>')+'</article>';
+  }
+  function head(label,back,animal=true){return '<header class="ss-top"><button class="ss-icon-button cursor-interaction" type="button" data-go="'+back+'" aria-label="'+(back==='concerns'?'Edit selected concerns':'Back to suggestions')+'">'+icon('chevron-left')+'</button><span class="ss-top-label">'+label+'</span>'+(animal?'<button class="ss-icon-button cursor-interaction" type="button" data-go="growth" aria-label="Meet your elephant"><img class="ss-avatar" src="'+elephantArt+'" alt=""></button>':'<span class="ss-icon-button" aria-hidden="true"></span>')+'</header>';}
+  function nav(){return '<nav class="ss-bottom" aria-label="Main navigation"><button class="ss-nav cursor-interaction" type="button" data-go="ideas"'+(state.screen==='ideas'?' aria-current="page"':'')+'>'+icon('sparkles')+'Ideas</button><button class="ss-nav cursor-interaction" type="button" data-go="list"'+(state.screen==='list'?' aria-current="page"':'')+'>'+icon('list-checks')+'My list'+(state.saved.length?' · '+state.saved.length:'')+'</button></nav>';}
+  function elephant(growth=false){return '<div class="'+(growth?'ss-growth-art':'ss-garden')+(state.celebrating?' ss-bloom':'')+'"><img src="'+elephantArt+'" alt="Your lavender elephant companion'+(state.awarded.length?', a little bigger after your completed action':'')+'">'+(state.awarded.length?'<span class="ss-leaf" aria-label="First leaf earned">'+icon('sprout')+'</span>':'')+(!growth?'<p class="ss-progress-caption">'+(state.awarded.length?state.awarded.length+' small step'+(state.awarded.length===1?'':'s')+' taken':'Growing together, at your pace.')+'</p>':'')+'</div>';}
+  function render(focusSelector){
+    let html='';
+    if(state.screen==='ideas'){
+      html=head('Sick days','concerns')+'<main class="ss-screen"><h1 class="ss-heading">Your first steps.</h1><div class="ss-stack">'+state.batch.map(id=>taskCard(taskById(id))).join('')+'</div><div class="ss-actions"><button class="ss-secondary cursor-interaction" data-more type="button"'+(remaining().length?'':' disabled')+'>'+icon('refresh-cw')+(remaining().length?'Show me 3 more':'All sample ideas shown')+'</button><button class="ss-primary cursor-interaction" type="button" data-go="list">View my list · '+state.saved.length+'</button></div></main>'+nav();
+    }else if(state.screen==='concerns'){
+      html=head('Sick days','ideas')+'<main class="ss-screen"><h1 class="ss-heading">What would<br>help you most?</h1><div class="ss-choices">'+choices.map(([id,label])=>'<label class="ss-choice cursor-interaction"><input type="checkbox" data-concern="'+id+'"'+(state.concerns.includes(id)?' checked':'')+'><span>'+label+'</span></label>').join('')+'</div><label class="ss-text-label" for="ss-personal-note">Something else? <span>(optional)</span></label><textarea id="ss-personal-note" maxlength="280" placeholder="What’s on your mind?">'+escape(state.note)+'</textarea><div class="ss-actions"><button type="button" class="ss-primary cursor-interaction" data-start'+(!state.concerns.length&&!state.note.trim()?' disabled':'')+'>Find my first steps '+icon('arrow-right')+'</button></div></main>';
+    }else if(state.screen==='list'){
+      const pending=state.saved.filter(id=>!state.done.includes(id));
+      html=head('My Safety','ideas')+'<main class="ss-screen"><h1 class="ss-heading ss-list-heading">My list.</h1>'+elephant()+
+        (state.saved.length?'<div class="ss-stack">'+pending.map(id=>taskCard(taskById(id),true)).join('')+'</div>'+(state.done.length?'<h2 class="ss-section-label">Done · '+state.done.length+'</h2><div class="ss-stack">'+state.done.map(id=>taskCard(taskById(id),true)).join('')+'</div>':''):'<p class="ss-empty">A little space for<br>your next small step.</p>')+
+        '<div class="ss-actions"><button type="button" class="'+(state.saved.length?'ss-secondary':'ss-primary')+' cursor-interaction" data-go="ideas">'+icon('plus')+(state.saved.length?'Find another small step':'Choose a first step')+'</button></div></main>'+nav();
+    }else{
+      const count=state.awarded.length;
+      html=head('Your companion','list',false)+'<main class="ss-screen ss-growth"><h1 class="ss-heading">'+(count?'A little stronger.<br>Together.':'Growing,<br>together.')+'</h1>'+elephant(true)+'<p class="ss-growth-tag">'+(count?'First leaf · '+count+' action'+(count===1?'':'s')+' completed':'Your journey starts here')+'</p><p class="ss-growth-copy">'+(count?'You made a little room for future you. Your elephant grew with you.':'Every small action helps your elephant grow. There’s no rush.')+'</p><div class="ss-actions"><button type="button" class="ss-primary cursor-interaction" data-go="list">Back to my list</button></div></main>';
+    }
+    phone.innerHTML=html;
+    phone.dataset.screen=state.screen;
+    phone.style.setProperty('--ss-elephant-scale',String(state.awarded.length?Math.min(1.14,1.04+(state.awarded.length-1)*.02):.94));
+    applyDesign();
+    if(globalThis.lucide)lucide.createIcons({attrs:{width:18,height:18}});
+    if(focusSelector)phone.querySelector(focusSelector)?.focus();
+  }
+  function applyDesign(){
+    root.style.setProperty('--ss-radius',design.corners+'px');root.style.setProperty('--ss-ink',design.ink);
+    phone.querySelectorAll('.ss-heading').forEach(el=>el.style.fontFamily=design.type==='Editorial'?"'Instrument Serif',Georgia,serif":'Inter,sans-serif');
+    phone.querySelectorAll('.ss-garden img').forEach(el=>{el.style.width=design.elephant+'px';el.style.height=design.elephant+'px';});
+  }
+  root.addEventListener('click',event=>{
+    const add=event.target.closest('[data-add]');
+    if(add&&!add.disabled){state.saved.push(add.dataset.add);say('Added to your list. Your elephant grows when you complete an action.');render('[data-go="list"]');persist();return;}
+    const remove=event.target.closest('[data-remove]');
+    if(remove){state.saved=state.saved.filter(id=>id!==remove.dataset.remove);state.done=state.done.filter(id=>id!==remove.dataset.remove);say('Removed from your list. Earned growth is kept.');render('[data-go="ideas"]');persist();return;}
+    const go=event.target.closest('[data-go]');
+    if(go){state.screen=go.dataset.go;state.celebrating=false;render('.ss-primary, .ss-nav[aria-current="page"]');persist();return;}
+    if(event.target.closest('[data-more]')){
+      state.batch=remaining().slice(0,3).map(t=>t.id);state.shown.push(...state.batch);state.expanded=[];
+      say('Three new sample ideas. Your saved tasks are kept.');render('[data-more]');persist();return;
+    }
+    if(event.target.closest('[data-start]')){
+      const ranked=tasks.filter(t=>!state.saved.includes(t.id)).sort((a,b)=>b.tags.filter(tag=>state.concerns.includes(tag)).length-a.tags.filter(tag=>state.concerns.includes(tag)).length);
+      state.batch=ranked.slice(0,3).map(t=>t.id);state.shown=[...new Set([...state.shown,...state.batch])];state.screen='ideas';state.expanded=[];
+      render('[data-go="list"]');say('Three sample ideas for this design preview.');persist();
+    }
+  });
+  root.addEventListener('change',event=>{
+    const complete=event.target.closest('[data-complete]');
+    if(complete){
+      const id=complete.dataset.complete;
+      if(complete.checked){state.done=[...new Set([...state.done,id])];if(!state.awarded.includes(id)){state.awarded.push(id);state.screen='growth';state.celebrating=true;say('Action completed. Your elephant has grown.');}else say('Action completed. Growth already earned for this task.');}
+      else {state.done=state.done.filter(done=>done!==id);say('Marked incomplete. Your earned growth stays.');}
+      render(state.screen==='growth'?'.ss-primary':'[data-complete="'+id+'"]');persist();return;
+    }
+    const concern=event.target.closest('[data-concern]');
+    if(concern){state.concerns=concern.checked?[...new Set([...state.concerns,concern.dataset.concern])]:state.concerns.filter(id=>id!==concern.dataset.concern);phone.querySelector('[data-start]').disabled=!state.concerns.length&&!state.note.trim();persist();}
+  });
+  root.addEventListener('input',event=>{if(event.target.id==='ss-personal-note'){state.note=event.target.value;phone.querySelector('[data-start]').disabled=!state.concerns.length&&!state.note.trim();}});
+  root.addEventListener('toggle',event=>{if(!event.target.matches('details[data-detail]')||!event.target.isConnected)return;const id=event.target.dataset.detail;const wasOpen=state.expanded.includes(id);if(event.target.open===wasOpen)return;state.expanded=event.target.open?[...new Set([...state.expanded,id])]:state.expanded.filter(v=>v!==id);persist();},true);
+  restore(window.openai?.widgetState);
+  render();
+  window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState){restore(event.detail.globals.widgetState);render();}});
+  if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:applyDesign});tweak.addSelect(design,'type',{label:'Heading style',options:['Editorial','Minimal']});tweak.addSlider(design,'corners',{label:'Card corners',min:10,max:28,unit:'px'});tweak.addSlider(design,'elephant',{label:'Companion size',min:125,max:185,unit:'px'});tweak.addColorPicker(design,'ink',{label:'Ink color',reference:'--ss-ink'});}
+})();
+</script>

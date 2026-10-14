@@ -1,0 +1,149 @@
+{
+  "note": "Research-informed editorial shortlist, not a population popularity ranking. Money removed at user's request.",
+  "topics": [
+    {
+      "id": "sick",
+      "label": "Sick days",
+      "icon": "heart",
+      "area": "If I’m Out of Action",
+      "items": [
+        [
+          "Food & essentials when I’m unwell",
+          "C1-01"
+        ],
+        [
+          "Someone to check in on me",
+          "C1-03"
+        ],
+        [
+          "Getting to care or appointments",
+          "C1-04",
+          "C1-05"
+        ],
+        [
+          "Pet care while I recover",
+          "C1-06"
+        ],
+        [
+          "Daily tasks when I need to rest",
+          "C1-07",
+          "C1-08"
+        ]
+      ]
+    },
+    {
+      "id": "daily",
+      "label": "Daily life",
+      "icon": "sun",
+      "area": "My Home / My Backup / My Body",
+      "items": [
+        [
+          "Meals when I have little energy",
+          "C2-02"
+        ],
+        [
+          "Keeping up with cleaning",
+          "C2-03"
+        ],
+        [
+          "Tasks that need a second person",
+          "C2-05"
+        ],
+        [
+          "Appointments & paperwork piling up",
+          "C2-06"
+        ],
+        [
+          "Knowing what to tackle first",
+          "C2-09"
+        ]
+      ]
+    },
+    {
+      "id": "home",
+      "label": "My home",
+      "icon": "home",
+      "area": "My Home",
+      "items": [
+        [
+          "Doors, locks & who has access",
+          "C4-02"
+        ],
+        [
+          "Finding someone reliable for repairs",
+          "C4-04"
+        ],
+        [
+          "Handling unexpected visitors",
+          "C4-05"
+        ],
+        [
+          "Checking alarms & my way out",
+          "C4-07",
+          "C4-08"
+        ],
+        [
+          "Having essentials for a power outage",
+          "C4-09"
+        ]
+      ]
+    },
+    {
+      "id": "people",
+      "label": "People I can turn to",
+      "icon": "people",
+      "area": "My Backup",
+      "items": [
+        [
+          "Knowing who I can ask for help",
+          "C5-01"
+        ],
+        [
+          "Asking for a small favor",
+          "C5-03"
+        ],
+        [
+          "Getting to know people nearby",
+          "C5-06"
+        ],
+        [
+          "Finding regular company",
+          "C5-02",
+          "C5-04"
+        ],
+        [
+          "Staying close to faraway people",
+          "C5-05"
+        ]
+      ]
+    },
+    {
+      "id": "peace",
+      "label": "Peace of mind",
+      "icon": "leaf",
+      "area": "My Body / My Home / My Backup",
+      "items": [
+        [
+          "Feeling unsettled at night",
+          "C4-03"
+        ],
+        [
+          "Unwinding when I get home",
+          "C6-06"
+        ],
+        [
+          "Setting boundaries around visits",
+          "C6-03"
+        ],
+        [
+          "Choosing what I share with others",
+          "C6-08"
+        ],
+        [
+          "Balancing alone time & connection",
+          "C6-09"
+        ]
+      ]
+    }
+  ]
+}

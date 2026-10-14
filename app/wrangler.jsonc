@@ -1,0 +1,19 @@
+{
+  "name": "buildmysafety",
+  "pages_build_output_dir": "./dist/client",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{
+    "binding": "MEMORY_DB",
+    "database_name": "buildmysafety-memory-staging",
+    "database_id": "0c4fb649-fb6a-4a8e-9a02-9f9c76ece796",
+    "migrations_dir": "../personalization/migrations"
+  }],
+  "vars": {
+    "AI_ADAPTATION_ENABLED": "true",
+    "AI_NEW_NEEDS_ENABLED": "true",
+    "OPENAI_MODEL": "gpt-6-luna",
+    "CLERK_ISSUER": "https://top-eel-9210.clerk.accounts.dev",
+    "CLERK_AUTHORIZED_PARTIES": "[\"https://app-auth-staging.buildmysafety.pages.dev\"]"
+  }
+}

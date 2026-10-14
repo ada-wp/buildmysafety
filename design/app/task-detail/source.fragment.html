@@ -1,0 +1,169 @@
+<div id="safety-task-detail-options" aria-label="My Safety approved task detail screen">
+  <section class="td-phone" aria-label="Task screen preview"><div class="td-content"></div></section>
+  <span class="td-sr" role="status" aria-live="polite"></span>
+</div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap');
+#safety-task-detail-options{--td-paper:#faf7f2;--td-ink:#2c2c4d;--td-muted:#6d697b;--td-lilac:#eeE8f5;--td-line:#e5dfe5;--td-heading:'Instrument Serif',Georgia,serif;--td-radius:28px;--td-space:24px;background:transparent;color:var(--td-ink);font-family:Inter,Arial,sans-serif;width:100%;padding:4px 0 16px;box-sizing:border-box}
+#safety-task-detail-options *{box-sizing:border-box}
+#safety-task-detail-options button,#safety-task-detail-options a,#safety-task-detail-options summary{-webkit-tap-highlight-color:transparent}
+#safety-task-detail-options button{font:inherit;color:inherit}
+#safety-task-detail-options button:focus-visible,#safety-task-detail-options a:focus-visible,#safety-task-detail-options summary:focus-visible{outline:3px solid #9381ba;outline-offset:4px}
+#safety-task-detail-options .td-options{max-width:420px;margin:0 auto 16px;display:flex;gap:5px;flex-wrap:wrap}
+#safety-task-detail-options .td-options button{flex:1 1 94px;background:var(--td-paper);border:1px solid var(--td-line);border-radius:13px;padding:13px 6px;font-size:12px;line-height:1.3;min-height:44px}
+#safety-task-detail-options .td-options [aria-pressed="true"]{background:var(--td-ink);color:#faf7f2;border-color:var(--td-ink)}
+#safety-task-detail-options .td-phone{max-width:393px;width:100%;margin:auto;background:var(--td-paper);border-radius:var(--td-radius);overflow:hidden;isolation:isolate}
+#safety-task-detail-options .td-page{padding:18px var(--td-space) 24px;min-height:780px;display:flex;flex-direction:column}
+#safety-task-detail-options .td-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;min-height:46px}
+#safety-task-detail-options .td-back{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:0 4px 0 0;font-size:12px;min-height:44px}
+#safety-task-detail-options .td-mini-elephant{width:44px;height:44px;object-fit:contain;display:block}
+#safety-task-detail-options .td-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11px;letter-spacing:.035em;color:var(--td-muted);margin-bottom:13px;line-height:1.5}
+#safety-task-detail-options .td-category{background:var(--td-lilac);padding:6px 10px;border-radius:20px;color:var(--td-ink)}
+#safety-task-detail-options h1{font-family:var(--td-heading);font-weight:400;font-size:42px;line-height:1.04;letter-spacing:-1.1px;margin:0 0 13px;text-wrap:balance}
+#safety-task-detail-options .td-intro{font-size:13px;line-height:1.7;color:var(--td-muted);margin:0 0 23px;max-width:32ch}
+#safety-task-detail-options .td-steps{list-style:none;margin:0 0 23px;padding:0;display:flex;flex-direction:column;gap:20px}
+#safety-task-detail-options .td-steps li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;font-size:13px;line-height:1.65}
+#safety-task-detail-options .td-number{width:27px;height:27px;display:grid;place-items:center;background:var(--td-lilac);border-radius:50%;font-size:11px;margin-top:1px}
+#safety-task-detail-options .td-outcome{padding:14px 16px;background:#f1ede8;border-radius:15px;margin:0 0 18px;font-size:12px;line-height:1.6}
+#safety-task-detail-options .td-outcome strong{font-weight:500;display:block;margin-bottom:3px;font-size:11px}
+#safety-task-detail-options .td-support details{border-top:1px solid var(--td-line)}
+#safety-task-detail-options .td-support details:last-child{border-bottom:1px solid var(--td-line)}
+#safety-task-detail-options summary{list-style:none;min-height:49px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;line-height:1.5}
+#safety-task-detail-options summary::-webkit-details-marker{display:none}
+#safety-task-detail-options .td-summary-side{display:flex;align-items:center;gap:8px;color:var(--td-muted);font-size:11px}
+#safety-task-detail-options .td-chevron{display:inline-block;transition:transform 120ms ease}
+#safety-task-detail-options details[open]>summary .td-chevron{transform:rotate(180deg)}
+#safety-task-detail-options .td-support-content{padding:0 0 16px;font-size:12px;line-height:1.65;color:var(--td-muted)}
+#safety-task-detail-options .td-resource{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fffdf9;border:1px solid var(--td-line);padding:13px;border-radius:12px;color:var(--td-ink);text-decoration:none;font-size:12px;line-height:1.5;min-height:44px}
+#safety-task-detail-options .td-resource small{display:block;font-size:11px;color:var(--td-muted);margin-top:4px}
+#safety-task-detail-options .td-support-content p{margin:10px 0 0;font-size:11px;line-height:1.6}
+#safety-task-detail-options .td-buy-list{padding-left:17px;margin:0;display:grid;gap:7px}
+#safety-task-detail-options .td-footer{margin-top:auto;padding-top:24px}
+#safety-task-detail-options .td-primary{background:var(--td-ink);color:var(--td-paper);border:0;border-radius:28px;min-height:51px;width:100%;padding:15px 18px;font-size:13px;font-weight:500;display:flex;justify-content:center;align-items:center;gap:8px;line-height:1.4}
+#safety-task-detail-options .td-link-button{background:none;border:0;color:var(--td-muted);font-size:12px;min-height:44px;padding:10px 8px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+#safety-task-detail-options .td-footer-secondary{width:100%;margin-top:3px}
+#safety-task-detail-options .td-focus-card{background:var(--td-lilac);padding:24px 22px 22px;border-radius:22px;margin:0 0 19px;min-height:219px;display:flex;flex-direction:column;justify-content:space-between}
+#safety-task-detail-options .td-step-label{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--td-muted);margin-bottom:15px}
+#safety-task-detail-options .td-focus-card h2{font-family:var(--td-heading);font-size:29px;line-height:1.1;font-weight:400;letter-spacing:-.2px;margin:0 0 12px}
+#safety-task-detail-options .td-focus-card p{font-size:13px;line-height:1.65;margin:0}
+#safety-task-detail-options .td-step-nav{display:flex;align-items:center;justify-content:space-between;margin:10px -6px -8px;gap:12px}
+#safety-task-detail-options .td-step-nav button:disabled{opacity:.4}
+#safety-task-detail-options .td-focus-footnote{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11px;line-height:1.5;color:var(--td-muted);margin-top:12px}
+#safety-task-detail-options .td-focus-footnote img{width:26px;height:26px;object-fit:contain}
+#safety-task-detail-options .td-list{padding:23px var(--td-space) 30px;min-height:780px}
+#safety-task-detail-options .td-list-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px;gap:12px}
+#safety-task-detail-options .td-list h1{margin:0}
+#safety-task-detail-options .td-list-row{display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--td-line);padding:17px 0;font-size:13px;line-height:1.5}
+#safety-task-detail-options .td-open-task{border:0;background:none;text-align:left;flex:1;padding:4px 0;min-height:44px;font-size:13px}
+#safety-task-detail-options .td-open-task small{display:block;font-size:11px;color:var(--td-muted);margin-top:4px}
+#safety-task-detail-options .td-dot{width:20px;height:20px;border:1px solid #b5aeba;border-radius:50%;flex-shrink:0}
+#safety-task-detail-options .td-list-status{font-size:11px;color:var(--td-muted);margin:20px 0}
+#safety-task-detail-options .td-sheet-stage{background:#c6c2cb;padding-top:21px}
+#safety-task-detail-options .td-underlay{padding:0 var(--td-space) 60px;color:#4d495c;min-height:196px}
+#safety-task-detail-options .td-underlay .td-list-top{margin-bottom:7px}
+#safety-task-detail-options .td-underlay h1{font-size:36px;margin:0}
+#safety-task-detail-options .td-underlay .td-list-row{padding:9px 0;border-color:#b7b0bd}
+#safety-task-detail-options .td-sheet{position:relative;margin-top:-48px;padding:10px var(--td-space) 22px;border-radius:29px 29px 0 0;background:var(--td-paper)}
+#safety-task-detail-options .td-grip{width:34px;height:4px;border-radius:4px;background:#d3ccd9;margin:0 auto 7px}
+#safety-task-detail-options .td-sheet-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;gap:8px}
+#safety-task-detail-options .td-sheet-top .td-meta{margin:0}
+#safety-task-detail-options .td-icon-button{background:none;border:0;width:44px;min-height:44px;display:grid;place-items:center;padding:8px;flex-shrink:0}
+#safety-task-detail-options .td-sheet h1{font-size:36px;max-width:14ch;line-height:1.06;margin-bottom:12px}
+#safety-task-detail-options .td-sheet .td-intro{margin-bottom:15px}
+#safety-task-detail-options .td-accordion-steps{margin:0 0 15px}
+#safety-task-detail-options .td-accordion-steps details{border-bottom:1px solid var(--td-line)}
+#safety-task-detail-options .td-accordion-steps summary{justify-content:start;min-height:51px;gap:10px}
+#safety-task-detail-options .td-accordion-steps .td-chevron{margin-left:auto;color:var(--td-muted)}
+#safety-task-detail-options .td-accordion-steps p{margin:0;padding:0 0 16px 37px;font-size:12px;color:var(--td-muted);line-height:1.7}
+#safety-task-detail-options .td-sheet .td-outcome{margin-bottom:13px;padding:12px 13px}
+#safety-task-detail-options .td-sheet .td-footer{padding-top:19px}
+#safety-task-detail-options .td-complete{padding:24px var(--td-space);min-height:730px;display:flex;flex-direction:column;text-align:center}
+#safety-task-detail-options .td-complete .td-top{justify-content:start}
+#safety-task-detail-options .td-complete h1{margin-top:22px;font-size:44px}
+#safety-task-detail-options .td-complete img{width:160px;height:160px;object-fit:contain;align-self:center;margin:30px 0}
+#safety-task-detail-options .td-complete p{font-size:13px;line-height:1.8;color:var(--td-muted);margin:0 auto;max-width:25ch}
+#safety-task-detail-options .td-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:359px){#safety-task-detail-options{--td-space:20px}#safety-task-detail-options h1{font-size:38px}#safety-task-detail-options .td-steps{gap:16px}#safety-task-detail-options .td-options{gap:4px}#safety-task-detail-options .td-options button{font-size:11px}}
+@media(prefers-reduced-motion:reduce){#safety-task-detail-options .td-chevron{transition:none}}
+</style>
+<script>
+(()=>{
+ const root=document.getElementById('safety-task-detail-options');
+ const phone=root.querySelector('.td-phone');
+ const content=root.querySelector('.td-content');
+ const ELEPHANT='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+CjxwYXRoIGZpbGw9IiNFQUU1RjIiIGQ9Ik0zNCAxMThDNDMgNDMgMTAzIDE5IDE2NCAzNWM2OCAxOCAxMTkgNjggMTExIDEzNy02IDUxLTU5IDkxLTEzMyA5MUM2NSAyNjMgMjIgMjEzIDM0IDExOFoiLz4KPGVsbGlwc2UgY3g9IjE1MSIgY3k9IjI2NSIgcng9IjEwMyIgcnk9IjE0IiBmaWxsPSIjRERENUU5Ii8+CjxwYXRoIGZpbGw9IiNCREI2RDIiIGQ9Ik05OSAxNjRjLTEwIDI0LTMyIDYwLTIzIDg0IDYgMTYgMzUgMjUgNTkgMTlsMTMtMTkgMTUgMjBjMjYgNCA2MCAwIDY1LTEzIDgtMTgtMTMtMzUtMjctNDVsLTEzLTQ5WiIvPgo8cGF0aCBmaWxsPSIjQURBM0M1IiBkPSJNMTExIDk1Yy0yNi01Ni03Ny01MS04NC0xMy02IDMxIDcgNjggMzQgODQgMTcgMTAgMzUgNCA1NC0xN1oiLz4KPHBhdGggZmlsbD0iI0FEQTNDNSIgZD0iTTE4NyA5NWMyNS01NSA3Ni00OSA4NC0xMiA3IDI5LTQgNjctMzEgODQtMTkgMTAtMzYgMy01NS0xN1oiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTkwIDExOWMwLTUzIDI1LTcwIDU5LTcwIDM1IDAgNjMgMjEgNjIgNjgtMSAzNC0xNyA1OC00MSA2M2wtNDQtMWMtMjMtNi0zNi0yOC0zNi02MFoiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTEzNSAxMzdjLTIgMjMgMyA1NCAyNiA2NiAyOSAxNSA1Ni0zIDU5LTIyIDItMTAtMTAtMTUtMTYtNi03IDExLTE2IDEyLTIyIDctNy02LTQtMjMtNi0zNVoiLz4KPHBhdGggZD0iTTE0NiAxNTljOS0zIDE4LTEgMjUgNE0xNDkgMTcyYzgtMiAxNCAwIDIwIDMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0FEQTNDNSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGVsbGlwc2UgY3g9IjExNyIgY3k9IjEyNCIgcng9IjMuNCIgcnk9IjUiIGZpbGw9IiMyNjJCNTAiLz48ZWxsaXBzZSBjeD0iMTgxIiBjeT0iMTI0IiByeD0iMy40IiByeT0iNSIgZmlsbD0iIzI2MkI1MCIvPgo8cGF0aCBkPSJNMTA0IDExM3E1LTUgMTAtM00xODIgMTA5cTYtMSAxMCA0TTExNyAxNDNxMiA4IDcgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI2MkI1MCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIzIDIwMmMwIDI0IDQgNDAgMTIgNTNNMTg0IDIxMWMxIDE5IDAgMzEtNCA0NSIgc3Ryb2tlPSIjOEU4NUE4IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGZpbGw9IiNGQUY3RjIiIGQ9Ik05MyAyNjBjLTEtOSA1LTE0IDEwLTdsMyAxMVpNMTA5IDI2NWMtMS0xMCA1LTE1IDExLTdsMiA5Wk0xNDcgMjY0Yy0xLTExIDYtMTYgMTEtNmwxIDEwWk0xNjQgMjY4Yy0xLTExIDYtMTYgMTEtNmwxIDZaTTE5MSAyNjRjMC05IDYtMTQgMTEtNmwyIDRaIi8+CjxwYXRoIGZpbGw9IiNDOTk1NDQiIGQ9Im0yMzcgMzMgNCAxMSAxMSA0LTExIDQtNCAxMS00LTExLTExLTQgMTEtNFoiLz4KPHBhdGggZD0iTTUyIDI1M2MtNS0xNy0xMy0yNy0xOC0zOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQTA5NkJEIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBmaWxsPSIjQkRCNkQyIiBkPSJNMzggMjI2Yy0xNy0xLTIzLTktMjAtMTggMTIgMCAxOCA4IDIwIDE4Wm01IDEyYy00LTE3IDAtMjQgNy0yNSA1IDEyIDMgMjAtNyAyNVoiLz4KPC9zdmc+';
+ const steps=[
+  {title:'Choose a spot',body:'Choose a reachable shelf or basket near where you usually rest.'},
+  {title:'Gather what you have',body:'Gather familiar easy-to-prepare food, tissues and a charging cable you already own.'},
+  {title:'Notice one gap',body:'Note one missing item for your next usual shopping trip.'}
+ ];
+ const state={layout:'guide',step:0,showAll:false,view:'detail',done:false};
+ const styling={heading:'editorial',spacing:'airy',radius:28};
+ const icon=name=>`<i data-lucide="${name}" aria-hidden="true"></i>`;
+ const elephant=(cls='td-mini-elephant')=>`<img class="${cls}" src="${ELEPHANT}" alt="" />`;
+ const doneWhen=()=>'<div class="td-outcome"><strong>Done when</strong>Your essentials are together, with any missing item noted.</div>';
+ const meta=()=>'<div class="td-meta"><span class="td-category">Sick days</span><span>10 min</span></div>';
+ const title=()=>'<h1>Set up a<br>sick-day shelf.</h1><p class="td-intro">A few essentials within reach when you need to rest.</p>';
+ const top=()=>`<div class="td-top"><button type="button" class="td-back cursor-interaction" data-action="list">${icon('chevron-left')} My list</button>${elephant()}</div>`;
+ const listSteps=()=>`<ol class="td-steps">${steps.map((s,i)=>`<li><span class="td-number" aria-hidden="true">${i+1}</span><span>${s.body}</span></li>`).join('')}</ol>`;
+ const supports=()=>`<div class="td-support">
+   <details><summary class="cursor-interaction">Helpful link<span class="td-summary-side">1 ${icon('chevron-down')}</span></summary><div class="td-support-content"><a class="td-resource cursor-interaction" href="https://www.redcross.org/get-help/how-to-prepare-for-emergencies/survival-kit-supplies.html" target="_blank" rel="noopener noreferrer"><span>Red Cross supply checklist<small>Ideas for practical essentials</small></span>${icon('arrow-up-right')}</a><p>A broader emergency guide. Use the relevant supply ideas; you don't need to buy a full kit.</p></div></details>
+   <details><summary class="cursor-interaction">If you're buying food<span class="td-summary-side">${icon('chevron-down')}</span></summary><div class="td-support-content"><ul class="td-buy-list"><li>Fits your dietary needs.</li><li>Easy to open and prepare.</li><li>Storage requirements suit your space.</li></ul><p>Start with suitable items you already own.</p></div></details>
+  </div>`;
+ const footer=()=>`<div class="td-footer"><button type="button" class="td-primary cursor-interaction" data-action="complete">${state.done?icon('check'):''}${state.done?'Completed':'Mark as done'}</button></div>`;
+ function applySnapshot(snapshot){
+  const p=snapshot?.privateContent;
+  if(!p||p.version!=='approved-task-detail-a')return;
+  state.layout='guide';
+  state.step=Number.isInteger(p.step)?Math.min(2,Math.max(0,p.step)):0;
+  state.showAll=p.showAll===true;state.done=p.done===true;
+  state.view=['detail','list','complete'].includes(p.view)?p.view:'detail';
+ }
+ function save(){
+  if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{task_detail_layout:'Approved option A; three visible steps and collapsed optional resource/purchase rows'},privateContent:{version:'approved-task-detail-a',...state}}).catch(()=>{});
+ }
+ function guide(){return `<div class="td-page">${top()}${meta()}${title()}${listSteps()}${doneWhen()}${supports()}${footer()}</div>`;}
+ function focus(){
+  const s=steps[state.step];
+  const body=state.showAll?listSteps():`<div class="td-focus-card"><div><div class="td-step-label"><span>STEP ${state.step+1} OF 3</span><span>YOUR OWN PACE</span></div><h2>${s.title}</h2><p>${s.body}</p></div><div class="td-step-nav"><button type="button" class="td-link-button cursor-interaction" data-action="previous" ${state.step===0?'disabled':''}>${icon('chevron-left')} Previous</button><button type="button" class="td-link-button cursor-interaction" data-action="all">See all steps</button></div></div>`;
+  const end=state.showAll||state.step===2?footer():`<div class="td-footer"><button type="button" class="td-primary cursor-interaction" data-action="next">Next step ${icon('arrow-right')}</button></div>`;
+  return `<div class="td-page">${top()}${meta()}${title()}${body}${doneWhen()}${supports()}${end}</div>`;
+ }
+ function sheet(){return `<div class="td-sheet-stage"><div class="td-underlay" aria-hidden="true"><div class="td-list-top"><h1>My list</h1>${elephant()}</div><div class="td-list-row"><span class="td-dot"></span>Set up a sick-day shelf</div></div><div class="td-sheet"><div class="td-grip" aria-hidden="true"></div><div class="td-sheet-top">${meta()}<button type="button" class="td-icon-button cursor-interaction" data-action="list" aria-label="Close task and return to list">${icon('x')}</button></div>${title()}<div class="td-accordion-steps">${steps.map((s,i)=>`<details ${i===0?'open':''}><summary class="cursor-interaction"><span class="td-number">${i+1}</span>${s.title}<span class="td-chevron">${icon('chevron-down')}</span></summary><p>${s.body}</p></details>`).join('')}</div>${doneWhen()}${supports()}${footer()}</div></div>`;}
+ function list(){return `<div class="td-list"><div class="td-list-top"><h1>My list</h1>${elephant()}</div><div class="td-list-row"><span class="td-dot" aria-hidden="true">${state.done?icon('check'):''}</span><button type="button" class="td-open-task cursor-interaction" data-action="open">Set up a sick-day shelf<small>${state.done?'Completed':'Sick days · 10 min'}</small></button>${icon('chevron-right')}</div><p class="td-list-status">${state.done?'One useful step, done.':'One small step, whenever you’re ready.'}</p></div>`;}
+ function complete(){return `<div class="td-complete">${top()}<h1>A little care,<br>ready for you.</h1>${elephant('td-celebration')}<p>Your sick-day shelf is marked done.<br>One small step counts.</p><div class="td-footer"><button type="button" class="td-primary cursor-interaction" data-action="list">Back to my list</button><button type="button" class="td-link-button td-footer-secondary cursor-interaction" data-action="undo">Undo completion</button></div></div>`;}
+ function render(){
+  root.style.setProperty('--td-heading',styling.heading==='editorial'?"'Instrument Serif',Georgia,serif":"Inter,Arial,sans-serif");
+  root.style.setProperty('--td-radius',styling.radius+'px');
+  root.style.setProperty('--td-space',styling.spacing==='airy'?'24px':'20px');
+  phone.dataset.layout=state.layout;phone.dataset.view=state.view;
+  root.querySelectorAll('[data-layout]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.layout===state.layout)));
+  content.innerHTML=state.view==='list'?list():state.view==='complete'?complete():state.layout==='focus'?focus():state.layout==='sheet'?sheet():guide();
+  if(globalThis.lucide)lucide.createIcons({attrs:{width:16,height:16}});
+ }
+ applySnapshot(window.openai?.widgetState);render();
+ root.addEventListener('click',e=>{
+  const button=e.target.closest('button');if(!button||!root.contains(button))return;
+  if(button.dataset.layout){state.layout=button.dataset.layout;state.view='detail';state.step=0;state.showAll=false;}
+  else switch(button.dataset.action){
+   case 'list':state.view='list';break;
+   case 'open':state.view='detail';break;
+   case 'previous':state.step=Math.max(0,state.step-1);break;
+   case 'next':state.step=Math.min(2,state.step+1);break;
+   case 'all':state.showAll=true;break;
+   case 'complete':state.done=true;state.view='complete';break;
+   case 'undo':state.done=false;state.view='detail';break;
+   default:return;
+  }
+  render();save();
+  root.querySelector('.td-sr').textContent=state.view==='complete'?'Task marked done.':state.view==='list'?'My list.':state.layout==='focus'&&!state.showAll?'Step '+(state.step+1)+' of 3.':'Task details.';
+ });
+ window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){applySnapshot(e.detail.globals.widgetState);render();}});
+ if(globalThis.Tweak){
+  const tweak=new Tweak({container:phone,onChange:render});
+  tweak.addSelect(styling,'heading',{label:'Heading style',options:[{label:'Editorial serif',value:'editorial'},{label:'Simple sans',value:'simple'}]});
+  tweak.addSelect(styling,'spacing',{label:'Page spacing',options:[{label:'Airy',value:'airy'},{label:'Compact',value:'compact'}]});
+  tweak.addSlider(styling,'radius',{label:'Screen corners',min:12,max:34,step:2,unit:'px'});
+ }
+})();
+</script>
