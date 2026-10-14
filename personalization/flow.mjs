@@ -248,29 +248,25 @@ export function poolBatch(prepared) {
   const tasks = [];
   const groups = new Set();
   const covered = new Set();
-  // Rank useful options first, then honor the link allowance. Do not skip down
-  // to a weak chore merely to fill a third card after a research task is deferred.
+  // Keep ranked relevance and importance, but keep looking when a candidate
+  // cannot fit the batch's resource or distinct-outcome allowance.
   if (prepared.prioritize) {
     const ranked = [...prepared.candidates];
-    const shortlist = [];
-    while (ranked.length && shortlist.length < 3) {
+    while (ranked.length && tasks.length < 3) {
       const first = ranked[0];
       const relevance = a => !prepared.request.concernIds.length ? 1 : prepared.request.concernIds.includes(a.concernIds[0]) ? 2 :
         a.concernIds.some(id => prepared.request.concernIds.includes(id)) ? 1 : 0;
       const index = ranked.findIndex(a => relevance(a) === relevance(first) && a.priority === first.priority &&
         a.concernIds.some(id => prepared.request.concernIds.includes(id) && !covered.has(id)));
       const [chosen] = ranked.splice(index < 0 ? 0 : index, 1);
-      if (groups.has(outcomeGroup(chosen))) continue;
+      if (groups.has(outcomeGroup(chosen)) ||
+        (chosen.task.resources.length && tasks.some(t => t.resources.length))) continue;
       groups.add(outcomeGroup(chosen));
-      shortlist.push(chosen);
+      tasks.push(structuredClone(chosen.task));
       chosen.concernIds.forEach(id => covered.add(id));
     }
-    for (const candidate of shortlist) {
-      if (candidate.task.resources.length && tasks.some(t => t.resources.length)) continue;
-      tasks.push(structuredClone(candidate.task));
-    }
     return { status: tasks.length === 3 ? 'ready' : 'no_more_ideas', tasks,
-      message: tasks.length === 3 ? null : tasks.length ? 'Start with what feels useful. More ideas are available below.' :
+      message: tasks.length === 3 ? null : tasks.length ? 'These are the useful new options available within your current choices and limits.' :
         'You have seen the fitting prepared ideas. Tell us what you would like to work on next.' };
   }
   while (tasks.length < 3) {

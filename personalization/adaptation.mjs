@@ -3,7 +3,7 @@ import { prepare, poolBatch, validateBatch } from './flow.mjs';
 import { outputSchema, hash, requireRule, FlowError } from './contracts.mjs';
 import { createOpenAIClient } from './openai.mjs';
 import { createAiBudget } from './ai-budget.mjs';
-import { buildNewNeedRequest, acceptNewNeed, newNeedPromptHash } from './new-needs.mjs';
+import { buildNewNeedRequest, acceptNewNeed, composeNewNeedBatch, newNeedPromptHash } from './new-needs.mjs';
 import { privatePrefix } from './private-actions.mjs';
 import { feedbackGuidance } from './feedback-guidance.mjs';
 import { sickCareInstructions } from './generated/contracts.mjs';
@@ -124,7 +124,7 @@ export function acceptAdaptation(output, prepared, pool, target) {
 /** The caller authenticates owner and checks replay before entering this flow. */
 export async function deliverAutomatic({ owner, request, requestId, requestHash, expectedStateVersion,
   store, catalog, env, allowEditorialReview, generate }) {
-  const prepared = await prepare({ owner, request, store, catalog, allowEditorialReview, useProfileDefaults: true, allowRefinement: true });
+  let prepared = await prepare({ owner, request, store, catalog, allowEditorialReview, useProfileDefaults: true, allowRefinement: true });
   requireRule(prepared.snapshot.stateVersion === expectedStateVersion, 'stale_state');
   let batch = validateBatch(poolBatch(prepared), prepared);
   let status = requestBoundary(request.note) || 'not_needed';
@@ -157,8 +157,14 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
             const accepted = acceptNewNeed(response.batch, prepared, catalog, history, checkTaskCopy);
             status = accepted.decision;
             if (accepted.task) {
+              // Current written needs can introduce a supported concern without a
+              // checkbox. Reuse the same matching/constraint rules for companions.
+              const concernIds = [...new Set([...accepted.task.concern_ids, ...request.concernIds])];
+              prepared = await prepare({ owner, request: { ...request, concernIds }, store, catalog,
+                allowEditorialReview, useProfileDefaults: true, allowRefinement: true });
+              requireRule(prepared.snapshot.stateVersion === expectedStateVersion, 'stale_state');
+              batch = composeNewNeedBatch(accepted.task, prepared, history);
               adaptedActionKey = accepted.task.action_key;
-              batch = { status: 'no_more_ideas', message: 'One new step for what you need now.', tasks: [accepted.task] };
             }
           } else {
             const accepted = acceptAdaptation(response.batch, prepared, batch, target);

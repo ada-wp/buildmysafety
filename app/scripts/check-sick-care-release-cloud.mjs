@@ -84,7 +84,9 @@ await withPrivacyTestSession(false, async ({ api }) => {
   // Save even a failed delivery as evidence; never automatically retry a charged call.
   await writeFile(new URL('../verification-sick-care-release.json', import.meta.url), JSON.stringify(report, null, 2) + '\n');
   assert.equal(result.adaptation?.status, 'generated', JSON.stringify(result.adaptation));
-  assert.equal(result.batch.tasks.length, 1); assert.equal(result.request.note, undefined);
+  assert.ok(result.batch.tasks.length >= 1 && result.batch.tasks.length <= 3);
+  assert.equal(result.batch.tasks.filter(task => task.action_key.startsWith('custom_')).length, 1);
+  assert.equal(result.request.note, undefined);
   const replay = await ok('/api/recommendations', input);
   assert.equal(replay.replayed, true); assert.deepEqual(replay.batch, result.batch);
   const task = result.batch.tasks[0];

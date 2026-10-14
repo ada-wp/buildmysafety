@@ -39,11 +39,24 @@ test('checkbox-only starts; unchecked concerns and unknown budget remain ranked 
     o.store.change(s => { s.profile.answers.constraints = []; });
     const p = await prepare(o), result = await recommend(o);
     assert.equal(result.status, 'ok', c.id);
-    assert.ok(result.batch.tasks.length, c.id);
+    assert.equal(result.batch.tasks.length, 3, c.id);
     assert.ok(result.batch.tasks[0].concern_ids.includes(c.id), c.id);
     assert.ok(p.candidates.some(a => !a.concernIds.includes(c.id)), 'Discovery remains available');
     assert.ok(result.batch.tasks.filter(t => t.resources.length).length <= 1);
   }
+});
+
+test('ranked pool keeps looking after linked candidates to fill three distinct cards', async () => {
+  const p = await prepare(options({ concernIds: ['getting_care'] }));
+  assert.ok(p.candidates.slice(0, 3).every(a => a.task.resources.length));
+  const batch = validateBatch(poolBatch(p), p);
+  assert.equal(batch.status, 'ready'); assert.equal(batch.tasks.length, 3);
+  assert.equal(batch.tasks[0].action_key, key(1));
+  assert.equal(batch.tasks.filter(task => task.resources.length).length, 1);
+  const onlyLinked = { ...p, candidates: p.candidates.filter(a => a.task.resources.length) };
+  const scarce = validateBatch(poolBatch(onlyLinked), onlyLinked);
+  assert.equal(scarce.tasks.length, 1); assert.equal(scarce.status, 'no_more_ideas');
+  assert.match(scarce.message, /current choices and limits/);
 });
 
 test('onboarding preferences order ideas without creating hard time/cost/support restrictions', async () => {
@@ -189,7 +202,7 @@ test('actual new-catalog HTTP/D1 loop: two owners, more, replay, save, completio
   assert.deepEqual((await store.readTasks('bob')).tasks, []); assert.equal(calls, 0);
 });
 
-test('new-catalog specific request uses category prompt, paid-resource research and owned stable result', async t => {
+test('new-catalog linked pet request stays honestly short when no distinct unlinked pet companions exist', async t => {
   let calls = 0;
   const { store, api } = setup(t, async request => {
     calls++; assert.match(request.instructions, /Learning is a useful outcome/);
@@ -206,7 +219,33 @@ test('new-catalog specific request uses category prompt, paid-resource research 
     request: { topicId: 'sick_care', concernIds: [], note: 'I have a cat and want to understand drop-in visit length before choosing a sitter.' } };
   const result = await api('alice', input); assert.equal(result.status, 200);
   assert.equal(result.body.adaptation.status, 'generated', JSON.stringify(result.body));
-  assert.equal(result.body.batch.tasks.length, 1); assert.equal(result.body.request.note, undefined);
+  assert.equal(result.body.batch.tasks.length, 1); assert.equal(result.body.batch.status, 'no_more_ideas');
+  assert.match(result.body.batch.message, /current request and limits/); assert.equal(result.body.request.note, undefined);
   assert.deepEqual((await api('alice', input)).body.batch, result.body.batch); assert.equal(calls, 1);
   const tasks = await store.readTasks('alice'); assert.deepEqual(tasks.tasks[0].content, result.body.batch.tasks[0]);
+});
+
+test('new-catalog request keeps the generated step first and fills three with fitting reviewed tasks', async t => {
+  let calls = 0;
+  const { store, api } = setup(t, async () => {
+    calls++;
+    return { batch: { decision: 'generated', task: { action_key: 'quiet_phone_rest', concern_ids: ['daily_tasks'],
+      title: 'Give your phone a quiet hour', summary: 'Keep a rest break calmer while allowing important contacts through.',
+      estimated_minutes: 5, steps: ['Open your phone’s focus settings.',
+        'Choose which contacts can reach you during a rest break.', 'Save a quiet mode to use when you want to rest.'],
+      done_when: 'A quiet mode is ready with your chosen contacts allowed.',
+      resources: [], purchase_checks: [], no_purchase_option: null } }, metadata: null };
+  });
+  await store.createProfile('alice', { answers: { country: 'US' } });
+  const input = { route: 'auto', requestId: 'three_card_current_catalog', expectedStateVersion: '1',
+    request: { topicId: 'sick_care', concernIds: [], note: 'Prepare my phone for quieter rest breaks.' } };
+  const result = await api('alice', input); assert.equal(result.status, 200);
+  assert.equal(result.body.adaptation.status, 'generated'); assert.equal(result.body.batch.status, 'ready');
+  assert.equal(result.body.batch.tasks.length, 3); assert.equal(calls, 1);
+  assert.equal(result.body.batch.tasks[0].action_key, 'custom_sick_care_quiet_phone_rest');
+  assert.ok(result.body.batch.tasks.slice(1).every(task => task.concern_ids.includes('daily_tasks')));
+  assert.ok(result.body.batch.tasks.filter(task => task.resources.length).length <= 1);
+  assert.deepEqual((await api('alice', input)).body.batch, result.body.batch); assert.equal(calls, 1);
+  const saved = await store.readTasks('alice'); assert.equal(saved.tasks.length, 3);
+  for (const task of result.body.batch.tasks) assert.deepEqual(saved.tasks.find(t => t.state.actionKey === task.action_key).content, task);
 });

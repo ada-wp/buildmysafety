@@ -36,7 +36,6 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const [quotaClock, setQuotaClock] = useState(Date.now);
   const quota = activeAiQuota(state.latest?.result, quotaClock);
   const requestNotice = notice || (quota ? state.latest?.result?.batch.message || '' : '');
-  const [showAll, setShowAll] = useState(draft.answers.style !== 'one');
   const origin = useRef<'ideas' | 'list'>(history.state?.taskOrigin === 'list' ? 'list' : 'ideas');
   const restored = useRef(false);
   const root = useRef<HTMLDivElement>(null);
@@ -98,10 +97,12 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       ...(!preparedOnly && note.trim() ? { note: note.trim() } : {}), noSpend, country: SERVICE_COUNTRY,
       localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' }, preparedOnly ? 'pool' : 'auto');
     if (okay && location.hash === startingHash) {
-      const feedback = recommendationFeedback(session.getState().latest?.result, !preparedOnly && Boolean(submittedNote.trim()));
+      const result = session.getState().latest?.result;
+      const feedback = recommendationFeedback(result, !preparedOnly && Boolean(submittedNote.trim()));
       if (!feedback.openIdeas) { setNotice(feedback.notice); return; }
       if (!preparedOnly) setNote(value => value === submittedNote ? '' : value);
-      setShowAll(draft.answers.style !== 'one'); navigate({ page: 'ideas' });
+      if (result?.request?.topicId === 'sick_care') setConcerns(result.request.concernIds);
+      navigate({ page: 'ideas' });
     }
   }
   async function act(task: RecommendationTask, event: TaskActionEvent) {
@@ -121,7 +122,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' });
     if (okay && location.hash === startingHash) {
       const result = session.getState().latest?.result;
-      if (result?.adaptation?.status === 'adapted') { setRefinementNote(''); setShowAll(true); navigate({ page: 'ideas' }); }
+      if (result?.adaptation?.status === 'adapted') { setRefinementNote(''); navigate({ page: 'ideas' }); }
       else setNotice(result?.batch.message || 'Your original idea is unchanged. Try another change when you’re ready.');
     }
   }
@@ -198,16 +199,15 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       {batch && <button className="text-button" onClick={() => navigate({ page: 'ideas' })}>Return to my latest ideas</button>}
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
     </section>}
-    {route.page === 'ideas' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>{state.latest?.result?.adaptation?.newNeed ? <>A step for<br />what you need.</> : state.latest?.result?.adaptation?.refinement ? <>A different way<br />to make it work.</> : <>A few small<br />places to start.</>}</h1>
+    {route.page === 'ideas' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>{state.latest?.result?.adaptation?.newNeed ? batch && batch.tasks.length > 1 ? <>A few ideas for<br />what you need.</> : <>A step for<br />what you need.</> : state.latest?.result?.adaptation?.refinement ? <>A different way<br />to make it work.</> : <>A few small<br />places to start.</>}</h1>
       <p>Take a look, then add what feels useful. If it’s not quite right, tell us what would fit better.</p>
-      {batch?.message && batch.status !== 'no_more_ideas' && <p className="message" role="status">{batch.message}</p>}
+      {batch?.message && <p className="message" role="status">{batch.message}</p>}
       {state.latest?.result?.adaptation?.message && <p className="message" role="status">{state.latest.result.adaptation.message}</p>}
-      {batch?.tasks.slice(0, showAll ? 3 : 1).map(task => card(task))}
-      {batch && !showAll && batch.tasks.length > 1 && <button className="text-button" onClick={() => setShowAll(true)}>See the other ideas</button>}
-      {(!batch || batch.status === 'no_more_ideas') && !state.latest?.result?.adaptation?.newNeed && <p className="message">{batch?.tasks.length ? state.latest?.result?.adaptation?.refinement ? 'This replaces the unsaved version of that idea. It isn’t an extra task on your list.' : 'Start with what feels useful. You can explore more ideas below.' : 'You’ve seen the fitting prepared ideas. Change your choices or tell us what you need for a tailored step.'}</p>}
+      {batch?.tasks.map(task => card(task))}
+      {(!batch || batch.status === 'no_more_ideas') && !state.latest?.result?.adaptation?.newNeed && (!batch?.message || state.latest?.result?.adaptation?.refinement) && <p className="message">{batch?.tasks.length ? state.latest?.result?.adaptation?.refinement ? 'This replaces the unsaved version of that idea. It isn’t an extra task on your list.' : 'Start with what feels useful. You can explore more ideas below.' : 'You’ve seen the fitting prepared ideas. Change your choices or tell us what you need for a tailored step.'}</p>}
       <button className="primary" onClick={() => navigate({ page: 'list' })}>Go to my list{saved.length ? ` (${saved.length})` : ''}</button>
       <button className="secondary" onClick={() => navigate({ page: 'concerns' })}>Tell us what you need</button>
-      {batch && batch.tasks.length > 0 && ['ready', 'no_more_ideas'].includes(batch.status) && !state.latest?.result?.adaptation?.refinement && !state.latest?.result?.adaptation?.newNeed && <button className="secondary" disabled={blocked} onClick={() => void suggest()}>See more ideas</button>}
+      {batch && batch.tasks.length > 0 && ['ready', 'no_more_ideas'].includes(batch.status) && !state.latest?.result?.adaptation?.refinement && <button className="secondary" disabled={blocked} onClick={() => void suggest(true)}>See more ideas</button>}
       {earlier.length > 0 && <button className="secondary" onClick={() => navigate({ page: 'earlier' })}>Revisit earlier ideas</button>}
       <button className="text-button" onClick={() => navigate({ page: 'concerns' })}>Change my choices</button>
     </section>}

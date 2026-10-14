@@ -18,7 +18,8 @@ try {
     await writeFile(file, JSON.stringify(report, null, 2) + '\n');
     assert.equal(result.status, 200);
     assert.equal(result.body.adaptation?.status, 'generated', JSON.stringify(result.body.adaptation));
-    assert.equal(result.body.batch.tasks.length, 1);
+    assert.ok(result.body.batch.tasks.length >= 1 && result.body.batch.tasks.length <= 3);
+    assert.equal(result.body.batch.tasks.filter(task => task.action_key.startsWith('custom_')).length, 1);
     assert.equal(result.body.request.note, undefined);
     const replay = await api('/api/recommendations', input);
     assert.equal(replay.status, 200); assert.equal(replay.body.replayed, true);

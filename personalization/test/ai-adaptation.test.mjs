@@ -9,7 +9,7 @@ import { legacyCatalog as catalog } from '../catalog.mjs';
 import { createD1Store } from '../d1-store.mjs';
 import { AI_LIMITS, PREVIEW_AI_LIMITS, createAiBudget } from '../ai-budget.mjs';
 import { prepare } from '../flow.mjs';
-import { buildNewNeedRequest } from '../new-needs.mjs';
+import { buildNewNeedRequest, composeNewNeedBatch } from '../new-needs.mjs';
 
 function setup(t, generate) {
   const sqlite = new DatabaseSync(':memory:'); sqlite.exec('PRAGMA foreign_keys = ON');
@@ -165,7 +165,7 @@ for (const mode of ['fresh_before_exhaustion', 'outside', 'urgent', 'private', '
       request: { topicId: 'sick_care', concernIds: ['daily_tasks'], note, maxMinutes: 10, noSpend: true } }));
     assert.equal(response.status, 200); const result = await response.json();
     if (mode === 'fresh_before_exhaustion') {
-      assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.tasks.length, 1);
+      assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.tasks.length, 3);
     } else {
       assert.equal(result.batch.tasks.length, 0); assert.ok(result.batch.message);
       assert.deepEqual((await store.readTasks('alice')).tasks, before.tasks);
@@ -190,7 +190,84 @@ test('a new private action can be explicitly refined without adding another task
   const second = await (await request('alice', input({ requestId: 'refine_new_private', expectedStateVersion: first.stateVersion,
     request: { topicId: 'sick_care', concernIds: ['daily_tasks'], refineActionKey: first.batch.tasks[0].action_key, note: 'Make it a short break.' } }))).json();
   assert.equal(second.adaptation.status, 'adapted'); assert.equal(second.adaptation.newNeed, false);
-  assert.equal((await store.readTasks('alice')).tasks.length, 1);
+  assert.equal(second.batch.tasks.length, 1);
+  assert.equal((await store.readTasks('alice')).tasks.length, first.batch.tasks.length);
+});
+
+test('typed-only new need delivers three stable cards with one private task and no extra call on replay', async t => {
+  let calls = 0;
+  const { request, store, env, sqlite } = setup(t, async () => {
+    calls++;
+    return { batch: { decision: 'generated', task: freshTask() }, metadata: null };
+  });
+  env.AI_NEW_NEEDS_ENABLED = 'true';
+  await store.createProfile('alice', { answers: { country: 'US' } }); await store.createProfile('bob', {});
+  const body = input({ requestId: 'three_card_typed_request',
+    request: { topicId: 'sick_care', concernIds: [], note: 'Prepare my phone for quiet rest breaks.' } });
+  const response = await request('alice', body); assert.equal(response.status, 200);
+  const first = await response.json();
+  assert.equal(first.batch.status, 'ready'); assert.equal(first.batch.message, null);
+  assert.equal(first.batch.tasks.length, 3); assert.equal(calls, 1);
+  assert.equal(first.batch.tasks[0].action_key, 'custom_sick_care_quiet_notifications');
+  assert.ok(first.batch.tasks.slice(1).every(task => task.concern_ids.includes('daily_tasks')));
+  assert.deepEqual(first.request.concernIds, ['daily_tasks']); assert.equal(first.request.note, undefined);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_private_task_content WHERE user_id = ?').get('alice').n, 1);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_task_content').get().n, 2);
+  assert.deepEqual((await store.readLatestBatch('alice')).result.batch, first.batch);
+  assert.deepEqual((await (await request('alice', body)).json()).batch, first.batch); assert.equal(calls, 1);
+  const saved = await store.applyTaskAction('alice', first.stateVersion, first.batch.tasks[1].action_key, { type: 'save' });
+  const owned = await store.readTasks('alice');
+  assert.equal(saved.task.actionKey, first.batch.tasks[1].action_key);
+  assert.equal(owned.tasks.length, 3);
+  for (const task of first.batch.tasks) {
+    // Legacy batches project selected concern tags; shared snapshots keep their
+    // canonical tags and immutable content reference.
+    const expected = catalog.actions.find(action => action.actionKey === task.action_key)?.task || task;
+    assert.deepEqual(owned.tasks.find(item => item.state.actionKey === task.action_key).content, expected);
+  }
+  assert.equal((await store.readTasks('bob')).tasks.length, 0);
+});
+
+test('generated resource task keeps two unlinked companions without exceeding the one-linked-card rule', async t => {
+  const { request, store, env } = setup(t, async () => ({ batch: { decision: 'generated', task: {
+    ...freshTask(), resources: [{ resource_id: 'us_211_local', why: 'An optional route to research practical support.' }]
+  } }, metadata: null }));
+  env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', { answers: { country: 'US' } });
+  const result = await (await request('alice', input({
+    request: { topicId: 'sick_care', concernIds: [], note: 'Prepare for quiet rest breaks and practical support.' }
+  }))).json();
+  assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.tasks.length, 3);
+  assert.equal(result.batch.tasks.filter(task => task.resources.length).length, 1);
+  assert.deepEqual(result.batch.tasks.slice(1).map(task => task.action_key), ['sick_02_rest_shelf', 'sick_09_pause_chore']);
+});
+
+test('new-need companions respect hard limits and do not pad a scarce batch with unrelated tasks', async t => {
+  const { request, store, env } = setup(t, async () => ({ batch: { decision: 'generated', task: freshTask() }, metadata: null }));
+  env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', { answers: { country: 'US' } });
+  const result = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: [],
+    note: 'Prepare my phone for quiet rest breaks.', maxMinutes: 5, noSpend: true, localSupport: 'unavailable' }
+  }))).json();
+  assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.status, 'no_more_ideas');
+  assert.equal(result.batch.tasks.length, 2); assert.match(result.batch.message, /current request and limits/);
+  assert.ok(result.batch.tasks.every(task => task.estimated_minutes <= 5 && task.concern_ids.includes('daily_tasks')));
+  assert.equal(result.batch.tasks[1].action_key, 'sick_09_pause_chore');
+});
+
+test('mixed-batch composition excludes near-duplicate generated, historical and companion outcomes', async t => {
+  const { store } = setup(t); await store.createProfile('alice', { answers: { country: 'US' } });
+  const p = await prepare({ owner: 'alice', request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] },
+    store, catalog, allowEditorialReview: true });
+  const generated = { ...freshTask(), action_key: 'custom_sick_care_quiet_notifications' };
+  const food = p.candidates.find(a => a.actionKey === 'sick_01_easy_food');
+  const shelf = p.candidates.find(a => a.actionKey === 'sick_02_rest_shelf');
+  const clone = (source, actionKey, task = source.task) => ({ ...source, actionKey, outcomeGroup: actionKey,
+    contentRef: `${actionKey}@1`, task: { ...task, action_key: actionKey } });
+  p.candidates.unshift(clone(food, 'renamed_phone', generated));
+  p.candidates.splice(p.candidates.indexOf(food) + 1, 0, clone(food, 'renamed_food'));
+  const batch = composeNewNeedBatch(generated, p, [{ content: shelf.task }]);
+  assert.equal(batch.tasks.length, 3);
+  assert.ok(batch.tasks.every(task => !['renamed_phone', 'renamed_food', shelf.actionKey].includes(task.action_key)));
+  assert.equal(batch.tasks[0].action_key, generated.action_key);
 });
 
 test('one mocked adaptation replaces one task; private stable content, owned read, save, award and replay', async t => {

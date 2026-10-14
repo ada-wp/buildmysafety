@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer';
 import { outputSchema, hash, requireRule } from './contracts.mjs';
-import { validateBatch } from './flow.mjs';
+import { poolBatch, validateBatch } from './flow.mjs';
 import { privatePrefix } from './private-actions.mjs';
 import { feedbackGuidance } from './feedback-guidance.mjs';
 import { sickCareInstructions } from './generated/contracts.mjs';
@@ -88,4 +88,32 @@ export function acceptNewNeed(output, prepared, catalog, history, checkCopy) {
   requireRule(!task.steps.some(step => /^(?:first[, ]+)?(?:buy|purchase|pay|subscribe|book|place an order|create an account)\b/i.test(step.trim())), 'constraint_violation');
   requireRule(!history.some(item => sameOutcome(task, item.content)), 'repeated_outcome');
   return { decision: 'generated', task };
+}
+
+/** One generated task is part of the normal three-card batch, not its replacement.
+ * The caller has accepted the task and re-prepared candidates using its concern tags.
+ */
+export function composeNewNeedBatch(task, prepared, history) {
+  const concerns = new Set([...task.concern_ids, ...prepared.request.concernIds]);
+  const ranked = prepared.candidates.filter(action => action.concernIds.some(id => concerns.has(id)))
+    .sort((a, b) => Number(b.concernIds.some(id => task.concern_ids.includes(id))) -
+      Number(a.concernIds.some(id => task.concern_ids.includes(id))));
+  const distinct = [task];
+  const candidates = ranked.filter(action => {
+    if ((task.resources.length && action.task.resources.length) ||
+      history.some(item => sameOutcome(action.task, item.content)) ||
+      distinct.some(existing => sameOutcome(action.task, existing))) return false;
+    distinct.push(action.task);
+    return true;
+  });
+  const request = { ...prepared.request, concernIds: [...concerns] };
+  const companions = poolBatch({ ...prepared, candidates, request }).tasks.slice(0, 2);
+  const tasks = [task, ...companions];
+  const generatedCandidate = { actionKey: task.action_key, outcomeGroup: task.action_key,
+    concernIds: task.concern_ids, requiresSpending: false, requiresNearbySupport: false, task };
+  return validateBatch({ status: tasks.length === 3 ? 'ready' : 'no_more_ideas',
+    message: tasks.length === 3 ? null :
+      'These are the useful new options available within your current request and limits.', tasks }, {
+    ...prepared, request, candidates: [generatedCandidate, ...candidates]
+  });
 }
