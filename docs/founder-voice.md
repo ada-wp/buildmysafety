@@ -4,6 +4,9 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- October 14: finish a polished, coherent app version with the agreed flow, recommendation rules and task format; do not redesign settled screens. This release is for Ada and invited testers, with sick-day preparation first. Preserve the original elephant and milestones 1/3/6/9/10. Keep code maintainable and reusable for additional categories and future scale; verify behavior rather than claiming scalability from architecture alone.
+- October 14: remove the unused “Anything else you’d like us to understand?” onboarding reflection. Users type specific needs on the topic screen, where the request actually informs suggestions.
+
 - On October 14, Ada corrected the single-card results: show **three suggestions at a time**. Preserve the normal three-option choice even when one task is AI-tailored; the older one-at-a-time onboarding answer must not hide the other cards. She then asked for a complete feature, UI-copy and architecture audit, including My Progress, without overriding agreed designs or flows. She explicitly chose readiness for herself and invited testers first, rather than a public launch.
 
 - On October 14, Ada said “we will only focus on US now the app” and “remove country selection for now.” Keep V0 resource coverage US-focused, without adding a location question or inferring a person's actual location.

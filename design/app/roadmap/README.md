@@ -1,5 +1,7 @@
 # My list, elephant and progress
 
+**Connected October 14:** the sick-day version of this design is live in preview `7c597a2f`, with real task-derived counts, optional check-ins and milestone acknowledgements in D1. The original SVG is unchanged. Exact milestone clicks and hosted storage were verified separately; see [technical status](../../../docs/technical-status.md). The dated paragraphs below preserve the original design decisions, not a claim that the current app is still a local prototype.
+
 October 12, 2026. Ada rejected the earlier path/scene proposal and its replacement elephant. Her confirmed direction is a simple Finch-like home experience: My list, the original elephant, a category progress bar, small completion feedback, and milestones at **1, 3, 6, 9 and 10** completed tasks. This supersedes earlier 1/5/15 proposals. The new clickable design is for review; no live app, database or reward thresholds were changed.
 
 **October 13 addition:** Ada requested a **My progress** tab showing where she is in each category. The navigation is now **My list · Explore · My progress** in the design preview. This supersedes the earlier two-tab design; My list remains the everyday opening screen. The new preview initially opens My progress for review only.

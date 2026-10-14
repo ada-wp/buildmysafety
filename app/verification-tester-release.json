@@ -1,0 +1,40 @@
+{
+  "deployment": "7c597a2f",
+  "code": "e5bbda6",
+  "checkedAt": "2026-10-14T18:35:21.0301210Z",
+  "scope": "Invited sick-day tester pilot",
+  "automated": {
+    "backend": 174,
+    "app": 129,
+    "typescript": "passed",
+    "pagesPackaging": "passed"
+  },
+  "browser": {
+    "component": "Actual TaskJourney with fictional in-memory data",
+    "milestones": [
+      1,
+      3,
+      6,
+      9,
+      10
+    ],
+    "ordinaryCompletionStaysOnList": true,
+    "taskDetailCompletion": true,
+    "undoRecompletionWithoutRepeatedMilestone": true,
+    "optionalReadyCheckIn": true,
+    "progressCardReturnsToList": true,
+    "threeCardsAndFreshBatch": true,
+    "originalElephantUnchanged": true,
+    "hostedReadOnlyListProgressAndTaskDetail": true,
+    "realUserWrites": 0
+  },
+  "release": {
+    "migration": "0006_category_progress.sql",
+    "pendingDeletions": 0,
+    "productionDeployed": false,
+    "clerkAccessMode": "Open, existing setting unchanged",
+    "outsideTesterMailboxJourney": "not retested",
+    "physicalPhoneCheck": "not performed",
+    "hostedConcurrentLoadTest": "not performed"
+  }
+}
