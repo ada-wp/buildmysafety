@@ -1,6 +1,18 @@
 # Technical status and next implementation boundary
 
-## October 14 request feedback and US market repair — current preview
+## October 14 AI allowance repair — current preview
+
+Deployment `8ef44eea` (code `09dc0ee`, client `index-Cr08L08u.js`) is live on app-auth-staging. Only the allowlisted `app/dist/client` artifact was uploaded; production, credentials and database schema are unchanged. The fresh remote pending-deletion count was zero.
+
+The reported retry showed an actual `limit_reached` response. The enabled exact preview host now receives a trusted server policy of **10 attempts per account / 600 shared per UTC day**. Other handlers retain the 3/30 defaults; client-supplied or outer environment policy overrides are ignored. Existing failures and attempts remain counted, with atomic reservations, concurrent-request protection and idempotent replay intact. This is an attempt allowance, not an OpenAI free tier, a dollar cap or proof of capacity for 200 concurrent users.
+
+Quota responses provide account/shared scope, the applicable limit and the next UTC-midnight reset time. The interface says “No AI step was created,” keeps the draft, disables another AI submission while that quota response remains active, and offers an explicit prepared-collection route without submitting the note or calling AI. The old hardcoded three-attempt copy is removed. If a later pool result replaces the latest quota response, the server still enforces the allowance on any subsequent AI request.
+
+**Verification:** 158 backend and 121 app tests pass, including old defaults, preview isolation, failed-attempt counting, account/shared caps, UTC rollover, replay, concurrent requests and response validation. TypeScript, Vite and Worker packaging pass. An ignored local fixture of the actual TaskJourney component verified the visible blocked state, disabled AI control, pool-only recovery and retained text at 320px; it uses no account or model call and is excluded from deployment.
+
+One paid hosted request on the previously approved fictional B account generated “Find out if a pharmacy can deliver” using the reviewed `cvs_delivery` resource. Storage, exact replay, unchanged earlier tasks and removal of the raw note from latest-batch storage passed. A scoped read-only D1 aggregate confirmed **four account attempts that day and exactly one row for the verified request**, so generation worked beyond the previous cap without resetting counters. See [the hosted verification](../app/verification-quota-release.json). The live user tab was refreshed to the new version with her original draft and selections restored, without submitting her request. This verifies the quota repair and one generated answer; wider content reliability remains separate.
+
+## October 14 request feedback and US market repair — earlier preview
 
 Deployment `bc3f93c1` (code `5716fb0`, client `index-deCQQKD9.js`) is live on the existing app-auth-staging alias. Only `app/dist/client` was uploaded; production is unchanged. No schema/data migration, quota increase or credential change was needed. The pre-release remote D1 pending-deletion count was zero.
 
