@@ -1,5 +1,13 @@
 # Technical status and next implementation boundary
 
+## October 14 founder AI allowance — current preview
+
+Deployment `415a8acf` (code `5358d6c`, client `index-C2R59VFK.js`) enables Ada's requested unlimited daily AI attempts for her existing account. Its Clerk user ID was verified against the existing Clerk Users record; only this ID is configured in the server-side `AI_UNLIMITED_USER_IDS` allowlist. No browser email, request flag or profile answer can grant the exception. The Worker forwards it only on the exact enabled tester hostname. Other accounts retain 10/day and 600 shared/day, excluding allowlisted owner attempts from the shared total. OpenAI billing, provider limits, one active request per account, version guards, replay protection, retained attempt records, token/time bounds and category/content validation remain in effect.
+
+GET latest-batch projects current access over an old quota response so refreshing no longer leaves an exempt account blocked by stale feedback. Historical attempts and stored batch payloads remain unchanged. The app exposes only the authenticated account's boolean allowance, not the allowlist. Removing the ID restores normal accounting from retained attempt history. There is no database migration or production-site change.
+
+Verification: **178 backend and 130 app tests pass**, plus strict TypeScript, Vite and allowlisted packaging. SQL and HTTP tests exercise both exhausted caps, non-consumption of the shared allowance, account isolation, malformed configuration, request spoofing, concurrent locks, replay, stale-state rejection and clearing stale quota UI metadata. The fresh remote pending-deletion count was zero. The deployed app visibly shows “Unlimited AI requests on your account” in Ada's existing signed-in session. An independent approved fictional B session receives no unlimited flag; public health is 200 and unauthenticated catalog access is 401. No model calls or task/profile edits were needed for this deployment check. See [verification](../app/verification-founder-ai-access.json).
+
 ## October 14 audited sick-day tester release — current preview
 
 Deployment **`7c597a2f`**, code **`e5bbda6`**, client **`index-CzWCxSxh.js`**, is live at the existing app-auth-staging alias. Only `app/dist/client` was uploaded. Migration **0006_category_progress.sql** is applied to `buildmysafety-memory-staging`; a fresh pre-deployment check found zero pending deletions. Production identity, website and data were not changed.
