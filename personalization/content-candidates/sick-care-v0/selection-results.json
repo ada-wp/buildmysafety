@@ -1,7 +1,8 @@
 {
   "date": "2026-10-13",
-  "status": "candidate_editorial_rehearsal",
+  "status": "superseded_strict_candidate_rehearsal",
   "poolVersion": "sick-care-learning-draft-2026-10-13",
+  "supersededBy": "Founder requested priority-first selection after this rehearsal. See docs/personalization-plan-v0.md, Shared ranking rules. These historical checks do not validate that correction.",
   "poolSha256": "4486a6b7bad9f8b9b5ea197f7040c65c365b8416a51ddfe25223b5811a0863a8",
   "limitations": "Synthetic authored inputs and eligibility annotations. Executes filtering/ranking checks for the candidate review only. Does not test production matching, text interpretation, AI, authentication, D1, UI or deployment. No source re-verification or quality/market-effectiveness claim.",
   "checks": [

@@ -1,5 +1,7 @@
 # Sick-day selection rehearsal
 
+> Historical result: Ada subsequently rejected this rehearsal's excessive exclusions. Use the [current priority-first rules](../../../docs/personalization-plan-v0.md#shared-ranking-rules--all-categories). Unknown context and unstated specific gaps should not automatically remove useful suggestions. The checks below preserve the former behavior; revised selection has not been tested here.
+
 October 13, 2026. Three fictional situations reviewed against the 30-task learning draft. **This is a candidate-content rehearsal, not a live app test or AI output.** No user accounts, API calls or deployment were involved.
 
 Pool: `sick-care-learning-draft-2026-10-13`. SHA-256: `4486a6b7bad9f8b9b5ea197f7040c65c365b8416a51ddfe25223b5811a0863a8`.
@@ -110,7 +112,7 @@ Resources: LOCAL_211. Exact current pool copy; no AI rewrite.
 
 **What needs attention:** All three fitting learning tasks use a resource. The existing limit yields one per batch; do not strip the useful source, add a trivial chore, or enforce the 40% pool ratio on this person.
 
-## What this changes about the next build
+## Original findings — read with the correction above
 
 1. Keep the current checkbox → suggestions → inspect → add flow. Do not make every checkbox imply an unconfirmed deficiency. A broad selection may need a conditional starting task or one optional clarification; the strict rehearsal returns no result without a stated need.
 2. Preserve one resource task per batch and up to two resources within it. More ideas can return the next distinct fit. Do not remove valuable links, add filler, or use provider names to evade the allowance.

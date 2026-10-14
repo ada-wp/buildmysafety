@@ -1,4 +1,6 @@
-/** Candidate-content rehearsal ONLY; not imported by the app or a production matcher.
+/** HISTORICAL strict rehearsal; founder rejected its excessive exclusions.
+ * Retained for reproduction only. Not a test of current priority-first policy.
+ * Candidate-content rehearsal ONLY; not imported by the app or a production matcher.
  * The facts, needs and fit annotations below are authored synthetic review inputs.
  * No free-text understanding, AI generation, user storage or live API is tested here.
  * Run from any directory: node <path>/selection-rehearsal.mjs
@@ -231,7 +233,8 @@ const results = cases.map((input, index) => {
     tasks: result.selected.map(id => structuredClone(byId.get(id))) };
 });
 const evidence = {
-  date: '2026-10-13', status: 'candidate_editorial_rehearsal', poolVersion: pool.version,
+  date: '2026-10-13', status: 'superseded_strict_candidate_rehearsal', poolVersion: pool.version,
+  supersededBy: 'Founder requested priority-first selection after this rehearsal. See docs/personalization-plan-v0.md, Shared ranking rules. These historical checks do not validate that correction.',
   poolSha256: createHash('sha256').update(source).digest('hex'),
   limitations: 'Synthetic authored inputs and eligibility annotations. Executes filtering/ranking checks for the candidate review only. Does not test production matching, text interpretation, AI, authentication, D1, UI or deployment. No source re-verification or quality/market-effectiveness claim.',
   checks, results
@@ -240,6 +243,7 @@ writeFileSync(new URL('selection-results.json', folder), JSON.stringify(evidence
 
 const lines = [
   '# Sick-day selection rehearsal', '',
+  '> Historical result: Ada subsequently rejected this rehearsal\'s excessive exclusions. Use the [current priority-first rules](../../../docs/personalization-plan-v0.md#shared-ranking-rules--all-categories). Unknown context and unstated specific gaps should not automatically remove useful suggestions. The checks below preserve the former behavior; revised selection has not been tested here.', '',
   'October 13, 2026. Three fictional situations reviewed against the 30-task learning draft. **This is a candidate-content rehearsal, not a live app test or AI output.** No user accounts, API calls or deployment were involved.', '',
   `Pool: \`${pool.version}\`. SHA-256: \`${evidence.poolSha256}\`.`, '',
   '## What ran', '',
@@ -267,7 +271,7 @@ for (const r of results) {
   }
   lines.push('', `**What needs attention:** ${r.input.gap}`, '');
 }
-lines.push('## What this changes about the next build', '',
+lines.push('## Original findings — read with the correction above', '',
   '1. Keep the current checkbox → suggestions → inspect → add flow. Do not make every checkbox imply an unconfirmed deficiency. A broad selection may need a conditional starting task or one optional clarification; the strict rehearsal returns no result without a stated need.',
   '2. Preserve one resource task per batch and up to two resources within it. More ideas can return the next distinct fit. Do not remove valuable links, add filler, or use provider names to evade the allowance.',
   '3. Improve the pet-care bridge before release: learning what services exist is useful, but does not choose a carer. Craft a genuinely useful candidate-selection step or revise the intended transition; no change to the pool was made in this rehearsal.',
