@@ -121,6 +121,21 @@ test('US request coverage supplies resources even when a returning profile has n
   assert.equal(unscoped.resources.size, 0, 'Shared API still protects regional eligibility outside app market');
 });
 
+test('pharmacy delivery remains a new outcome after groceries or clinic research, but not after the same delivery task', async () => {
+  const p = await prepare(options({ concernIds: ['getting_care'] }));
+  const delivery = { action_key: 'research_pharmacy_delivery', concern_ids: ['getting_care'],
+    title: 'Understand pharmacy delivery before you need it', summary: 'Learn which delivery rules could matter on a future sick day.',
+    estimated_minutes: 15, steps: ['Find a licensed pharmacy with a delivery information page.',
+      'Check area, fees, order cutoffs and handoff requirements; availability depends on the pharmacy.',
+      'If anything is unclear, identify the question to ask the pharmacy before relying on delivery.'],
+    done_when: 'You understand the delivery conditions and what still needs confirmation.', resources: [], purchase_checks: [], no_purchase_option: null };
+  const history = [18, 1].map(id => ({ state: taskState(key(id)), content: catalog.actions.find(a => a.actionKey === key(id)).task }));
+  const accepted = acceptNewNeed({ decision: 'generated', task: delivery }, p, catalog, history, checkTaskCopy);
+  assert.equal(accepted.decision, 'generated');
+  const repeat = [...history, { state: taskState(accepted.task.action_key), content: accepted.task }];
+  assert.throws(() => acceptNewNeed({ decision: 'generated', task: delivery }, p, catalog, repeat, checkTaskCopy), /repeated_outcome/);
+});
+
 function setup(t, generate) {
   const sql = new DatabaseSync(':memory:'); sql.exec('PRAGMA foreign_keys = ON');
   const migrations = new URL('../migrations/', import.meta.url);

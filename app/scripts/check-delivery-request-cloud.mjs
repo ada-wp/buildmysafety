@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import { origin, withPrivacyTestSession } from './privacy-test-session.mjs';
 if (!process.argv.includes('--paid')) throw new Error('Pass --paid for one real model attempt. No automatic retries.');
-const file = new URL('../verification-delivery-request.json', import.meta.url);
+const file = new URL(process.argv.includes('--follow-up') ? '../verification-delivery-request-followup.json' : '../verification-delivery-request.json', import.meta.url);
 const report = { testedAt: new Date().toISOString(), host: origin,
   evidence: 'Independent fictional Clerk B session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.' };
 try {
