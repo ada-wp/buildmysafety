@@ -5,6 +5,7 @@ October 12, 2026. **Thirty complete authored task candidates, proposed checkboxe
 - [Read the 30 tasks](REVIEW.md) — readable view generated from the pool.
 - [Proposed priority mapping for all 30](REVIEW.md#proposed-priority-mapping) — 15 Core preparation, 11 Make it reliable, 4 Extra ease; individual ratings await review.
 - [Twelve practical learning tasks](REVIEW.md#practical-learning--proposed-rewrite) — the October 13 rewrite adds useful knowledge and resource awareness, with ten learning tasks in tiers 2/3.
+- [Three selection rehearsals](SELECTION-REVIEW.md) — executed against the candidate draft, with exact task copy, exclusions and gaps; not a live app or AI test.
 - [Pool data](pool.json) — canonical editable task content and plain-language fit conditions.
 - [Research and source limitations](../../../research/sick-care-pool-sources.md).
 - [Category-specific AI prompt](../../../docs/prompts/sick-care-category-v0.md).
@@ -101,6 +102,8 @@ These are editorial selection examples, not claims of executed backend tests:
 | Immediate symptoms, emergency or medication question | Separate appropriate safety/professional-help response. | Give a preventive roadmap or infer treatment. |
 
 ## Integration notes — later, after content review
+
+**October 13 selection checkpoint:** three synthetic cases and fourteen bounded checks ran in [the candidate rehearsal](SELECTION-REVIEW.md). Each first batch contains one fitting task: SC01 for a missing care route, SC26 for pet-service discovery, and SC21 for learning about local support. The existing resource allowance defers other research tasks to later batches. Pet discovery currently lacks a strong bridge to selecting an actual sitter candidate; learning does not unlock a handoff. Broad checkboxes also do not establish all the facts required by the draft's strict fit conditions. Resolve those content/transition gaps before integration. The script uses manually authored test facts and fit annotations, not production matching or AI interpretation. No pool copy, app code or cloud data changed.
 
 This folder is intentionally outside the runtime catalog. `use_when`, `skip_when` and `variants` are editorial conditions, not executable matching code. Don't import the JSON and claim those rules are enforced.
 
