@@ -1,6 +1,6 @@
 # Sick days & care — category writer candidate
 
-**October 13 integration:** this instruction block is now compiled into the app's bounded adaptation and new-need paths. Each path appends its own one-task response contract. The reviewed resource mapper and targeted prescription-logistics guard changes are connected and covered by automated tests. Hosted deployment and a paid end-to-end result remain pending; see [technical status](../technical-status.md). The original candidate status and proposed test cases below are historical context. This is prompt configuration, not model training or public content approval.
+**October 14 integration:** this instruction block is compiled into preview `90c31b61`'s bounded adaptation and new-need paths. Each path appends its own one-task response contract. The reviewed resource mapper and targeted prescription-logistics guard changes are connected and covered by automated tests. One real hosted request generated a care-cost research task, which saved and replayed successfully; see [technical status](../technical-status.md) and [original result](../../app/verification-sick-care-release.json). The original candidate status and proposed test cases below are historical context. This is prompt configuration, not model training or public content approval.
 
 October 12, 2026; learning balance and priority-first selection revised October 13. Candidate instructions for the new thirty-task package. Not deployed, not fine-tuned and not yet tested through a new paid API call. The approved V1, older English writing tests and runtime prompts retain their separate status.
 
@@ -66,7 +66,7 @@ Use the existing request shape and strict response schema; this file is not a ne
 
 For the current new-need path, reuse the `decision`/`task` contract in `personalization/new-needs.mjs` and task schema in `personalization/contracts.mjs`. For adaptation, reuse its existing contract and immutable target action. Map proposed concern IDs deliberately before testing; do not paste candidate IDs into the current server unchanged.
 
-The current runtime still enforces a 20-minute new-task limit and broader keyword/helper/spending bans. Some authored pool actions take 25–30 active minutes or have explicit prerequisites. This writing candidate does not silently remove those protections. Make and test focused implementation changes separately before calling this prompt connected.
+The current preview allows up to 30 active minutes for a generated task, while respecting a smaller explicit limit. It permits research about prices and prescription administration but retains clinical/urgent checks, no required payment or booking, real action dependencies, regional resource eligibility and duplicate checks. A broad onboarding cost preference affects priority; the explicit no-paid-service control remains a restriction. These are implemented checks, not permissions granted by the model itself.
 
 ## Examples and evaluation
 

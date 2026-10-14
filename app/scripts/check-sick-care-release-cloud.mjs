@@ -1,7 +1,36 @@
 // Authorized founder preview only. Fictional B; no personal browser session or keys.
 import assert from 'node:assert/strict';
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { origin, withPrivacyTestSession } from './privacy-test-session.mjs';
+// Additional non-paid verification can run without repeating the successful AI call.
+if (process.argv.includes('--more-only')) {
+  const file = new URL('../verification-sick-care-release.json', import.meta.url);
+  const report = JSON.parse(await readFile(file, 'utf8'));
+  await withPrivacyTestSession(false, async ({ api }) => {
+    const before = await api('/api/tasks'); assert.equal(before.status, 200);
+    let version = before.body.stateVersion;
+    const shown = new Set(before.body.tasks.map(t => t.state.actionKey));
+    const batches = [];
+    for (let i = 0; i < 2; i++) {
+      const input = { route: 'pool', requestId: crypto.randomUUID(), expectedStateVersion: version,
+        request: { topicId: 'sick_care', concernIds: ['getting_care'], country: 'US' } };
+      const next = await api('/api/recommendations', input); assert.equal(next.status, 200);
+      assert.equal(next.body.source, 'pool'); assert.ok(next.body.batch.tasks.length);
+      assert.ok(next.body.batch.tasks.filter(t => t.resources.length).length <= 1);
+      for (const task of next.body.batch.tasks) { assert.ok(!shown.has(task.action_key)); shown.add(task.action_key); }
+      assert.deepEqual((await api('/api/recommendations/latest')).body.result.batch, next.body.batch);
+      batches.push(next.body.batch.tasks.map(t => ({ key: t.action_key, title: t.title })));
+      version = next.body.stateVersion;
+    }
+    const after = await api('/api/tasks'); assert.equal(after.status, 200);
+    for (const old of before.body.tasks) assert.deepEqual(after.body.tasks.find(t => t.state.actionKey === old.state.actionKey), old);
+    report.moreIdeas = { testedAt: new Date().toISOString(), unchangedChoices: true, distinctBatches: batches,
+      priorSavedWorkPreserved: true, latestReadback: true, aiCalls: 0 };
+  });
+  await writeFile(file, JSON.stringify(report, null, 2) + '\n');
+  console.log(JSON.stringify(report.moreIdeas, null, 2));
+  process.exit(0);
+}
 if (!process.argv.includes('--paid')) throw new Error('This hosted check includes one explicitly authorized paid call. Pass --paid.');
 const report = { testedAt: new Date().toISOString(), host: origin,
   evidence: 'Actual Clerk/Worker/D1 and one OpenAI request through independent fictional B HTTP session; not browser-button evidence.' };

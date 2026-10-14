@@ -2,7 +2,7 @@
 
 Step 1 consolidated the preserved welcome/onboarding/interests/recap screens, portable API client and profile controller. **Step 2 is complete for the development build:** Clerk supplies verified email sign-in, while the existing [`personalization/`](../personalization/README.md) backend and Cloudflare D1 continue to own app profiles. The old second server remains [archived](../archive/app-server-draft-20261011/README.md).
 
-The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/), deployment `cfb9661a` after the October 12 navigation/recovery pass. It uses a Clerk development instance and the isolated memory staging database. This is a testing environment, not a customer launch or a replacement for the production website. Suggestion quality still needs improvement and founder approval.
+The current development preview is [app-auth-staging.buildmysafety.pages.dev](https://app-auth-staging.buildmysafety.pages.dev/?v=90c31b61#/app/concerns/sick_care), deployment `90c31b61` after the October 14 priority-first sick-day collection release. It uses a Clerk development instance and the isolated memory staging database. The five revised concerns, 27 mapped candidates, reviewed resource catalog and category-specific writer are connected. [Hosted evidence](verification-sick-care-release.json) covers pool/More ideas, save/complete/return and one actual OpenAI generation; 267 automated tests pass. This is a testing environment, not a customer launch or a replacement for the production website. Suggestion quality still needs founder review.
 
 ## Boundaries
 
