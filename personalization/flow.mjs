@@ -1,5 +1,6 @@
 import { Buffer } from 'node:buffer';
 import { privatePrefix, privateAction } from './private-actions.mjs';
+import { sameOutcome } from './outcome-similarity.mjs';
 import {
   validProfile, validTaskState, validRequest, validOutput, validCountry,
   outputSchema, instructions, promptHash, hash, requireRule, FlowError
@@ -156,6 +157,9 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     (!refinement || action.actionKey === refinement.state.actionKey) &&
     (refinement || (!action.retired && !action.requestOnly)) &&
     action.topicIds.includes(topic.id) && !excluded.has(action.actionKey) && !excludedGroups.has(outcomeGroup(action)) &&
+    // A private AI result has its own key, but may already cover a library
+    // outcome. Keep normal pool requests from showing that same work again.
+    (refinement || !privateActions.some(previous => sameOutcome(action.task, previous.task))) &&
     (prioritize || (action.requiresConcernIds || []).every(id => request.concernIds.includes(id))) &&
     (prioritize || !request.concernIds.length || action.concernIds.some(id => request.concernIds.includes(id))) &&
     (effective.noSpend !== true || !action.futurePaidService) &&

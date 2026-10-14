@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "users": 200,
+  "inFlightJourneys": 20,
+  "localElapsedMs": 2014.47,
+  "queries": 16800,
+  "batches": 3800,
+  "largestResponseBytes": 3590,
+  "rows": {
+    "profiles": 200,
+    "tasks": 600,
+    "sharedContent": 3,
+    "awards": 200,
+    "categoryProgress": 200,
+    "aiAttempts": 0
+  },
+  "routes": {
+    "POST /api/memory": {
+      "requests": 200,
+      "localP50Ms": 7.76,
+      "localP95Ms": 49.62,
+      "localMaxMs": 149.54
+    },
+    "POST /api/recommendations": {
+      "requests": 200,
+      "localP50Ms": 56.41,
+      "localP95Ms": 147.05,
+      "localMaxMs": 147.65
+    },
+    "GET /api/tasks": {
+      "requests": 400,
+      "localP50Ms": 9.5,
+      "localP95Ms": 16.09,
+      "localMaxMs": 16.58
+    },
+    "POST /api/tasks/action": {
+      "requests": 800,
+      "localP50Ms": 15.19,
+      "localP95Ms": 25.51,
+      "localMaxMs": 30.72
+    },
+    "GET /api/progress": {
+      "requests": 400,
+      "localP50Ms": 5.27,
+      "localP95Ms": 10.45,
+      "localMaxMs": 10.65
+    },
+    "PATCH /api/progress": {
+      "requests": 200,
+      "localP50Ms": 12.25,
+      "localP95Ms": 19.03,
+      "localMaxMs": 19.7
+    }
+  },
+  "verifies": [
+    "200 separate owners",
+    "three prepared suggestions",
+    "save and completion persistence",
+    "one award across undo and re-completion",
+    "milestone and optional check-in persistence",
+    "shared content stored once",
+    "no model calls"
+  ],
+  "limits": [
+    "Disposable synchronous SQLite, not remote D1",
+    "Injected identities, not real Clerk/email sign-in",
+    "No network latency, mobile rendering, edge limits or distributed contention",
+    "Does not prove readiness for 200 simultaneous hosted users or AI requests"
+  ]
+}

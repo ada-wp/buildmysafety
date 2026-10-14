@@ -130,6 +130,48 @@ test('real client, worker and D1 agree on owned catalog, batch, detail, completi
     error => error instanceof SafetyApiError && error.conflict);
 });
 
+test('real journey reaches all five milestones, retains check-ins after reload and keeps undo separate from awards', async t => {
+  const { client, calls } = setup(t); const alice = client(); const bob = client('bob');
+  await alice.createMemory({ interests: ['sick_care'] }); await bob.createMemory();
+  let version = '1'; let completed = 0; let requestNumber = 0;
+  for (; completed < 10;) {
+    const batch = await alice.recommendations({ route: 'pool', requestId: `progress_journey_${++requestNumber}`,
+      expectedStateVersion: version, request: { topicId: 'sick_care', concernIds: ['food', 'getting_care', 'daily_tasks', 'pets', 'check_in'], country: 'US' } });
+    assert.equal(batch.source, 'pool'); assert.ok(batch.batch.tasks.length);
+    if (batch.source !== 'pool') throw new Error('Expected prepared tasks');
+    version = batch.stateVersion;
+    for (const task of batch.batch.tasks) {
+      const saved = await alice.taskAction({ actionKey: task.action_key, expectedStateVersion: version, event: { type: 'save' } });
+      const done = await alice.taskAction({ actionKey: task.action_key, expectedStateVersion: saved.stateVersion, event: { type: 'complete' } });
+      version = done.stateVersion; completed++;
+      const progress = await alice.getProgress(); const sick = progress.categories[0];
+      assert.equal(progress.stateVersion, version); assert.equal(sick.completedCount, completed); assert.equal(sick.earnedCount, completed);
+      if ([1, 3, 6, 9, 10].includes(completed)) {
+        const write = { topicId: 'sick_care' as const, expectedStateVersion: version, expectedRevision: sick.revision, milestone: completed };
+        const acknowledged = await alice.updateProgress(write);
+        assert.ok(acknowledged.categories[0].seenMilestones.includes(completed));
+        assert.deepEqual(await alice.updateProgress(write), acknowledged);
+        if (completed === 6) await alice.updateProgress({ ...write, expectedRevision: acknowledged.categories[0].revision, feeling: 'somewhat' });
+      }
+      if (completed === 10) {
+        const beforeUndo = await client().getProgress();
+        assert.deepEqual(beforeUndo.categories[0].seenMilestones, [1, 3, 6, 9, 10]);
+        assert.equal(beforeUndo.categories[0].latestCheckIn?.feeling, 'somewhat');
+        const undone = await alice.taskAction({ actionKey: task.action_key, expectedStateVersion: version, event: { type: 'undo_complete' } });
+        const afterUndo = await alice.getProgress();
+        assert.equal(afterUndo.categories[0].completedCount, 9); assert.equal(afterUndo.categories[0].earnedCount, 10);
+        assert.deepEqual(afterUndo.categories[0].seenMilestones, [1, 3, 6, 9, 10]);
+        await alice.taskAction({ actionKey: task.action_key, expectedStateVersion: undone.stateVersion, event: { type: 'complete' } });
+        assert.equal((await alice.getProgress()).categories[0].earnedCount, 10);
+        break;
+      }
+    }
+  }
+  assert.equal((await bob.getProgress()).categories[0].completedCount, 0);
+  assert.deepEqual((await bob.getProgress()).categories[0].seenMilestones, []);
+  assert.equal(calls.filter(c => c.path === '/api/progress' && c.method === 'PATCH').length, 11);
+});
+
 test('client sends explicit feedback to refine a previously shown unsaved task and reloads its replacement', async t => {
   const { client } = setup(t, true);
   const alice = client();

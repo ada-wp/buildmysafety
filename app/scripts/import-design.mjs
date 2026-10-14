@@ -1,4 +1,10 @@
 import {readFileSync, writeFileSync, mkdirSync} from 'node:fs';
+// Historical one-time importer, not a build step. Its old design snapshot
+// replaces maintained onboarding code and the elephant asset. Restore only
+// after deliberately reviewing those replacements and the current contracts.
+if (process.argv.length !== 3 || process.argv[2] !== '--restore-historical-design') {
+  throw new Error('Historical importer disabled. Maintain src/onboarding.ts and public/elephant.svg directly. A deliberate snapshot restoration requires --restore-historical-design.');
+}
 const source=readFileSync(new URL('../../design/app/onboarding/source.fragment.html',import.meta.url),'utf8');
 const start=source.indexOf(' const questions=['), end=source.indexOf('\n ];',start)+4;
 if(start<0 || end<start) throw new Error('Onboarding source changed; inspect before importing.');

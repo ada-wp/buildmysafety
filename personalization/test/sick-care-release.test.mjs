@@ -33,6 +33,20 @@ test('every connected authored task passes the real task shape, length and resou
   }
 });
 
+test('active category keeps the agreed three-step format and collection-level learning balance', () => {
+  const active = catalog.actions.filter(action => !action.retired);
+  const learning = active.filter(action => action.taskKind === 'learning');
+  const share = learning.length / active.length;
+  assert.ok(share >= 0.3 && share <= 0.5, `Learning share is ${learning.length}/${active.length}`);
+  assert.ok(learning.filter(action => action.priority > 0).length > learning.filter(action => action.priority === 0).length,
+    'Most dedicated learning belongs in Make it reliable and Extra ease');
+  for (const action of active) {
+    assert.equal(action.task.steps.length, 3, action.actionKey);
+    assert.ok(action.task.done_when.trim(), action.actionKey);
+    assert.ok(action.task.resources.length <= 2, action.actionKey);
+  }
+});
+
 test('checkbox-only starts; unchecked concerns and unknown budget remain ranked options', async () => {
   for (const c of sickCareConcerns) {
     const o = options({ concernIds: [c.id] });
@@ -90,6 +104,21 @@ test('more ideas stays distinct; reworded rest-space outcome does not duplicate 
     contentRef: catalog.actions.find(a => a.actionKey === t.action_key).contentRef }))); });
   const next = await recommend(o); assert.equal(next.status, 'ok'); assert.ok(next.batch.tasks.length);
   assert.ok(next.batch.tasks.every(t => !first.batch.tasks.some(old => old.action_key === t.action_key)));
+});
+
+test('ordinary pool matching does not repeat an outcome already delivered as a private AI task', async () => {
+  const o = options({ concernIds: ['food'] });
+  const original = catalog.actions.find(action => action.actionKey === key(10));
+  const content = { ...structuredClone(original.task), action_key: 'custom_sick_care_groceries_to_door' };
+  const state = taskState(content.action_key, { contentRef: 'ai_owned_grocery_outcome' });
+  o.store.change(snapshot => { snapshot.taskStates = [state]; });
+  o.store.readTasks = async () => ({ stateVersion: o.store.inspect().stateVersion,
+    tasks: [{ state, content }], earnedCount: 0 });
+  const prepared = await prepare(o);
+  assert.ok(!prepared.candidates.some(action => action.actionKey === original.actionKey));
+  assert.ok(prepared.candidates.some(action => action.actionKey === key(7)),
+    'A different delivery need, pharmacy access, remains available');
+  assert.ok(!poolBatch(prepared).tasks.some(task => task.action_key === original.actionKey));
 });
 
 test('regional resource limits remain real; bounded AI packet contains useful current resources', async () => {
@@ -200,6 +229,19 @@ test('actual new-catalog HTTP/D1 loop: two owners, more, replay, save, completio
   assert.equal((await store.applyTaskAction('alice', undo.stateVersion, item.state.actionKey, { type: 'complete' })).earnedCount, 1);
   assert.deepEqual((await store.readTasks('alice')).tasks.find(a => a.state.actionKey === item.state.actionKey).content, item.content);
   assert.deepEqual((await store.readTasks('bob')).tasks, []); assert.equal(calls, 0);
+});
+
+test('ordinary checkbox selection through the automatic route keeps three reviewed cards without an AI call', async t => {
+  let calls = 0;
+  const { store, api } = setup(t, async () => { calls++; throw new Error('Checkbox matching should not call AI'); });
+  await store.createProfile('alice', { answers: { country: 'US', constraints: ['cost', 'energy', 'support'], style: 'one' } });
+  const result = await api('alice', { route: 'auto', requestId: 'ordinary_checkbox_no_model', expectedStateVersion: '1',
+    request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] } });
+  assert.equal(result.status, 200);
+  assert.equal(result.body.adaptation.status, 'not_needed');
+  assert.equal(result.body.batch.tasks.length, 3);
+  assert.ok(result.body.batch.tasks.every(task => !task.action_key.startsWith('custom_')));
+  assert.equal(calls, 0);
 });
 
 test('new-catalog linked pet request stays honestly short when no distinct unlinked pet companions exist', async t => {

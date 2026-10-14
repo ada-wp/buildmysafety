@@ -58,8 +58,8 @@ export function PrivacyScreen({ client, session, signedIn, onSignIn, onDeleted, 
   return <section className="privacy-screen">
     <span className="eyebrow">Your choices, yours</span><h1 tabIndex={-1}>Your data.<br />Your say.</h1>
     <h2>What we keep</h2>
-    <p>Your saved onboarding choices, task instructions, list, progress and feedback live in our Cloudflare database. Clerk manages your email and sign-in separately.</p>
-    <p>Optional feelings and reflections stay in the current page. We don’t save those as part of your profile.</p>
+    <p>We save your preferences, tasks, progress and feedback so you can return to them. Clerk manages your email and sign-in.</p>
+    <p>Your optional feelings answer during onboarding stays on that page. If you answer a milestone check-in, we save your latest answer for that topic.</p>
     <h2>When AI helps</h2>
     <p>A request you type for suggestions can go to OpenAI, together with relevant preferences and task history. We don’t send your email or account ID. Please leave out addresses, medical details and other private information.</p>
     <p>We don’t keep the original typed request in app storage, but we save the task it produces. OpenAI may retain data under its own policies; deleting your app account doesn’t instantly erase provider logs.</p>
@@ -69,7 +69,7 @@ export function PrivacyScreen({ client, session, signedIn, onSignIn, onDeleted, 
     <h2>Download or leave</h2>
     <p>Download your app data as a JSON file before deleting. It includes saved answers, tasks, feedback and progress. Email and sign-in records held by Clerk are outside this app-data export.</p>
     <p>Deletion removes your data from our active app database and asks Clerk to remove your sign-in account. A small record containing your account ID, deletion status and dates stays to block old sessions and handle retries. Database backups may retain older copies for up to 30 days.</p>
-    <p className="hint">This is the development preview. These controls apply to this app account, not the older website’s Safety Scan.</p>
+    <p className="hint">These controls cover your app account. If you used the website’s separate Safety Scan, its records are not included here.</p>
     {message && <p role="status" className="message">{message}</p>}
     {connectionError && !account?.deletion && <p role="alert" className="message">{connectionError} Check your account status before trying again.</p>}
     {!signedIn ? <p>Sign in to download or delete your app data. {onSignIn && <button className="text-button" onClick={onSignIn}>Sign in with email</button>}</p>

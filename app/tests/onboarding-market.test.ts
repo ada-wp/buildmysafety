@@ -4,10 +4,12 @@ import { questions, questionStep } from '../src/onboarding.ts';
 import { emptyDraft, editableProfile } from '../src/profile-draft.ts';
 import { SERVICE_COUNTRY } from '../src/service-market.ts';
 
-test('US coverage removes the country question; older checkpoints continue to the optional note', () => {
+test('country and unused reflection are removed; older question references remain valid', () => {
   assert.equal(questions.some(q => q.id === 'country'), false);
-  assert.equal(questions[questionStep('country')].id, 'note');
-  assert.equal(questions[questionStep('style') + 1].id, 'note');
+  assert.equal(questions.some(q => q.id === 'note'), false);
+  assert.equal(questions[questionStep('country')].id, 'style');
+  assert.equal(questions[questionStep('note')].id, 'style');
+  assert.equal(questions.at(-1)?.id, 'style');
   assert.equal(questionStep('unknown'), 0);
 });
 

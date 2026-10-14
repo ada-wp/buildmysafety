@@ -4,6 +4,8 @@ import { poolBatch, validateBatch } from './flow.mjs';
 import { privatePrefix } from './private-actions.mjs';
 import { feedbackGuidance } from './feedback-guidance.mjs';
 import { sickCareInstructions } from './generated/contracts.mjs';
+import { sameOutcome } from './outcome-similarity.mjs';
+export { sameOutcome } from './outcome-similarity.mjs';
 
 export const newNeedInstructions = `${sickCareInstructions}
 ${feedbackGuidance}
@@ -44,17 +46,6 @@ export function buildNewNeedRequest(prepared, catalog, history, model) {
         task: { anyOf: [taskSchema, { type: 'null' }] }
       } } } }
   };
-}
-
-const words = text => new Set(text.toLowerCase().match(/[\p{L}\p{N}]+/gu)?.filter(w =>
-  !['a', 'an', 'the', 'to', 'for', 'your', 'you', 'in', 'on', 'and', 'of', 'is', 'are', 'with', 'when'].includes(w)) || []);
-export function sameOutcome(a, b) {
-  const overlap = (x, y) => {
-    const left = words(x), right = words(y);
-    return left.size && right.size ? [...left].filter(w => right.has(w)).length / Math.max(left.size, right.size) : 0;
-  };
-  return overlap(a.done_when, b.done_when) >= 0.8 ||
-    (overlap(a.title, b.title) >= 0.8 && overlap(a.steps.join(' '), b.steps.join(' ')) >= 0.65);
 }
 
 export function acceptNewNeed(output, prepared, catalog, history, checkCopy) {

@@ -63,6 +63,8 @@ async function seed(s: ReturnType<typeof setup>, who = 'alice') {
   s.sql.prepare(`INSERT INTO memory_completion_awards VALUES (?, 'one', '2026-10-12')`).run(owner);
   s.sql.prepare(`INSERT INTO memory_latest_batch VALUES (?, 'request1', 'hash', 'secret-commit-token', '{"batch":[]}', '2026-10-12')`).run(owner);
   s.sql.prepare(`INSERT INTO memory_ai_attempts VALUES (?, 'request1', ?, '2026-10-12', 1, 2, 1, 'adapted', 25, 20)`).run(owner, `${who}-internal-lease-token`);
+  s.sql.prepare(`INSERT INTO memory_category_progress VALUES (?, 'sick_care', 1, '[1]', ?, '2026-10-14')`).run(owner,
+    JSON.stringify({ feeling: who === 'alice' ? 'ready' : 'unsure', milestone: 1, answeredAt: '2026-10-14T12:00:00.000Z' }));
 }
 
 test('export is owner scoped, consistent and complete for all app tables, without internal tokens', async t => {
@@ -72,6 +74,8 @@ test('export is owner scoped, consistent and complete for all app tables, withou
   assert.equal(output.privateTaskContent[0].task && (output.privateTaskContent[0].task as {title:string}).title, 'alice private');
   assert.equal(output.awards.length, 1); assert.equal(output.aiUsage.length, 1); assert.ok(output.onboarding); assert.ok(output.latestBatch);
   assert.equal(output.sharedTaskContent.length, 1);
+  assert.equal(output.categoryProgress.length, 1);
+  assert.deepEqual(output.categoryProgress[0].check_in, { feeling: 'ready', milestone: 1, answeredAt: '2026-10-14T12:00:00.000Z' });
   assert.doesNotMatch(JSON.stringify(output), /user_bob|bob private|secret-commit-token|internal-lease-token|sk_test/);
   assert.equal((await s.send('/api/account/export')).headers.get('Cache-Control'), 'no-store');
   assert.equal(s.calls(), 0);
@@ -103,13 +107,13 @@ test('deletion removes all app records atomically and keeps the other user and s
   const beforeBob = await s.client('bob').exportAccount();
   assert.equal((await s.client().deleteAccount('DELETE')).deletion.status, 'deleted');
   for (const table of ['memory_profiles', 'onboarding_progress', 'memory_task_states', 'memory_private_task_content',
-    'memory_completion_awards', 'memory_latest_batch', 'memory_ai_attempts'])
+    'memory_completion_awards', 'memory_latest_batch', 'memory_ai_attempts', 'memory_category_progress'])
     assert.equal(s.sql.prepare(`SELECT COUNT(*) n FROM ${table} WHERE user_id = ?`).get('user_alice')?.n, 0, table);
   const afterBob = await s.client('bob').exportAccount();
   assert.deepEqual({ ...afterBob, exportedAt: '' }, { ...beforeBob, exportedAt: '' });
   assert.equal(s.sql.prepare('SELECT COUNT(*) n FROM memory_task_content').get()?.n, 1);
   assert.equal((await s.client().deleteAccount('DELETE')).deletion.status, 'deleted'); assert.equal(s.calls(), 1);
-  for (const route of ['/api/memory', '/api/onboarding', '/api/catalog', '/api/tasks', '/api/recommendations/latest', '/api/account/export'])
+  for (const route of ['/api/memory', '/api/onboarding', '/api/catalog', '/api/tasks', '/api/recommendations/latest', '/api/account/export', '/api/progress'])
     assert.equal((await s.send(route)).status, 410, route);
   assert.equal((await s.client().getAccount()).deletion?.status, 'deleted');
   assert.throws(() => s.sql.prepare(`INSERT INTO memory_profiles VALUES ('user_alice','{}',1,1,'today',NULL)`).run(), /account_deleted/);
@@ -119,6 +123,7 @@ test('provider failure is pending, blocks resurrection, and a retry finishes wit
   const s = setup(t); await seed(s); s.remove(false);
   assert.equal((await s.client().deleteAccount('DELETE')).deletion.status, 'pending');
   assert.equal((await s.send('/api/memory')).status, 409);
+  assert.equal((await s.send('/api/progress')).status, 409);
   assert.equal((await s.client().getAccount()).deletion?.status, 'pending');
   s.remove(true); assert.equal((await s.client().deleteAccount('DELETE')).deletion.status, 'deleted');
   assert.equal(s.calls(), 2);

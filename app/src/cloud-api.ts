@@ -2,10 +2,11 @@ import type {
   HealthResponse, MemorySnapshot, PreferenceReset, ProfileChanges, ProfileResponse, ProfileUpdate,
   RecommendationInput, RecommendationResponse, RequestOptions, TaskActionInput, TaskActionResponse,
   CatalogResponse, TaskCollection, LatestRecommendation, OnboardingResponse, OnboardingWrite,
-  AccountStatus, AccountExport, AccountDeletion
+  AccountStatus, AccountExport, AccountDeletion, ProgressResponse, ProgressUpdate
 } from './api-contracts.ts';
 
 import { validAiQuota } from './recommendation-feedback.ts';
+import { isProgressResponse, validProgressUpdate } from './progress.ts';
 
 export type SafetyClientOptions = {
   baseUrl: string;
@@ -202,7 +203,7 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
     exportAccount: (options?: RequestOptions) => call<AccountExport>('/api/account/export', 'GET', undefined,
       v => record(v) && v.schemaVersion === 1 && text(v.exportedAt) && text(v.accountId) && text(v.scope) &&
         ['profile', 'onboarding', 'latestBatch'].every(k => v[k] === null || record(v[k])) &&
-        ['tasks', 'sharedTaskContent', 'privateTaskContent', 'awards', 'aiUsage'].every(k => Array.isArray(v[k]) && v[k].every(record)), options),
+        ['tasks', 'sharedTaskContent', 'privateTaskContent', 'awards', 'aiUsage', 'categoryProgress'].every(k => Array.isArray(v[k]) && v[k].every(record)), options),
     deleteAccount: (confirmation: string, options?: RequestOptions) => {
       input(confirmation === 'DELETE');
       return call<{ deletion: AccountDeletion }>('/api/account/delete', 'POST', { confirmation },
@@ -257,6 +258,11 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
     getTasks: (options?: RequestOptions) => call<TaskCollection>('/api/tasks', 'GET', undefined, v => record(v) && version(v.stateVersion) &&
       Number.isSafeInteger(v.earnedCount) && (v.earnedCount as number) >= 0 && Array.isArray(v.tasks) && v.tasks.every(t =>
         record(t) && isTaskState(t.state) && record(t.content) && text(t.content.action_key) && text(t.content.title) && texts(t.content.steps)), options),
+    getProgress: (options?: RequestOptions) => call<ProgressResponse>('/api/progress', 'GET', undefined, isProgressResponse, options),
+    updateProgress: (update: ProgressUpdate, options?: RequestOptions) => {
+      input(validProgressUpdate(update));
+      return call<ProgressResponse>('/api/progress', 'PATCH', { ...update }, isProgressResponse, options);
+    },
     getLatestRecommendation: (options?: RequestOptions) => call<LatestRecommendation>('/api/recommendations/latest', 'GET', undefined,
       v => record(v) && version(v.stateVersion) && (v.result === null || isRecommendation(v.result)), options),
     getOnboarding: (options?: RequestOptions) => call<OnboardingResponse>('/api/onboarding', 'GET', undefined, isOnboarding, options),

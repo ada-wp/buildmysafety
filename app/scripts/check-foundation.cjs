@@ -1,3 +1,6 @@
+// HISTORICAL: the original unconfigured Step 1 prototype smoke check.
+// Its copy, question count and navigation are not the current signed-in app.
+// Preserved as old evidence support; do not use it as today's release gate.
 const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

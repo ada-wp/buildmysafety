@@ -45,6 +45,7 @@ export type AccountExport = {
   tasks: Record<string, unknown>[]; sharedTaskContent: Record<string, unknown>[];
   privateTaskContent: Record<string, unknown>[]; awards: Record<string, unknown>[];
   latestBatch: Record<string, unknown> | null; aiUsage: Record<string, unknown>[];
+  categoryProgress: Record<string, unknown>[];
 };
 
 export type FeedbackCode = 'helpful' | 'too_generic' | 'too_much_effort' | 'too_expensive' |
@@ -128,6 +129,13 @@ export type CatalogResponse = {
 };
 export type TaskCollection = { tasks: Array<{ state: TaskState; content: RecommendationTask }>; stateVersion: string; earnedCount: number };
 export type LatestRecommendation = { result: RecommendationResponse | null; stateVersion: string };
+export type PreparednessFeeling = 'unsure' | 'somewhat' | 'ready';
+export type CategoryProgress = { topicId: TopicId; completedCount: number; pendingCount: number; earnedCount: number;
+  revision: number; seenMilestones: number[];
+  latestCheckIn: { feeling: PreparednessFeeling; milestone: number; answeredAt: string } | null };
+export type ProgressResponse = { stateVersion: string; categories: CategoryProgress[] };
+export type ProgressUpdate = { topicId: TopicId; expectedRevision: number; expectedStateVersion: string;
+  milestone: number; feeling?: PreparednessFeeling };
 export type OnboardingProgress = { revision: number; draft: ProfileChanges | null; checkpoint: string; completedAt: string | null; updatedAt: string };
 export type OnboardingResponse = { progress: OnboardingProgress | null; legacyComplete: boolean };
 export type OnboardingWrite = { expectedRevision: number; expectedProfileRevision?: number; draft: ProfileChanges; checkpoint: string };

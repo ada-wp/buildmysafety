@@ -50,6 +50,7 @@ function fakeClient(overrides: Partial<SafetyClient> = {}): SafetyClient {
     getAccount: unexpected, exportAccount: unexpected, deleteAccount: unexpected,
     updateMemory: unexpected, resetMemory: unexpected, taskAction: unexpected,
     recommendations: unexpected, getCatalog: unexpected, getTasks: unexpected, getLatestRecommendation: unexpected,
+    getProgress: unexpected, updateProgress: unexpected,
     getOnboarding: unexpected, saveOnboarding: unexpected, ...overrides
   };
 }

@@ -77,7 +77,8 @@ export function createAccountHandler({ verifyIdentity, deleteIdentity = deleteCl
           stmt('SELECT request_id, payload_json, created_at FROM memory_latest_batch WHERE user_id = ?', owner),
           stmt(`SELECT request_id, day, started_at, finished, outcome, input_tokens, output_tokens
             FROM memory_ai_attempts WHERE user_id = ? ORDER BY started_at`, owner),
-          stmt('SELECT * FROM account_deletions WHERE user_id = ?', owner)
+          stmt('SELECT * FROM account_deletions WHERE user_id = ?', owner),
+          stmt('SELECT * FROM memory_category_progress WHERE user_id = ? ORDER BY topic_id', owner)
         ]);
         requireRule(!results[8].results.length, 'account_deleted');
         const unpack = row => Object.fromEntries(Object.entries(row).map(([key, value]) =>
@@ -88,7 +89,7 @@ export function createAccountHandler({ verifyIdentity, deleteIdentity = deleteCl
           tasks: results[2].results, sharedTaskContent: results[3].results.map(unpack),
           privateTaskContent: results[4].results.map(unpack), awards: results[5].results,
           latestBatch: results[6].results[0] ? unpack(results[6].results[0]) : null,
-          aiUsage: results[7].results,
+          aiUsage: results[7].results, categoryProgress: results[9].results.map(unpack),
           scope: 'My Safety app data. Clerk holds email/sign-in records separately. No credentials, login tokens or temporary typed notes are included.' });
       }
       requireRule(request.method === 'POST' && url.pathname === '/api/account/delete', 'method_not_allowed');

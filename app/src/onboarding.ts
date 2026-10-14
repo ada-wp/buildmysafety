@@ -9,11 +9,10 @@ export const questions: Question[] =[
   {id:'constraints',title:'What might make it hard to take a first step?',multi:true,exclusive:['none'],options:[['energy','My energy is low.'],['time','My days already feel full.'],['cost','I need to keep costs down.'],['support','I have limited support nearby.'],['start','I don’t know where to begin.'],['none','Nothing in particular.']]},
   {id:'strengths',title:'What already helps you find your footing?',multi:true,exclusive:['discovering'],options:[['person','Someone I trust.'],['routine','Familiar routines.'],['prepared','Things I’ve already put in place.'],['experience','Remembering what I’ve handled before.'],['learning','Learning something useful.'],['discovering','I’m still discovering what helps.']]},
   {id:'hope',title:'What would a stronger sense of safety feel like for you?',multi:true,max:2,options:[['start','“I trust myself to take care of me.”'],['prepared','“I have things in place that help me feel more prepared.”'],['support','“I know where to turn—I don’t have to handle everything alone.”'],['trust','“When life feels uncertain, I can find my footing.”'],['choice','“I feel freer to enjoy life on my own.”']]},
-  {id:'style',title:'How would you like us to help you begin?',options:[['one','Suggest one gentle first step.'],['choice','Give me a few ideas to choose from.'],['understand','Help me understand my options.'],['resources','Show me useful tools and resources.']]},
-  {id:'note',title:'Anything else you’d like us to understand?',kind:'text',optional:true}
+  {id:'style',title:'How would you like us to help you begin?',options:[['one','Help me start gently.'],['choice','Give me a few ideas to choose from.'],['understand','Help me understand my options.'],['resources','Show me useful tools and resources.']]},
  ];
 
-// A returning draft may still point at the removed country question.
+// Old question links remain safe; the router takes removed questions to interests.
 export function questionStep(id: string) {
-  return Math.max(0, questions.findIndex(question => question.id === (id === 'country' ? 'note' : id)));
+  return Math.max(0, questions.findIndex(question => question.id === (['country', 'note'].includes(id) ? 'style' : id)));
 }

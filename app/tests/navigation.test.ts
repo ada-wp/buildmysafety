@@ -4,10 +4,10 @@ import { accountBack, publicReturn, signInDestination } from '../src/navigation.
 
 test('Account and Privacy back paths always escape their subflow, including refresh', () => {
   for (const bad of ['', '#/privacy', '#/account', '#/goodbye', '//outside.example', '#/app/list?email=private']) {
-    assert.equal(accountBack(bad, true), '#/app/explore');
+    assert.equal(accountBack(bad, true), '#/app/list');
     assert.equal(accountBack(bad, false), '#/welcome');
   }
-  for (const route of ['#/app/list', '#/app/task/sick_shelf', '#/question/why'])
+  for (const route of ['#/app/list', '#/app/progress', '#/app/task/sick_shelf', '#/question/why'])
     assert.equal(accountBack(route, true), route);
 });
 test('email sign-in and cancellation preserve explicit intent, while onboarding returns to recap', () => {

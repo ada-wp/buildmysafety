@@ -86,7 +86,6 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
   const [step, setStep] = useState(0);
   const [draft, setDraft] = useState<ProfileDraft>(() => initialDraft || emptyDraft());
   const [dirty, setDirty] = useState(Boolean(initialDraft));
-  const [note, setNote] = useState('');
   const [feeling, setFeeling] = useState<string[]>([]);
   const [editing, setEditing] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -116,7 +115,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
           history.replaceState(null, '', `#/${saved.progress.checkpoint}`);
           window.dispatchEvent(new PopStateEvent('popstate'));
         }
-        setNotice('Welcome back. Your saved choices are here; optional feelings and notes stay private to each visit.');
+        setNotice('Welcome back. Let’s pick up where you left off.');
       } else if ((saved.legacyComplete || saved.progress?.completedAt) && !location.hash.startsWith('#/app/') && !['#/account', '#/privacy', '#/goodbye'].includes(location.hash)) {
         enterApp();
       }
@@ -155,6 +154,11 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
         ? { page: returnTo.page, step: returnTo.step }
         : { page: 'question', step: questions.length - 1 };
       if (value === 'question') {
+        if (['country', 'note'].includes(questionId)) {
+          history.replaceState(history.state, '', '#/interests');
+          setPage('interests');
+          return;
+        }
         const restoredStep = questionStep(questionId);
         setStep(restoredStep >= 0 ? restoredStep : 0);
       }
@@ -189,7 +193,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
     // Only public question IDs enter the URL. Browser Back restores the question,
     // without putting any answers in history or claiming cloud draft recovery.
     history.pushState({ accountReturn: accountBack(accountReturn.current, Boolean(state.snapshot)), onboarding: { editing: editMode, interestReturn: { ...interestReturn.current } } }, '',
-      `#/${next}${next === 'question' ? `/${questions[nextStep].id}` : next === 'app' ? '/explore' : ''}`);
+      `#/${next}${next === 'question' ? `/${questions[nextStep].id}` : next === 'app' ? '/list' : ''}`);
     if (next === 'app') window.dispatchEvent(new PopStateEvent('popstate'));
   }
   function openInterests(editMode = false) {
@@ -259,7 +263,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
   }
   function enterApp() {
     // Continue completes this transition instead of stacking another question page.
-    history.replaceState(null, '', '#/app/explore');
+    history.replaceState(null, '', '#/app/list');
     setAppEntered(true); setPage('app');
     window.dispatchEvent(new PopStateEvent('popstate'));
   }
@@ -267,7 +271,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
   const controls = accountControls(state.status, providerSignedIn);
 
   return <>
-    <aside className="build-status">Development app · {state.status === 'unconfigured' || state.status === 'signed_out' ? 'sign in to keep your progress' : state.busy || checkpointBusy ? 'Saving or connecting…' : state.status === 'error' ? 'your connection needs attention' : 'your progress, saved to your account'}</aside>
+    <aside className="build-status">Early access{state.busy || checkpointBusy ? ' · Updating your progress…' : state.status === 'error' ? ' · Please check your connection' : ''}</aside>
     <div className="app-shell">
       <header className="topbar">
         {page === 'welcome' || page === 'app' ? <span className="wordmark">my safety</span> : <button className="back" disabled={state.busy || checkpointBusy} onClick={back}><span aria-hidden>‹</span> Back</button>}
@@ -280,7 +284,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
           <button className="text-button" disabled={state.busy} onClick={() => { setNotice('Your unsaved choices stay here while we check the saved version.'); void session.load(); }}>Check saved answers</button>
         </div>}
         {notice && <div role="status" className="message">{notice}</div>}
-        {checkpointError && <div className="message error" role="alert"><p>{checkpointError}</p><p>Loading saved progress replaces unsaved choices on this page with the last confirmed cloud version.</p><button className="text-button" disabled={checkpointBusy} onClick={() => {
+        {checkpointError && <div className="message error" role="alert"><p>{checkpointError}</p><p>This restores your last saved choices. Unsaved edits on this page will be replaced.</p><button className="text-button" disabled={checkpointBusy} onClick={() => {
           progress.current = null; setCheckpointReady(false); setCheckpointRetry(value => value + 1);
           void session.load();
         }}>Load saved progress</button></div>}
@@ -292,15 +296,15 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
             <button className="primary" onClick={() => nav('welcome')}>Back to welcome</button>
             {providerSignedIn && <button className="text-button" onClick={() => void session.signOut()}>Finish signing out</button>}</section>}
           {page === 'welcome' && <section className="welcome">
-            <span className="eyebrow">A little more “I can handle this.”</span><h1 tabIndex={-1}>Meet your<br />little protector.</h1>
+            <span className="eyebrow">A little more “I can handle this.”</span><h1 tabIndex={-1}>Meet your<br />protector.</h1>
             <Elephant large /><p>Build a life that feels more like yours. One preparation, one choice, one small action at a time.</p>
             <button className="primary" onClick={() => nav('question', 0)}>Let’s begin</button>
             <button className="text-button" onClick={() => openInterests()}>I’ll pick a topic instead</button>
             <button className="text-button" onClick={() => nav('account')}>I already have a list</button>
           </section>}
-          {page === 'question' && <OnboardingQuestion step={step} draft={draft} values={values(questions[step].id)} note={note} editing={editing}
-            onChoose={choose} onNote={setNote} onNext={() => nextQuestion()} onPickTopic={() => openInterests()}
-            onSkip={() => { if (questions[step].kind === 'text') { setNote(''); nextQuestion(); } else nextQuestion(setAnswer(questions[step].id, [])); }} />}
+          {page === 'question' && <OnboardingQuestion step={step} draft={draft} values={values(questions[step].id)} editing={editing}
+            onChoose={choose} onNext={() => nextQuestion()} onPickTopic={() => openInterests()}
+            onSkip={() => nextQuestion(setAnswer(questions[step].id, []))} />}
           {page === 'question' && <p className="hint">{canSave ? 'Continue saves your choices to your account.' : 'Your choices stay in this page until you sign in.'}</p>}
           {page === 'pause' && <section className="companion-pause">
             <ElephantMessage name={draft.elephantName} message={acknowledgementMessage({
@@ -345,7 +349,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
               <p>{controls.needsReconnection ? 'You’re signed in, but we couldn’t verify your connection. Check your saved answers, or sign out and try again.'
                 : state.status === 'signed_out' ? 'You are signed out.' : state.status === 'error' ? 'Your connection needs attention. You can check your saved answers or sign out.' : 'Your starting point is yours to revisit.'}</p>
               {providerSignedIn && accountLabel && <p className="hint">Signed in as {accountLabel}</p>}
-              <button className="primary" onClick={() => nav(state.status === 'ready' ? 'app' : state.status === 'new' ? 'recap' : 'welcome')}>{state.status === 'ready' ? 'Explore topics' : state.status === 'new' ? 'Save my starting point' : 'Back to the beginning'}</button>
+              <button className="primary" onClick={() => nav(state.status === 'ready' ? 'app' : state.status === 'new' ? 'recap' : 'welcome')}>{state.status === 'ready' ? 'Back to my list' : state.status === 'new' ? 'Save my starting point' : 'Back to the beginning'}</button>
               {canSave && <button className="text-button" onClick={() => nav('question', 0)}>Update my preferences</button>}
               {state.status === 'ready' && state.snapshot && <div className="learning-controls">
                 <label className="setting"><span>Personalize future suggestions</span>
@@ -356,9 +360,9 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
                       setNotice(enabled ? 'Personalization is on. Your current request still comes first.' : 'Personalization is off. Past task choices won’t guide new suggestions.');
                     }
                   }} /></label>
-                <p className="hint">Use your saved preferences, tasks and feedback to help future ideas fit. Your current request leads. This doesn’t train a model on your account.</p>
+                <p className="hint">Use your preferences and past choices to make future ideas more useful. What you ask for today comes first.</p>
                 <button className="text-button" onClick={() => setConfirmReset(value => !value)}>Reset learning</button>
-                {confirmReset && <div className="message"><p>Forget past likes and feedback, and stop using older saves as preference signals. Your answers, saved tasks and little wins stay.</p>
+                {confirmReset && <div className="message"><p>Stop using past likes, feedback and saved choices to shape new ideas. Your answers, tasks and progress stay.</p>
                   <button className="secondary" onClick={async () => { if (await session.resetLearning()) {
                     setConfirmReset(false); setNotice('Learning reset. Your answers, tasks and progress are still here.');
                   } }}>Reset my learning</button>

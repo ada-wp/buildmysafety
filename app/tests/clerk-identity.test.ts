@@ -181,7 +181,8 @@ test('profile controller preserves its loaded account on token refresh, but relo
     health: unexpected, createMemory: unexpected, updateMemory: unexpected,
     getAccount: unexpected, exportAccount: unexpected, deleteAccount: unexpected,
     resetMemory: unexpected, taskAction: unexpected, recommendations: unexpected,
-    getCatalog: unexpected, getTasks: unexpected, getLatestRecommendation: unexpected, getOnboarding: unexpected, saveOnboarding: unexpected
+    getCatalog: unexpected, getTasks: unexpected, getLatestRecommendation: unexpected, getOnboarding: unexpected, saveOnboarding: unexpected,
+    getProgress: unexpected, updateProgress: unexpected
   };
   const session = createProfileSession(client, identity);
   await session.load();

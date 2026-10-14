@@ -4,12 +4,14 @@ import { catalog } from '../personalization/catalog.mjs';
 import { createOnboardingHandler } from '../personalization/onboarding.mjs';
 import { createAccountHandler, assertAccountActive } from '../personalization/account.mjs';
 import { AI_LIMITS, PREVIEW_AI_LIMITS } from '../personalization/ai-budget.mjs';
+import { createProgressHandler } from '../personalization/progress.mjs';
 
 const API_METHODS = new Map([
   ['/api/account', ['GET']], ['/api/account/export', ['GET']], ['/api/account/delete', ['POST']],
   ['/api/memory', ['GET', 'POST', 'PATCH']],
   ['/api/memory/reset', ['POST']],
   ['/api/catalog', ['GET']], ['/api/tasks', ['GET']], ['/api/tasks/action', ['POST']],
+  ['/api/progress', ['GET', 'PATCH']],
   ['/api/recommendations', ['POST']], ['/api/recommendations/latest', ['GET']],
   ['/api/onboarding', ['GET', 'POST']], ['/api/onboarding/complete', ['POST']]
 ]);
@@ -52,6 +54,10 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
   const reviewApi = createHandler({ catalog, verifyIdentity: activeIdentity, requireDeliveryIds: true, allowEditorialReview: true, allowAutomatic: true, generate });
   const onboarding = createOnboardingHandler({ verifyIdentity: activeIdentity });
   const account = createAccountHandler({ verifyIdentity, deleteIdentity, checkIdentity });
+  const progress = createProgressHandler({ verifyIdentity: activeIdentity, catalog: { ...catalog,
+    topics: catalog.topics.filter(topic => topic.reviewState === 'approved') } });
+  const reviewProgress = createProgressHandler({ verifyIdentity: activeIdentity, catalog: { ...catalog,
+    topics: catalog.topics.filter(topic => ['approved', 'editorial_review'].includes(topic.reviewState)) } });
   return {
     async fetch(request, env) {
       const { pathname, hostname } = new URL(request.url);
@@ -69,7 +75,8 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
         // AI is isolated to the named preview host and an explicit server switch.
         // Credentials are lazy: pool paths never access them. Synthetic auth stays closed.
         const aiEnabled = contentReviewHosts.includes(hostname) && env?.AI_ADAPTATION_ENABLED === 'true';
-        const handler = pathname.startsWith('/api/account') ? account : pathname.startsWith('/api/onboarding') ? onboarding : api;
+        const handler = pathname.startsWith('/api/account') ? account : pathname.startsWith('/api/onboarding') ? onboarding :
+          pathname === '/api/progress' ? (contentReviewHosts.includes(hostname) ? reviewProgress : progress) : api;
         const response = await handler(request, {
           MEMORY_DB: env?.MEMORY_DB,
           CLERK_ISSUER: env?.CLERK_ISSUER,
