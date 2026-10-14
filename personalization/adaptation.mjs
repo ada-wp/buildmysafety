@@ -3,7 +3,7 @@ import { prepare, poolBatch, validateBatch } from './flow.mjs';
 import { outputSchema, hash, requireRule, FlowError } from './contracts.mjs';
 import { createOpenAIClient } from './openai.mjs';
 import { createAiBudget } from './ai-budget.mjs';
-import { buildNewNeedRequest, acceptNewNeed, composeNewNeedBatch, newNeedPromptHash } from './new-needs.mjs';
+import { buildNewNeedRequest, acceptNewNeedBatch, newNeedPromptHash } from './new-needs.mjs';
 import { privatePrefix } from './private-actions.mjs';
 import { feedbackGuidance } from './feedback-guidance.mjs';
 import { sickCareInstructions } from './generated/contracts.mjs';
@@ -130,8 +130,11 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
   let status = requestBoundary(request.note) || 'not_needed';
   let message = null;
   let metadata = null; let adaptedActionKey = null; let token = null; let quota = null;
+  const generatedKeys = new Set();
   const budget = createAiBudget(env.MEMORY_DB, { limits: env.AI_LIMITS, unlimitedOwners: env.AI_UNLIMITED_OWNERS });
-  const newNeed = Boolean(request.note?.trim() && !prepared.refinement && env.AI_NEW_NEEDS_ENABLED === 'true');
+  const fillShortage = !request.note?.trim() && !prepared.refinement && batch.tasks.length < 3;
+  const newNeed = Boolean((request.note?.trim() || fillShortage) && !prepared.refinement && env.AI_NEW_NEEDS_ENABLED === 'true');
+  const reserved = fillShortage ? batch.tasks : [];
   const target = status === 'not_needed' ? selectTarget(prepared, batch) : null;
   try {
     if ((target || newNeed) && status === 'not_needed' && env.AI_ADAPTATION_ENABLED === 'true') {
@@ -149,27 +152,22 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
               catalog.actions.some(a => a.actionKey === item.state.actionKey && a.topicIds.includes(request.topicId)))
               .sort((a, b) => b.state.shownAt.localeCompare(a.state.shownAt));
           }
-          const body = newNeed ? buildNewNeedRequest(prepared, catalog, history, env.OPENAI_MODEL)
+          const body = newNeed ? buildNewNeedRequest(prepared, catalog, history, env.OPENAI_MODEL, reserved)
             : buildAdaptationRequest(prepared, batch, target, env.OPENAI_MODEL);
           const response = await (generate || (input => createOpenAIClient({ apiKey: env.OPENAI_API_KEY, timeoutMs: 30000 }).generate(input)))(body);
           metadata = response.metadata;
           if (newNeed) {
-            const accepted = acceptNewNeed(response.batch, prepared, catalog, history, checkTaskCopy);
+            const accepted = acceptNewNeedBatch(response.batch, prepared, catalog, history, checkTaskCopy, reserved);
             status = accepted.decision;
-            if (accepted.task) {
-              // Current written needs can introduce a supported concern without a
-              // checkbox. Reuse the same matching/constraint rules for companions.
-              const concernIds = [...new Set([...accepted.task.concern_ids, ...request.concernIds])];
-              prepared = await prepare({ owner, request: { ...request, concernIds }, store, catalog,
-                allowEditorialReview, useProfileDefaults: true, allowRefinement: true });
-              requireRule(prepared.snapshot.stateVersion === expectedStateVersion, 'stale_state');
-              batch = composeNewNeedBatch(accepted.task, prepared, history);
-              adaptedActionKey = accepted.task.action_key;
+            if (accepted.batch) {
+              batch = accepted.batch;
+              for (const task of accepted.tasks) generatedKeys.add(task.action_key);
+              adaptedActionKey = accepted.tasks[0].action_key;
             }
           } else {
             const accepted = acceptAdaptation(response.batch, prepared, batch, target);
             batch = accepted.batch; status = accepted.decision;
-            if (status === 'adapted') adaptedActionKey = target.action_key;
+            if (status === 'adapted') { adaptedActionKey = target.action_key; generatedKeys.add(target.action_key); }
           }
         } catch (error) {
           status = error instanceof FlowError && ['repeated_action', 'repeated_outcome'].includes(error.code) ? 'no_new_idea' : 'unavailable';
@@ -191,7 +189,7 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
         ? quotaMessage(quota)
         : status === 'no_new_idea' ? 'That would repeat an earlier outcome. Tell me what still feels missing or what you need to do differently.'
           : status === 'needs_context' ? requestBoundary(request.note) ? messages.needs_context : 'What would you like to have ready, or what makes this difficult for you? Add one detail and try again.'
-            : 'I couldn’t create a useful new step just now. Your words are still here—please try again later.';
+            : 'I couldn’t put together three useful new ideas just now. Your choices are still here—please try again.';
       batch = { status: 'needs_context', message: reason, tasks: [] };
       message = null;
     }
@@ -209,7 +207,7 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
     }
     // Persist no raw note. Only the accepted private task survives this request.
     const cleanRequest = { ...request }; delete cleanRequest.note;
-    if (newNeed && adaptedActionKey) cleanRequest.concernIds = [...new Set([...request.concernIds, ...batch.tasks[0].concern_ids])];
+    if (newNeed && adaptedActionKey) cleanRequest.concernIds = [...new Set([...request.concernIds, ...batch.tasks.flatMap(task => task.concern_ids)])];
     const result = { status: 'ok', source: adaptedActionKey ? 'mixed' : 'pool', delivery: 'shown', reviewRequired: true,
       metadata: adaptedActionKey ? metadata : null, batch,
       adaptation: { status, actionKey: adaptedActionKey, message, refinement: Boolean(prepared.refinement), newNeed,
@@ -218,7 +216,7 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
         stateVersion: expectedStateVersion, promptHash: newNeed ? newNeedPromptHash : adaptationPromptHash, candidateCount: prepared.candidates.length } };
     const contents = batch.tasks.map(task => {
       const action = prepared.candidates.find(a => a.actionKey === task.action_key);
-      return task.action_key === adaptedActionKey
+      return generatedKeys.has(task.action_key)
         ? { actionKey: task.action_key, contentRef: `ai_${crypto.randomUUID()}`, private: true, content: task }
         : { actionKey: action.actionKey, contentRef: action.contentRef, content: action.task };
     });

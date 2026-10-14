@@ -5,13 +5,13 @@ import { origin, withPrivacyTestSession } from './privacy-test-session.mjs';
 import { prepare } from '../../personalization/flow.mjs';
 import { catalog } from '../../personalization/catalog.mjs';
 const inspectOnly = process.argv.includes('--inspect');
-if (!inspectOnly && !process.argv.includes('--paid')) throw new Error('Use --inspect for read-only selection or --paid for one real AI call.');
+if (!inspectOnly && !process.argv.includes('--paid')) throw new Error('Use --inspect for read-only selection or --paid for a typed batch and a further batch (at most two AI calls).');
 const account = process.argv.includes('--account-b') ? 'b' : 'a';
-const request = { topicId: 'sick_care', concernIds: ['food', 'daily_tasks', 'getting_care'], country: 'US',
-  note: 'I want to prepare a quiet phone setting for resting on a sick day, while still allowing calls I choose.' };
+const request = { topicId: 'sick_care', concernIds: ['getting_care'], country: 'US',
+  note: 'Before a future sick day, I want to understand affordable virtual care when I have no established clinic. Help me research access, costs and practical limitations without booking or buying anything.' };
 const report = { testedAt: new Date().toISOString(), host: origin, account,
   evidence: 'Existing fictional Clerk session; no history resets. UI checks are separate.' };
-const file = new URL('../verification-three-suggestions.json', import.meta.url);
+const file = new URL('../verification-three-ideas-v2.json', import.meta.url);
 try {
   await withPrivacyTestSession(false, async ({ api }) => {
     const before = await api('/api/tasks'); assert.equal(before.status, 200);
@@ -25,9 +25,10 @@ try {
         previous: before.body.tasks.filter(t => t.state.actionKey.startsWith('custom_')).map(t => t.content.title) }, null, 2));
       return;
     }
-    assert.ok(prepared.candidates.filter(a => !a.task.resources.length).length >= 2, 'Need two unseen unlinked companions for this check.');
     const input = { request, route: 'auto', requestId: crypto.randomUUID(), expectedStateVersion: before.body.stateVersion };
+    const started = performance.now();
     const response = await api('/api/recommendations', input);
+    report.firstElapsedMs = Math.round(performance.now() - started);
     report.request = request; report.httpStatus = response.status; report.result = response.body;
     await writeFile(file, JSON.stringify(report, null, 2) + '\n');
     assert.equal(response.status, 200);
@@ -35,7 +36,7 @@ try {
     assert.equal(result.adaptation?.status, 'generated');
     assert.equal(result.batch.tasks.length, 3);
     assert.equal(result.batch.status, 'ready');
-    assert.equal(result.batch.tasks.filter(t => t.action_key.startsWith('custom_')).length, 1);
+    assert.equal(result.batch.tasks.filter(t => t.action_key.startsWith('custom_')).length, 3);
     assert.ok(result.batch.tasks[0].action_key.startsWith('custom_'));
     assert.ok(result.batch.tasks.filter(t => t.resources.length).length <= 1);
     const priorKeys = new Set(before.body.tasks.map(t => t.state.actionKey));
@@ -48,8 +49,25 @@ try {
     for (const task of result.batch.tasks) assert.deepEqual(after.body.tasks.find(t => t.state.actionKey === task.action_key)?.content, task);
     const latest = await api('/api/recommendations/latest'); assert.equal(latest.status, 200);
     assert.deepEqual(latest.body.result.batch, result.batch); assert.equal(latest.body.result.request.note, undefined);
-    report.checks = { threeDistinctNewTasks: true, oneAiTwoReviewed: true, resourceLimit: true,
+    report.checks = { threeDistinctNewTasks: true, threePrivateTasks: true, resourceLimit: true,
       allThreePersisted: true, replayStable: true, priorTasksUnchanged: true, rawNoteNotInLatest: true };
+    const moreInput = { route: 'auto', requestId: crypto.randomUUID(), expectedStateVersion: after.body.stateVersion,
+      request: { topicId: 'sick_care', concernIds: result.request.concernIds, country: 'US' } };
+    const moreStarted = performance.now();
+    const more = await api('/api/recommendations', moreInput);
+    report.moreElapsedMs = Math.round(performance.now() - moreStarted);
+    report.more = more;
+    await writeFile(file, JSON.stringify(report, null, 2) + '\n');
+    assert.equal(more.status, 200); assert.equal(more.body.batch.status, 'ready'); assert.equal(more.body.batch.tasks.length, 3);
+    const shown = new Set(after.body.tasks.map(t => t.state.actionKey));
+    assert.ok(more.body.batch.tasks.every(task => !shown.has(task.action_key)));
+    const final = await api('/api/tasks'); assert.equal(final.status, 200);
+    for (const old of after.body.tasks) assert.deepEqual(final.body.tasks.find(t => t.state.actionKey === old.state.actionKey), old);
+    for (const task of more.body.batch.tasks) assert.deepEqual(final.body.tasks.find(t => t.state.actionKey === task.action_key)?.content, task);
+    const moreReplay = await api('/api/recommendations', moreInput);
+    assert.equal(moreReplay.body.replayed, true); assert.deepEqual(moreReplay.body.batch, more.body.batch);
+    report.checks.nextBatchThreeNew = true; report.checks.nextBatchPersistedAndReplayed = true;
   }, { account, traceTag: 'three-suggestions' });
 } finally { if (!inspectOnly) await writeFile(file, JSON.stringify(report, null, 2) + '\n'); }
-if (!inspectOnly) console.log(JSON.stringify(report, null, 2));
+if (!inspectOnly) console.log(JSON.stringify({ firstElapsedMs: report.firstElapsedMs, moreElapsedMs: report.moreElapsedMs,
+  firstTitles: report.result?.batch?.tasks.map(t => t.title), moreTitles: report.more?.body?.batch?.tasks.map(t => t.title), checks: report.checks }, null, 2));

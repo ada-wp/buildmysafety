@@ -117,13 +117,14 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const current = 'task' in route ? entries.find(item => item.state.actionKey === route.task) : undefined;
   const batch = state.latest?.result?.batch;
   const blocked = state.busy || !state.loaded || Boolean(state.error);
-  async function suggest(preparedOnly = false) {
+  async function suggest(mode: 'auto' | 'more' | 'pool' = 'auto') {
+    const preparedOnly = mode !== 'auto';
     const startingHash = location.hash;
     const submittedNote = note;
     setNotice('');
     const okay = await session.recommend({ topicId: 'sick_care', concernIds: concerns, maxMinutes: short ? 10 : null,
       ...(!preparedOnly && note.trim() ? { note: note.trim() } : {}), noSpend, country: SERVICE_COUNTRY,
-      localSupport: 'unknown' }, preparedOnly ? 'pool' : 'auto');
+      localSupport: 'unknown' }, mode === 'pool' ? 'pool' : 'auto');
     if (okay && location.hash === startingHash) {
       const result = session.getState().latest?.result;
       const feedback = recommendationFeedback(result, !preparedOnly && Boolean(submittedNote.trim()));
@@ -167,7 +168,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
     })) { navigate({ page: 'ideas' }); return; }
     if (concerns.length) {
       const okay = await session.recommend({ topicId: 'sick_care', concernIds: concerns, country: SERVICE_COUNTRY,
-        maxMinutes: short ? 10 : null, noSpend, localSupport: 'unknown' }, 'pool');
+        maxMinutes: short ? 10 : null, noSpend, localSupport: 'unknown' }, 'auto');
       if (okay) navigate({ page: 'ideas' });
     } else navigate({ page: 'concerns' });
   }
@@ -239,8 +240,8 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       {state.catalog?.aiUnlimited === true && <p className="hint">Unlimited AI requests on your account.</p>}
       <p className="hint">OpenAI can use your request and relevant preferences to tailor an idea. Leave out private or medical details. We save the task, not your note.</p>
       {feedback}
-      <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim()) || Boolean(quota && note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : quota && note.trim() ? 'AI limit reached for today' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>
-      {quota && (concerns.length ? <button className="secondary" disabled={blocked} onClick={() => void suggest(true)}>See prepared ideas</button>
+      <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim()) || Boolean(quota && note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding three useful ideas…' : quota && note.trim() ? 'AI limit reached for today' : note.trim() ? 'Create 3 ideas for my request' : 'Find my next steps'}</button>
+      {quota && (concerns.length ? <button className="secondary" disabled={blocked} onClick={() => void suggest('pool')}>See prepared ideas</button>
         : <p className="hint">Choose a concern above to explore prepared ideas without AI.</p>)}
       {batch && <button className="text-button" onClick={() => navigate({ page: 'ideas' })}>Return to my latest ideas</button>}
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
@@ -253,7 +254,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       {(!batch || batch.status === 'no_more_ideas') && !state.latest?.result?.adaptation?.newNeed && (!batch?.message || state.latest?.result?.adaptation?.refinement) && <p className="message">{batch?.tasks.length ? state.latest?.result?.adaptation?.refinement ? 'This replaces the unsaved version of that idea. It isn’t an extra task on your list.' : 'Start with what feels useful. You can explore more ideas below.' : 'You’ve seen the fitting prepared ideas. Change your choices or tell us what you need for a tailored step.'}</p>}
       <button className="primary" onClick={() => navigate({ page: 'list' })}>Go to my list{saved.length ? ` (${saved.length})` : ''}</button>
       <button className="secondary" onClick={() => navigate({ page: 'concerns' })}>Tell us what you need</button>
-      {batch && batch.tasks.length > 0 && ['ready', 'no_more_ideas'].includes(batch.status) && !state.latest?.result?.adaptation?.refinement && <button className="secondary" disabled={blocked} onClick={() => void suggest(true)}>See more ideas</button>}
+      {batch && !['safety_redirect', 'out_of_scope'].includes(batch.status) && !state.latest?.result?.adaptation?.refinement && <button className="secondary" disabled={blocked || Boolean(quota)} onClick={() => void suggest('more')}>See more ideas</button>}
       {earlier.length > 0 && <button className="secondary" onClick={() => navigate({ page: 'earlier' })}>Revisit earlier ideas</button>}
       <button className="text-button" onClick={() => navigate({ page: 'concerns' })}>Change my choices</button>
     </section>}

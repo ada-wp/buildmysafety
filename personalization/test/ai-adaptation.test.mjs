@@ -9,9 +9,10 @@ import { legacyCatalog as catalog } from '../catalog.mjs';
 import { createD1Store } from '../d1-store.mjs';
 import { AI_LIMITS, PREVIEW_AI_LIMITS, createAiBudget, parseUnlimitedAiOwners, currentAiAllowance } from '../ai-budget.mjs';
 import { prepare } from '../flow.mjs';
-import { buildNewNeedRequest, composeNewNeedBatch } from '../new-needs.mjs';
+import { buildNewNeedRequest } from '../new-needs.mjs';
+import { generatedIdeas } from './idea-fixtures.mjs';
 
-function setup(t, generate) {
+function setup(t, generate, sourceCatalog = catalog) {
   const sqlite = new DatabaseSync(':memory:'); sqlite.exec('PRAGMA foreign_keys = ON');
   const path = new URL('../migrations/', import.meta.url);
   for (const file of readdirSync(path).filter(f => f.endsWith('.sql')).sort()) sqlite.exec(readFileSync(new URL(file, path), 'utf8'));
@@ -29,7 +30,7 @@ function setup(t, generate) {
     }
   };
   const env = { MEMORY_DB: db, AI_ADAPTATION_ENABLED: 'true', OPENAI_MODEL: 'gpt-6-luna' };
-  const handler = createHandler({ catalog, requireDeliveryIds: true, allowEditorialReview: true, allowAutomatic: true,
+  const handler = createHandler({ catalog: sourceCatalog, requireDeliveryIds: true, allowEditorialReview: true, allowAutomatic: true,
     verifyIdentity: async r => r.headers.get('Authorization'), generate });
   const request = (owner, body) => handler(new Request('https://example.test/api/recommendations', {
     method: 'POST', headers: { Authorization: owner, 'Content-Type': 'application/json' }, body: JSON.stringify(body) }), env);
@@ -85,7 +86,7 @@ test('current allowance removes stale quota feedback only for its owner without 
 
 test('HTTP exception uses verified owner, unblocks saved quota feedback, and invokes AI beyond regular cap', async t => {
   let calls = 0;
-  const { request, store, env, db } = setup(t, async () => { calls++; return { batch: { decision: 'no_new_idea', task: null }, metadata: null }; });
+  const { request, store, env, db } = setup(t, async () => { calls++; return { batch: { decision: 'no_new_idea', tasks: [] }, metadata: null }; });
   env.AI_LIMITS = { ...AI_LIMITS, perUserDaily: 1, globalDaily: 1 }; env.AI_NEW_NEEDS_ENABLED = 'true';
   await store.createProfile('founder', {}); await store.createProfile('regular', {});
   const first = await (await request('founder', input())).json();
@@ -165,13 +166,13 @@ test('new need after pool exhaustion creates a genuinely new private action, rep
   let calls = 0; let sent;
   const { request, store, env, sqlite } = setup(t, async body => { calls++; sent = packet(body);
     const task = freshTask(); if (calls > 1) task.action_key = 'renamed_quiet_break';
-    return { batch: { decision: 'generated', task }, metadata: { model: body.model, inputTokens: 200, outputTokens: 100 } }; });
+    return { batch: generatedIdeas(task), metadata: { model: body.model, inputTokens: 200, outputTokens: 100 } }; });
   env.AI_NEW_NEEDS_ENABLED = 'true';
   await store.createProfile('alice', {}); await store.createProfile('bob', {});
   const base = { topicId: 'sick_care', concernIds: ['daily_tasks', 'food', 'check_in', 'getting_care', 'pets'], country: 'US' };
   let version = '1';
   for (let i = 0; i < 6; i++) {
-    const result = await (await request('alice', input({ requestId: `pool_exhaustion_${i}`, expectedStateVersion: version, request: base }))).json();
+    const result = await (await request('alice', input({ route: 'pool', requestId: `pool_exhaustion_${i}`, expectedStateVersion: version, request: base }))).json();
     version = result.stateVersion;
     if (!result.batch.tasks.length) break;
   }
@@ -182,7 +183,7 @@ test('new need after pool exhaustion creates a genuinely new private action, rep
   const response = await request('alice', body); assert.equal(response.status, 200);
   const result = await response.json();
   assert.equal(result.adaptation.status, 'generated'); assert.equal(result.adaptation.newNeed, true); assert.equal(calls, 1);
-  assert.equal(result.batch.tasks.length, 1); assert.equal(sent.previous_outcomes.length, before.tasks.length);
+  assert.equal(result.batch.tasks.length, 3); assert.equal(sent.previous_outcomes.length, before.tasks.length);
   const task = result.batch.tasks[0]; assert.equal(task.action_key, 'custom_sick_care_quiet_notifications');
   assert.ok(!catalog.actions.some(a => a.actionKey === task.action_key));
   assert.deepEqual(result.request.concernIds, ['food', 'daily_tasks']);
@@ -200,7 +201,7 @@ test('new need after pool exhaustion creates a genuinely new private action, rep
   // A different slug does not evade a near-identical outcome check.
   const repeated = await (await request('alice', { ...body, requestId: 'new_need_repeat_001', expectedStateVersion: completed.stateVersion })).json();
   assert.equal(repeated.batch.tasks.length, 0); assert.match(repeated.batch.message, /repeat/);
-  assert.equal((await store.readTasks('alice')).tasks.length, before.tasks.length + 1);
+  assert.equal((await store.readTasks('alice')).tasks.length, before.tasks.length + 3);
 });
 
 for (const mode of ['fresh_before_exhaustion', 'outside', 'urgent', 'private', 'failure', 'duplicate', 'url', 'resource', 'time', 'clinical', 'pet', 'quota']) {
@@ -209,7 +210,7 @@ for (const mode of ['fresh_before_exhaustion', 'outside', 'urgent', 'private', '
     const { request, store, env, db } = setup(t, async () => {
       calls++;
       if (mode === 'failure') throw new Error('Synthetic provider error');
-      if (mode === 'outside') return { batch: { decision: 'out_of_scope', task: null }, metadata: null };
+      if (mode === 'outside') return { batch: { decision: 'out_of_scope', tasks: [] }, metadata: null };
       const task = freshTask();
       if (mode === 'duplicate') Object.assign(task, structuredClone(catalog.actions[0].task), { action_key: 'renamed_old_food' });
       if (mode === 'url') task.steps[0] = 'Visit https://not-reviewed.example';
@@ -217,12 +218,12 @@ for (const mode of ['fresh_before_exhaustion', 'outside', 'urgent', 'private', '
       if (mode === 'time') task.estimated_minutes = 30;
       if (mode === 'clinical') task.steps[0] = 'Choose a medication.';
       if (mode === 'pet') task.concern_ids = ['pets'];
-      return { batch: { decision: 'generated', task }, metadata: null };
+      return { batch: generatedIdeas(task), metadata: null };
     });
     env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', {});
     let version = '1';
     if (mode === 'duplicate') {
-      const initial = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: ['food'] } }))).json(); version = initial.stateVersion;
+      const initial = await (await request('alice', input({ route: 'pool', request: { topicId: 'sick_care', concernIds: ['food'] } }))).json(); version = initial.stateVersion;
     }
     if (mode === 'quota') {
       const budget = createAiBudget(db);
@@ -252,7 +253,7 @@ test('a new private action can be explicitly refined without adding another task
     const task = packet(body).target_task;
     if (task) return { batch: { decision: 'adapted', task: { ...task, title: 'Make a little quiet space',
       summary: 'Choose a short rest break, with the contacts you want still able to reach you.' } }, metadata: null };
-    return { batch: { decision: 'generated', task: freshTask() }, metadata: null };
+    return { batch: generatedIdeas(freshTask()), metadata: null };
   });
   env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', {});
   const first = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: [], note: 'Prepare my phone for quiet rest breaks.' } }))).json();
@@ -263,11 +264,11 @@ test('a new private action can be explicitly refined without adding another task
   assert.equal((await store.readTasks('alice')).tasks.length, first.batch.tasks.length);
 });
 
-test('typed-only new need delivers three stable cards with one private task and no extra call on replay', async t => {
+test('typed-only new need delivers three private cards and no extra call on replay', async t => {
   let calls = 0;
   const { request, store, env, sqlite } = setup(t, async () => {
     calls++;
-    return { batch: { decision: 'generated', task: freshTask() }, metadata: null };
+    return { batch: generatedIdeas(freshTask()), metadata: null };
   });
   env.AI_NEW_NEEDS_ENABLED = 'true';
   await store.createProfile('alice', { answers: { country: 'US' } }); await store.createProfile('bob', {});
@@ -280,8 +281,8 @@ test('typed-only new need delivers three stable cards with one private task and 
   assert.equal(first.batch.tasks[0].action_key, 'custom_sick_care_quiet_notifications');
   assert.ok(first.batch.tasks.slice(1).every(task => task.concern_ids.includes('daily_tasks')));
   assert.deepEqual(first.request.concernIds, ['daily_tasks']); assert.equal(first.request.note, undefined);
-  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_private_task_content WHERE user_id = ?').get('alice').n, 1);
-  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_task_content').get().n, 2);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_private_task_content WHERE user_id = ?').get('alice').n, 3);
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_task_content').get().n, 0);
   assert.deepEqual((await store.readLatestBatch('alice')).result.batch, first.batch);
   assert.deepEqual((await (await request('alice', body)).json()).batch, first.batch); assert.equal(calls, 1);
   const saved = await store.applyTaskAction('alice', first.stateVersion, first.batch.tasks[1].action_key, { type: 'save' });
@@ -297,46 +298,71 @@ test('typed-only new need delivers three stable cards with one private task and 
   assert.equal((await store.readTasks('bob')).tasks.length, 0);
 });
 
+for (const remaining of [0, 1, 2]) {
+  test(`more ideas fills ${3 - remaining} gaps in one call when ${remaining} reviewed tasks remain`, async t => {
+    let calls = 0;
+    const small = { ...catalog, actions: catalog.actions.filter(a => ['sick_01_easy_food', 'sick_02_rest_shelf'].includes(a.actionKey)).slice(0, remaining) };
+    const { request, store, env, sqlite } = setup(t, async body => {
+      calls++; const p = packet(body);
+      assert.equal(p.requested_task_count, 3 - remaining);
+      assert.equal(p.reserved_tasks.length, remaining);
+      assert.equal(p.user_context.current_request, null);
+      assert.equal(body.store, false); assert.equal(body.max_output_tokens, 5000);
+      return { batch: { decision: 'generated', tasks: generatedIdeas(freshTask()).tasks.slice(0, p.requested_task_count) }, metadata: null };
+    }, small);
+    env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', {}); await store.createProfile('bob', {});
+    const body = input({ request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] } });
+    const first = await (await request('alice', body)).json();
+    assert.equal(first.batch.status, 'ready'); assert.equal(first.batch.tasks.length, 3);
+    assert.equal(first.batch.tasks.filter(task => task.action_key.startsWith('custom_')).length, 3 - remaining);
+    assert.equal(calls, 1); assert.equal((await store.readTasks('alice')).tasks.length, 3);
+    assert.equal((await store.readTasks('bob')).tasks.length, 0);
+    assert.deepEqual((await (await request('alice', body)).json()).batch, first.batch); assert.equal(calls, 1);
+    assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts').get().n, 1);
+  });
+}
+
+for (const invalid of ['one_task', 'two_tasks', 'duplicate_outcomes', 'two_linked_tasks', 'unsafe_second_task']) {
+  test(`a new batch rejects ${invalid} without saving a misleading partial result`, async t => {
+    const { request, store, env } = setup(t, async () => {
+      const output = generatedIdeas(freshTask());
+      if (invalid === 'one_task') output.tasks.splice(1);
+      if (invalid === 'two_tasks') output.tasks.splice(2);
+      if (invalid === 'duplicate_outcomes') output.tasks[1] = { ...freshTask(), action_key: 'different_slug_same_outcome' };
+      if (invalid === 'two_linked_tasks') for (const task of output.tasks.slice(0, 2)) task.resources = [{ resource_id: 'us_211_local', why: 'Research practical support.' }];
+      if (invalid === 'unsafe_second_task') output.tasks[1].steps[0] = 'Choose a medication.';
+      return { batch: output, metadata: null };
+    });
+    env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', { answers: { country: 'US' } });
+    const result = await (await request('alice', input())).json();
+    assert.equal(result.batch.tasks.length, 0); assert.notEqual(result.adaptation.status, 'generated');
+    assert.equal((await store.readTasks('alice')).tasks.length, 0);
+  });
+}
+
 test('generated resource task keeps two unlinked companions without exceeding the one-linked-card rule', async t => {
-  const { request, store, env } = setup(t, async () => ({ batch: { decision: 'generated', task: {
+  const { request, store, env } = setup(t, async () => ({ batch: generatedIdeas({
     ...freshTask(), resources: [{ resource_id: 'us_211_local', why: 'An optional route to research practical support.' }]
-  } }, metadata: null }));
+  }), metadata: null }));
   env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', { answers: { country: 'US' } });
   const result = await (await request('alice', input({
     request: { topicId: 'sick_care', concernIds: [], note: 'Prepare for quiet rest breaks and practical support.' }
   }))).json();
   assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.tasks.length, 3);
   assert.equal(result.batch.tasks.filter(task => task.resources.length).length, 1);
-  assert.deepEqual(result.batch.tasks.slice(1).map(task => task.action_key), ['sick_02_rest_shelf', 'sick_09_pause_chore']);
+  assert.deepEqual(result.batch.tasks.slice(1).map(task => task.action_key), ['custom_sick_care_offline_entertainment', 'custom_sick_care_dim_room_light']);
 });
 
-test('new-need companions respect hard limits and do not pad a scarce batch with unrelated tasks', async t => {
-  const { request, store, env } = setup(t, async () => ({ batch: { decision: 'generated', task: freshTask() }, metadata: null }));
+test('three new ideas respect hard limits even when the pool is scarce', async t => {
+  const { request, store, env } = setup(t, async () => ({ batch: generatedIdeas(freshTask()), metadata: null }));
   env.AI_NEW_NEEDS_ENABLED = 'true'; await store.createProfile('alice', { answers: { country: 'US' } });
   const result = await (await request('alice', input({ request: { topicId: 'sick_care', concernIds: [],
     note: 'Prepare my phone for quiet rest breaks.', maxMinutes: 5, noSpend: true, localSupport: 'unavailable' }
   }))).json();
-  assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.status, 'no_more_ideas');
-  assert.equal(result.batch.tasks.length, 2); assert.match(result.batch.message, /current request and limits/);
+  assert.equal(result.adaptation.status, 'generated'); assert.equal(result.batch.status, 'ready');
+  assert.equal(result.batch.tasks.length, 3);
   assert.ok(result.batch.tasks.every(task => task.estimated_minutes <= 5 && task.concern_ids.includes('daily_tasks')));
-  assert.equal(result.batch.tasks[1].action_key, 'sick_09_pause_chore');
-});
-
-test('mixed-batch composition excludes near-duplicate generated, historical and companion outcomes', async t => {
-  const { store } = setup(t); await store.createProfile('alice', { answers: { country: 'US' } });
-  const p = await prepare({ owner: 'alice', request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] },
-    store, catalog, allowEditorialReview: true });
-  const generated = { ...freshTask(), action_key: 'custom_sick_care_quiet_notifications' };
-  const food = p.candidates.find(a => a.actionKey === 'sick_01_easy_food');
-  const shelf = p.candidates.find(a => a.actionKey === 'sick_02_rest_shelf');
-  const clone = (source, actionKey, task = source.task) => ({ ...source, actionKey, outcomeGroup: actionKey,
-    contentRef: `${actionKey}@1`, task: { ...task, action_key: actionKey } });
-  p.candidates.unshift(clone(food, 'renamed_phone', generated));
-  p.candidates.splice(p.candidates.indexOf(food) + 1, 0, clone(food, 'renamed_food'));
-  const batch = composeNewNeedBatch(generated, p, [{ content: shelf.task }]);
-  assert.equal(batch.tasks.length, 3);
-  assert.ok(batch.tasks.every(task => !['renamed_phone', 'renamed_food', shelf.actionKey].includes(task.action_key)));
-  assert.equal(batch.tasks[0].action_key, generated.action_key);
+  assert.ok(result.batch.tasks.every(task => task.action_key.startsWith('custom_')));
 });
 
 test('one mocked adaptation replaces one task; private stable content, owned read, save, award and replay', async t => {
@@ -495,7 +521,7 @@ test('invalid budget policies cannot disable the limits', async t => {
 
 test('automatic requests use the preview policy and quota-denied requests return feedback without calling AI', async t => {
   let calls = 0;
-  const { request, store, env } = setup(t, async () => { calls++; return { batch: { decision: 'no_new_idea', task: null }, metadata: null }; });
+  const { request, store, env } = setup(t, async () => { calls++; return { batch: { decision: 'no_new_idea', tasks: [] }, metadata: null }; });
   env.AI_LIMITS = PREVIEW_AI_LIMITS; env.AI_NEW_NEEDS_ENABLED = 'true';
   await store.createProfile('alice', {}); let version = '1';
   for (let i = 1; i <= 11; i++) {

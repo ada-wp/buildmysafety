@@ -9,6 +9,7 @@ import { buildNewNeedRequest, acceptNewNeed } from '../new-needs.mjs';
 import { createD1Store } from '../d1-store.mjs';
 import { createHandler } from '../http.mjs';
 import { OWNER, makeStore, taskState } from './fixtures.mjs';
+import { generatedIdeas, petIdeas } from './idea-fixtures.mjs';
 
 const options = (request = {}) => ({ owner: OWNER, store: makeStore(), catalog, allowEditorialReview: true,
   useProfileDefaults: true, request: { topicId: 'sick_care', concernIds: [], country: 'US', ...request } });
@@ -167,7 +168,7 @@ test('typed-only requests require the model to classify its task within supporte
   const p = await prepare(options({ note: 'Help me understand home delivery from a pharmacy.' }));
   const body = buildNewNeedRequest(p, catalog, [], 'gpt-6-luna');
   assert.deepEqual(JSON.parse(body.input[0].content[0].text).selected_concerns, []);
-  const concerns = body.text.format.schema.properties.task.anyOf[0].properties.concern_ids;
+  const concerns = body.text.format.schema.properties.tasks.items.properties.concern_ids;
   assert.equal(concerns.minItems, 1);
   assert.deepEqual(concerns.items.enum, sickCareConcerns.map(c => c.id));
 });
@@ -244,39 +245,41 @@ test('ordinary checkbox selection through the automatic route keeps three review
   assert.equal(calls, 0);
 });
 
-test('new-catalog linked pet request stays honestly short when no distinct unlinked pet companions exist', async t => {
+test('new-catalog linked pet request creates three distinct tasks despite no unlinked pool companions', async t => {
   let calls = 0;
   const { store, api } = setup(t, async request => {
     calls++; assert.match(request.instructions, /Learning is a useful outcome/);
     const p = JSON.parse(request.input[0].content[0].text);
     assert.ok(p.eligible_resources.some(r => r.resource_id === 'rover_services'));
-    return { batch: { decision: 'generated', task: { action_key: 'compare_cat_visit_lengths', concern_ids: ['pets'],
+    assert.equal(p.requested_task_count, 3);
+    return { batch: { decision: 'generated', tasks: [{ action_key: 'compare_cat_visit_lengths', concern_ids: ['pets'],
       title: 'Compare what a cat visit includes', summary: 'Understand visit length and included care before choosing a sitter.', estimated_minutes: 15,
       steps: ['Explore Rover’s drop-in service description.', 'Compare time included, total fees and cancellation terms.', 'Choose the service format worth researching; no booking or payment needed today.'],
       done_when: 'You know which visit details to compare before choosing a carer.',
-      resources: [{ resource_id: 'rover_services', why: 'Understand the service format and its limits.' }], purchase_checks: [], no_purchase_option: null } }, metadata: null };
+      resources: [{ resource_id: 'rover_services', why: 'Understand the service format and its limits.' }], purchase_checks: [], no_purchase_option: null }, ...petIdeas()] }, metadata: null };
   });
   await store.createProfile('alice', { answers: { country: 'US' } });
   const input = { route: 'auto', requestId: 'priority_specific_request', expectedStateVersion: '1',
     request: { topicId: 'sick_care', concernIds: [], note: 'I have a cat and want to understand drop-in visit length before choosing a sitter.' } };
   const result = await api('alice', input); assert.equal(result.status, 200);
   assert.equal(result.body.adaptation.status, 'generated', JSON.stringify(result.body));
-  assert.equal(result.body.batch.tasks.length, 1); assert.equal(result.body.batch.status, 'no_more_ideas');
-  assert.match(result.body.batch.message, /current request and limits/); assert.equal(result.body.request.note, undefined);
+  assert.equal(result.body.batch.tasks.length, 3); assert.equal(result.body.batch.status, 'ready');
+  assert.equal(result.body.batch.message, null); assert.equal(result.body.request.note, undefined);
   assert.deepEqual((await api('alice', input)).body.batch, result.body.batch); assert.equal(calls, 1);
-  const tasks = await store.readTasks('alice'); assert.deepEqual(tasks.tasks[0].content, result.body.batch.tasks[0]);
+  const tasks = await store.readTasks('alice'); assert.equal(tasks.tasks.length, 3);
+  for (const task of result.body.batch.tasks) assert.deepEqual(tasks.tasks.find(t => t.state.actionKey === task.action_key).content, task);
 });
 
-test('new-catalog request keeps the generated step first and fills three with fitting reviewed tasks', async t => {
+test('new-catalog typed request generates and stores all three private steps in one call', async t => {
   let calls = 0;
   const { store, api } = setup(t, async () => {
     calls++;
-    return { batch: { decision: 'generated', task: { action_key: 'quiet_phone_rest', concern_ids: ['daily_tasks'],
+    return { batch: generatedIdeas({ action_key: 'quiet_phone_rest', concern_ids: ['daily_tasks'],
       title: 'Give your phone a quiet hour', summary: 'Keep a rest break calmer while allowing important contacts through.',
       estimated_minutes: 5, steps: ['Open your phone’s focus settings.',
         'Choose which contacts can reach you during a rest break.', 'Save a quiet mode to use when you want to rest.'],
       done_when: 'A quiet mode is ready with your chosen contacts allowed.',
-      resources: [], purchase_checks: [], no_purchase_option: null } }, metadata: null };
+      resources: [], purchase_checks: [], no_purchase_option: null }), metadata: null };
   });
   await store.createProfile('alice', { answers: { country: 'US' } });
   const input = { route: 'auto', requestId: 'three_card_current_catalog', expectedStateVersion: '1',
