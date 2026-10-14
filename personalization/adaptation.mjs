@@ -33,9 +33,15 @@ const messages = {
   safety_redirect: 'This is for preparation, not urgent or medical help. If you need help now, contact an appropriate local professional; for immediate danger, contact local emergency services.',
   out_of_scope: 'This area can help you prepare for ordinary sick days. Choose a concern above, or describe a small preparation within it.',
   needs_context: 'Please leave out private contact details, health details and access codes. Choose a concern or describe the preparation without them.',
-  fallback: 'I couldn’t tailor a step this time. These ideas use your selected concerns and preferences.',
-  limit_reached: 'Your AI allowance is resting for now. These ideas still use your selected concerns and preferences.'
+  fallback: 'I couldn’t tailor a step this time. These ideas use your selected concerns and preferences.'
 };
+
+function quotaMessage(quota) {
+  const allowance = quota.scope === 'user'
+    ? `This account has used its daily AI allowance of ${quota.limit} attempts.`
+    : `The preview has reached its shared daily AI allowance of ${quota.limit} attempts.`;
+  return `No AI step was created. ${allowance} It resets at midnight UTC.`;
+}
 
 export function requestBoundary(note) {
   if (!note?.trim()) return null;
@@ -123,8 +129,8 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
   let batch = validateBatch(poolBatch(prepared), prepared);
   let status = requestBoundary(request.note) || 'not_needed';
   let message = null;
-  let metadata = null; let adaptedActionKey = null; let token = null;
-  const budget = createAiBudget(env.MEMORY_DB);
+  let metadata = null; let adaptedActionKey = null; let token = null; let quota = null;
+  const budget = createAiBudget(env.MEMORY_DB, { limits: env.AI_LIMITS });
   const newNeed = Boolean(request.note?.trim() && !prepared.refinement && env.AI_NEW_NEEDS_ENABLED === 'true');
   const target = status === 'not_needed' ? selectTarget(prepared, batch) : null;
   try {
@@ -132,6 +138,7 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
       const reservation = await budget.reserve(owner, requestId, expectedStateVersion);
       token = reservation.token;
       status = reservation.reason || 'unavailable';
+      quota = reservation.quota || null;
       if (token) {
         try {
           let history = [];
@@ -169,12 +176,13 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
       batch = { status, message: messages[status], tasks: [] };
     } else if (['unavailable', 'already_attempted', 'limit_reached'].includes(status)) {
       if (request.note?.trim() && request.concernIds.length === 0) {
-        batch = { status: 'needs_context', message: 'I couldn’t tailor your request this time. Choose a concern to use the prepared collection.', tasks: [] };
-      } else message = messages[status === 'limit_reached' ? 'limit_reached' : 'fallback'];
+        batch = { status: 'needs_context', message: status === 'limit_reached' ? quotaMessage(quota)
+          : 'I couldn’t tailor your request this time. Choose a concern to use the prepared collection.', tasks: [] };
+      } else message = status === 'limit_reached' ? `${quotaMessage(quota)} These ideas still use your selected concerns and preferences.` : messages.fallback;
     }
     if (newNeed && !adaptedActionKey && !['safety_redirect', 'out_of_scope'].includes(status)) {
       const reason = status === 'limit_reached'
-        ? 'The preview’s AI allowance is used up for today (up to 3 attempts per person, with a shared limit). It resets at midnight UTC.'
+        ? quotaMessage(quota)
         : status === 'no_new_idea' ? 'That would repeat an earlier outcome. Tell me what still feels missing or what you need to do differently.'
           : status === 'needs_context' ? requestBoundary(request.note) ? messages.needs_context : 'What would you like to have ready, or what makes this difficult for you? Add one detail and try again.'
             : 'I couldn’t create a useful new step just now. Your words are still here—please try again later.';
@@ -186,7 +194,7 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
         batch.message = 'An alternative way to approach this idea. Add it only if it fits.';
       } else if (!['safety_redirect', 'out_of_scope', 'needs_context'].includes(status)) {
         const reason = status === 'limit_reached'
-          ? 'You’ve reached the preview’s AI limit for today. Try again after midnight UTC.'
+          ? quotaMessage(quota)
           : status === 'keep_pool' ? 'I couldn’t find a useful change within this task. Try describing a different need or choose another idea.'
             : 'I couldn’t tailor this idea just now. You can try again later.';
         batch = { status: 'needs_context', message: `${reason} Your original idea is unchanged.`, tasks: [] };
@@ -198,7 +206,8 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
     if (newNeed && adaptedActionKey) cleanRequest.concernIds = [...new Set([...request.concernIds, ...batch.tasks[0].concern_ids])];
     const result = { status: 'ok', source: adaptedActionKey ? 'mixed' : 'pool', delivery: 'shown', reviewRequired: true,
       metadata: adaptedActionKey ? metadata : null, batch,
-      adaptation: { status, actionKey: adaptedActionKey, message, refinement: Boolean(prepared.refinement), newNeed },
+      adaptation: { status, actionKey: adaptedActionKey, message, refinement: Boolean(prepared.refinement), newNeed,
+        ...(status === 'limit_reached' ? { quota } : {}) },
       trace: { contextVersion: 1, concernPolicy: prepared.prioritize ? 'category' : 'selected', profileRevision: prepared.snapshot.profile.revision,
         stateVersion: expectedStateVersion, promptHash: newNeed ? newNeedPromptHash : adaptationPromptHash, candidateCount: prepared.candidates.length } };
     const contents = batch.tasks.map(task => {

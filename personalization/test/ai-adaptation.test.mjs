@@ -7,7 +7,7 @@ import { createHandler } from '../http.mjs';
 // gets integrated HTTP/D1 tests in sick-care-release.test.mjs.
 import { legacyCatalog as catalog } from '../catalog.mjs';
 import { createD1Store } from '../d1-store.mjs';
-import { createAiBudget } from '../ai-budget.mjs';
+import { AI_LIMITS, PREVIEW_AI_LIMITS, createAiBudget } from '../ai-budget.mjs';
 import { prepare } from '../flow.mjs';
 import { buildNewNeedRequest } from '../new-needs.mjs';
 
@@ -171,7 +171,10 @@ for (const mode of ['fresh_before_exhaustion', 'outside', 'urgent', 'private', '
       assert.deepEqual((await store.readTasks('alice')).tasks, before.tasks);
     }
     assert.equal(calls, ['urgent', 'private', 'quota'].includes(mode) ? 0 : 1);
-    if (mode === 'quota') assert.match(result.batch.message, /allowance.*midnight UTC/);
+    if (mode === 'quota') {
+      assert.match(result.batch.message, /^No AI step was created\..*account.*3 attempts.*midnight UTC/);
+      assert.equal(result.adaptation.quota.scope, 'user'); assert.equal(result.adaptation.quota.limit, 3);
+    } else assert.equal(Object.hasOwn(result.adaptation, 'quota'), false);
   });
 }
 
@@ -298,6 +301,84 @@ test('D1 quotas count failures, lock concurrent calls, prevent duplicate attempt
   time += 86400000; reservation = await budget.reserve('alice', 'quota_next_day01', '1'); assert.ok(reservation.token);
 });
 
+test('preview policy retains earlier failures, allows ten attempts, caps shared usage at 600 and resets at UTC midnight', async t => {
+  const { db, store, sqlite } = setup(t); let time = Date.parse('2026-10-12T23:59:59Z');
+  assert.deepEqual(AI_LIMITS, { perUserDaily: 3, globalDaily: 30, leaseMs: 90000, retentionDays: 7 });
+  assert.ok(Object.isFrozen(AI_LIMITS)); assert.ok(Object.isFrozen(PREVIEW_AI_LIMITS));
+  const original = createAiBudget(db, { now: () => time });
+  const preview = createAiBudget(db, { now: () => time, limits: PREVIEW_AI_LIMITS });
+  await store.createProfile('alice', {});
+  for (let i = 1; i <= 3; i++) {
+    const r = await original.reserve('alice', `preview_attempt_${i}`, '1'); assert.ok(r.token);
+    await original.finish('alice', r.token, 'unavailable', null);
+  }
+  assert.equal((await original.reserve('alice', 'preview_attempt_4', '1')).reason, 'limit_reached');
+  for (let i = 4; i <= 10; i++) {
+    const r = await preview.reserve('alice', `preview_attempt_${i}`, '1'); assert.ok(r.token);
+    await preview.finish('alice', r.token, 'unavailable', null);
+  }
+  assert.equal((await preview.reserve('alice', 'preview_attempt_4', '1')).reason, 'already_attempted');
+  const personal = await preview.reserve('alice', 'preview_attempt_11', '1');
+  assert.equal(personal.reason, 'limit_reached'); assert.equal(personal.token, null);
+  assert.deepEqual(personal.quota, { scope: 'user', limit: 10, resetsAt: '2026-10-13T00:00:00.000Z' });
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts WHERE user_id = ?').get('alice').n, 10);
+  for (let ownerIndex = 0; ownerIndex < 59; ownerIndex++) {
+    const owner = `preview_shared_${ownerIndex}`; await store.createProfile(owner, {});
+    for (let i = 0; i < 10; i++) {
+      const r = await preview.reserve(owner, `shared_attempt_${i}`, '1'); assert.ok(r.token);
+      await preview.finish(owner, r.token, 'unavailable', null);
+    }
+  }
+  await store.createProfile('over_limit', {});
+  const shared = await preview.reserve('over_limit', 'shared_attempt_601', '1');
+  assert.equal(shared.reason, 'limit_reached'); assert.equal(shared.token, null);
+  assert.deepEqual(shared.quota, { scope: 'shared', limit: 600, resetsAt: '2026-10-13T00:00:00.000Z' });
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts').get().n, 600);
+  time += 1000;
+  assert.ok((await preview.reserve('alice', 'preview_next_day01', '1')).token);
+  assert.ok((await preview.reserve('over_limit', 'preview_next_day02', '1')).token);
+});
+
+test('invalid budget policies cannot disable the limits', async t => {
+  const { db } = setup(t);
+  for (const limits of [null, {}, { ...AI_LIMITS, perUserDaily: 0 }, { ...AI_LIMITS, globalDaily: Infinity },
+    { ...AI_LIMITS, perUserDaily: 3.5 }, { ...AI_LIMITS, globalDaily: 2 }, { ...AI_LIMITS, retentionDays: -1 }]) {
+    assert.throws(() => createAiBudget(db, { limits }), { code: 'invalid_ai_limits' });
+  }
+});
+
+test('automatic requests use the preview policy and quota-denied requests return feedback without calling AI', async t => {
+  let calls = 0;
+  const { request, store, env } = setup(t, async () => { calls++; return { batch: { decision: 'no_new_idea', task: null }, metadata: null }; });
+  env.AI_LIMITS = PREVIEW_AI_LIMITS; env.AI_NEW_NEEDS_ENABLED = 'true';
+  await store.createProfile('alice', {}); let version = '1';
+  for (let i = 1; i <= 11; i++) {
+    const response = await request('alice', input({ requestId: `preview_http_attempt_${i}`, expectedStateVersion: version }));
+    assert.equal(response.status, 200); const result = await response.json(); version = result.stateVersion;
+    if (i <= 10) {
+      assert.equal(calls, i); assert.equal(result.adaptation.status, 'no_new_idea');
+      assert.equal(Object.hasOwn(result.adaptation, 'quota'), false);
+    } else {
+      assert.equal(calls, 10); assert.equal(result.adaptation.status, 'limit_reached');
+      assert.equal(result.adaptation.quota.scope, 'user'); assert.equal(result.adaptation.quota.limit, 10);
+      assert.match(result.batch.message, /^No AI step was created\..*account.*10 attempts.*midnight UTC/);
+    }
+  }
+  // A smaller injected test policy exercises the shared-cap HTTP branch without 600 HTTP writes.
+  env.AI_LIMITS = { ...AI_LIMITS, perUserDaily: 3, globalDaily: 10 };
+  await store.createProfile('bob', {});
+  const shared = await (await request('bob', input({ requestId: 'shared_http_attempt' }))).json();
+  assert.equal(calls, 10); assert.equal(shared.adaptation.quota.scope, 'shared');
+  assert.match(shared.batch.message, /^No AI step was created\..*shared.*10 attempts.*midnight UTC/);
+  // Pool fallback retains suitable ideas and exposes the same factual quota message.
+  env.AI_NEW_NEEDS_ENABLED = 'false';
+  await store.createProfile('carol', {});
+  const fallback = await (await request('carol', input({ requestId: 'shared_pool_attempt' }))).json();
+  assert.ok(fallback.batch.tasks.length); assert.equal(fallback.adaptation.quota.scope, 'shared');
+  assert.match(fallback.adaptation.message, /^No AI step was created\..*shared.*10 attempts.*midnight UTC/);
+  assert.equal(calls, 10);
+});
+
 test('private adapted saves still supply relevant soft signals; shown action stays excluded', async t => {
   const { request, store } = setup(t, async b => adapted(b)); await store.createProfile('alice', {});
   const first = await (await request('alice', input())).json();
@@ -388,7 +469,10 @@ for (const mode of ['keep_pool', 'failure', 'limit', 'unsafe']) test(`refinement
       note: mode === 'unsafe' ? 'I need urgent medication advice.' : 'Please use ready-to-eat food with no cooking.' } }))).json();
   assert.equal(result.batch.tasks.length, 0); assert.ok(result.batch.message);
   assert.equal(result.batch.status, mode === 'unsafe' ? 'safety_redirect' : 'needs_context');
-  if (mode === 'limit') assert.match(result.batch.message, /limit/);
+  if (mode === 'limit') {
+    assert.match(result.batch.message, /^No AI step was created\..*account.*3 attempts.*midnight UTC.*original idea is unchanged/);
+    assert.equal(result.adaptation.quota.scope, 'user'); assert.equal(result.adaptation.quota.limit, 3);
+  }
   assert.deepEqual((await store.readTasks('alice')).tasks, before.tasks);
   assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_private_task_content').get().n, 0);
 });

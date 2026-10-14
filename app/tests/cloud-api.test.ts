@@ -36,6 +36,20 @@ const make = (fetchImpl: typeof fetch, overrides: Partial<Parameters<typeof crea
 });
 const errorCode = (code: string) => (error: unknown) => error instanceof SafetyApiError && error.code === code;
 
+test('client validates optional quota metadata while accepting older responses', async () => {
+  const quota = { scope: 'user', limit: 10, resetsAt: '2026-10-15T00:00:00.000Z' };
+  const limited = { ...batch, adaptation: { status: 'limit_reached', actionKey: null, quota } };
+  const f = fake(response(limited), response(batch));
+  const client = make(f.fetchImpl);
+  const input = { request: { topicId: 'sick_care' as const, concernIds: [] } };
+  assert.deepEqual((await client.recommendations(input)).adaptation?.quota, quota);
+  assert.equal((await client.recommendations(input)).adaptation, undefined);
+  for (const broken of [{ ...quota, limit: -1 }, { ...quota, scope: 'unknown' }, { ...quota, resetsAt: 'tomorrow' }]) {
+    const invalid = make(fake(response({ ...limited, adaptation: { ...limited.adaptation, quota: broken } })).fetchImpl);
+    await assert.rejects(invalid.recommendations(input), errorCode('invalid_response'));
+  }
+});
+
 test('health is public; memory uses a fresh identity token and no cookie or redirect authentication', async () => {
   const f = fake(response({ ok: true }), response(snapshot), response(snapshot));
   let tokenReads = 0;

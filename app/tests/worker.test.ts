@@ -9,6 +9,7 @@ import { readFileSync } from 'node:fs';
 // are not dependencies of the browser app. No network or identity provider here.
 const { createAppWorker, default: defaultWorker } = await import(new URL('../worker.mjs', import.meta.url).href);
 const { FlowError } = await import(new URL('../../personalization/contracts.mjs', import.meta.url).href);
+const { AI_LIMITS, PREVIEW_AI_LIMITS } = await import(new URL('../../personalization/ai-budget.mjs', import.meta.url).href);
 const migration = readFileSync(new URL('../../personalization/migrations/0001_user_memory.sql', import.meta.url), 'utf8');
 const origin = 'https://app.example';
 const clerkConfig = {
@@ -77,7 +78,7 @@ function setup(t: TestContext) {
     contentReviewHosts: ['app.example'],
     verifyIdentity: async (request: Request, env: Record<string, unknown>) => {
       identityCalls++;
-      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_NEW_NEEDS_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'CLERK_SECRET_KEY', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
+      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_LIMITS', 'AI_NEW_NEEDS_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'CLERK_SECRET_KEY', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
       const owner = identities.get(request.headers.get('Authorization') || '');
       if (!owner) throw new FlowError('authentication_required');
       return owner;
@@ -285,4 +286,28 @@ test('editorial content stays absent outside exact founder preview hosts and AI 
     requestId: 'unapproved_request01', expectedStateVersion: '1', request: { topicId: 'sick_care', concernIds: ['food'] }
   }), env), 422, 'unsupported_topic');
   await errorIs(await send('/api/recommendations', 'POST', { route: 'adapt', request: { topicId: 'sick_care', concernIds: ['food'] } }), 403, 'adaptation_disabled');
+});
+
+test('only the exact enabled founder preview receives the higher server policy; outer overrides are ignored', async t => {
+  const { env, send } = setup(t); await send('/api/memory', 'POST', {});
+  const observed: Array<{ limits: unknown; enabled: unknown }> = [];
+  const worker = createAppWorker({ verifyIdentity: async (_request: Request, forwarded: Record<string, unknown>) => {
+    observed.push({ limits: forwarded.AI_LIMITS, enabled: forwarded.AI_ADAPTATION_ENABLED });
+    return 'user_alice';
+  } });
+  for (const [host, enabled, expected] of [
+    ['app-auth-staging.buildmysafety.pages.dev', 'true', PREVIEW_AI_LIMITS],
+    ['app-auth-staging.buildmysafety.pages.dev', 'false', AI_LIMITS],
+    ['buildmysafety.pages.dev', 'true', AI_LIMITS],
+    ['other.app-auth-staging.buildmysafety.pages.dev', 'true', AI_LIMITS]
+  ]) {
+    const configuration = Object.create(env, {
+      AI_ADAPTATION_ENABLED: { value: enabled },
+      AI_LIMITS: { get() { throw new Error('An outer quota override must never be read'); } }
+    });
+    const response = await worker.fetch(new Request(`https://${host}/api/memory`), configuration);
+    assert.equal(response.status, 200);
+    assert.equal(observed.at(-1)?.limits, expected);
+    assert.equal(observed.at(-1)?.enabled, expected === PREVIEW_AI_LIMITS ? 'true' : 'false');
+  }
 });

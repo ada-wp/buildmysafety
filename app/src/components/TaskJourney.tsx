@@ -5,7 +5,7 @@ import type { RecommendationTask, TaskActionEvent, TopicId } from '../api-contra
 import { interestEntries, interestLabels } from '../interest-labels';
 import { orderTopics } from '../topic-order';
 import { createTaskSession } from '../task-session';
-import { recommendationFeedback } from '../recommendation-feedback';
+import { activeAiQuota, recommendationFeedback } from '../recommendation-feedback';
 import { Elephant } from './Elephant';
 import { TaskFeedback } from './TaskFeedback';
 import { accountIsLeaving } from '../navigation';
@@ -33,6 +33,9 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const [short, setShort] = useState(false);
   const [noSpend, setNoSpend] = useState(false);
   const [notice, setNotice] = useState('');
+  const [quotaClock, setQuotaClock] = useState(Date.now);
+  const quota = activeAiQuota(state.latest?.result, quotaClock);
+  const requestNotice = notice || (quota ? state.latest?.result?.batch.message || '' : '');
   const [showAll, setShowAll] = useState(draft.answers.style !== 'one');
   const origin = useRef<'ideas' | 'list'>(history.state?.taskOrigin === 'list' ? 'list' : 'ideas');
   const restored = useRef(false);
@@ -41,6 +44,14 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const identityError = useRef(onIdentityError);
   identityError.current = onIdentityError;
   useEffect(() => { session.connect(); void session.load(); return () => session.dispose(); }, [session]);
+  useEffect(() => {
+    if (!quota) return;
+    const timer = window.setTimeout(() => {
+      setQuotaClock(Date.now());
+      setNotice(value => value === state.latest?.result?.batch.message ? '' : value);
+    }, Math.max(0, Date.parse(quota.resetsAt) - Date.now()) + 50);
+    return () => window.clearTimeout(timer);
+  }, [quota, state.latest]);
   useEffect(() => {
     if (state.error && (state.error.status === 401 || accountIsLeaving(state.error.code))) identityError.current();
   }, [state.error]);
@@ -58,11 +69,11 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
     }
   }, [state.loaded, state.latest]);
   useEffect(() => {
-    if (active && (route.page === 'concerns' || route.page === 'refine') && (notice || state.error)) {
+    if (active && (route.page === 'concerns' || route.page === 'refine') && (requestNotice || state.error)) {
       feedbackArea.current?.scrollIntoView({ block: 'center' });
       feedbackArea.current?.focus({ preventScroll: true });
     }
-  }, [notice, state.error, active, route.page]);
+  }, [requestNotice, state.error, active, route.page]);
   function navigate(next: Route) {
     setNotice('');
     if (hash(next) !== location.hash) history.pushState({ taskOrigin: origin.current }, '', hash(next));
@@ -79,17 +90,17 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const current = 'task' in route ? entries.find(item => item.state.actionKey === route.task) : undefined;
   const batch = state.latest?.result?.batch;
   const blocked = state.busy || !state.loaded || Boolean(state.error);
-  async function suggest() {
+  async function suggest(preparedOnly = false) {
     const startingHash = location.hash;
     const submittedNote = note;
     setNotice('');
     const okay = await session.recommend({ topicId: 'sick_care', concernIds: concerns, maxMinutes: short ? 10 : null,
-      ...(note.trim() ? { note: note.trim() } : {}), noSpend, country: SERVICE_COUNTRY,
-      localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' });
+      ...(!preparedOnly && note.trim() ? { note: note.trim() } : {}), noSpend, country: SERVICE_COUNTRY,
+      localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' }, preparedOnly ? 'pool' : 'auto');
     if (okay && location.hash === startingHash) {
-      const feedback = recommendationFeedback(session.getState().latest?.result, Boolean(submittedNote.trim()));
+      const feedback = recommendationFeedback(session.getState().latest?.result, !preparedOnly && Boolean(submittedNote.trim()));
       if (!feedback.openIdeas) { setNotice(feedback.notice); return; }
-      setNote(value => value === submittedNote ? '' : value);
+      if (!preparedOnly) setNote(value => value === submittedNote ? '' : value);
       setShowAll(draft.answers.style !== 'one'); navigate({ page: 'ideas' });
     }
   }
@@ -152,7 +163,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
     {state.busy && <p className="hint" role="status">{requestPage ? 'Working on your request. This can take a moment…' : 'Checking your saved progress…'}</p>}
     {state.error && <div role="alert" className="message error"><p>{state.error.code === 'refinement_not_available' ? 'This idea can’t be changed with your current choices, or it has already been saved. Check your progress and choose another unsaved idea.' : state.error.code === 'generation_in_progress' ? 'A suggestion is still being prepared. Give it a moment, then check your saved progress.' : state.error.conflict ? 'Your list changed in another tab. Check the latest version before trying again.' : state.error.outcomeUnknown ? 'We couldn’t confirm the result. Check your saved progress before trying again.' : 'We couldn’t connect to your tasks just now.'}</p>
       <button className="secondary" disabled={state.busy} onClick={() => void session.load()}>Check saved progress</button></div>}
-    {notice && <p className="message" role="status">{notice}</p>}
+    {requestNotice && <p className={`message${quota ? ' error' : ''}`} role={quota ? 'alert' : 'status'}>{requestNotice}</p>}
   </div>;
   if (!state.loaded && !state.error) return <div className="task-journey" role="status"><p>Finding your saved place…</p></div>;
   return <div className="task-journey" ref={root} aria-busy={state.busy}>
@@ -179,9 +190,11 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       <label className="manual-request">Anything specific you’d like help with? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => { setNote(e.target.value); setNotice(''); }} placeholder="For example: I have a cat and want to understand care options before booking anything." /></label>
       <p className="hint">Resource suggestions currently focus on the US. Availability varies by area.</p>
       <p className="hint">A specific request lets AI create a new preparation step, even when you’ve seen the collection. It uses relevant preferences. Leave out private or medical details; your note isn’t saved, but an accepted task stays in your account.</p>
-      <p className="hint">Preview: up to 3 AI attempts per day, with a shared daily limit.</p>
+      <p className="hint">Daily AI limits apply. You can keep using prepared ideas and your saved list.</p>
       {feedback}
-      <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>
+      <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim()) || Boolean(quota && note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : quota && note.trim() ? 'AI limit reached for today' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>
+      {quota && (concerns.length ? <button className="secondary" disabled={blocked} onClick={() => void suggest(true)}>See prepared ideas</button>
+        : <p className="hint">Choose a concern above to explore prepared ideas without AI.</p>)}
       {batch && <button className="text-button" onClick={() => navigate({ page: 'ideas' })}>Return to my latest ideas</button>}
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
     </section>}
@@ -210,8 +223,9 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
           onChange={e => { setRefinementNote(e.target.value); setNotice(''); }} placeholder="For example: I don’t have a microwave. I’d prefer something with no cooking." /></label>
         <p className="hint">OpenAI uses this note and relevant preferences to tailor this one idea. Leave out private or medical details. Your note isn’t saved; an accepted alternative stays in your account.</p>
         {feedback}
-        <button className="primary" disabled={blocked || refinementNote.trim().length < 5} onClick={() => void refine(current.content)}>Try a tailored alternative</button>
-        <p className="hint">Same preparation goal, a different approach. Up to 3 AI attempts per day in this preview.</p>
+        <button className="primary" disabled={blocked || Boolean(quota) || refinementNote.trim().length < 5} onClick={() => void refine(current.content)}>{quota ? 'AI limit reached for today' : 'Try a tailored alternative'}</button>
+        <p className="hint">Same preparation goal, a different approach. Daily AI limits apply.</p>
+        {quota && <button className="secondary" onClick={() => navigate({ page: 'concerns' })}>Explore prepared ideas</button>}
         <button className="text-button" onClick={() => navigate({ page: 'task', task: current.state.actionKey })}>Keep the original idea</button></>
         : <>{feedback}<p>Saved and completed tasks stay as you left them. Choose an unsaved idea to try a different approach.</p>
           <button className="primary" onClick={() => navigate({ page: 'earlier' })}>Choose an unsaved idea</button></>}

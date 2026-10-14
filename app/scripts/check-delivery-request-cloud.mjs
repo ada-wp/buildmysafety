@@ -4,7 +4,7 @@ import { writeFile } from 'node:fs/promises';
 import { origin, withPrivacyTestSession } from './privacy-test-session.mjs';
 if (!process.argv.includes('--paid')) throw new Error('Pass --paid for one real model attempt. No automatic retries.');
 const account = process.argv.includes('--account-a') ? 'a' : 'b';
-const file = new URL(process.argv.includes('--fixed') ? '../verification-delivery-request-fixed.json' : account === 'a' ? '../verification-delivery-request-account-a.json' : process.argv.includes('--follow-up') ? '../verification-delivery-request-followup.json' : '../verification-delivery-request.json', import.meta.url);
+const file = new URL(process.argv.includes('--quota-release') ? '../verification-quota-release.json' : process.argv.includes('--fixed') ? '../verification-delivery-request-fixed.json' : account === 'a' ? '../verification-delivery-request-account-a.json' : process.argv.includes('--follow-up') ? '../verification-delivery-request-followup.json' : '../verification-delivery-request.json', import.meta.url);
 const report = { testedAt: new Date().toISOString(), host: origin,
   account, evidence: 'Independent approved fictional Clerk session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.' };
 try {

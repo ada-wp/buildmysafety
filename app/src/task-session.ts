@@ -46,11 +46,11 @@ export function createTaskSession(client: TaskClient, makeId: () => string = () 
     getState: () => state,
     subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; },
     load: () => run(),
-    recommend(request: RecommendationRequest) {
+    recommend(request: RecommendationRequest, route: 'auto' | 'pool' = 'auto') {
       if (!state.collection || state.error) return Promise.resolve(false);
       const expectedStateVersion = state.collection.stateVersion;
       const requestId = makeId();
-      return run(signal => client.recommendations({ request: structuredClone(request), requestId, expectedStateVersion, route: 'auto' }, { signal }));
+      return run(signal => client.recommendations({ request: structuredClone(request), requestId, expectedStateVersion, route }, { signal }));
     },
     act(actionKey: string, event: TaskActionEvent) {
       if (!state.collection || state.error) return Promise.resolve(false);

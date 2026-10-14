@@ -87,6 +87,15 @@ test('busy session serializes recommendations and task mutations, suppressing do
   session.dispose();
 });
 
+test('prepared-ideas recovery explicitly selects the pool route without a typed request', async () => {
+  const { session, recommendations } = setup();
+  await session.load();
+  assert.equal(await session.recommend({ topicId: 'sick_care', concernIds: ['food'] }, 'pool'), true);
+  assert.equal(recommendations[0].route, 'pool');
+  assert.equal(recommendations[0].request.note, undefined);
+  session.dispose();
+});
+
 test('unknown mutation outcome blocks subsequent writes until explicit reload, never automatic replay', async () => {
   const { client, session, recommendations, order } = setup();
   await session.load();

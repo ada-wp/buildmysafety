@@ -5,6 +5,8 @@ import type {
   AccountStatus, AccountExport, AccountDeletion
 } from './api-contracts.ts';
 
+import { validAiQuota } from './recommendation-feedback.ts';
+
 export type SafetyClientOptions = {
   baseUrl: string;
   getAccessToken: () => Promise<string | null | undefined>;
@@ -90,6 +92,8 @@ const isOnboarding = (v: unknown) => record(v) && typeof v.legacyComplete === 'b
     text(v.progress.updatedAt) && (v.progress.draft === null || record(v.progress.draft))));
 function isRecommendation(value: unknown) {
   if (!record(value) || value.status !== 'ok' || !record(value.batch) || !record(value.trace)) return false;
+  if (record(value.adaptation) && Object.hasOwn(value.adaptation, 'quota') &&
+    (value.adaptation.status !== 'limit_reached' || !validAiQuota(value.adaptation.quota))) return false;
   const { batch, trace } = value;
   if (!['ready', 'no_more_ideas', 'needs_context', 'safety_redirect', 'out_of_scope'].includes(batch.status as string) ||
     !nullableText(batch.message) || !Array.isArray(batch.tasks) || batch.tasks.length > 3 || !batch.tasks.every(task =>

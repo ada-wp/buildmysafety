@@ -3,6 +3,7 @@ import { createClerkIdentityVerifier } from '../personalization/clerk-identity.m
 import { catalog } from '../personalization/catalog.mjs';
 import { createOnboardingHandler } from '../personalization/onboarding.mjs';
 import { createAccountHandler, assertAccountActive } from '../personalization/account.mjs';
+import { AI_LIMITS, PREVIEW_AI_LIMITS } from '../personalization/ai-budget.mjs';
 
 const API_METHODS = new Map([
   ['/api/account', ['GET']], ['/api/account/export', ['GET']], ['/api/account/delete', ['POST']],
@@ -76,6 +77,7 @@ export function createAppWorker({ verifyIdentity = createClerkIdentityVerifier()
           get CLERK_SECRET_KEY() { return handler === account ? env?.CLERK_SECRET_KEY : undefined; },
           AI_ADAPTATION_ENABLED: aiEnabled ? 'true' : 'false',
           AI_NEW_NEEDS_ENABLED: aiEnabled && env?.AI_NEW_NEEDS_ENABLED === 'true' ? 'true' : 'false',
+          AI_LIMITS: aiEnabled ? PREVIEW_AI_LIMITS : AI_LIMITS,
           OPENAI_MODEL: aiEnabled ? env?.OPENAI_MODEL : undefined,
           get OPENAI_API_KEY() { return aiEnabled ? env?.OPENAI_API_KEY : undefined; }
         });
