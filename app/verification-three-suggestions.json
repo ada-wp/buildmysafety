@@ -1,0 +1,135 @@
+{
+  "testedAt": "2026-10-14T17:56:27.452Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "account": "a",
+  "evidence": "Existing fictional Clerk session; no history resets. UI checks are separate.",
+  "request": {
+    "topicId": "sick_care",
+    "concernIds": [
+      "food",
+      "daily_tasks",
+      "getting_care"
+    ],
+    "country": "US",
+    "note": "I want to prepare a quiet phone setting for resting on a sick day, while still allowing calls I choose."
+  },
+  "httpStatus": 200,
+  "result": {
+    "status": "ok",
+    "source": "mixed",
+    "delivery": "shown",
+    "reviewRequired": true,
+    "metadata": {
+      "responseId": "resp_0c4560cade5c1338016acfc25222c087d193904535d439740f",
+      "model": "gpt-6-luna",
+      "inputTokens": 6079,
+      "outputTokens": 192
+    },
+    "batch": {
+      "status": "ready",
+      "message": null,
+      "tasks": [
+        {
+          "action_key": "custom_sick_care_sick_care_quiet_phone",
+          "concern_ids": [
+            "daily_tasks"
+          ],
+          "title": "Set up a quiet sick-day phone mode",
+          "summary": "A quiet mode can silence most notifications while letting selected callers through. The names and settings depend on your phone, so check the options on your device.",
+          "estimated_minutes": 10,
+          "steps": [
+            "Open your phone’s Do Not Disturb, Focus or equivalent settings and find how to allow calls from chosen people or contacts.",
+            "Choose who, if anyone, should be able to call through, and check whether repeat calls or favorites would also ring.",
+            "Turn on the mode briefly to check what happens, then turn it off; adjust any setting that doesn’t match your preference."
+          ],
+          "done_when": "You know how to silence interruptions while allowing the calls you choose.",
+          "resources": [],
+          "purchase_checks": [],
+          "no_purchase_option": null
+        },
+        {
+          "action_key": "sick_v2_sc04",
+          "concern_ids": [
+            "getting_care",
+            "daily_tasks"
+          ],
+          "title": "Find a way to an appointment without driving",
+          "summary": "Some transport options need advance notice. Find out what you could use before the day you need a ride.",
+          "estimated_minutes": 20,
+          "steps": [
+            "If you have Medicaid, ask your plan about nonemergency medical transport. Otherwise, ask the clinic or local 211 about suitable transport options.",
+            "Ask one provider about eligibility, booking notice and the full return-trip cost. Mention any access assistance you actually need.",
+            "Check how the journey home is arranged, especially if the appointment runs late. Keep a confirmed booking route; don't reserve a trip yet."
+          ],
+          "done_when": "You have an eligible transport option with confirmed booking and return-trip details. An unanswered inquiry is still pending.",
+          "resources": [
+            {
+              "resource_id": "medicaid_rides",
+              "why": "Learn about a possible nonemergency transport benefit."
+            },
+            {
+              "resource_id": "local_211",
+              "why": "Discover local practical support and referral routes."
+            }
+          ],
+          "purchase_checks": [],
+          "no_purchase_option": null
+        },
+        {
+          "action_key": "sick_v2_sc10",
+          "concern_ids": [
+            "food"
+          ],
+          "title": "See whether groceries can reach your actual door",
+          "summary": "Delivery coverage is only the start. The useful question is whether the cost and handoff would work on a day you need rest.",
+          "estimated_minutes": 15,
+          "steps": [
+            "Check your usual grocer's delivery page for your address. If it doesn't deliver, inspect one local alternative without buying a membership.",
+            "Preview a realistic small order. Check the final fees and minimum, then confirm whether the handoff is at your door or building entrance.",
+            "Check what happens when an essential item is unavailable. Save a workable option or ask support to resolve the specific obstacle; don't check out."
+          ],
+          "done_when": "You understand one service's total order cost, delivery location and substitution options well enough to decide whether it fits.",
+          "resources": [],
+          "purchase_checks": [],
+          "no_purchase_option": null
+        }
+      ]
+    },
+    "adaptation": {
+      "status": "generated",
+      "actionKey": "custom_sick_care_sick_care_quiet_phone",
+      "message": null,
+      "refinement": false,
+      "newNeed": true
+    },
+    "trace": {
+      "contextVersion": 1,
+      "concernPolicy": "category",
+      "profileRevision": 2,
+      "stateVersion": "11",
+      "promptHash": "5c10754ac82140df4f2bc8a4595abcb1b5b7b1e6ec825d06abe5d600900848e3",
+      "candidateCount": 22
+    },
+    "requestId": "b811f626-1e94-41ac-864d-1ea85446eecf",
+    "request": {
+      "topicId": "sick_care",
+      "concernIds": [
+        "food",
+        "daily_tasks",
+        "getting_care"
+      ],
+      "country": "US"
+    },
+    "stateVersion": "12",
+    "replayed": false
+  },
+  "checks": {
+    "threeDistinctNewTasks": true,
+    "oneAiTwoReviewed": true,
+    "resourceLimit": true,
+    "allThreePersisted": true,
+    "replayStable": true,
+    "priorTasksUnchanged": true,
+    "rawNoteNotInLatest": true
+  }
+}

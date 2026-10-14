@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- On October 14, Ada corrected the single-card results: show **three suggestions at a time**. Preserve the normal three-option choice even when one task is AI-tailored; the older one-at-a-time onboarding answer must not hide the other cards. She then asked for a complete feature, UI-copy and architecture audit, including My Progress, without overriding agreed designs or flows. She explicitly chose readiness for herself and invited testers first, rather than a public launch.
+
 - On October 14, Ada said “we will only focus on US now the app” and “remove country selection for now.” Keep V0 resource coverage US-focused, without adding a location question or inferring a person's actual location.
 
 - On October 13, after the three selection rehearsals, Ada corrected the approach: “exclusions are not good, maybe not exclude, just use rules to prioritize.” Treat her answers as signals for which useful suggestions to show first. Do not require her to identify every gap before the app can reveal overlooked options, or turn unknown context and unselected interests into automatic bans. The shared ranking plan records the narrower remaining boundaries for genuine conflicts, repeats and practical dependencies.

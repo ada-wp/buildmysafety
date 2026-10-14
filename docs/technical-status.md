@@ -1,6 +1,16 @@
 # Technical status and next implementation boundary
 
-## October 14 AI allowance repair — current preview
+## October 14 three-suggestion correction — current preview
+
+Deployment `d2916a56` (code `3a65a73`, client `index-WLb8xigI.js`) restores the normal three-card batch. Typed generation composes one accepted AI task with up to two eligible reviewed companions, using its supported concern tags and the user's selected concerns. Pool selection now continues past resource-blocked candidates rather than stopping after a three-item shortlist. Whole-batch limits, outcome checks, existing history and stable task storage still apply. Single-task refinement stays single; insufficient suitable new tasks produce an explicit shorter-batch message rather than repeats.
+
+The UI displays all returned cards regardless of the older `style: one` preference. More ideas remains available after a typed result and explicitly uses the pool route with the accepted concern tags, without resending the raw note or making an automatic model call. The existing layouts and elephant are unchanged.
+
+Verification: **164 backend and 121 app tests pass**, plus TypeScript, Vite and allowlisted Worker packaging. A local fixture of the actual component verified all three cards with `style: one`, typed-only concern routing, and a second three-card pool batch without a note/AI call. It is ignored and excluded from deployment. One hosted paid request on approved fictional A returned one private quiet-phone task plus two reviewed tasks; all three persisted, replayed identically, and left prior tasks unchanged. See [the hosted verification](../app/verification-three-suggestions.json). No history or quota was reset. The remote pending-deletion check initially received Cloudflare 7403; after read-only account verification, the same check succeeded with zero pending deletions. No permission expansion was needed.
+
+Remaining content limitation: the existing one-resource-bearing-task allowance and unseen-task rules can legitimately leave fewer than three companions, particularly for narrow care/pet requests. The implementation reports that limitation rather than changing resource policy or inventing filler. This check proves the three-card path, not blanket content quality. Ada subsequently requested a full invited-tester audit, especially connecting the approved My Progress/milestone design, cleaning developer-oriented copy and examining readiness; that work is separate from this completed deployment.
+
+## October 14 AI allowance repair — earlier preview
 
 Deployment `8ef44eea` (code `09dc0ee`, client `index-Cr08L08u.js`) is live on app-auth-staging. Only the allowlisted `app/dist/client` artifact was uploaded; production, credentials and database schema are unchanged. The fresh remote pending-deletion count was zero.
 
