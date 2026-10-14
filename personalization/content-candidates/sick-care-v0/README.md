@@ -4,9 +4,18 @@ October 12, 2026. **Thirty complete authored task candidates, proposed checkboxe
 
 - [Read the 30 tasks](REVIEW.md) — readable view generated from the pool.
 - [Proposed priority mapping for all 30](REVIEW.md#proposed-priority-mapping) — 15 Core preparation, 11 Make it reliable, 4 Extra ease; individual ratings await review.
+- [Twelve practical learning tasks](REVIEW.md#practical-learning--proposed-rewrite) — the October 13 rewrite adds useful knowledge and resource awareness, with ten learning tasks in tiers 2/3.
 - [Pool data](pool.json) — canonical editable task content and plain-language fit conditions.
 - [Research and source limitations](../../../research/sick-care-pool-sources.md).
 - [Category-specific AI prompt](../../../docs/prompts/sick-care-category-v0.md).
+
+## Learning is useful preparation
+
+Ada's October 13 correction is **roughly 30–50% dedicated learning tasks**, especially in the second and third tiers, with fewer relationship exercises or trials for their own sake. The revised draft has twelve: 2 Core preparation, 8 Make it reliable, 2 Extra ease. That is 40% of all thirty, or 44% of the twenty-seven non-parked candidates. The remaining tasks may also include research; this count describes each task's primary completion outcome.
+
+Learning should leave her with a useful distinction, a resource she did not know, a better-informed choice or a way to find reliable answers. Give a concrete insight in the task plus a checked starting point; don't simply assign vague research. She may finish by understanding which service fits or recognizing what still needs confirmation. No compulsory notes, quizzes, calls, account creation, purchases or rehearsals. Use ordinary deliberate task completion and elephant feedback; opening a link is not automatic completion and learning does not prove support is arranged.
+
+SC03/06/08/09/12/15/16/17/20/21/25/26 are rewritten as learning tasks. SC20 and SC21 now teach home-help service types and local resource discovery instead of arranging or practicing favors. Keep an actual chosen-carer introduction (SC27), veterinary permissions (SC28) or a wanted mutual check-in (SC19) when it addresses a real need. Do not make every task passive reading or force the pool ratio onto each recommendation batch. All texts remain drafts for review.
 
 ## The concern screen
 
@@ -62,7 +71,7 @@ Some critical facts genuinely matter. If absent, use a concise conditional route
 
 **Resource limit:** at most one linked task per batch, up to two reviewed links in it. Do not strip away a necessary starting link just to fill three cards. Return fewer useful options if several research tasks all require links. Internal evidence citations are not additional user-facing links.
 
-**October 13 resource-copy agreement:** give one or two concrete, relevant apps/services by name with what each helps with and what to check; visible links are not required in task copy. Ada named Rover as an example and agreed to the proposed pet-care wording using Rover, plus Meowtel only for a cat. Names still need reviewed evidence and country/species/budget fit; don't force app recommendations into every task or invent an unsupported provider. The SC26 service-copy revision and resource catalog wiring remain a separate integration item; this priority-only update does not replace its existing PSI text. Preserve the existing batch resource limits when connecting named recommendations.
+**October 13 resource-copy agreement:** give one or two concrete, relevant apps/services by name with what each helps with and what to check; visible links are not required in task copy. SC26's learning rewrite now names Rover, plus Meowtel only for a cat, with checked source records. Names still need country/species/budget fit; don't force two recommendations or invent an unsupported provider. Other examples include FoodKeeper, Poplin and the distinction between meal kits and prepared meals. Runtime resource-catalog wiring remains pending. Preserve the existing batch resource limits when connecting named recommendations; names are not a way to bypass the allowance.
 
 **Timing and completion:** times are active effort; replies, shopping, travel and appointments can take longer. If the task's finish needs a reply, a sent message is still in progress. A checked unsuitable option can be a useful decision, but it must never be called support that is now available.
 
@@ -70,7 +79,7 @@ Some critical facts genuinely matter. If absent, use a concise conditional route
 
 The internal tags are **Discover → Make workable → Strengthen**. They help authors distinguish finding an option, making it usable and resolving an additional real gap. They are not levels a person must pass or proof of safety.
 
-Examples: SC01 care entry → SC03 connection test, if needed. SC26 pet-care candidate → SC27 introduction → SC28 vet permission, if not already arranged. Someone with a trusted carer can skip the first two. Do not show the whole chain automatically.
+Examples: SC01 establishes a care route; SC03 teaches joining/support options only if that knowledge is missing. SC26 now teaches pet-care service types; it does not choose, vet or book a sitter. SC27 is relevant only after a candidate has actually been selected, and SC28 only for an unresolved vet-permission arrangement. Someone with a trusted carer can skip discovery. A knowledge task is not proof of a practical prerequisite, and no full chain is shown automatically.
 
 Thirty means thirty options for different circumstances, not thirty requirements per person. Insured/uninsured versions of SC01 and different easy meals in SC12 are variants within one outcome. SC05/SC30 are only for an explicitly planned procedure or hospital recovery; they must not appear as alarming default sick-day advice.
 
@@ -82,9 +91,9 @@ These are editorial selection examples, not claims of executed backend tests:
 | --- | --- | --- |
 | No care route, insured, wants to prepare before illness | SC01 with the plan/benefits route. | Assuming a doctor; requesting an estimate for an imaginary visit; pushing a membership. |
 | No insurance, tight budget, asks about online care | SC01 with the health-center route and new-patient/virtual-visit questions. | Requiring comparison of several paid apps. |
-| Delivery works; cat has no carer; open to paid help | SC26; SC27 only after a candidate is chosen. | More delivery setup or another feeding note. |
+| Delivery works; cat has no carer; wants to understand paid care options | SC26 explains service types and named apps; SC27 only after an actual candidate is independently chosen. | Claiming a comparison selected or booked a carer; more delivery setup or another feeding note. |
 | No nearby support and paid errands are unaffordable | SC18's specific community-referral route, with honest local limits. | Inventing a friend or promising 211 will supply a helper. |
-| Has a distant willing friend, wants practical help | SC21; SC19 only if she also wants a social check-in. | Assuming distance makes help useless. |
+| Wants to understand support beyond an existing social circle | SC21 teaches a relevant local 211 starting route. For a specific errand, use SC18 instead of generic directory browsing. | A compulsory remote-friend rehearsal, or claiming a referral is arranged help. |
 | Already has care, food and pet arrangements; asks for something new | Identify an explicit remaining need or ask one focused question. | Repeat those tasks or invent a new vulnerability. |
 | All concerns selected; pet details and support unknown | Use a fitting current request/conditional route; ask one consequential question if needed. | Automatically prescribe five arrangements or infer insurance, a willing helper or a pet species. |
 | Outside the US | Use self-contained preparation that fits; require reviewed local routes for provider discovery. | Present HRSA, US 211 or Medicaid as local options. |
@@ -98,6 +107,8 @@ This folder is intentionally outside the runtime catalog. `use_when`, `skip_when
 The existing `food`, `check_in`, `getting_care`, `pets`, `daily_tasks` IDs are still in use. The pool's older six editorial concern tags are not the current five-choice screen. Deliberately map the revised screen and tasks before a versioned release; do not import the old menu unchanged. Neither an old `daily_tasks` answer nor household help proves work obligations. Work/study is removed from the menu. Preserve older answers and task candidates rather than silently deleting or reinterpreting them.
 
 `legacy_overlap` flags old outcomes for semantic review; it is not a blanket alias. Completing the old care-contact note does not prove access to a new provider. Honor explicit new gaps while avoiding ordinary repeated suggestions. Do not overwrite saved task versions.
+
+The learning rewrite records `task_kind` and a `learning_takeaway` for shared editorial content. Twelve changed completion meanings receive new draft outcome keys, with `replaces_draft_outcome` retaining provenance. Never treat those old/new keys as interchangeable completion, nor assign existing users a repeated lesson after a related outcome is already understood. Check semantic overlap and relevant explicit knowledge during integration. No user table, inference profile or new reward mechanism is needed for the editorial change.
 
 The current new-need runtime also has a 20-minute cap, broad medication-word preflight and blanket spending/helper wording restrictions. Some good candidates exceed 20 minutes, require an explicitly available helper, or discuss researching paid care. Those conflicts need deliberate implementation and tests. This package does not change those protections or claim live compatibility. All user storage remains in the existing architecture; this shared pool adds no user database.
 

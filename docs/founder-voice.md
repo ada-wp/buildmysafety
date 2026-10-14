@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- On October 13, after reviewing the tier mapping, Ada asked for roughly 30–50% of tasks to focus on learning, gaining useful knowledge and awareness of resources, especially in tiers 2 and 3. She wants less relationship-building and fewer trials done for their own sake. Treat practical understanding as a genuine gain in agency; do not require a call, favor, purchase, rehearsal or quiz to make learning count. Keep purposeful preparation when it solves a real stated gap. The assistant's revised target of twelve dedicated learning tasks in the thirty-task draft is a proposal within her range, not automatic approval of those twelve texts.
+
 - Later on October 12, Ada defined two connected content deliverables for every category: situation/concern checkboxes relevant enough to guide the task choice, and at least thirty carefully researched and crafted task options ready for selection, with category-specific AI guidance. Keep the project philosophy visible through practical preparation and useful discoveries. Do not offer gimmicks, generic advice or work that merely restates what the person already knows or has. The first sick-day package is a review draft; its proposed six-checkbox treatment and individual tasks have not yet been approved.
 
 - On October 12, Ada recommended Alone Actually's contractor guide and clarified that the reference is for project category structure and the potential solution pool. Use its situation-specific depth as content inspiration. This does not approve copying the site's categories, wording or claims; proposed groupings remain for discussion. See the [reference review](../research/alone-actually-reference.md).

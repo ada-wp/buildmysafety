@@ -1,5 +1,45 @@
 # Sources for the 30-task sick-day candidate pool
 
+## October 13 learning-task revision
+
+Ada requested roughly 30–50% dedicated knowledge/resource-awareness tasks, especially in tiers 2 and 3, with fewer relationship exercises or trials done only for completion. Twelve authored candidates now make practical understanding their primary outcome. Sources below were checked again or added for this rewrite. This verifies descriptions, not personal eligibility, effectiveness or the tier assignments. No new market-prevalence claims are made.
+
+The current tasks supersede the older use notes below where indicated: SC03 no longer requires a video rehearsal; SC06 teaches estimates without obtaining one; SC08/SC09 teach administrative routes without a refill or collection arrangement; SC12 compares meal-service formats; SC15 teaches a lookup skill; SC16/SC17 teach service terms; SC20/SC21 replace favor and remote-handoff exercises; SC25 teaches published benefit limits; SC26 compares named pet-care options. Earlier source notes are provenance for previous drafts, not proof of a completed current arrangement.
+
+### CMS_ESTIMATE_GUIDE
+
+[CMS: good faith estimates](https://www.cms.gov/initiatives/your-patient-rights/medical-bill-rights/get-help/guides-resources/what-good-faith-estimate). Official guide read October 13. Explains estimates for US care paid without insurance, their scope and separately billed providers/services. Used in SC06 as practical literacy, not an individual legal entitlement determination, a guarantee of final price or a reason to delay care. No actual estimate is obtained by the task.
+
+### CVS_REFILL_HELP
+
+[CVS: refilling prescriptions](https://www.cvs.com/retail/help/help-subtopic-refilling-prescriptions) and [refill service overview](https://www.cvs.com/content/refill). Official search extracts read October 13. Distinguishes refill and renewal requests, including expired prescriptions/no remaining refills, and notes eligibility conditions. SC08 uses the administrative distinction only. Other pharmacies' procedures differ; no medication choice, dose, stock availability or personal refill timing is inferred.
+
+### HELLOFRESH_FORMAT
+
+[HelloFresh: how it works](https://www.hellofresh.com/about/how-it-works). Official page read October 13. Describes recipe cards and ingredients to cook, with recurring-plan controls. Used in SC12 as a US meal-kit example, not a recommended purchase or a claim about every item it sells. Current price, dietary fit, serving minimum, cooking work and cancellation deadlines need checking. No promotional claims imported.
+
+### FACTOR_FORMAT
+
+[Factor: how it works](https://www.factor75.com/about/how-it-works). Official description read October 13. Describes prepared meals to heat and a recurring subscription. Used in SC12 to distinguish service formats; no nutrition/health claim, discount, universal heating time or affordability claim is adopted. Learning requires no order or trial.
+
+### POPLIN_FIRST_ORDER
+
+[Poplin: first order](https://poplin.zendesk.com/hc/en-us/articles/53026765989275-Your-First-Order-What-to-Expect). Official help read October 13. Explains per-pound billing subject to a minimum, with additional fees and item conditions. SC16 teaches which terms to examine, without copying prices or promising local service/return times. A local laundromat may be a more suitable option. No trial load is required.
+
+### MEDLINE_HOME_HELP
+
+[MedlinePlus: home-care services](https://www.medlineplus.gov/homecareservices.html). Official overview read October 13. Distinguishes household help, personal care and healthcare support. SC20 uses that vocabulary for service awareness; it does not assess whether someone needs clinical or personal care, guarantee coverage or treat a cleaner as a care professional. An actual care decision belongs with the appropriate professional.
+
+### ROVER_SERVICES
+
+[Rover: service types](https://support.rover.com/hc/en-us/articles/205979666-What-services-are-offered-on-Rover). Official description read October 13. Distinguishes boarding, house sitting, drop-ins and dog walking. Used in SC26 as an app people can explore by name. Species, location, visit expectations, cost, introductions and availability need checking. A platform listing is not a verified suitable sitter or booking.
+
+### MEOWTEL_SERVICES
+
+[Meowtel: how it works](https://meowtel.com/how-meowtel-works) and [help/FAQ](https://meowtel.com/help-faq). Official descriptions read October 13. Cat-specific in-home visits and overnight services; the FAQ describes a reservation requirement before a meeting. SC26 only asks users with cats in covered areas to learn about service options. No free introduction, unbooked chat access, availability or care guarantee is promised. Names may appear without visible links; sources remain reviewed internally.
+
+Existing references refreshed October 13: HHS telehealth preparation and third-party collection, FoodSafety.gov FoodKeeper, Taskrabbit cleaning, Care.com's employer-care overview, and United Way 211. [United Way's 2026 overview](https://www.unitedway.org/sites/default/files/2026-03/260310_MC_211%201%20Pager%20General-Accessible.pdf) describes free information/referrals; [211's local-resource overview](https://211.org/about-us) supports SC21. Local listings, contact channels and referred program eligibility/costs vary. Browsing a referral directory does not arrange help.
+
 ## October 13 checkbox review — research interpretation
 
 Ada asked how research should improve the six concern choices. Revisited the saved Buildpad report and earlier social research, then reopened the sources below. This is a bounded qualitative refresh, not a representative survey, exhaustive social search or measured ranking. Reddit participants are self-selected; LivingAlone is mixed-gender and geography is often unknown. No vote counts are used to order the menu. Some page-relative dates disagree with cached dates, so no new exact post-date claims are made here.

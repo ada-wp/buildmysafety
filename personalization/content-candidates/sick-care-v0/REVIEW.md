@@ -1,12 +1,35 @@
 # Sick days & care — 30 tasks to review
 
-Authored content candidates, October 12, 2026; proposed priority mapping added October 13. Research-informed; awaiting founder review. Not published in the app or generated in a recorded API test. The pool offers different options for different lives, not thirty things one person must complete.
+Authored content candidates, October 12, 2026; proposed priority mapping and twelve-task learning rewrite added October 13. Research-informed; awaiting founder review. Not published in the app or generated in a recorded API test. The pool offers different options for different lives, not thirty things one person must complete.
 
 Generated reading view of [pool.json](pool.json). Edit the JSON and rerun `render-review.mjs`; do not maintain a second copy here. [Selection and checkbox proposal](README.md) · [Source record](../../../research/sick-care-pool-sources.md).
 
 ## Current concern screen
 
 Use the [five current concern choices and optional AI input](README.md#the-concern-screen). Work/study was removed from the menu. The six older concern tags in pool.json remain editorial metadata awaiting deliberate remapping; they are not the current screen or executable filters.
+
+## Practical learning — proposed rewrite
+
+12 of 30 tasks (40%) are dedicated learning tasks; 44% of the 27 non-parked candidates. 10 learning tasks are in tiers 2 and 3. Priority counts remain unchanged.
+
+Learning ends with useful understanding, awareness of a resource or a better-informed choice. Reading time alone is not the outcome. No forced quiz, note, trial, purchase, account signup or conversation. The remaining preparation tasks can also include research. This pool mix never overrides an individual need or imposes a quota on each batch.
+
+| Task | Tier | What she learns |
+| --- | --- | --- |
+| [SC03 — Know how your first video visit will work](#sc03) | Make it reliable | Joining requirements, accessibility support and fallback options are provider-specific; know where to find them before relying on video. |
+| [SC06 — Learn what a care estimate leaves out](#sc06) | Make it reliable | An estimate is not necessarily the whole bill: separate providers and services can require separate estimates. |
+| [SC08 — Understand why a refill might need another step](#sc08) | Make it reliable | A refill uses an existing prescription's remaining authorization; a renewal can need the prescriber. The actual pharmacy explains individual requirements. |
+| [SC09 — Learn how prescription collection by someone else works](#sc09) | Make it reliable | Permitted collection is not guaranteed collection; the pharmacy's requirements and a suitable person's agreement matter separately. |
+| [SC12 — Choose meal delivery that actually removes cooking](#sc12) | Make it reliable | Meal kits and prepared meals remove different work. Look past promotions to preparation effort and recurring commitments. |
+| [SC15 — Find a reliable answer to food-storage questions](#sc15) | Make it reliable | Storage guidance depends on the food and its condition; a trusted lookup tool is more useful than a universal rule. |
+| [SC16 — Decode a laundry pickup service's real cost](#sc16) | Extra ease | Minimums and additional charges can matter more than a low unit price, especially for a small load. |
+| [SC17 — Understand what a cleaning booking actually includes](#sc17) | Extra ease | Service scope, charging method and supplied equipment affect whether a cleaning booking solves the actual need. |
+| [SC20 — Learn which kind of home help fits](#sc20) | Make it reliable | Different support needs call for different services; the name of the task helps find suitable help and avoid relying on the wrong provider. |
+| [SC21 — Discover local help beyond people you already know](#sc21) | Make it reliable | A local information service can help identify options beyond an existing social circle; referrals and available assistance are different things. |
+| [SC25 — Discover practical help hidden in your work benefits](#sc25) | Core preparation | Provider marketing is not an employer entitlement; the actual plan's eligible situations and costs determine whether a benefit is useful. |
+| [SC26 — Discover the pet-care options you could use](#sc26) | Core preparation | Drop-ins, overnight stays and boarding are different arrangements; choose the format before investigating a particular sitter. |
+
+Drafts whose completion meaning changed have a new outcome key and record the prior key as replaces_draft_outcome. This is provenance, not an equivalence or migration rule. Learning about a route does not prove that help is arranged. Existing live task versions and user completion remain unchanged.
 
 ## Proposed priority mapping
 
@@ -35,8 +58,8 @@ No within-band order is implied by task IDs. The Why column is editorial reasoni
 | [SC19 — Make a check-in something you both want](#sc19) | Establishes wanted social support through an actual mutual arrangement rather than an assumed available contact. | [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness), [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
 | [SC22 — Find the simplest way to take a sick day](#sc22) **(parked)** | Establishes a missing process for reporting absence when that uncertainty prevents taking needed time away. | [DOL_LEAVE](../../../research/sick-care-pool-sources.md#dol_leave), [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
 | [SC24 — Find the pause button for your own business](#sc24) **(parked)** | Establishes a way to pause incoming business work while identifying commitments that a platform will not pause. | [ETSY_PAUSE](../../../research/sick-care-pool-sources.md#etsy_pause) |
-| [SC25 — Look for practical care help in your work benefits](#sc25) | May uncover an overlooked eligible source of practical-care help before the user researches full-price alternatives. | [CARE_BENEFITS](../../../research/sick-care-pool-sources.md#care_benefits) |
-| [SC26 — Find care that fits your kind of pet](#sc26) | Establishes a promising pet-care option and its first-use requirements before help is needed. | [PSI_FIND](../../../research/sick-care-pool-sources.md#psi_find) |
+| [SC25 — Discover practical help hidden in your work benefits](#sc25) | Can reveal a previously unknown support option for an essential practical need. | [CARE_BENEFITS](../../../research/sick-care-pool-sources.md#care_benefits) |
+| [SC26 — Discover the pet-care options you could use](#sc26) | Builds awareness of possible pet-care routes when the user has not known where to start. | [ROVER_SERVICES](../../../research/sick-care-pool-sources.md#rover_services), [MEOWTEL_SERVICES](../../../research/sick-care-pool-sources.md#meowtel_services) |
 | [SC29 — Explore temporary pet care when paid sitting won't stretch](#sc29) | Explores a potentially feasible pet-care route during an expected extended absence when commercial care is unaffordable. | [HUMANE_FOSTER](../../../research/sick-care-pool-sources.md#humane_foster) |
 | [SC30 — Help the care team understand your home situation](#sc30) | Establishes needed help at home with the actual care team before a planned stay or procedure assumes an available helper. | [MEDLINE_DISCHARGE](../../../research/sick-care-pool-sources.md#medline_discharge) |
 
@@ -44,14 +67,14 @@ No within-band order is implied by task IDs. The Why column is editorial reasoni
 
 | Task | Why this default | Evidence |
 | --- | --- | --- |
-| [SC03 — Try the doorway to your first video visit](#sc03) | Checks whether a chosen care option can actually be joined and exposes technical or accessibility barriers. | [HHS_PREP](../../../research/sick-care-pool-sources.md#hhs_prep), [HHS_TECH](../../../research/sick-care-pool-sources.md#hhs_tech) |
-| [SC06 — Ask what your planned visit will actually cost](#sc06) | Clarifies the actual cost of a chosen self-pay visit rather than relying on a starting price. | [CMS_ESTIMATE](../../../research/sick-care-pool-sources.md#cms_estimate) |
-| [SC08 — Find out what could hold up your next refill](#sc08) | Addresses administrative delays that a delivery service alone cannot resolve for an existing prescription. | [CDC_RX](../../../research/sick-care-pool-sources.md#cdc_rx) |
-| [SC09 — Check whether someone else can collect for you](#sc09) | Makes an existing willing helper a usable collection option by checking pharmacy permission and handoff requirements. | [HHS_PICKUP](../../../research/sick-care-pool-sources.md#hhs_pickup) |
-| [SC12 — Give one easy meal a real-life try](#sc12) | Tests whether a chosen meal is genuinely manageable instead of creating another list of familiar foods. | [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox) |
-| [SC15 — Check how your go-to meal keeps](#sc15) | Resolves an actual storage knowledge gap that could undermine an otherwise usable meal plan. | [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper), [FOOD_STORAGE](../../../research/sick-care-pool-sources.md#food_storage) |
-| [SC20 — Turn 'let me know' into one easy-to-ask favor](#sc20) | Turns an existing offer of help into a specific, workable favor with timing and cost expectations agreed. | [FOUNDER](../../../research/sick-care-pool-sources.md#founder), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness) |
-| [SC21 — Find something a faraway person could help with](#sc21) | Makes an existing distant support relationship practically useful through a real, bounded handoff. | [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
+| [SC03 — Know how your first video visit will work](#sc03) | Makes a prospective care route more dependable through understanding its access requirements and support options. | [HHS_PREP](../../../research/sick-care-pool-sources.md#hhs_prep), [HHS_TECH](../../../research/sick-care-pool-sources.md#hhs_tech) |
+| [SC06 — Learn what a care estimate leaves out](#sc06) | Improves a care decision by explaining the scope and limits of cost information. | [CMS_ESTIMATE_GUIDE](../../../research/sick-care-pool-sources.md#cms_estimate_guide) |
+| [SC08 — Understand why a refill might need another step](#sc08) | Makes an existing medication-access process easier to navigate by explaining a common administrative distinction. | [CVS_REFILL_HELP](../../../research/sick-care-pool-sources.md#cvs_refill_help) |
+| [SC09 — Learn how prescription collection by someone else works](#sc09) | Makes a possible collection route understandable before someone relies on it. | [HHS_PICKUP](../../../research/sick-care-pool-sources.md#hhs_pickup) |
+| [SC12 — Choose meal delivery that actually removes cooking](#sc12) | Makes a food-access choice more dependable by distinguishing service formats and commitments. | [HELLOFRESH_FORMAT](../../../research/sick-care-pool-sources.md#hellofresh_format), [FACTOR_FORMAT](../../../research/sick-care-pool-sources.md#factor_format) |
+| [SC15 — Find a reliable answer to food-storage questions](#sc15) | Strengthens everyday food decisions with a reusable source and the knowledge to match its guidance. | [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper), [FOOD_STORAGE](../../../research/sick-care-pool-sources.md#food_storage) |
+| [SC20 — Learn which kind of home help fits](#sc20) | Makes outside-help decisions more reliable by clarifying service scope before relying on a provider. | [MEDLINE_HOME_HELP](../../../research/sick-care-pool-sources.md#medline_home_help) |
+| [SC21 — Discover local help beyond people you already know](#sc21) | Improves future help-seeking by teaching a reusable route to relevant local resources. | [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211) |
 | [SC23 — Make one work handoff usable without you](#sc23) **(parked)** | Tests whether agreed authorized cover can actually handle a time-sensitive duty without the user. | [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
 | [SC27 — Try the pet-care handoff together](#sc27) | Checks a chosen carer's practical fit through an introduction and routine walkthrough rather than relying on a listing. | [PSI_STANDARDS](../../../research/sick-care-pool-sources.md#psi_standards), [RED_CROSS_PETS](../../../research/sick-care-pool-sources.md#red_cross_pets) |
 | [SC28 — Ask your vet what a pet carer would need](#sc28) | Closes a permission and contact gap that a chosen carer and a vet phone number alone do not resolve. | [AVMA_PETS](../../../research/sick-care-pool-sources.md#avma_pets) |
@@ -62,8 +85,8 @@ No within-band order is implied by task IDs. The Why column is editorial reasoni
 | --- | --- | --- |
 | [SC13 — Make your resting spot work for you](#sc13) | Reduces repeated trips and awkward reach once the essential options are in place. | [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox) |
 | [SC14 — Take one last-minute shop off your future plate](#sc14) | Removes a known last-minute shopping inconvenience without inventing a stockpile or universal shopping list. | [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness) |
-| [SC16 — Let laundry leave the house without you](#sc16) | Removes laundry transport or lifting effort when a suitable paid service is wanted. | [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry) |
-| [SC17 — Price the cleaning help you'd actually want](#sc17) | Reduces household workload through a suitably scoped service rather than assuming a full cleaning package. | [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning) |
+| [SC16 — Decode a laundry pickup service's real cost](#sc16) | Builds awareness of an optional service that can remove carrying and laundry effort. | [POPLIN_FIRST_ORDER](../../../research/sick-care-pool-sources.md#poplin_first_order), [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry) |
+| [SC17 — Understand what a cleaning booking actually includes](#sc17) | Improves decisions about optional household help by explaining the terms that affect fit. | [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning) |
 
 ## Browse the pool
 
@@ -73,30 +96,30 @@ Times are active effort. Replies, shopping, travel and appointments can take lon
 | --- | --- | --- |
 | [SC01 — Find a care option you can actually start with](#sc01) | 20 min | Discover an entry point without presuming an existing doctor; learn whether it is usable before relying on it. |
 | [SC02 — Know where an in-person visit could start](#sc02) | 20 min | Find out whether a clinic can actually accept her, rather than treating a map result as access. |
-| [SC03 — Try the doorway to your first video visit](#sc03) | 15 min | Discover first-use technology or accessibility barriers while there is time to resolve them. |
+| [SC03 — Know how your first video visit will work](#sc03) | 10 min | Learn how to evaluate virtual-visit access without rehearsing an appointment merely to earn completion. |
 | [SC04 — Find a way to an appointment without driving](#sc04) | 20 min | Discover possible transport assistance and its advance-booking and return-trip conditions. |
 | [SC05 — Check what 'someone to take you home' really means](#sc05) | 20 min | Learn an easily missed requirement before an appointment is disrupted; access the clinic's coordination help. |
-| [SC06 — Ask what your planned visit will actually cost](#sc06) | 15 min | Learn a concrete way to clarify planned care costs, beyond saving a provider's advertised starting price. |
+| [SC06 — Learn what a care estimate leaves out](#sc06) | 10 min | Gain the knowledge to question an incomplete headline price without needing a booking or a new quote today. |
 | [SC07 — Find out whether a pharmacy can reach your door](#sc07) | 15 min | Discover local prescription delivery without assuming a regular pharmacy, and distinguish it from slower refill shipping. |
-| [SC08 — Find out what could hold up your next refill](#sc08) | 15 min | Uncover administrative lead times before a supply gap; delivery setup alone does not solve renewal delays. |
-| [SC09 — Check whether someone else can collect for you](#sc09) | 15 min | Resolve a practical permission and logistics question rather than assuming another person can simply show up. |
+| [SC08 — Understand why a refill might need another step](#sc08) | 10 min | Recognize an administrative distinction and a support route without making a practice refill request or creating another reminder. |
+| [SC09 — Learn how prescription collection by someone else works](#sc09) | 10 min | Learn an available type of help without asking someone to demonstrate support or claiming a helper is arranged. |
 | [SC10 — See whether groceries can reach your actual door](#sc10) | 15 min | Expose minimum-order charges, building handoffs and substitutions before relying on delivery. |
 | [SC11 — Find food help without a delivery budget](#sc11) | 20 min | Discover temporary community food support and check whether she could actually receive it. |
-| [SC12 — Give one easy meal a real-life try](#sc12) | 20 min | A practical rehearsal exposes hidden effort; this is not another list of foods she already eats. |
+| [SC12 — Choose meal delivery that actually removes cooking](#sc12) | 10 min | Distinguish food arriving from cooking being removed, and understand recurring commitments before subscribing. |
 | [SC13 — Make your resting spot work for you](#sc13) | 10 min | Test usability rather than collecting more objects or purchasing an emergency basket. |
 | [SC14 — Take one last-minute shop off your future plate](#sc14) | 10 min | Close an actual recurring shortage rather than prescribe a stockpile. Lower priority for users seeking unfamiliar options. |
-| [SC15 — Check how your go-to meal keeps](#sc15) | 10 min | A reusable food-storage reference and a specific skill; not another meal-preparation card. |
-| [SC16 — Let laundry leave the house without you](#sc16) | 15 min | Discover a service that removes transport and lifting, including the handoff and minimum-charge details. |
-| [SC17 — Price the cleaning help you'd actually want](#sc17) | 20 min | Discover whether a limited job is available and worthwhile, rather than assuming a full cleaning package is necessary. |
+| [SC15 — Find a reliable answer to food-storage questions](#sc15) | 10 min | Build a reusable research skill rather than make someone prepare a portion solely to demonstrate learning. |
+| [SC16 — Decode a laundry pickup service's real cost](#sc16) | 10 min | Discover pickup laundry and learn to read its terms without carrying out an artificial trial. |
+| [SC17 — Understand what a cleaning booking actually includes](#sc17) | 10 min | Learn to judge a service listing and ask useful questions, without requiring a conversation or booking to count as progress. |
 | [SC18 — Find help for an errand you can't postpone](#sc18) | 20 min | Convert an overlooked errand into a checked service option without assuming nearby friends. |
 | [SC19 — Make a check-in something you both want](#sc19) | 10 min | An actual mutual arrangement that respects both people's preferences, not a contact list or assumed availability. |
-| [SC20 — Turn 'let me know' into one easy-to-ask favor](#sc20) | 15 min | Resolve what an existing offer actually means; not a generic request-writing exercise for someone without support. |
-| [SC21 — Find something a faraway person could help with](#sc21) | 15 min | Make distant support practical through a real, bounded handoff; preserve the user's decisions and privacy. |
+| [SC20 — Learn which kind of home help fits](#sc20) | 10 min | Replace an assumed favor arrangement with useful vocabulary and boundaries for discovering outside support. |
+| [SC21 — Discover local help beyond people you already know](#sc21) | 10 min | Discover a reusable local information route without needing a willing friend, placing a practice call or arranging help today. |
 | [SC22 — Find the simplest way to take a sick day](#sc22) | 15 min | Discover the actual notice and documentation requirements; the message is a useful byproduct, not the whole task. |
 | [SC23 — Make one work handoff usable without you](#sc23) | 25 min | Test someone else's ability to act, rather than writing a vague absence note or duplicating known work information. |
 | [SC24 — Find the pause button for your own business](#sc24) | 20 min | Discover that pausing incoming work may leave existing orders and fees active; prepare for the actual limits. |
-| [SC25 — Look for practical care help in your work benefits](#sc25) | 15 min | Discover a potentially overlooked subsidized service and check the specific restrictions before assuming coverage. |
-| [SC26 — Find care that fits your kind of pet](#sc26) | 20 min | Learn service fit and first-use requirements before a pet-care need arises. |
+| [SC25 — Discover practical help hidden in your work benefits](#sc25) | 10 min | Discover potential resources and eligibility limits without making contacting HR a prerequisite to learning. |
+| [SC26 — Discover the pet-care options you could use](#sc26) | 10 min | Introduce useful apps and service differences without making a stranger meeting or relationship exercise the task. |
 | [SC27 — Try the pet-care handoff together](#sc27) | 30 min | Move from a listing to observed practical fit; make instructions usable by another person. |
 | [SC28 — Ask your vet what a pet carer would need](#sc28) | 20 min | Discover an administrative gap that a phone number or feeding note alone does not cover. |
 | [SC29 — Explore temporary pet care when paid sitting won't stretch](#sc29) | 25 min | Discover a possible community alternative to commercial boarding without assuming it exists or confusing fostering with surrender. |
@@ -124,7 +147,7 @@ You don't need a regular doctor to explore your options. Start with one route th
 
 **Cost and timing:** Research only; future care may cost money. No account, booking or subscription required by this task. Provider reply if details are not published.
 
-**Editorial mapping:** care · discover · care_entry_route
+**Editorial mapping:** care · discover · preparation · care_entry_route
 
 **Proposed priority:** Core preparation. Establishes a missing first route to care, including access and cost, without assuming an existing doctor.
 
@@ -156,7 +179,7 @@ An online option doesn't answer every access question. If you want an in-person 
 
 **Cost and timing:** Research free; appointment costs vary. Clinic or insurer reply.
 
-**Editorial mapping:** care · discover · in_person_care_entry
+**Editorial mapping:** care · discover · preparation · in_person_care_entry
 
 **Proposed priority:** Core preparation. Establishes in-person access when that specific route is missing; a map listing alone does not establish access.
 
@@ -170,33 +193,37 @@ An online option doesn't answer every access question. If you want an in-person 
 
 <a id="sc03"></a>
 
-### SC03. Try the doorway to your first video visit · 15 min
+### SC03. Know how your first video visit will work · 10 min
 
-Finding care is one piece; being able to connect is another. A short practice now can uncover the awkward bits.
+A joining link isn't the whole picture. Learn what support is available so you can choose a setup that suits you.
 
-1. Open your chosen provider's joining instructions. Find its practice or device-check option without starting a paid consultation.
-2. Try the camera and sound from a private spot. If video, captions or another feature doesn't work for you, contact support.
-3. Ask how to reconnect or whether an appropriate phone alternative exists. Keep the provider's technical-help route with your visit link.
+1. Use HHS's telehealth guide to learn about joining instructions, captions and technical support.
+2. Read your chosen provider's joining page. Look for browser or app requirements and how accessibility help is requested.
+3. Find its help route if video fails. A phone alternative depends on the provider; no practice appointment or installation is needed today.
 
-**Done when:** You have tested the connection and know whom to contact if it fails; any needed accessibility arrangement is confirmed.
+**Done when:** You understand the joining requirements and where to ask about support or an alternative.
 
-**Offer when:** A chosen virtual provider exists and the person has not successfully used its setup, or reports an access barrier.
+**Offer when:** She is considering or has chosen virtual care and wants to understand its technology or accessibility requirements.
 
-**Skip when:** She already uses this setup successfully. No new app installation or paid visit just for a test.
+**Skip when:** She already knows and uses the setup successfully, or has an actual connection problem requiring specific technical support.
 
-**Useful gain:** Discover first-use technology or accessibility barriers while there is time to resolve them.
+**Useful gain:** Learn how to evaluate virtual-visit access without rehearsing an appointment merely to earn completion.
 
-**Cost and timing:** No purchase; use an existing device. Support reply if a test or accommodation is needed.
+**Cost and timing:** Reading is free; no account, app installation or appointment required. None for learning. An unconfirmed alternative remains a question, not established access.
 
-**Editorial mapping:** care · make_workable · virtual_visit_connection_tested
+**Editorial mapping:** care · strengthen · learning · virtual_visit_access_options_understood
 
-**Proposed priority:** Make it reliable. Checks whether a chosen care option can actually be joined and exposes technical or accessibility barriers.
+**Proposed priority:** Make it reliable. Makes a prospective care route more dependable through understanding its access requirements and support options.
 
-**Context can change the order:** Move first when the connection is the stated obstacle to using an otherwise suitable care route; skip an already-working setup.
+**Context can change the order:** Move first when technology or accessibility is her stated uncertainty. Actual technical failure needs problem-solving, not another reading task.
 
 **Research:** [HHS_PREP](../../../research/sick-care-pool-sources.md#hhs_prep), [HHS_TECH](../../../research/sick-care-pool-sources.md#hhs_tech).
 
-**Possible user links:** None required; use her chosen provider or existing tools where specified.
+**Possible user links:** [HHS_PREP](../../../research/sick-care-pool-sources.md#hhs_prep)
+
+**Learning takeaway:** Joining requirements, accessibility support and fallback options are provider-specific; know where to find them before relying on video.
+
+**Draft outcome change:** replaces virtual_visit_connection_tested; not a stored-user migration or completion alias.
 
 <a id="sc04"></a>
 
@@ -218,7 +245,7 @@ Some transport options need advance notice. Find out what you could use before t
 
 **Cost and timing:** Research free; eligibility and ride charges vary. Do not promise free rides. Transport-provider eligibility confirmation.
 
-**Editorial mapping:** care, support · discover · nonurgent_appointment_transport
+**Editorial mapping:** care, support · discover · preparation · nonurgent_appointment_transport
 
 **Proposed priority:** Core preparation. Closes a missing transport route that can make otherwise available nonurgent care inaccessible.
 
@@ -248,7 +275,7 @@ For a planned procedure, a ride and an approved escort can be different things. 
 
 **Cost and timing:** Planning free; acceptable transport or support may cost money. Clinical team and prospective escort confirmation.
 
-**Editorial mapping:** care, support · make_workable · procedure_escort_requirements_resolved
+**Editorial mapping:** care, support · make_workable · preparation · procedure_escort_requirements_resolved
 
 **Proposed priority:** Core preparation. Resolves a potentially blocking escort arrangement before an explicitly planned procedure.
 
@@ -260,33 +287,37 @@ For a planned procedure, a ride and an approved escort can be different things. 
 
 <a id="sc06"></a>
 
-### SC06. Ask what your planned visit will actually cost · 15 min
+### SC06. Learn what a care estimate leaves out · 10 min
 
-A headline consultation price may not cover everything. For a planned self-pay visit, you can ask for a written estimate.
+A quoted visit price may not explain every charge. Learn what to ask before deciding about a planned self-pay visit.
 
-1. For US care you won't pay for through insurance, ask the provider about a written 'good faith estimate' before the planned visit.
-2. Ask whether it includes facility charges or likely separate services. If another provider bills separately, ask that provider for its estimate too.
-3. Read the answers before deciding about the visit. Keep the estimate privately and ask about any charge you still don't understand.
+1. For US care paid without insurance, read CMS's explanation of a good faith estimate.
+2. Notice that an estimate can cover one provider or facility; other providers and separately scheduled services may need separate estimates.
+3. Identify the question you'd ask before booking: 'Which providers or services aren't included?' Keep the official guide if useful.
 
-**Done when:** You have the estimate and understand what it includes; a request without an answer remains pending.
+**Done when:** You understand what an estimate covers, its limits and how to request one.
 
-**Offer when:** A specific nonemergency US visit is being planned and the person will not use insurance to pay.
+**Offer when:** She is exploring or planning nonemergency US self-pay care and does not understand written estimates.
 
-**Skip when:** She is only exploring care generally, using insurance, or seeking emergency care. Do not suggest delaying needed care for an estimate.
+**Skip when:** She already understands estimates, is using insurance for this visit, or needs immediate care. Do not delay needed care for research.
 
-**Useful gain:** Learn a concrete way to clarify planned care costs, beyond saving a provider's advertised starting price.
+**Useful gain:** Gain the knowledge to question an incomplete headline price without needing a booking or a new quote today.
 
-**Cost and timing:** No purchase or booking required to ask. Written estimate from each relevant provider.
+**Cost and timing:** No purchase or booking. None for learning; obtaining an actual personalized estimate is a separate action.
 
-**Editorial mapping:** care · make_workable · planned_visit_written_estimate
+**Editorial mapping:** care · strengthen · learning · planned_visit_estimate_understood
 
-**Proposed priority:** Make it reliable. Clarifies the actual cost of a chosen self-pay visit rather than relying on a starting price.
+**Proposed priority:** Make it reliable. Improves a care decision by explaining the scope and limits of cost information.
 
-**Context can change the order:** Move first when an unknown charge is preventing a decision about a specific planned visit. Not for general browsing or delaying needed care.
+**Context can change the order:** Move first when pricing uncertainty is the current barrier. This learning task does not establish affordability or supply a personalized estimate.
 
-**Research:** [CMS_ESTIMATE](../../../research/sick-care-pool-sources.md#cms_estimate).
+**Research:** [CMS_ESTIMATE_GUIDE](../../../research/sick-care-pool-sources.md#cms_estimate_guide).
 
-**Possible user links:** [CMS_ESTIMATE](../../../research/sick-care-pool-sources.md#cms_estimate)
+**Possible user links:** [CMS_ESTIMATE_GUIDE](../../../research/sick-care-pool-sources.md#cms_estimate_guide)
+
+**Learning takeaway:** An estimate is not necessarily the whole bill: separate providers and services can require separate estimates.
+
+**Draft outcome change:** replaces planned_visit_written_estimate; not a stored-user migration or completion alias.
 
 <a id="sc07"></a>
 
@@ -308,7 +339,7 @@ A new prescription and a routine mail-order refill can have different delivery a
 
 **Cost and timing:** Research only; delivery and prescriptions may cost money. Pharmacy response; no ordering or transfers now.
 
-**Editorial mapping:** essentials, care · discover · local_prescription_delivery
+**Editorial mapping:** essentials, care · discover · preparation · local_prescription_delivery
 
 **Proposed priority:** Core preparation. Establishes a missing way to receive a prescription without going out, including real pharmacy restrictions.
 
@@ -320,63 +351,71 @@ A new prescription and a routine mail-order refill can have different delivery a
 
 <a id="sc08"></a>
 
-### SC08. Find out what could hold up your next refill · 15 min
+### SC08. Understand why a refill might need another step · 10 min
 
-If you already use a regular prescription, a refill request may need more than a tap in an app. Ask before you're close to running out.
+Refill and renewal don't mean the same thing. Knowing the difference makes pharmacy messages easier to understand.
 
-1. Ask your pharmacist how your usual refill process works and whether a prescriber renewal or other approval is needed next time.
-2. Ask when they recommend starting the request and whom to contact if it stalls, including before a holiday closure.
-3. Set a private reminder using that advice. Keep your prescribed routine unchanged; let the pharmacist or prescriber handle medication decisions.
+1. Open your pharmacy's refill help page. CVS's refill FAQ is one example explaining refill and renewal requests.
+2. Learn the difference: an expired prescription or no remaining refills may require renewal rather than another routine refill.
+3. Find your pharmacy's help route for a stalled request. Follow professional guidance for your prescription; keep your medication routine unchanged.
 
-**Done when:** You know the next refill's process and lead time, with a reminder based on professional guidance.
+**Done when:** You understand refill versus renewal and know where to ask if a request stalls.
 
-**Offer when:** She explicitly reports an ongoing prescription and uncertainty or previous delays in getting refills.
+**Offer when:** She explicitly uses an ongoing prescription and is unsure about refill or renewal messages.
 
-**Skip when:** No ongoing prescription is known, or the refill process is already reliable. An immediate missed-dose question requires professional advice.
+**Skip when:** No ongoing prescription is known, the process is already understood, or the request concerns a current missed dose or medication decision.
 
-**Useful gain:** Uncover administrative lead times before a supply gap; delivery setup alone does not solve renewal delays.
+**Useful gain:** Recognize an administrative distinction and a support route without making a practice refill request or creating another reminder.
 
-**Cost and timing:** No purchase or extra medicine requested. Pharmacist or prescriber reply. Do not store medication details in My Safety.
+**Cost and timing:** No purchase or account access needed for public guidance. None for learning. This does not confirm eligibility, timing or availability of an actual refill.
 
-**Editorial mapping:** essentials · strengthen · routine_refill_process_known
+**Editorial mapping:** essentials · strengthen · learning · refill_delays_understood
 
-**Proposed priority:** Make it reliable. Addresses administrative delays that a delivery service alone cannot resolve for an existing prescription.
+**Proposed priority:** Make it reliable. Makes an existing medication-access process easier to navigate by explaining a common administrative distinction.
 
-**Context can change the order:** Move first for an explicitly reported recurring refill obstacle. Require a known ongoing prescription; do not infer one.
+**Context can change the order:** Offer for an explicit knowledge gap. A real delay requires the pharmacy's help, not a general lesson instead.
 
-**Research:** [CDC_RX](../../../research/sick-care-pool-sources.md#cdc_rx).
+**Research:** [CVS_REFILL_HELP](../../../research/sick-care-pool-sources.md#cvs_refill_help).
 
-**Possible user links:** None required; use her chosen provider or existing tools where specified.
+**Possible user links:** [CVS_REFILL_HELP](../../../research/sick-care-pool-sources.md#cvs_refill_help)
+
+**Learning takeaway:** A refill uses an existing prescription's remaining authorization; a renewal can need the prescriber. The actual pharmacy explains individual requirements.
+
+**Draft outcome change:** replaces routine_refill_process_known; not a stored-user migration or completion alias.
 
 <a id="sc09"></a>
 
-### SC09. Check whether someone else can collect for you · 15 min
+### SC09. Learn how prescription collection by someone else works · 10 min
 
-If delivery won't work, a willing person may be able to collect a prescription. Check the pharmacy's process before either of you makes a trip.
+Someone else may be able to collect for you, but the pharmacy's requirements matter. You can understand the option without arranging a favor today.
 
-1. Ask your pharmacy what it requires when someone else collects on your behalf, including identification, payment and any prescription-specific restrictions.
-2. Ask a person you already trust whether this is help they could offer. Explain the process without sharing account passwords.
-3. Agree how you would request a pickup and share only the details the pharmacy needs, privately, when a real collection is arranged.
+1. Read HHS's explanation of prescription collection by a friend or family member; the pharmacist uses professional judgment.
+2. Look for your pharmacy's pickup rules. Check identification, payment and prescription-specific restrictions rather than assuming another person can simply arrive.
+3. Decide whether this route could be useful if a trusted willing person is available. Keep unclear requirements as questions for the pharmacy.
 
-**Done when:** The pharmacy has explained its process and a willing person understands how a future collection would work.
+**Done when:** You understand the potential route, its limits and which pharmacy requirements still need confirmation.
 
-**Offer when:** A trusted willing local contact exists and pharmacy collection is an identified gap, especially when delivery is unsuitable.
+**Offer when:** She wants to understand third-party pharmacy collection as a possible route; an existing helper is not required just to learn.
 
-**Skip when:** No suitable contact, acquisition already works, or she wants to send an unverified stranger for medication.
+**Skip when:** She already knows the rules, explicitly has no interest in this route, or needs a confirmed collection now.
 
-**Useful gain:** Resolve a practical permission and logistics question rather than assuming another person can simply show up.
+**Useful gain:** Learn an available type of help without asking someone to demonstrate support or claiming a helper is arranged.
 
-**Cost and timing:** Planning free; prescription charges remain separate. Both pharmacy answer and helper agreement.
+**Cost and timing:** No purchase or collection request. None for learning. Actual collection still needs a willing suitable person and pharmacy confirmation.
 
-**Editorial mapping:** essentials, support · make_workable · pharmacy_collection_by_helper
+**Editorial mapping:** essentials, support · strengthen · learning · pharmacy_collection_rules_understood
 
-**Proposed priority:** Make it reliable. Makes an existing willing helper a usable collection option by checking pharmacy permission and handoff requirements.
+**Proposed priority:** Make it reliable. Makes a possible collection route understandable before someone relies on it.
 
-**Context can change the order:** Treat as core when this is her only feasible acquisition route. Do not also suggest delivery for the same already-resolved outcome.
+**Context can change the order:** If she needs an actual pickup or has no feasible helper, respond to that practical gap instead of offering this as arranged support.
 
 **Research:** [HHS_PICKUP](../../../research/sick-care-pool-sources.md#hhs_pickup).
 
-**Possible user links:** None required; use her chosen provider or existing tools where specified.
+**Possible user links:** [HHS_PICKUP](../../../research/sick-care-pool-sources.md#hhs_pickup)
+
+**Learning takeaway:** Permitted collection is not guaranteed collection; the pharmacy's requirements and a suitable person's agreement matter separately.
+
+**Draft outcome change:** replaces pharmacy_collection_by_helper; not a stored-user migration or completion alias.
 
 <a id="sc10"></a>
 
@@ -398,7 +437,7 @@ Delivery coverage is only the start. The useful question is whether the cost and
 
 **Cost and timing:** No test purchase; future food and service costs must fit her budget. Support reply if the delivery location or fees are unclear.
 
-**Editorial mapping:** essentials · discover · grocery_delivery_workable
+**Editorial mapping:** essentials · discover · preparation · grocery_delivery_workable
 
 **Proposed priority:** Core preparation. Establishes usable food access by checking actual delivery cost, handoff and substitutions.
 
@@ -430,7 +469,7 @@ When food costs are the obstacle, another shopping app may not help. A local foo
 
 **Cost and timing:** Directory research free; program terms vary. Do not promise free home delivery. Local program reply. No eligibility promise.
 
-**Editorial mapping:** essentials, support · discover · food_assistance_access_route
+**Editorial mapping:** essentials, support · discover · preparation · food_assistance_access_route
 
 **Proposed priority:** Core preparation. Explores a food-access route when affordability or access makes commercial delivery unsuitable.
 
@@ -442,35 +481,39 @@ When food costs are the obstacle, another shopping app may not help. A local foo
 
 <a id="sc12"></a>
 
-### SC12. Give one easy meal a real-life try · 20 min
+### SC12. Choose meal delivery that actually removes cooking · 10 min
 
-'Easy' can still mean thawing, chopping or finding a missing ingredient. Try a meal while you have the energy to spot those catches.
+A meal kit can still leave you chopping and washing up. Learn which kind of delivery removes the part you actually want help with.
 
-1. Choose a familiar meal you'd want with little effort. Include a no-cook option if cooking is the part you want to avoid.
-2. Make it during a normal mealtime. Notice packaging, tools, extra ingredients and cleanup; swap the part that makes it harder than expected.
-3. Keep the ingredients available within their storage instructions and your budget. Put anything missing on your next usual shop, rather than buying a special kit.
+1. Compare a meal kit such as HelloFresh with prepared meals such as Factor: ingredients to cook versus meals to heat.
+2. Check equipment needed, minimum order, recurring charges and the deadline to skip a delivery. Your usual grocer may also sell prepared meals.
+3. Choose a format that fits your energy and budget; no order or subscription needed. If paid delivery doesn't fit, rule it out.
 
-**Done when:** You have tried the meal and its ingredients are available. A shopping note alone means it is not ready yet.
+**Done when:** You understand the formats and have chosen one to explore, or ruled paid delivery out.
 
-**Offer when:** She lacks a tested low-effort meal, or her current options have a specific preparation barrier.
+**Offer when:** She is curious about meal services or wants less cooking and is open to learning about paid options. US provider examples.
 
-**Skip when:** Suitable meals are already prepared. Avoid turning this into generic nutrition or treatment advice.
+**Skip when:** Paid services are explicitly excluded, suitable low-effort meals already work, or the actual gap is food affordability rather than service knowledge.
 
-**Useful gain:** A practical rehearsal exposes hidden effort; this is not another list of foods she already eats.
+**Useful gain:** Distinguish food arriving from cooking being removed, and understand recurring commitments before subscribing.
 
-**Cost and timing:** Use a normal meal and existing food; replacing missing ingredients may cost money. Cooking/storage time is additional to active effort.
+**Cost and timing:** Browsing is free. Commercial services may involve recurring payment and minimum orders. None; no sample meal, trial order or subscription.
 
-**Editorial mapping:** essentials, home · make_workable · easy_meals_ready
+**Editorial mapping:** essentials, home · discover · learning · meal_delivery_formats_understood
 
-**Proposed priority:** Make it reliable. Tests whether a chosen meal is genuinely manageable instead of creating another list of familiar foods.
+**Proposed priority:** Make it reliable. Makes a food-access choice more dependable by distinguishing service formats and commitments.
 
-**Context can change the order:** Treat as core when she has food but no meal she can realistically prepare within her stated limits; skip already-workable meals.
+**Context can change the order:** Offer when choosing a format is the actual gap. Do not displace affordable food access with a comparison of subscriptions.
 
-**Research:** [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox).
+**Research:** [HELLOFRESH_FORMAT](../../../research/sick-care-pool-sources.md#hellofresh_format), [FACTOR_FORMAT](../../../research/sick-care-pool-sources.md#factor_format).
 
-**Possible user links:** None required; use her chosen provider or existing tools where specified.
+**Possible user links:** [HELLOFRESH_FORMAT](../../../research/sick-care-pool-sources.md#hellofresh_format), [FACTOR_FORMAT](../../../research/sick-care-pool-sources.md#factor_format)
 
 **Variant note:** A freezer meal is an alternative within this outcome, not a second task called 'prepare soup'. No dietary prescriptions.
+
+**Learning takeaway:** Meal kits and prepared meals remove different work. Look past promotions to preparation effort and recurring commitments.
+
+**Draft outcome change:** replaces easy_meals_ready; not a stored-user migration or completion alias.
 
 <a id="sc13"></a>
 
@@ -492,7 +535,7 @@ Try the setup from where you'll actually sit or lie down. You'll notice more tha
 
 **Cost and timing:** No purchase; rearrange existing ordinary items. None.
 
-**Editorial mapping:** home · make_workable · resting_spot_usable
+**Editorial mapping:** home · make_workable · preparation · resting_spot_usable
 
 **Proposed priority:** Extra ease. Reduces repeated trips and awkward reach once the essential options are in place.
 
@@ -522,7 +565,7 @@ Think of the everyday item that has actually sent you out at an inconvenient tim
 
 **Cost and timing:** May require a routine purchase; never recommend stockpiling or automatic subscriptions. Next ordinary shop, if needed.
 
-**Editorial mapping:** essentials, home · make_workable · personal_essentials_gap_closed
+**Editorial mapping:** essentials, home · make_workable · preparation · personal_essentials_gap_closed
 
 **Proposed priority:** Extra ease. Removes a known last-minute shopping inconvenience without inventing a stockpile or universal shopping list.
 
@@ -534,93 +577,105 @@ Think of the everyday item that has actually sent you out at an inconvenient tim
 
 <a id="sc15"></a>
 
-### SC15. Check how your go-to meal keeps · 10 min
+### SC15. Find a reliable answer to food-storage questions · 10 min
 
-This is useful if food you set aside has spoiled or left you guessing. Learn the storage guidance for one meal you actually use.
+You don't have to memorize storage rules. Learn where to find guidance for the food you actually use.
 
-1. Choose the food that leaves you unsure about storage. Read its packaging and look up the matching food in USDA's FoodKeeper.
-2. Check guidance for your situation: unopened, opened or cooked. Follow the product's instructions and official guidance; don't judge safety by smell alone.
-3. Use that guidance for the next portion you prepare or open. If you freeze it, label what it is and when it was prepared.
+1. Open USDA's FoodKeeper website or app and look up one food whose storage instructions you find unclear.
+2. Find the matching form and storage conditions, then compare the guidance with the product's packaging instructions.
+3. Identify where you'd check again after opening or preparing that food. Use the matching entry and packaging instructions rather than a broad rule.
 
-**Done when:** You understand the relevant storage instructions and have applied them to your next portion.
+**Done when:** You can find storage guidance matching that food and know where to look again.
 
-**Offer when:** She reports uncertainty or waste around an existing prepared food. The exact food and storage circumstances must be known to her.
+**Offer when:** She wants a reliable food-storage reference or is uncertain about guidance for a familiar food.
 
-**Skip when:** Storage already works or she wants a general sick-day starting task. Don't assess whether a particular questionable food is safe through AI.
+**Skip when:** She already knows and uses a suitable reference, or asks whether a particular questionable food is safe to eat.
 
-**Useful gain:** A reusable food-storage reference and a specific skill; not another meal-preparation card.
+**Useful gain:** Build a reusable research skill rather than make someone prepare a portion solely to demonstrate learning.
 
-**Cost and timing:** No purchase. Apply at the next normal meal; elapsed time may span days.
+**Cost and timing:** No purchase; the official web reference is enough. None. Do not treat a lookup as clearance that a particular food is safe.
 
-**Editorial mapping:** essentials, home · strengthen · chosen_food_storage_understood
+**Editorial mapping:** essentials, home · strengthen · learning · food_storage_reference_skill
 
-**Proposed priority:** Make it reliable. Resolves an actual storage knowledge gap that could undermine an otherwise usable meal plan.
+**Proposed priority:** Make it reliable. Strengthens everyday food decisions with a reusable source and the knowledge to match its guidance.
 
-**Context can change the order:** Move first for a stated storage or waste problem with a known food. Do not offer generic food-safety homework or AI clearance of questionable food.
+**Context can change the order:** Prioritize a stated storage knowledge gap. Do not make it general homework or provide AI food-safety clearance.
 
 **Research:** [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper), [FOOD_STORAGE](../../../research/sick-care-pool-sources.md#food_storage).
 
 **Possible user links:** [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper)
 
+**Learning takeaway:** Storage guidance depends on the food and its condition; a trusted lookup tool is more useful than a universal rule.
+
+**Draft outcome change:** replaces chosen_food_storage_understood; not a stored-user migration or completion alias.
+
 <a id="sc16"></a>
 
-### SC16. Let laundry leave the house without you · 15 min
+### SC16. Decode a laundry pickup service's real cost · 10 min
 
-If carrying laundry is the hard part, wash-and-fold pickup may be more useful than another household checklist.
+A per-pound price isn't always what a small load costs. Learn which terms matter before relying on pickup laundry.
 
-1. Check a local laundromat's pickup service or Taskrabbit laundry help for your area. Look for the work you need, not a recurring plan.
-2. Ask about minimum charges, pickup location and return time. Check any detergent needs and which items the service will not accept.
-3. Confirm whether you must be present or supply anything. Keep one workable option; no booking or payment needed now.
+1. Explore Poplin or a local laundromat's pickup page to see how collection, washing and return work in your area.
+2. Look beyond the advertised rate: check minimum charges, additional fees, turnaround and whether detergent preferences or certain items have restrictions.
+3. Identify which terms would decide whether the service fits your needs. Stop at understanding the option; no trial load or booking.
 
-**Done when:** You know one service's handoff, return time, total charging method and relevant restrictions.
+**Done when:** You understand the charging model and the service terms you would check before ordering.
 
-**Offer when:** Laundry access is an expressed burden and future paid help is within her stated preferences.
+**Offer when:** She wants to learn about laundry help and is open to a possible future paid service.
 
-**Skip when:** Laundry is already covered or paid services are ruled out. Do not treat contaminated laundry as an ordinary service order.
+**Skip when:** Laundry support is already understood, paid help is ruled out, or the need involves items the ordinary service will not accept.
 
-**Useful gain:** Discover a service that removes transport and lifting, including the handoff and minimum-charge details.
+**Useful gain:** Discover pickup laundry and learn to read its terms without carrying out an artificial trial.
 
-**Cost and timing:** Research free; future service paid. Compare minimum total, not hourly rate alone. Provider response.
+**Cost and timing:** Research free; future service costs vary. None for learning; exact availability and final charges still need checking before a real order.
 
-**Editorial mapping:** home, support · discover · laundry_help_route
+**Editorial mapping:** home, support · discover · learning · laundry_service_terms_understood
 
-**Proposed priority:** Extra ease. Removes laundry transport or lifting effort when a suitable paid service is wanted.
+**Proposed priority:** Extra ease. Builds awareness of an optional service that can remove carrying and laundry effort.
 
-**Context can change the order:** Treat as core if she explicitly cannot access laundry or manage the load and needs essential clean items. Respect cost and service limits.
+**Context can change the order:** Move first when access or lifting is a real barrier. If she needs service now, help locate a feasible option rather than stop at general learning.
 
-**Research:** [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry).
+**Research:** [POPLIN_FIRST_ORDER](../../../research/sick-care-pool-sources.md#poplin_first_order), [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry).
 
-**Possible user links:** [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry)
+**Possible user links:** [POPLIN_FIRST_ORDER](../../../research/sick-care-pool-sources.md#poplin_first_order)
+
+**Learning takeaway:** Minimums and additional charges can matter more than a low unit price, especially for a small load.
+
+**Draft outcome change:** replaces laundry_help_route; not a stored-user migration or completion alias.
 
 <a id="sc17"></a>
 
-### SC17. Price the cleaning help you'd actually want · 20 min
+### SC17. Understand what a cleaning booking actually includes · 10 min
 
-You may want the dishes and bathroom handled, not a whole-house deep clean. Find out whether a small, specific visit is possible.
+A cleaning listing doesn't tell the whole story. Learn how to spot the difference between a good fit and a booking that leaves your main chore untouched.
 
-1. Choose one or two chores you would want help with. Compare a local cleaner's service page with one Taskrabbit listing if available.
-2. Ask about the minimum booking, supplies and full charge for that scope. Check cancellation and household-illness policies before planning a visit.
-3. Decide whether the service and cost fit. Keep a suitable candidate and the agreed scope; don't book or share access details yet.
+1. Look at Taskrabbit's cleaning overview or a local cleaner's service list. Find whether your particular chores appear in the advertised scope.
+2. Check hourly versus fixed pricing, minimum booking, supplies and exclusions. A listed hourly rate alone doesn't tell you the total.
+3. Identify the two details you would clarify before booking. You can finish without requesting quotes, arranging a visit or sharing home-access information.
 
-**Done when:** A candidate has answered your scope and price questions, so you can decide whether the service fits.
+**Done when:** You know how to check whether a cleaning service includes the work you actually need.
 
-**Offer when:** Specific household work is the concern and researching paid help is welcome.
+**Offer when:** She is exploring cleaning help and is unsure how to read service scope and pricing.
 
-**Skip when:** No practical cleaning gap, paid help is excluded, or the need is medical/personal care rather than ordinary cleaning.
+**Skip when:** She already understands the relevant service or excludes paid help. Do not substitute a cleaner for personal or clinical care.
 
-**Useful gain:** Discover whether a limited job is available and worthwhile, rather than assuming a full cleaning package is necessary.
+**Useful gain:** Learn to judge a service listing and ask useful questions, without requiring a conversation or booking to count as progress.
 
-**Cost and timing:** Research free; future paid minimum may make a small job unsuitable. Cleaner reply. Follow the provider's illness policy.
+**Cost and timing:** No purchase or quote request. None for learning; no particular cleaner's cost or suitability is confirmed.
 
-**Editorial mapping:** home, support · discover · limited_cleaning_help_route
+**Editorial mapping:** home, support · discover · learning · cleaning_service_scope_understood
 
-**Proposed priority:** Extra ease. Reduces household workload through a suitably scoped service rather than assuming a full cleaning package.
+**Proposed priority:** Extra ease. Improves decisions about optional household help by explaining the terms that affect fit.
 
-**Context can change the order:** Move first when a specific essential household job is beyond her stated capacity. Keep ordinary cleaning separate from personal or clinical care.
+**Context can change the order:** Prioritize when misunderstanding scope is the stated obstacle. A pressing household need may require finding actual help instead.
 
 **Research:** [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning).
 
 **Possible user links:** [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning)
+
+**Learning takeaway:** Service scope, charging method and supplied equipment affect whether a cleaning booking solves the actual need.
+
+**Draft outcome change:** replaces limited_cleaning_help_route; not a stored-user migration or completion alias.
 
 <a id="sc18"></a>
 
@@ -642,7 +697,7 @@ Some errands fall outside grocery delivery. Start with the exact job, then look 
 
 **Cost and timing:** Research free; paid and community routes have different terms. A referral is not a guarantee of free assistance. Service or referral response.
 
-**Editorial mapping:** support, home · discover · practical_errand_help_route
+**Editorial mapping:** support, home · discover · preparation · practical_errand_help_route
 
 **Proposed priority:** Core preparation. Creates a practical outside-help route for an identified errand that cannot reasonably wait.
 
@@ -672,7 +727,7 @@ A short chat can be welcome without becoming another obligation. Set it up with 
 
 **Cost and timing:** No purchase. The other person's reply.
 
-**Editorial mapping:** support · make_workable · agreed_social_checkin
+**Editorial mapping:** support · make_workable · preparation · agreed_social_checkin
 
 **Proposed priority:** Core preparation. Establishes wanted social support through an actual mutual arrangement rather than an assumed available contact.
 
@@ -684,63 +739,71 @@ A short chat can be welcome without becoming another obligation. Set it up with 
 
 <a id="sc20"></a>
 
-### SC20. Turn 'let me know' into one easy-to-ask favor · 15 min
+### SC20. Learn which kind of home help fits · 10 min
 
-This is for someone who has already offered help. Make one practical arrangement so neither of you has to guess later.
+Cleaning, errands and hands-on personal care are different kinds of help. Knowing the distinction gives you better words to find the right support.
 
-1. Choose a concrete favor within their offer, such as adding your groceries to an errand they're already doing.
-2. Ask when it might work, how much notice they need and how payment or reimbursement would be handled. Leave room for a no.
-3. Agree how you would request that favor and arrange a handoff. Keep it flexible; a past offer doesn't guarantee help on every date.
+1. Read MedlinePlus's home-care overview: it separates household work, personal care such as dressing, and healthcare support.
+2. Match the help you're exploring to that distinction. An ordinary cleaner or errand worker isn't a substitute for personal or clinical care.
+3. Identify which service type to research next. For healthcare needs, use your care team's guidance rather than choosing care from a marketplace listing.
 
-**Done when:** You have a mutually agreed way to request one practical favor, including timing and any costs.
+**Done when:** You understand the service types and which kind of provider to ask about your stated need.
 
-**Offer when:** A suitable trusted person has offered practical help and the user wants to clarify it.
+**Offer when:** She is exploring outside help and is unsure which type of service fits a stated practical need.
 
-**Skip when:** No available trusted helper, she dislikes asking this person, or the same errand has already been arranged.
+**Skip when:** She already knows the appropriate service, only wants companionship, or needs a professional to assess current care needs.
 
-**Useful gain:** Resolve what an existing offer actually means; not a generic request-writing exercise for someone without support.
+**Useful gain:** Replace an assumed favor arrangement with useful vocabulary and boundaries for discovering outside support.
 
-**Cost and timing:** Favor may be free; purchases and reimbursement must be agreed. Mutual agreement.
+**Cost and timing:** No purchase or contact required to learn. None for learning. No provider, eligibility, clinical plan or arrangement is established.
 
-**Editorial mapping:** support, essentials · make_workable · agreed_practical_favor
+**Editorial mapping:** home, support · strengthen · learning · home_help_service_types_understood
 
-**Proposed priority:** Make it reliable. Turns an existing offer of help into a specific, workable favor with timing and cost expectations agreed.
+**Proposed priority:** Make it reliable. Makes outside-help decisions more reliable by clarifying service scope before relying on a provider.
 
-**Context can change the order:** Treat as core when the favor is the missing essential help route. Require a real willing contact and a useful unresolved favor.
+**Context can change the order:** Useful for a real service-type knowledge gap. For an actual clinical or personal-care uncertainty, the care team must guide the decision.
 
-**Research:** [FOUNDER](../../../research/sick-care-pool-sources.md#founder), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness).
+**Research:** [MEDLINE_HOME_HELP](../../../research/sick-care-pool-sources.md#medline_home_help).
 
-**Possible user links:** None required; use her chosen provider or existing tools where specified.
+**Possible user links:** [MEDLINE_HOME_HELP](../../../research/sick-care-pool-sources.md#medline_home_help)
+
+**Learning takeaway:** Different support needs call for different services; the name of the task helps find suitable help and avoid relying on the wrong provider.
+
+**Draft outcome change:** replaces agreed_practical_favor; not a stored-user migration or completion alias.
 
 <a id="sc21"></a>
 
-### SC21. Find something a faraway person could help with · 15 min
+### SC21. Discover local help beyond people you already know · 10 min
 
-Distance rules out dropping by, but it doesn't rule out practical help. Pick something useful that doesn't require access to your accounts.
+You don't need a local network to start learning what support exists. In the US, 211 is one place to explore community resources.
 
-1. Choose a trusted person who wants to help and one remote job, such as researching a laundry service or comparing appointment transport options.
-2. Agree what they would check and when they'd send the result. Keep final booking, spending and provider decisions with you unless explicitly agreed.
-3. Try the handoff while you're well using a real small question. Share only what they need; keep passwords and medical details private.
+1. Open your local 211 website and see which support areas it covers, such as food access or transportation.
+2. Choose one area relevant to you and read a listing's service description, eligibility and contact route where available.
+3. Find how to reach 211 if searching is confusing. It offers information and referrals; a listing does not guarantee assistance.
 
-**Done when:** You have tried one remote handoff and know what this person is comfortable helping with in future.
+**Done when:** You know a local starting point and how to investigate one relevant type of support.
 
-**Offer when:** She has a willing trusted distant contact and wants practical help, rather than only a social check-in.
+**Offer when:** She is in the US, wants awareness of community resources and does not already know a suitable local starting point.
 
-**Skip when:** No willing contact, delegation isn't wanted, or the useful work is already done. Do not create artificial research just to practice.
+**Skip when:** She already uses local 211, has a confirmed route for the need, is outside the resource's coverage, or needs immediate intervention.
 
-**Useful gain:** Make distant support practical through a real, bounded handoff; preserve the user's decisions and privacy.
+**Useful gain:** Discover a reusable local information route without needing a willing friend, placing a practice call or arranging help today.
 
-**Cost and timing:** No purchase for the handoff. The other person's availability and result.
+**Cost and timing:** Information and referrals are free; referred programs have their own costs and eligibility. None for learning. Directory details need confirmation before relying on a particular service.
 
-**Editorial mapping:** support · make_workable · remote_practical_help_agreement
+**Editorial mapping:** support, home · discover · learning · local_211_resource_awareness
 
-**Proposed priority:** Make it reliable. Makes an existing distant support relationship practically useful through a real, bounded handoff.
+**Proposed priority:** Make it reliable. Improves future help-seeking by teaching a reusable route to relevant local resources.
 
-**Context can change the order:** Move first when remote help can remove a current burden and a willing contact exists. Do not create artificial research just to practice delegation.
+**Context can change the order:** Offer for resource awareness. If she requests concrete help for a particular errand, use SC18 or a fitting action rather than repeat directory browsing.
 
-**Research:** [FOUNDER](../../../research/sick-care-pool-sources.md#founder).
+**Research:** [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211).
 
-**Possible user links:** None required; use her chosen provider or existing tools where specified.
+**Possible user links:** [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211)
+
+**Learning takeaway:** A local information service can help identify options beyond an existing social circle; referrals and available assistance are different things.
+
+**Draft outcome change:** replaces remote_practical_help_agreement; not a stored-user migration or completion alias.
 
 <a id="sc22"></a>
 
@@ -762,7 +825,7 @@ Knowing the reporting process beforehand can remove a decision when you're tired
 
 **Cost and timing:** No purchase. This does not promise paid time off. Workplace or course-office reply if unclear.
 
-**Editorial mapping:** responsibilities · discover · absence_reporting_process_known
+**Editorial mapping:** responsibilities · discover · preparation · absence_reporting_process_known
 
 **Proposed priority:** Core preparation — parked from default suggestions. Establishes a missing process for reporting absence when that uncertainty prevents taking needed time away.
 
@@ -792,7 +855,7 @@ Pick the responsibility that really keeps pulling you back in. A tiny tested han
 
 **Cost and timing:** No purchase. Colleague agreement and short trial. Keep business information out of My Safety.
 
-**Editorial mapping:** responsibilities · strengthen · one_work_handoff_tested
+**Editorial mapping:** responsibilities · strengthen · preparation · one_work_handoff_tested
 
 **Proposed priority:** Make it reliable — parked from default suggestions. Tests whether agreed authorized cover can actually handle a time-sensitive duty without the user.
 
@@ -822,7 +885,7 @@ If new orders or bookings keep arriving when you're unavailable, learn what your
 
 **Cost and timing:** Research free; existing business fees may continue during a future pause. None for preparation. This task never changes live business settings.
 
-**Editorial mapping:** responsibilities · discover · solo_business_pause_plan
+**Editorial mapping:** responsibilities · discover · preparation · solo_business_pause_plan
 
 **Proposed priority:** Core preparation — parked from default suggestions. Establishes a way to pause incoming business work while identifying commitments that a platform will not pause.
 
@@ -836,63 +899,73 @@ If new orders or bookings keep arriving when you're unavailable, learn what your
 
 <a id="sc25"></a>
 
-### SC25. Look for practical care help in your work benefits · 15 min
+### SC25. Discover practical help hidden in your work benefits · 10 min
 
-Some employers offer care support beyond health insurance. It is worth checking the actual benefit before paying for help yourself.
+Your benefits may include more than health insurance. Learn whether practical-care support is part of your actual package, rather than assuming a provider's advertisement applies to you.
 
-1. Search your benefits portal for care support, dependent care or pet care. If nothing is clear, ask benefits support whether such assistance exists.
-2. Describe the practical situation you want to prepare for. Ask whether it qualifies, what you pay and whether advance registration is needed.
-3. Keep the official claim or booking instructions if eligible. If the benefit doesn't cover your situation, mark that route as unsuitable.
+1. Search your benefits portal for care support, dependent care or pet care. Care.com's employer care programs are an example, not proof of coverage.
+2. Read who and which situations qualify, any registration requirement, and what you would pay. Personal sick leave may not qualify.
+3. Decide whether a relevant benefit is documented, absent or unclear. If unclear, identify benefits support as the next contact; no inquiry is required today.
 
-**Done when:** You know whether your employer's benefit fits your situation, and how to use it if eligible.
+**Done when:** You understand the published benefit terms, or know exactly what remains unconfirmed and where to ask.
 
-**Offer when:** She has employer benefits and an unresolved practical-care responsibility. Do not infer benefits from employment alone.
+**Offer when:** Employer benefits are explicitly known and she wants to learn about possible support for a practical or pet-care need.
 
-**Skip when:** No employer benefit, already checked, or no relevant care need. Many programs support working employees during care disruptions; personal sick leave may not qualify.
+**Skip when:** No benefit access is known, she already checked, or there is no relevant need. Employment alone does not prove benefits.
 
-**Useful gain:** Discover a potentially overlooked subsidized service and check the specific restrictions before assuming coverage.
+**Useful gain:** Discover potential resources and eligibility limits without making contacting HR a prerequisite to learning.
 
-**Cost and timing:** Research free; employer-specific copays, limits and registration may apply. Benefits administrator reply. No promise that a branded provider is included.
+**Cost and timing:** No purchase. Any later benefit use may involve registration, limits or charges. None for learning; unclear eligibility stays unconfirmed.
 
-**Editorial mapping:** responsibilities, pets, support · discover · employer_practical_care_benefit_known
+**Editorial mapping:** responsibilities, pets, support · discover · learning · employer_care_benefit_terms_understood
 
-**Proposed priority:** Core preparation. May uncover an overlooked eligible source of practical-care help before the user researches full-price alternatives.
+**Proposed priority:** Core preparation. Can reveal a previously unknown support option for an essential practical need.
 
-**Context can change the order:** Only when employer benefits are explicitly known and a practical or pet-care gap exists. Employment alone proves no benefit; this does not restore the work checkbox.
+**Context can change the order:** Only with explicit benefit access and a relevant need. This is not a restored work/study checkbox or proof that personal sick leave qualifies.
 
 **Research:** [CARE_BENEFITS](../../../research/sick-care-pool-sources.md#care_benefits).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
 
+**Learning takeaway:** Provider marketing is not an employer entitlement; the actual plan's eligible situations and costs determine whether a benefit is useful.
+
+**Draft outcome change:** replaces employer_practical_care_benefit_known; not a stored-user migration or completion alias.
+
 <a id="sc26"></a>
 
-### SC26. Find care that fits your kind of pet · 20 min
+### SC26. Discover the pet-care options you could use · 10 min
 
-A nearby listing is a starting point. Find out whether the person can handle your pet's routine and how future visits would be arranged.
+Pet care isn't only boarding. Learn which services let your pet stay home and what you would check before choosing a sitter.
 
-1. Use PSI's sitter finder to locate one business serving your area and pet type. Check its experience and service details.
-2. Ask about notice, total visit cost and any introductory meeting. Mention the routine you need help with, without sending home-access details.
-3. Read the reply and decide whether to arrange an introduction. A good candidate is worth keeping; it isn't a confirmed future booking.
+1. Explore Rover's pet-sitting and dog-walking options. If you have a cat, also explore Meowtel's in-home cat-care services.
+2. Compare drop-in visits, overnight care in your home, and boarding where offered. Check species, area coverage and how much time each service includes.
+3. Choose a service type worth researching further. Check how introductions, fees and cancellations work before any future booking; no contact or payment needed today.
 
-**Done when:** One candidate has answered your practical questions and you can decide whether to meet them.
+**Done when:** You understand the relevant care options and which service type you would explore next.
 
-**Offer when:** She has a pet, lacks suitable care and is open to researching paid help. Resource coverage must match her country/area.
+**Offer when:** A pet-care interest is explicit and she wants to understand available services before choosing a carer; future paid research is welcome.
 
-**Skip when:** No pet is known, a suitable carer already exists, or paid care is not feasible.
+**Skip when:** She already understands the services and has suitable care, excludes paid options, or needs someone to care for the pet immediately.
 
-**Useful gain:** Learn service fit and first-use requirements before a pet-care need arises.
+**Useful gain:** Introduce useful apps and service differences without making a stranger meeting or relationship exercise the task.
 
-**Cost and timing:** Research free; introductions and visits may carry charges. Ask first. Candidate reply. Directory membership is not an endorsement.
+**Cost and timing:** Browsing free; future care may require payment. Check current booking and introduction rules before committing. None for learning. No sitter is vetted, available or booked by completion.
 
-**Editorial mapping:** pets, support · discover · pet_care_candidate_checked
+**Editorial mapping:** pets, support · discover · learning · pet_care_options_compared
 
-**Proposed priority:** Core preparation. Establishes a promising pet-care option and its first-use requirements before help is needed.
+**Proposed priority:** Core preparation. Builds awareness of possible pet-care routes when the user has not known where to start.
 
-**Context can change the order:** Only for a known pet-care gap and feasible paid-care research. Choose resources matching species and location; skip an existing suitable arrangement.
+**Context can change the order:** Once she knows the service type, help with the next real gap. An existing sitter should not trigger another app-comparison task.
 
-**Research:** [PSI_FIND](../../../research/sick-care-pool-sources.md#psi_find).
+**Research:** [ROVER_SERVICES](../../../research/sick-care-pool-sources.md#rover_services), [MEOWTEL_SERVICES](../../../research/sick-care-pool-sources.md#meowtel_services).
 
-**Possible user links:** [PSI_FIND](../../../research/sick-care-pool-sources.md#psi_find)
+**Possible user links:** [ROVER_SERVICES](../../../research/sick-care-pool-sources.md#rover_services), [MEOWTEL_SERVICES](../../../research/sick-care-pool-sources.md#meowtel_services)
+
+**Variant note:** Use Meowtel only for cats and where covered. For dogs, Rover is enough unless a second reviewed local resource adds value. Do not force two names or imply either is free.
+
+**Learning takeaway:** Drop-ins, overnight stays and boarding are different arrangements; choose the format before investigating a particular sitter.
+
+**Draft outcome change:** replaces pet_care_candidate_checked; not a stored-user migration or completion alias.
 
 <a id="sc27"></a>
 
@@ -914,7 +987,7 @@ A real walkthrough can reveal the detail a feeding note misses. Use it to decide
 
 **Cost and timing:** Meeting or trial charges may apply; ask before arranging. Scheduling and meeting time; travel additional. Never store access codes in My Safety.
 
-**Editorial mapping:** pets · make_workable · pet_carer_handoff_tested
+**Editorial mapping:** pets · make_workable · preparation · pet_carer_handoff_tested
 
 **Proposed priority:** Make it reliable. Checks a chosen carer's practical fit through an introduction and routine walkthrough rather than relying on a listing.
 
@@ -944,7 +1017,7 @@ Knowing the vet's number may not be the whole arrangement. Ask how they handle a
 
 **Cost and timing:** Administrative preparation; ask about any charge. No treatment authorized by this app. Vet-practice confirmation. Keep permissions and payment details outside My Safety.
 
-**Editorial mapping:** pets · strengthen · vet_permission_for_pet_carer
+**Editorial mapping:** pets · strengthen · preparation · vet_permission_for_pet_carer
 
 **Proposed priority:** Make it reliable. Closes a permission and contact gap that a chosen carer and a vet phone number alone do not resolve.
 
@@ -974,7 +1047,7 @@ For an expected longer absence, some communities have temporary foster support f
 
 **Cost and timing:** Inquiry free; program eligibility, fees and capacity vary. Local organization reply; an inquiry never establishes a placement.
 
-**Editorial mapping:** pets, support · discover · temporary_pet_care_program_route
+**Editorial mapping:** pets, support · discover · preparation · temporary_pet_care_program_route
 
 **Proposed priority:** Core preparation. Explores a potentially feasible pet-care route during an expected extended absence when commercial care is unaffordable.
 
@@ -1004,7 +1077,7 @@ If a hospital stay or procedure is planned, the team needs to know when there is
 
 **Cost and timing:** Ask about coordination and service costs; eligibility and coverage vary. Team coordination; 25 minutes is active discussion/preparation, not total arrangement time.
 
-**Editorial mapping:** care, home, support · make_workable · planned_recovery_help_coordinated
+**Editorial mapping:** care, home, support · make_workable · preparation · planned_recovery_help_coordinated
 
 **Proposed priority:** Core preparation. Establishes needed help at home with the actual care team before a planned stay or procedure assumes an available helper.
 

@@ -1,9 +1,9 @@
 {
-  "version": "sick-care-priority-draft-2026-10-13",
+  "version": "sick-care-learning-draft-2026-10-13",
   "status": "structural_checks_passed",
   "task_count": 30,
   "concern_count": 6,
-  "source_count": 34,
+  "source_count": 42,
   "unique_ids": 30,
   "unique_outcome_keys": 30,
   "priority_review_status": "proposed_founder_review",
@@ -11,6 +11,18 @@
     "core_preparation": 15,
     "make_it_reliable": 11,
     "extra_ease": 4
+  },
+  "learning_mix": {
+    "learning_count": 12,
+    "preparation_count": 18,
+    "full_pool_share": 0.4,
+    "non_parked_count": 27,
+    "non_parked_learning_share": 0.4444444444444444,
+    "learning_by_tier": {
+      "core_preparation": 2,
+      "make_it_reliable": 8,
+      "extra_ease": 2
+    }
   },
   "not_default_suggestions": [
     "SC22",
@@ -36,8 +48,7 @@
       "SC11",
       "SC12",
       "SC14",
-      "SC15",
-      "SC20"
+      "SC15"
     ],
     "home": [
       "SC12",
@@ -47,6 +58,8 @@
       "SC16",
       "SC17",
       "SC18",
+      "SC20",
+      "SC21",
       "SC30"
     ],
     "pets": [
@@ -117,13 +130,13 @@
     },
     {
       "id": "SC03",
-      "words": 105,
+      "words": 96,
       "step_words": [
-        17,
-        21,
-        20
+        13,
+        18,
+        22
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC04",
@@ -147,13 +160,13 @@
     },
     {
       "id": "SC06",
-      "words": 109,
+      "words": 93,
       "step_words": [
-        22,
-        22,
-        21
+        14,
+        20,
+        19
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC07",
@@ -167,23 +180,23 @@
     },
     {
       "id": "SC08",
-      "words": 111,
+      "words": 94,
       "step_words": [
-        21,
-        19,
+        17,
+        18,
         20
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC09",
-      "words": 112,
+      "words": 105,
       "step_words": [
-        20,
+        17,
         20,
         22
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC10",
@@ -207,13 +220,13 @@
     },
     {
       "id": "SC12",
-      "words": 119,
+      "words": 110,
       "step_words": [
+        20,
         22,
-        22,
-        25
+        22
       ],
-      "active_minutes": 20
+      "active_minutes": 10
     },
     {
       "id": "SC13",
@@ -237,11 +250,11 @@
     },
     {
       "id": "SC15",
-      "words": 111,
+      "words": 95,
       "step_words": [
-        21,
-        22,
-        24
+        17,
+        16,
+        23
       ],
       "active_minutes": 10
     },
@@ -249,21 +262,21 @@
       "id": "SC16",
       "words": 100,
       "step_words": [
-        23,
-        21,
-        19
+        19,
+        20,
+        21
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC17",
-      "words": 111,
+      "words": 112,
       "step_words": [
-        22,
         21,
+        20,
         22
       ],
-      "active_minutes": 20
+      "active_minutes": 10
     },
     {
       "id": "SC18",
@@ -287,23 +300,23 @@
     },
     {
       "id": "SC20",
-      "words": 109,
+      "words": 107,
       "step_words": [
-        18,
-        23,
+        16,
+        22,
         23
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC21",
-      "words": 115,
+      "words": 102,
       "step_words": [
-        23,
-        23,
-        22
+        18,
+        18,
+        20
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC22",
@@ -337,23 +350,23 @@
     },
     {
       "id": "SC25",
-      "words": 111,
+      "words": 118,
       "step_words": [
         23,
-        22,
-        21
+        20,
+        24
       ],
-      "active_minutes": 15
+      "active_minutes": 10
     },
     {
       "id": "SC26",
-      "words": 110,
+      "words": 107,
       "step_words": [
-        20,
-        21,
-        22
+        17,
+        23,
+        24
       ],
-      "active_minutes": 20
+      "active_minutes": 10
     },
     {
       "id": "SC27",
