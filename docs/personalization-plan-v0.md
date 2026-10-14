@@ -6,9 +6,34 @@
 
 ## The product decision
 
+### Shared ranking rules — all categories
+
+**Founder-approved October 13:** Ada approved research-informed default importance combined with personal relevance and explicitly asked to apply these rules to every category. This is the shared rule for current and future task pools, recommendation logic and category prompt guidance. Individual task ratings still need editorial review; approval of the framework is not approval of every candidate task or evidence of live implementation.
+
+Judge default importance using **recurring need**, **practical impact of an unresolved gap**, and **value of preparing now**. Keep a short reason and supporting source references with each task's eventual rating. Distinguish research observations from editorial judgment; votes alone are not prevalence or proof of effectiveness.
+
+Use three internal priority bands:
+
+| Priority | Meaning |
+| --- | --- |
+| Core preparation | Establish a missing essential option, capability or arrangement. |
+| Make it reliable | Resolve a real dependency or limitation in an existing option. |
+| Extra ease | Reduce additional effort or inconvenience. |
+
+Apply the rules in this order:
+
+1. Remove unsupported, unsuitable, repeated or already-handled outcomes. Respect prerequisites and explicit restrictions.
+2. Match her current typed need and selected concerns. Relevant onboarding context helps; current explicit needs lead.
+3. Use default importance to order similarly relevant and feasible tasks.
+4. Adjust for effort preferences and soft feedback; offer up to three distinct useful options, covering selected concerns when appropriate. A precise request may need only one answer.
+
+These bands are not difficulty levels, mandatory roadmap stages, clinical urgency or a safety score. An action labeled extra ease can be essential for a particular person and should move first when her circumstances warrant it. Missing context is not proof of a gap. Never force a high-priority but irrelevant task into the batch, or split meaningful work into filler to fill bands. Each category uses its own evidence and task examples while following this shared rule.
+
+Ordinary ranking uses shared data and simple rules without an AI call or new user-profile score. AI generation follows the same relevance, feasibility, usefulness and duplicate boundaries; generated content receives no automatic priority boost. Preserve category limits and existing generation/resource caps. Refine defaults with evidence of actual usefulness and usable outcomes, not completion counts alone.
+
 ### Category package — current direction
 
-**October 13 default-importance addition:** Ada agreed with personal-fit ranking and requested a natural research-informed importance order as well. Use a shared editorial task priority after relevance/eligibility/duplicate filtering, so commonly consequential preparation has a sensible starting place among equally fitting actions. Proposed bands are core preparation, make it reliable and extra ease; these are not approved individual task ratings, medical urgency or required progression. Current explicit needs and prerequisites can change the order. Use recurring problem evidence, practical burden and meaningful preventive value, with a short source-backed rationale; do not treat Reddit votes as prevalence. The [category selection note](../personalization/content-candidates/sick-care-v0/README.md#selecting-a-useful-first-batch) records the proposal. No added user-profile scoring or ranking AI call is needed. Runtime and task records remain unchanged.
+**October 13 default-importance decision:** the [shared ranking rules](#shared-ranking-rules--all-categories) are approved for every category. The [sick-day examples](../personalization/content-candidates/sick-care-v0/README.md#selecting-a-useful-first-batch) illustrate the framework; individual task ratings remain under review. Runtime and task records remain unchanged.
 
 **October 13 concern-screen correction:** Ada removed the work/study checkbox and reaffirmed optional typing for AI generation. Use the [five current choices](../personalization/content-candidates/sick-care-v0/README.md#the-concern-screen), superseding the older six-choice proposal below. Submitted text may stand alone and leads one focused new-need task within the category, using relevant allowed context and prior outcomes. It is not merely a checkbox classifier or permanent profile note. Existing generation, privacy and resource limits remain; old candidate mappings require deliberate integration before deployment.
 

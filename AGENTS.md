@@ -7,6 +7,7 @@ Write all new project documents and documentation updates in English, including 
 - Read `docs/current-product.md` for the current audience, philosophy, established flow, scope and next step.
 - Read `docs/founder-voice.md` for Ada's own statements and the project's voice. Her latest direct instructions take precedence over historical plans and assistant proposals.
 - For task content/personalization, read `docs/personalization-plan-v0.md`. Keep the approved prompt and candidate calibration revision distinct; their paths and status are recorded in the current product document.
+- Apply its founder-approved “Shared ranking rules — all categories” to every current and future category: research-informed default importance combined with personal fit. Keep individual task ratings and live implementation status separate from framework approval.
 - For interface work, use the relevant existing references under `design/app/` and `design/README.md`. Preserve established screens and interaction choices; do not reopen settled product direction without a concrete reason.
 - Before connecting or deploying anything, read `docs/technical-status.md`, including the public output/deployment gate. Clickable previews, demo sign-in and authored samples are not evidence of working production features.
 
