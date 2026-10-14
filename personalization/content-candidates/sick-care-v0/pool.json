@@ -1,5 +1,5 @@
 {
-  "version": "sick-care-discovery-draft-2026-10-12",
+  "version": "sick-care-priority-draft-2026-10-13",
   "status": "founder_review",
   "category_id": "sick_care",
   "category_label": "Sick days & care",
@@ -7,6 +7,18 @@
   "scope": "Prepare before ordinary sick days or an explicitly mentioned planned recovery. Care access and everyday logistics, not clinical decisions or emergency response.",
   "provenance": "Assistant-authored, researched candidates. Not live catalog entries, professionally reviewed advice or recorded OpenAI API outputs. Textual fit rules require implementation before automated selection.",
   "source_ledger": "../../../research/sick-care-pool-sources.md",
+  "priority_review": {
+    "status": "proposed_founder_review",
+    "date": "2026-10-13",
+    "framework": "../../../docs/personalization-plan-v0.md#shared-ranking-rules--all-categories",
+    "basis": "Editorial judgments using recurring needs, practical impact and value of preparing ahead. Each task's source_ids support its subject or route, not a validated comparative ranking. Use_when and skip_when still control fit; current needs can override a default band.",
+    "not_default_suggestions": [
+      "SC22",
+      "SC23",
+      "SC24"
+    ],
+    "scope_note": "The three work/business tasks are retained and classified for completeness, but excluded from default checkbox suggestions after the work/study choice was removed. Consider only for an explicit supported request after content and integration review. SC25 is a conditional source of practical/pet-care help, not a restored work checkbox. No runtime ranking, task approval or deployment is implied."
+  },
   "question": "What would you like to have figured out before a sick day?",
   "helper_text": "Choose what matters to you. We'll start with a few useful options.",
   "concerns": [
@@ -21,6 +33,7 @@
   "tasks": [
     {
       "id":"SC01","outcome_key":"care_entry_route","concerns":["care"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Establishes a missing first route to care, including access and cost, without assuming an existing doctor.","adjust_when":"Offer for an explicit care-access gap. If a suitable route already exists, skip rather than add a second provider by default."},
       "title":"Find a care option you can actually start with",
       "summary":"You don't need a regular doctor to explore your options. Start with one route that fits your coverage and budget.",
       "steps":[
@@ -39,6 +52,7 @@
     },
     {
       "id":"SC02","outcome_key":"in_person_care_entry","concerns":["care"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Establishes in-person access when that specific route is missing; a map listing alone does not establish access.","adjust_when":"Use when she asks for in-person access or identifies that gap. Do not pair with SC01 merely to fill the batch."},
       "title":"Know where an in-person visit could start",
       "summary":"An online option doesn't answer every access question. If you want an in-person route too, check one clinic before you need it.",
       "steps":[
@@ -56,6 +70,7 @@
     },
     {
       "id":"SC03","outcome_key":"virtual_visit_connection_tested","concerns":["care"],"stage":"make_workable","active_minutes":15,
+      "priority":{"band":"make_it_reliable","reason":"Checks whether a chosen care option can actually be joined and exposes technical or accessibility barriers.","adjust_when":"Move first when the connection is the stated obstacle to using an otherwise suitable care route; skip an already-working setup."},
       "title":"Try the doorway to your first video visit",
       "summary":"Finding care is one piece; being able to connect is another. A short practice now can uncover the awkward bits.",
       "steps":[
@@ -72,6 +87,7 @@
     },
     {
       "id":"SC04","outcome_key":"nonurgent_appointment_transport","concerns":["care","support"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Closes a missing transport route that can make otherwise available nonurgent care inaccessible.","adjust_when":"Only offer for a stated transport gap. Use confirmed eligibility, and keep emergency transport and procedure escorts separate."},
       "title":"Find a way to an appointment without driving",
       "summary":"Some transport options need advance notice. Find out what you could use before the day you need a ride.",
       "steps":[
@@ -88,6 +104,7 @@
     },
     {
       "id":"SC05","outcome_key":"procedure_escort_requirements_resolved","concerns":["care","support"],"stage":"make_workable","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Resolves a potentially blocking escort arrangement before an explicitly planned procedure.","adjust_when":"Only eligible when a planned procedure and possible escort gap are explicit. Never make this a routine sick-day starting task."},
       "title":"Check what 'someone to take you home' really means",
       "summary":"For a planned procedure, a ride and an approved escort can be different things. Let the clinic explain what your appointment requires.",
       "steps":[
@@ -104,6 +121,7 @@
     },
     {
       "id":"SC06","outcome_key":"planned_visit_written_estimate","concerns":["care"],"stage":"make_workable","active_minutes":15,
+      "priority":{"band":"make_it_reliable","reason":"Clarifies the actual cost of a chosen self-pay visit rather than relying on a starting price.","adjust_when":"Move first when an unknown charge is preventing a decision about a specific planned visit. Not for general browsing or delaying needed care."},
       "title":"Ask what your planned visit will actually cost",
       "summary":"A headline consultation price may not cover everything. For a planned self-pay visit, you can ask for a written estimate.",
       "steps":[
@@ -120,6 +138,7 @@
     },
     {
       "id":"SC07","outcome_key":"local_prescription_delivery","concerns":["essentials","care"],"stage":"discover","active_minutes":15,
+      "priority":{"band":"core_preparation","reason":"Establishes a missing way to receive a prescription without going out, including real pharmacy restrictions.","adjust_when":"Only when prescription access is relevant and unresolved. Existing reliable delivery makes this redundant; this never selects medication."},
       "title":"Find out whether a pharmacy can reach your door",
       "summary":"A new prescription and a routine mail-order refill can have different delivery arrangements. Check the route you might actually need.",
       "steps":[
@@ -136,6 +155,7 @@
     },
     {
       "id":"SC08","outcome_key":"routine_refill_process_known","concerns":["essentials"],"stage":"strengthen","active_minutes":15,
+      "priority":{"band":"make_it_reliable","reason":"Addresses administrative delays that a delivery service alone cannot resolve for an existing prescription.","adjust_when":"Move first for an explicitly reported recurring refill obstacle. Require a known ongoing prescription; do not infer one."},
       "title":"Find out what could hold up your next refill",
       "summary":"If you already use a regular prescription, a refill request may need more than a tap in an app. Ask before you're close to running out.",
       "steps":[
@@ -152,6 +172,7 @@
     },
     {
       "id":"SC09","outcome_key":"pharmacy_collection_by_helper","concerns":["essentials","support"],"stage":"make_workable","active_minutes":15,
+      "priority":{"band":"make_it_reliable","reason":"Makes an existing willing helper a usable collection option by checking pharmacy permission and handoff requirements.","adjust_when":"Treat as core when this is her only feasible acquisition route. Do not also suggest delivery for the same already-resolved outcome."},
       "title":"Check whether someone else can collect for you",
       "summary":"If delivery won't work, a willing person may be able to collect a prescription. Check the pharmacy's process before either of you makes a trip.",
       "steps":[
@@ -168,6 +189,7 @@
     },
     {
       "id":"SC10","outcome_key":"grocery_delivery_workable","concerns":["essentials"],"stage":"discover","active_minutes":15,
+      "priority":{"band":"core_preparation","reason":"Establishes usable food access by checking actual delivery cost, handoff and substitutions.","adjust_when":"Offer for an untested or unsuitable route. If future paid delivery is ruled out, use an eligible community or agreed-help route instead."},
       "title":"See whether groceries can reach your actual door",
       "summary":"Delivery coverage is only the start. The useful question is whether the cost and handoff would work on a day you need rest.",
       "steps":[
@@ -185,6 +207,7 @@
     },
     {
       "id":"SC11","outcome_key":"food_assistance_access_route","concerns":["essentials","support"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Explores a food-access route when affordability or access makes commercial delivery unsuitable.","adjust_when":"Give priority when the food-access constraint is explicit. Do not infer hardship or promise local eligibility or delivery."},
       "title":"Find food help without a delivery budget",
       "summary":"When food costs are the obstacle, another shopping app may not help. A local food program is a different route worth checking.",
       "steps":[
@@ -201,6 +224,7 @@
     },
     {
       "id":"SC12","outcome_key":"easy_meals_ready","concerns":["essentials","home"],"stage":"make_workable","active_minutes":20,
+      "priority":{"band":"make_it_reliable","reason":"Tests whether a chosen meal is genuinely manageable instead of creating another list of familiar foods.","adjust_when":"Treat as core when she has food but no meal she can realistically prepare within her stated limits; skip already-workable meals."},
       "title":"Give one easy meal a real-life try",
       "summary":"'Easy' can still mean thawing, chopping or finding a missing ingredient. Try a meal while you have the energy to spot those catches.",
       "steps":[
@@ -218,6 +242,7 @@
     },
     {
       "id":"SC13","outcome_key":"resting_spot_usable","concerns":["home"],"stage":"make_workable","active_minutes":10,
+      "priority":{"band":"extra_ease","reason":"Reduces repeated trips and awkward reach once the essential options are in place.","adjust_when":"Move first when reach or repeated getting up is her actual barrier to using essentials. Never default to rearranging an already-working space."},
       "title":"Make your resting spot work for you",
       "summary":"Try the setup from where you'll actually sit or lie down. You'll notice more than you do while standing beside it.",
       "steps":[
@@ -234,6 +259,7 @@
     },
     {
       "id":"SC14","outcome_key":"personal_essentials_gap_closed","concerns":["essentials","home"],"stage":"make_workable","active_minutes":10,
+      "priority":{"band":"extra_ease","reason":"Removes a known last-minute shopping inconvenience without inventing a stockpile or universal shopping list.","adjust_when":"Treat as core when the specific missing item is necessary for her stated daily needs and replacing it is feasible. Respect no-purchase constraints."},
       "title":"Take one last-minute shop off your future plate",
       "summary":"Think of the everyday item that has actually sent you out at an inconvenient time. Prepare for that gap, instead of buying a generic sick-day kit.",
       "steps":[
@@ -250,6 +276,7 @@
     },
     {
       "id":"SC15","outcome_key":"chosen_food_storage_understood","concerns":["essentials","home"],"stage":"strengthen","active_minutes":10,
+      "priority":{"band":"make_it_reliable","reason":"Resolves an actual storage knowledge gap that could undermine an otherwise usable meal plan.","adjust_when":"Move first for a stated storage or waste problem with a known food. Do not offer generic food-safety homework or AI clearance of questionable food."},
       "title":"Check how your go-to meal keeps",
       "summary":"This is useful if food you set aside has spoiled or left you guessing. Learn the storage guidance for one meal you actually use.",
       "steps":[
@@ -266,6 +293,7 @@
     },
     {
       "id":"SC16","outcome_key":"laundry_help_route","concerns":["home","support"],"stage":"discover","active_minutes":15,
+      "priority":{"band":"extra_ease","reason":"Removes laundry transport or lifting effort when a suitable paid service is wanted.","adjust_when":"Treat as core if she explicitly cannot access laundry or manage the load and needs essential clean items. Respect cost and service limits."},
       "title":"Let laundry leave the house without you",
       "summary":"If carrying laundry is the hard part, wash-and-fold pickup may be more useful than another household checklist.",
       "steps":[
@@ -282,6 +310,7 @@
     },
     {
       "id":"SC17","outcome_key":"limited_cleaning_help_route","concerns":["home","support"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"extra_ease","reason":"Reduces household workload through a suitably scoped service rather than assuming a full cleaning package.","adjust_when":"Move first when a specific essential household job is beyond her stated capacity. Keep ordinary cleaning separate from personal or clinical care."},
       "title":"Price the cleaning help you'd actually want",
       "summary":"You may want the dishes and bathroom handled, not a whole-house deep clean. Find out whether a small, specific visit is possible.",
       "steps":[
@@ -298,6 +327,7 @@
     },
     {
       "id":"SC18","outcome_key":"practical_errand_help_route","concerns":["support","home"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Creates a practical outside-help route for an identified errand that cannot reasonably wait.","adjust_when":"Only offer for a real unresolved nonmedical errand. Do not invent an errand, a nearby friend, affordable paid help or guaranteed community assistance."},
       "title":"Find help for an errand you can't postpone",
       "summary":"Some errands fall outside grocery delivery. Start with the exact job, then look for a service or local program that handles it.",
       "steps":[
@@ -314,6 +344,7 @@
     },
     {
       "id":"SC19","outcome_key":"agreed_social_checkin","concerns":["support"],"stage":"make_workable","active_minutes":10,
+      "priority":{"band":"core_preparation","reason":"Establishes wanted social support through an actual mutual arrangement rather than an assumed available contact.","adjust_when":"Only when she wants connection and has a suitable person she is comfortable asking. Skip for someone who prefers quiet; this is not monitoring."},
       "title":"Make a check-in something you both want",
       "summary":"A short chat can be welcome without becoming another obligation. Set it up with someone you already feel comfortable asking.",
       "steps":[
@@ -330,6 +361,7 @@
     },
     {
       "id":"SC20","outcome_key":"agreed_practical_favor","concerns":["support","essentials"],"stage":"make_workable","active_minutes":15,
+      "priority":{"band":"make_it_reliable","reason":"Turns an existing offer of help into a specific, workable favor with timing and cost expectations agreed.","adjust_when":"Treat as core when the favor is the missing essential help route. Require a real willing contact and a useful unresolved favor."},
       "title":"Turn 'let me know' into one easy-to-ask favor",
       "summary":"This is for someone who has already offered help. Make one practical arrangement so neither of you has to guess later.",
       "steps":[
@@ -346,6 +378,7 @@
     },
     {
       "id":"SC21","outcome_key":"remote_practical_help_agreement","concerns":["support"],"stage":"make_workable","active_minutes":15,
+      "priority":{"band":"make_it_reliable","reason":"Makes an existing distant support relationship practically useful through a real, bounded handoff.","adjust_when":"Move first when remote help can remove a current burden and a willing contact exists. Do not create artificial research just to practice delegation."},
       "title":"Find something a faraway person could help with",
       "summary":"Distance rules out dropping by, but it doesn't rule out practical help. Pick something useful that doesn't require access to your accounts.",
       "steps":[
@@ -362,6 +395,7 @@
     },
     {
       "id":"SC22","outcome_key":"absence_reporting_process_known","concerns":["responsibilities"],"stage":"discover","active_minutes":15,
+      "priority":{"band":"core_preparation","reason":"Establishes a missing process for reporting absence when that uncertainty prevents taking needed time away.","adjust_when":"Parked outside default suggestions after removal of the work/study choice. Consider only for an explicit supported absence-process request."},
       "title":"Find the simplest way to take a sick day",
       "summary":"Knowing the reporting process beforehand can remove a decision when you're tired. Check the rules that actually apply to your work or course.",
       "steps":[
@@ -378,6 +412,7 @@
     },
     {
       "id":"SC23","outcome_key":"one_work_handoff_tested","concerns":["responsibilities"],"stage":"strengthen","active_minutes":25,
+      "priority":{"band":"make_it_reliable","reason":"Tests whether agreed authorized cover can actually handle a time-sensitive duty without the user.","adjust_when":"Parked outside default suggestions. For an explicit supported request, prioritize only when a real handoff is the unresolved obstacle and cover is possible."},
       "title":"Make one work handoff usable without you",
       "summary":"Pick the responsibility that really keeps pulling you back in. A tiny tested handoff is more useful than a long document nobody can use.",
       "steps":[
@@ -394,6 +429,7 @@
     },
     {
       "id":"SC24","outcome_key":"solo_business_pause_plan","concerns":["responsibilities"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Establishes a way to pause incoming business work while identifying commitments that a platform will not pause.","adjust_when":"Parked outside default suggestions. Consider only for an explicit supported solo-business request with a known platform and missing pause process."},
       "title":"Find the pause button for your own business",
       "summary":"If new orders or bookings keep arriving when you're unavailable, learn what your actual platform can pause—and what still needs attention.",
       "steps":[
@@ -411,6 +447,7 @@
     },
     {
       "id":"SC25","outcome_key":"employer_practical_care_benefit_known","concerns":["responsibilities","pets","support"],"stage":"discover","active_minutes":15,
+      "priority":{"band":"core_preparation","reason":"May uncover an overlooked eligible source of practical-care help before the user researches full-price alternatives.","adjust_when":"Only when employer benefits are explicitly known and a practical or pet-care gap exists. Employment alone proves no benefit; this does not restore the work checkbox."},
       "title":"Look for practical care help in your work benefits",
       "summary":"Some employers offer care support beyond health insurance. It is worth checking the actual benefit before paying for help yourself.",
       "steps":[
@@ -427,6 +464,7 @@
     },
     {
       "id":"SC26","outcome_key":"pet_care_candidate_checked","concerns":["pets","support"],"stage":"discover","active_minutes":20,
+      "priority":{"band":"core_preparation","reason":"Establishes a promising pet-care option and its first-use requirements before help is needed.","adjust_when":"Only for a known pet-care gap and feasible paid-care research. Choose resources matching species and location; skip an existing suitable arrangement."},
       "title":"Find care that fits your kind of pet",
       "summary":"A nearby listing is a starting point. Find out whether the person can handle your pet's routine and how future visits would be arranged.",
       "steps":[
@@ -443,6 +481,7 @@
     },
     {
       "id":"SC27","outcome_key":"pet_carer_handoff_tested","concerns":["pets"],"stage":"make_workable","active_minutes":30,
+      "priority":{"band":"make_it_reliable","reason":"Checks a chosen carer's practical fit through an introduction and routine walkthrough rather than relying on a listing.","adjust_when":"Move first when a candidate exists but this is the missing step before relying on them. Do not require SC26 if she already found someone."},
       "title":"Try the pet-care handoff together",
       "summary":"A real walkthrough can reveal the detail a feeding note misses. Use it to decide whether the arrangement works for both you and your pet.",
       "steps":[
@@ -459,6 +498,7 @@
     },
     {
       "id":"SC28","outcome_key":"vet_permission_for_pet_carer","concerns":["pets"],"stage":"strengthen","active_minutes":20,
+      "priority":{"band":"make_it_reliable","reason":"Closes a permission and contact gap that a chosen carer and a vet phone number alone do not resolve.","adjust_when":"Move first when she explicitly expects to be unavailable and this administrative arrangement is missing. Require a chosen carer and the vet's actual process."},
       "title":"Ask your vet what a pet carer would need",
       "summary":"Knowing the vet's number may not be the whole arrangement. Ask how they handle a carer's call when you aren't available.",
       "steps":[
@@ -475,6 +515,7 @@
     },
     {
       "id":"SC29","outcome_key":"temporary_pet_care_program_route","concerns":["pets","support"],"stage":"discover","active_minutes":25,
+      "priority":{"band":"core_preparation","reason":"Explores a potentially feasible pet-care route during an expected extended absence when commercial care is unaffordable.","adjust_when":"Only for an explicitly expected extended absence and affordable-care gap. Never add foster research to ordinary short sick-day preparation."},
       "title":"Explore temporary pet care when paid sitting won't stretch",
       "summary":"For an expected longer absence, some communities have temporary foster support for owned pets. Find out whether anything local fits your situation.",
       "steps":[
@@ -491,6 +532,7 @@
     },
     {
       "id":"SC30","outcome_key":"planned_recovery_help_coordinated","concerns":["care","home","support"],"stage":"make_workable","active_minutes":25,
+      "priority":{"band":"core_preparation","reason":"Establishes needed help at home with the actual care team before a planned stay or procedure assumes an available helper.","adjust_when":"Only when planned treatment and uncertain support are explicit. Keep unresolved care requirements with the team; do not substitute a household service."},
       "title":"Help the care team understand your home situation",
       "summary":"If a hospital stay or procedure is planned, the team needs to know when there isn't someone at home to do the practical parts.",
       "steps":[

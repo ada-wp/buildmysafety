@@ -1,21 +1,69 @@
 # Sick days & care — 30 tasks to review
 
-Authored content candidates, October 12, 2026. Research-informed; awaiting founder review. Not published in the app or generated in a recorded API test. The pool offers different options for different lives, not thirty things one person must complete.
+Authored content candidates, October 12, 2026; proposed priority mapping added October 13. Research-informed; awaiting founder review. Not published in the app or generated in a recorded API test. The pool offers different options for different lives, not thirty things one person must complete.
 
 Generated reading view of [pool.json](pool.json). Edit the JSON and rerun `render-review.mjs`; do not maintain a second copy here. [Selection and checkbox proposal](README.md) · [Source record](../../../research/sick-care-pool-sources.md).
 
-## What would you like to have figured out before a sick day?
+## Current concern screen
 
-Choose what matters to you. We'll start with a few useful options.
+Use the [five current concern choices and optional AI input](README.md#the-concern-screen). Work/study was removed from the menu. The six older concern tags in pool.json remain editorial metadata awaiting deliberate remapping; they are not the current screen or executable filters.
 
-- [ ] Where to get care, and what it might cost
-- [ ] Getting food, prescriptions and everyday essentials
-- [ ] Making things easier at home while I rest
-- [ ] Having my pet cared for if I can't do the usual routine
-- [ ] Keeping work or study manageable if I need time off
-- [ ] Finding practical help or someone to check in with
+## Proposed priority mapping
 
-Optional: **Anything specific you'd like help with?**
+All 30 tasks are mapped: 15 Core preparation, 11 Make it reliable, 4 Extra ease. Individual assignments remain proposed for founder review; the shared three-band framework is approved.
+
+Editorial judgments using recurring needs, practical impact and value of preparing ahead. Each task's source_ids support its subject or route, not a validated comparative ranking. Use_when and skip_when still control fit; current needs can override a default band.
+
+These are internal defaults, not user-facing levels, a fixed sequence, equal-size groups or a safety score. Eligibility and current needs come first. A dependency must exist before a follow-up is relevant; finishing earlier task IDs is not required. The older Discover / Make workable / Strengthen tags describe the type of action, not its priority.
+
+**Parked from default suggestions:** SC22, SC23, SC24. The three work/business tasks are retained and classified for completeness, but excluded from default checkbox suggestions after the work/study choice was removed. Consider only for an explicit supported request after content and integration review. SC25 is a conditional source of practical/pet-care help, not a restored work checkbox. No runtime ranking, task approval or deployment is implied.
+
+No within-band order is implied by task IDs. The Why column is editorial reasoning; the evidence links support the underlying need or route, not the tier itself.
+
+### Core preparation
+
+| Task | Why this default | Evidence |
+| --- | --- | --- |
+| [SC01 — Find a care option you can actually start with](#sc01) | Establishes a missing first route to care, including access and cost, without assuming an existing doctor. | [HHS_FIND](../../../research/sick-care-pool-sources.md#hhs_find), [HRSA](../../../research/sick-care-pool-sources.md#hrsa) |
+| [SC02 — Know where an in-person visit could start](#sc02) | Establishes in-person access when that specific route is missing; a map listing alone does not establish access. | [HRSA](../../../research/sick-care-pool-sources.md#hrsa), [HC_NETWORK](../../../research/sick-care-pool-sources.md#hc_network) |
+| [SC04 — Find a way to an appointment without driving](#sc04) | Closes a missing transport route that can make otherwise available nonurgent care inaccessible. | [MEDICAID_RIDES](../../../research/sick-care-pool-sources.md#medicaid_rides), [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211) |
+| [SC05 — Check what 'someone to take you home' really means](#sc05) | Resolves a potentially blocking escort arrangement before an explicitly planned procedure. | [MEDLINE_SURGERY](../../../research/sick-care-pool-sources.md#medline_surgery) |
+| [SC07 — Find out whether a pharmacy can reach your door](#sc07) | Establishes a missing way to receive a prescription without going out, including real pharmacy restrictions. | [CVS_DELIVERY](../../../research/sick-care-pool-sources.md#cvs_delivery), [HC_PHARMACY](../../../research/sick-care-pool-sources.md#hc_pharmacy) |
+| [SC10 — See whether groceries can reach your actual door](#sc10) | Establishes usable food access by checking actual delivery cost, handoff and substitutions. | [WALMART_DELIVERY](../../../research/sick-care-pool-sources.md#walmart_delivery), [INSTACART_EBT](../../../research/sick-care-pool-sources.md#instacart_ebt), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness) |
+| [SC11 — Find food help without a delivery budget](#sc11) | Explores a food-access route when affordability or access makes commercial delivery unsuitable. | [FEEDING_AMERICA](../../../research/sick-care-pool-sources.md#feeding_america) |
+| [SC18 — Find help for an errand you can't postpone](#sc18) | Creates a practical outside-help route for an identified errand that cannot reasonably wait. | [TASK_ERRANDS](../../../research/sick-care-pool-sources.md#task_errands), [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211) |
+| [SC19 — Make a check-in something you both want](#sc19) | Establishes wanted social support through an actual mutual arrangement rather than an assumed available contact. | [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness), [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
+| [SC22 — Find the simplest way to take a sick day](#sc22) **(parked)** | Establishes a missing process for reporting absence when that uncertainty prevents taking needed time away. | [DOL_LEAVE](../../../research/sick-care-pool-sources.md#dol_leave), [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
+| [SC24 — Find the pause button for your own business](#sc24) **(parked)** | Establishes a way to pause incoming business work while identifying commitments that a platform will not pause. | [ETSY_PAUSE](../../../research/sick-care-pool-sources.md#etsy_pause) |
+| [SC25 — Look for practical care help in your work benefits](#sc25) | May uncover an overlooked eligible source of practical-care help before the user researches full-price alternatives. | [CARE_BENEFITS](../../../research/sick-care-pool-sources.md#care_benefits) |
+| [SC26 — Find care that fits your kind of pet](#sc26) | Establishes a promising pet-care option and its first-use requirements before help is needed. | [PSI_FIND](../../../research/sick-care-pool-sources.md#psi_find) |
+| [SC29 — Explore temporary pet care when paid sitting won't stretch](#sc29) | Explores a potentially feasible pet-care route during an expected extended absence when commercial care is unaffordable. | [HUMANE_FOSTER](../../../research/sick-care-pool-sources.md#humane_foster) |
+| [SC30 — Help the care team understand your home situation](#sc30) | Establishes needed help at home with the actual care team before a planned stay or procedure assumes an available helper. | [MEDLINE_DISCHARGE](../../../research/sick-care-pool-sources.md#medline_discharge) |
+
+### Make it reliable
+
+| Task | Why this default | Evidence |
+| --- | --- | --- |
+| [SC03 — Try the doorway to your first video visit](#sc03) | Checks whether a chosen care option can actually be joined and exposes technical or accessibility barriers. | [HHS_PREP](../../../research/sick-care-pool-sources.md#hhs_prep), [HHS_TECH](../../../research/sick-care-pool-sources.md#hhs_tech) |
+| [SC06 — Ask what your planned visit will actually cost](#sc06) | Clarifies the actual cost of a chosen self-pay visit rather than relying on a starting price. | [CMS_ESTIMATE](../../../research/sick-care-pool-sources.md#cms_estimate) |
+| [SC08 — Find out what could hold up your next refill](#sc08) | Addresses administrative delays that a delivery service alone cannot resolve for an existing prescription. | [CDC_RX](../../../research/sick-care-pool-sources.md#cdc_rx) |
+| [SC09 — Check whether someone else can collect for you](#sc09) | Makes an existing willing helper a usable collection option by checking pharmacy permission and handoff requirements. | [HHS_PICKUP](../../../research/sick-care-pool-sources.md#hhs_pickup) |
+| [SC12 — Give one easy meal a real-life try](#sc12) | Tests whether a chosen meal is genuinely manageable instead of creating another list of familiar foods. | [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox) |
+| [SC15 — Check how your go-to meal keeps](#sc15) | Resolves an actual storage knowledge gap that could undermine an otherwise usable meal plan. | [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper), [FOOD_STORAGE](../../../research/sick-care-pool-sources.md#food_storage) |
+| [SC20 — Turn 'let me know' into one easy-to-ask favor](#sc20) | Turns an existing offer of help into a specific, workable favor with timing and cost expectations agreed. | [FOUNDER](../../../research/sick-care-pool-sources.md#founder), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness) |
+| [SC21 — Find something a faraway person could help with](#sc21) | Makes an existing distant support relationship practically useful through a real, bounded handoff. | [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
+| [SC23 — Make one work handoff usable without you](#sc23) **(parked)** | Tests whether agreed authorized cover can actually handle a time-sensitive duty without the user. | [FOUNDER](../../../research/sick-care-pool-sources.md#founder) |
+| [SC27 — Try the pet-care handoff together](#sc27) | Checks a chosen carer's practical fit through an introduction and routine walkthrough rather than relying on a listing. | [PSI_STANDARDS](../../../research/sick-care-pool-sources.md#psi_standards), [RED_CROSS_PETS](../../../research/sick-care-pool-sources.md#red_cross_pets) |
+| [SC28 — Ask your vet what a pet carer would need](#sc28) | Closes a permission and contact gap that a chosen carer and a vet phone number alone do not resolve. | [AVMA_PETS](../../../research/sick-care-pool-sources.md#avma_pets) |
+
+### Extra ease
+
+| Task | Why this default | Evidence |
+| --- | --- | --- |
+| [SC13 — Make your resting spot work for you](#sc13) | Reduces repeated trips and awkward reach once the essential options are in place. | [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox) |
+| [SC14 — Take one last-minute shop off your future plate](#sc14) | Removes a known last-minute shopping inconvenience without inventing a stockpile or universal shopping list. | [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness) |
+| [SC16 — Let laundry leave the house without you](#sc16) | Removes laundry transport or lifting effort when a suitable paid service is wanted. | [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry) |
+| [SC17 — Price the cleaning help you'd actually want](#sc17) | Reduces household workload through a suitably scoped service rather than assuming a full cleaning package. | [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning) |
 
 ## Browse the pool
 
@@ -78,6 +126,10 @@ You don't need a regular doctor to explore your options. Start with one route th
 
 **Editorial mapping:** care · discover · care_entry_route
 
+**Proposed priority:** Core preparation. Establishes a missing first route to care, including access and cost, without assuming an existing doctor.
+
+**Context can change the order:** Offer for an explicit care-access gap. If a suitable route already exists, skip rather than add a second provider by default.
+
 **Research:** [HHS_FIND](../../../research/sick-care-pool-sources.md#hhs_find), [HRSA](../../../research/sick-care-pool-sources.md#hrsa).
 
 **Possible user links:** [HHS_FIND](../../../research/sick-care-pool-sources.md#hhs_find), [HRSA](../../../research/sick-care-pool-sources.md#hrsa)
@@ -105,6 +157,10 @@ An online option doesn't answer every access question. If you want an in-person 
 **Cost and timing:** Research free; appointment costs vary. Clinic or insurer reply.
 
 **Editorial mapping:** care · discover · in_person_care_entry
+
+**Proposed priority:** Core preparation. Establishes in-person access when that specific route is missing; a map listing alone does not establish access.
+
+**Context can change the order:** Use when she asks for in-person access or identifies that gap. Do not pair with SC01 merely to fill the batch.
 
 **Research:** [HRSA](../../../research/sick-care-pool-sources.md#hrsa), [HC_NETWORK](../../../research/sick-care-pool-sources.md#hc_network).
 
@@ -134,6 +190,10 @@ Finding care is one piece; being able to connect is another. A short practice no
 
 **Editorial mapping:** care · make_workable · virtual_visit_connection_tested
 
+**Proposed priority:** Make it reliable. Checks whether a chosen care option can actually be joined and exposes technical or accessibility barriers.
+
+**Context can change the order:** Move first when the connection is the stated obstacle to using an otherwise suitable care route; skip an already-working setup.
+
 **Research:** [HHS_PREP](../../../research/sick-care-pool-sources.md#hhs_prep), [HHS_TECH](../../../research/sick-care-pool-sources.md#hhs_tech).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -159,6 +219,10 @@ Some transport options need advance notice. Find out what you could use before t
 **Cost and timing:** Research free; eligibility and ride charges vary. Do not promise free rides. Transport-provider eligibility confirmation.
 
 **Editorial mapping:** care, support · discover · nonurgent_appointment_transport
+
+**Proposed priority:** Core preparation. Closes a missing transport route that can make otherwise available nonurgent care inaccessible.
+
+**Context can change the order:** Only offer for a stated transport gap. Use confirmed eligibility, and keep emergency transport and procedure escorts separate.
 
 **Research:** [MEDICAID_RIDES](../../../research/sick-care-pool-sources.md#medicaid_rides), [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211).
 
@@ -186,6 +250,10 @@ For a planned procedure, a ride and an approved escort can be different things. 
 
 **Editorial mapping:** care, support · make_workable · procedure_escort_requirements_resolved
 
+**Proposed priority:** Core preparation. Resolves a potentially blocking escort arrangement before an explicitly planned procedure.
+
+**Context can change the order:** Only eligible when a planned procedure and possible escort gap are explicit. Never make this a routine sick-day starting task.
+
 **Research:** [MEDLINE_SURGERY](../../../research/sick-care-pool-sources.md#medline_surgery).
 
 **Possible user links:** [MEDLINE_SURGERY](../../../research/sick-care-pool-sources.md#medline_surgery)
@@ -211,6 +279,10 @@ A headline consultation price may not cover everything. For a planned self-pay v
 **Cost and timing:** No purchase or booking required to ask. Written estimate from each relevant provider.
 
 **Editorial mapping:** care · make_workable · planned_visit_written_estimate
+
+**Proposed priority:** Make it reliable. Clarifies the actual cost of a chosen self-pay visit rather than relying on a starting price.
+
+**Context can change the order:** Move first when an unknown charge is preventing a decision about a specific planned visit. Not for general browsing or delaying needed care.
 
 **Research:** [CMS_ESTIMATE](../../../research/sick-care-pool-sources.md#cms_estimate).
 
@@ -238,6 +310,10 @@ A new prescription and a routine mail-order refill can have different delivery a
 
 **Editorial mapping:** essentials, care · discover · local_prescription_delivery
 
+**Proposed priority:** Core preparation. Establishes a missing way to receive a prescription without going out, including real pharmacy restrictions.
+
+**Context can change the order:** Only when prescription access is relevant and unresolved. Existing reliable delivery makes this redundant; this never selects medication.
+
 **Research:** [CVS_DELIVERY](../../../research/sick-care-pool-sources.md#cvs_delivery), [HC_PHARMACY](../../../research/sick-care-pool-sources.md#hc_pharmacy).
 
 **Possible user links:** [CVS_DELIVERY](../../../research/sick-care-pool-sources.md#cvs_delivery)
@@ -263,6 +339,10 @@ If you already use a regular prescription, a refill request may need more than a
 **Cost and timing:** No purchase or extra medicine requested. Pharmacist or prescriber reply. Do not store medication details in My Safety.
 
 **Editorial mapping:** essentials · strengthen · routine_refill_process_known
+
+**Proposed priority:** Make it reliable. Addresses administrative delays that a delivery service alone cannot resolve for an existing prescription.
+
+**Context can change the order:** Move first for an explicitly reported recurring refill obstacle. Require a known ongoing prescription; do not infer one.
 
 **Research:** [CDC_RX](../../../research/sick-care-pool-sources.md#cdc_rx).
 
@@ -290,6 +370,10 @@ If delivery won't work, a willing person may be able to collect a prescription. 
 
 **Editorial mapping:** essentials, support · make_workable · pharmacy_collection_by_helper
 
+**Proposed priority:** Make it reliable. Makes an existing willing helper a usable collection option by checking pharmacy permission and handoff requirements.
+
+**Context can change the order:** Treat as core when this is her only feasible acquisition route. Do not also suggest delivery for the same already-resolved outcome.
+
 **Research:** [HHS_PICKUP](../../../research/sick-care-pool-sources.md#hhs_pickup).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -315,6 +399,10 @@ Delivery coverage is only the start. The useful question is whether the cost and
 **Cost and timing:** No test purchase; future food and service costs must fit her budget. Support reply if the delivery location or fees are unclear.
 
 **Editorial mapping:** essentials · discover · grocery_delivery_workable
+
+**Proposed priority:** Core preparation. Establishes usable food access by checking actual delivery cost, handoff and substitutions.
+
+**Context can change the order:** Offer for an untested or unsuitable route. If future paid delivery is ruled out, use an eligible community or agreed-help route instead.
 
 **Research:** [WALMART_DELIVERY](../../../research/sick-care-pool-sources.md#walmart_delivery), [INSTACART_EBT](../../../research/sick-care-pool-sources.md#instacart_ebt), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness).
 
@@ -344,6 +432,10 @@ When food costs are the obstacle, another shopping app may not help. A local foo
 
 **Editorial mapping:** essentials, support · discover · food_assistance_access_route
 
+**Proposed priority:** Core preparation. Explores a food-access route when affordability or access makes commercial delivery unsuitable.
+
+**Context can change the order:** Give priority when the food-access constraint is explicit. Do not infer hardship or promise local eligibility or delivery.
+
 **Research:** [FEEDING_AMERICA](../../../research/sick-care-pool-sources.md#feeding_america).
 
 **Possible user links:** [FEEDING_AMERICA](../../../research/sick-care-pool-sources.md#feeding_america)
@@ -369,6 +461,10 @@ When food costs are the obstacle, another shopping app may not help. A local foo
 **Cost and timing:** Use a normal meal and existing food; replacing missing ingredients may cost money. Cooking/storage time is additional to active effort.
 
 **Editorial mapping:** essentials, home · make_workable · easy_meals_ready
+
+**Proposed priority:** Make it reliable. Tests whether a chosen meal is genuinely manageable instead of creating another list of familiar foods.
+
+**Context can change the order:** Treat as core when she has food but no meal she can realistically prepare within her stated limits; skip already-workable meals.
 
 **Research:** [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox).
 
@@ -398,6 +494,10 @@ Try the setup from where you'll actually sit or lie down. You'll notice more tha
 
 **Editorial mapping:** home · make_workable · resting_spot_usable
 
+**Proposed priority:** Extra ease. Reduces repeated trips and awkward reach once the essential options are in place.
+
+**Context can change the order:** Move first when reach or repeated getting up is her actual barrier to using essentials. Never default to rearranging an already-working space.
+
 **Research:** [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_SICKBOX](../../../research/sick-care-pool-sources.md#reddit_sickbox).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -423,6 +523,10 @@ Think of the everyday item that has actually sent you out at an inconvenient tim
 **Cost and timing:** May require a routine purchase; never recommend stockpiling or automatic subscriptions. Next ordinary shop, if needed.
 
 **Editorial mapping:** essentials, home · make_workable · personal_essentials_gap_closed
+
+**Proposed priority:** Extra ease. Removes a known last-minute shopping inconvenience without inventing a stockpile or universal shopping list.
+
+**Context can change the order:** Treat as core when the specific missing item is necessary for her stated daily needs and replacing it is feasible. Respect no-purchase constraints.
 
 **Research:** [CDC_NEEDS](../../../research/sick-care-pool-sources.md#cdc_needs), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness).
 
@@ -450,6 +554,10 @@ This is useful if food you set aside has spoiled or left you guessing. Learn the
 
 **Editorial mapping:** essentials, home · strengthen · chosen_food_storage_understood
 
+**Proposed priority:** Make it reliable. Resolves an actual storage knowledge gap that could undermine an otherwise usable meal plan.
+
+**Context can change the order:** Move first for a stated storage or waste problem with a known food. Do not offer generic food-safety homework or AI clearance of questionable food.
+
 **Research:** [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper), [FOOD_STORAGE](../../../research/sick-care-pool-sources.md#food_storage).
 
 **Possible user links:** [FOODKEEPER](../../../research/sick-care-pool-sources.md#foodkeeper)
@@ -475,6 +583,10 @@ If carrying laundry is the hard part, wash-and-fold pickup may be more useful th
 **Cost and timing:** Research free; future service paid. Compare minimum total, not hourly rate alone. Provider response.
 
 **Editorial mapping:** home, support · discover · laundry_help_route
+
+**Proposed priority:** Extra ease. Removes laundry transport or lifting effort when a suitable paid service is wanted.
+
+**Context can change the order:** Treat as core if she explicitly cannot access laundry or manage the load and needs essential clean items. Respect cost and service limits.
 
 **Research:** [TASK_LAUNDRY](../../../research/sick-care-pool-sources.md#task_laundry).
 
@@ -502,6 +614,10 @@ You may want the dishes and bathroom handled, not a whole-house deep clean. Find
 
 **Editorial mapping:** home, support · discover · limited_cleaning_help_route
 
+**Proposed priority:** Extra ease. Reduces household workload through a suitably scoped service rather than assuming a full cleaning package.
+
+**Context can change the order:** Move first when a specific essential household job is beyond her stated capacity. Keep ordinary cleaning separate from personal or clinical care.
+
 **Research:** [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning).
 
 **Possible user links:** [TASK_CLEANING](../../../research/sick-care-pool-sources.md#task_cleaning)
@@ -527,6 +643,10 @@ Some errands fall outside grocery delivery. Start with the exact job, then look 
 **Cost and timing:** Research free; paid and community routes have different terms. A referral is not a guarantee of free assistance. Service or referral response.
 
 **Editorial mapping:** support, home · discover · practical_errand_help_route
+
+**Proposed priority:** Core preparation. Creates a practical outside-help route for an identified errand that cannot reasonably wait.
+
+**Context can change the order:** Only offer for a real unresolved nonmedical errand. Do not invent an errand, a nearby friend, affordable paid help or guaranteed community assistance.
 
 **Research:** [TASK_ERRANDS](../../../research/sick-care-pool-sources.md#task_errands), [LOCAL_211](../../../research/sick-care-pool-sources.md#local_211).
 
@@ -554,6 +674,10 @@ A short chat can be welcome without becoming another obligation. Set it up with 
 
 **Editorial mapping:** support · make_workable · agreed_social_checkin
 
+**Proposed priority:** Core preparation. Establishes wanted social support through an actual mutual arrangement rather than an assumed available contact.
+
+**Context can change the order:** Only when she wants connection and has a suitable person she is comfortable asking. Skip for someone who prefers quiet; this is not monitoring.
+
 **Research:** [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness), [FOUNDER](../../../research/sick-care-pool-sources.md#founder).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -579,6 +703,10 @@ This is for someone who has already offered help. Make one practical arrangement
 **Cost and timing:** Favor may be free; purchases and reimbursement must be agreed. Mutual agreement.
 
 **Editorial mapping:** support, essentials · make_workable · agreed_practical_favor
+
+**Proposed priority:** Make it reliable. Turns an existing offer of help into a specific, workable favor with timing and cost expectations agreed.
+
+**Context can change the order:** Treat as core when the favor is the missing essential help route. Require a real willing contact and a useful unresolved favor.
 
 **Research:** [FOUNDER](../../../research/sick-care-pool-sources.md#founder), [REDDIT_ILLNESS](../../../research/sick-care-pool-sources.md#reddit_illness).
 
@@ -606,6 +734,10 @@ Distance rules out dropping by, but it doesn't rule out practical help. Pick som
 
 **Editorial mapping:** support · make_workable · remote_practical_help_agreement
 
+**Proposed priority:** Make it reliable. Makes an existing distant support relationship practically useful through a real, bounded handoff.
+
+**Context can change the order:** Move first when remote help can remove a current burden and a willing contact exists. Do not create artificial research just to practice delegation.
+
 **Research:** [FOUNDER](../../../research/sick-care-pool-sources.md#founder).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -631,6 +763,10 @@ Knowing the reporting process beforehand can remove a decision when you're tired
 **Cost and timing:** No purchase. This does not promise paid time off. Workplace or course-office reply if unclear.
 
 **Editorial mapping:** responsibilities · discover · absence_reporting_process_known
+
+**Proposed priority:** Core preparation — parked from default suggestions. Establishes a missing process for reporting absence when that uncertainty prevents taking needed time away.
+
+**Context can change the order:** Parked outside default suggestions after removal of the work/study choice. Consider only for an explicit supported absence-process request.
 
 **Research:** [DOL_LEAVE](../../../research/sick-care-pool-sources.md#dol_leave), [FOUNDER](../../../research/sick-care-pool-sources.md#founder).
 
@@ -658,6 +794,10 @@ Pick the responsibility that really keeps pulling you back in. A tiny tested han
 
 **Editorial mapping:** responsibilities · strengthen · one_work_handoff_tested
 
+**Proposed priority:** Make it reliable — parked from default suggestions. Tests whether agreed authorized cover can actually handle a time-sensitive duty without the user.
+
+**Context can change the order:** Parked outside default suggestions. For an explicit supported request, prioritize only when a real handoff is the unresolved obstacle and cover is possible.
+
 **Research:** [FOUNDER](../../../research/sick-care-pool-sources.md#founder).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -683,6 +823,10 @@ If new orders or bookings keep arriving when you're unavailable, learn what your
 **Cost and timing:** Research free; existing business fees may continue during a future pause. None for preparation. This task never changes live business settings.
 
 **Editorial mapping:** responsibilities · discover · solo_business_pause_plan
+
+**Proposed priority:** Core preparation — parked from default suggestions. Establishes a way to pause incoming business work while identifying commitments that a platform will not pause.
+
+**Context can change the order:** Parked outside default suggestions. Consider only for an explicit supported solo-business request with a known platform and missing pause process.
 
 **Research:** [ETSY_PAUSE](../../../research/sick-care-pool-sources.md#etsy_pause).
 
@@ -712,6 +856,10 @@ Some employers offer care support beyond health insurance. It is worth checking 
 
 **Editorial mapping:** responsibilities, pets, support · discover · employer_practical_care_benefit_known
 
+**Proposed priority:** Core preparation. May uncover an overlooked eligible source of practical-care help before the user researches full-price alternatives.
+
+**Context can change the order:** Only when employer benefits are explicitly known and a practical or pet-care gap exists. Employment alone proves no benefit; this does not restore the work checkbox.
+
 **Research:** [CARE_BENEFITS](../../../research/sick-care-pool-sources.md#care_benefits).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -737,6 +885,10 @@ A nearby listing is a starting point. Find out whether the person can handle you
 **Cost and timing:** Research free; introductions and visits may carry charges. Ask first. Candidate reply. Directory membership is not an endorsement.
 
 **Editorial mapping:** pets, support · discover · pet_care_candidate_checked
+
+**Proposed priority:** Core preparation. Establishes a promising pet-care option and its first-use requirements before help is needed.
+
+**Context can change the order:** Only for a known pet-care gap and feasible paid-care research. Choose resources matching species and location; skip an existing suitable arrangement.
 
 **Research:** [PSI_FIND](../../../research/sick-care-pool-sources.md#psi_find).
 
@@ -764,6 +916,10 @@ A real walkthrough can reveal the detail a feeding note misses. Use it to decide
 
 **Editorial mapping:** pets · make_workable · pet_carer_handoff_tested
 
+**Proposed priority:** Make it reliable. Checks a chosen carer's practical fit through an introduction and routine walkthrough rather than relying on a listing.
+
+**Context can change the order:** Move first when a candidate exists but this is the missing step before relying on them. Do not require SC26 if she already found someone.
+
 **Research:** [PSI_STANDARDS](../../../research/sick-care-pool-sources.md#psi_standards), [RED_CROSS_PETS](../../../research/sick-care-pool-sources.md#red_cross_pets).
 
 **Possible user links:** None required; use her chosen provider or existing tools where specified.
@@ -789,6 +945,10 @@ Knowing the vet's number may not be the whole arrangement. Ask how they handle a
 **Cost and timing:** Administrative preparation; ask about any charge. No treatment authorized by this app. Vet-practice confirmation. Keep permissions and payment details outside My Safety.
 
 **Editorial mapping:** pets · strengthen · vet_permission_for_pet_carer
+
+**Proposed priority:** Make it reliable. Closes a permission and contact gap that a chosen carer and a vet phone number alone do not resolve.
+
+**Context can change the order:** Move first when she explicitly expects to be unavailable and this administrative arrangement is missing. Require a chosen carer and the vet's actual process.
 
 **Research:** [AVMA_PETS](../../../research/sick-care-pool-sources.md#avma_pets).
 
@@ -816,6 +976,10 @@ For an expected longer absence, some communities have temporary foster support f
 
 **Editorial mapping:** pets, support · discover · temporary_pet_care_program_route
 
+**Proposed priority:** Core preparation. Explores a potentially feasible pet-care route during an expected extended absence when commercial care is unaffordable.
+
+**Context can change the order:** Only for an explicitly expected extended absence and affordable-care gap. Never add foster research to ordinary short sick-day preparation.
+
 **Research:** [HUMANE_FOSTER](../../../research/sick-care-pool-sources.md#humane_foster).
 
 **Possible user links:** [HUMANE_FOSTER](../../../research/sick-care-pool-sources.md#humane_foster)
@@ -842,10 +1006,14 @@ If a hospital stay or procedure is planned, the team needs to know when there is
 
 **Editorial mapping:** care, home, support · make_workable · planned_recovery_help_coordinated
 
+**Proposed priority:** Core preparation. Establishes needed help at home with the actual care team before a planned stay or procedure assumes an available helper.
+
+**Context can change the order:** Only when planned treatment and uncertain support are explicit. Keep unresolved care requirements with the team; do not substitute a household service.
+
 **Research:** [MEDLINE_DISCHARGE](../../../research/sick-care-pool-sources.md#medline_discharge).
 
 **Possible user links:** [MEDLINE_DISCHARGE](../../../research/sick-care-pool-sources.md#medline_discharge)
 
 ## What this check does and does not establish
 
-The accompanying structural check confirms thirty unique IDs/outcome keys, valid concern/source references, three steps per task, copy limits and resource counts. It does not establish semantic uniqueness, clinical approval, task effectiveness, link availability in a particular region or live app compatibility. The fit rules still require implementation and the copy needs founder review.
+The accompanying structural check confirms thirty unique IDs/outcome keys, one valid proposed priority with rationale and context per task, valid exclusion/concern/source references, three steps per task, copy limits and resource counts. It does not establish semantic uniqueness, appropriate ranking, clinical approval, task effectiveness, link availability in a particular region or live app compatibility. The fit rules still require implementation and the copy needs founder review.

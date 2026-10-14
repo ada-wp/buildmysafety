@@ -3,6 +3,7 @@
 October 12, 2026. **Thirty complete authored task candidates, proposed checkboxes and selection guidance for founder review.** Sources were researched; tasks are not professionally approved, published in the app or tested as new API outputs. Start with this category, then repeat the approach for the other categories. The existing app flow stays intact.
 
 - [Read the 30 tasks](REVIEW.md) — readable view generated from the pool.
+- [Proposed priority mapping for all 30](REVIEW.md#proposed-priority-mapping) — 15 Core preparation, 11 Make it reliable, 4 Extra ease; individual ratings await review.
 - [Pool data](pool.json) — canonical editable task content and plain-language fit conditions.
 - [Research and source limitations](../../../research/sick-care-pool-sources.md).
 - [Category-specific AI prompt](../../../docs/prompts/sick-care-category-v0.md).
@@ -33,7 +34,7 @@ No selections: offer help choosing a starting area or allow a specific typed nee
 
 **October 13 ranking decision:** Ada approved the [shared ranking rules for all categories](../../../docs/personalization-plan-v0.md#shared-ranking-rules--all-categories). Keep default importance as a shared editorial priority for each task, not a user safety score or a fresh model judgment on every request. Consider recurring need, practical impact and value of preparing now. Popularity/upvotes alone do not establish importance or effectiveness.
 
-Approved priority bands, with illustrative sick-day examples awaiting task-level review:
+Approved priority bands, now assigned as a proposed default to every candidate in [the review view](REVIEW.md#proposed-priority-mapping):
 
 | Default priority | Role | Examples, only when relevant |
 | --- | --- | --- |
@@ -41,9 +42,11 @@ Approved priority bands, with illustrative sick-day examples awaiting task-level
 | Make it reliable | Resolve a real remaining dependency in an existing option. | Try a chosen pet-care handoff or check the setup for a first virtual visit. |
 | Extra ease | Reduce inconvenience after essential gaps are covered. | Optional laundry services or a more convenient resting setup. |
 
-These are approved editorial bands, not a statistically demonstrated ordering, a clinical urgency scale, roadmap levels or compulsory stages. Individual task bands will be reviewed with the content. What is extra ease for one person may be core preparation for another; an explicit limitation can move it first. Do not split one meaningful action into multiple tasks just to fill bands.
+These are approved editorial bands, not a statistically demonstrated ordering, a clinical urgency scale, roadmap levels or compulsory stages. The October 13 mapping is **15 Core preparation, 11 Make it reliable and 4 Extra ease**. Each task's `priority` contains a proposed band, reason and circumstances that change its position; existing `source_ids`, `use_when` and `skip_when` remain essential. The task-level assignments are not founder approval. What is extra ease for one person may be core preparation for another; an explicit limitation can move it first. Do not split one meaningful action into multiple tasks just to fill bands. The older `stage` tags describe action type and must not be converted mechanically into priority.
 
-Selection order: enforce eligibility and remove repeats; match the current typed need and selected concerns; use default importance among similarly relevant, feasible tasks; then use effort preferences and soft feedback to break ties. Cover different selected concerns when useful without displacing a precise current request. Important-but-inapplicable tasks never enter the batch. If context is insufficient, offer a starting choice or one useful clarification rather than treating every common gap as present. This ranking needs no AI call. The research supports recurring needs more strongly than an exact task order; keep a brief rationale and source references with each eventual default priority and revise through user benefit evidence. No runtime ordering or pool records are changed by this design note.
+**Scope of the 30:** SC22 (absence process), SC23 (work handoff) and SC24 (business pause) are classified but parked outside default checkbox suggestions because Ada removed the work/study choice. Keep the drafts for an explicit supported request; do not delete old user tasks or silently restore a work menu. That leaves 27 candidates potentially eligible through current concerns, each still conditional on fit, not 30 general starting tasks. SC25 stays a conditional practical/pet-care funding route only when employer benefits and that need are explicitly known. SC05, SC29 and SC30 require the specific planned procedure or extended absence in their fit rules and never appear merely because someone lives alone.
+
+Selection order: enforce eligibility and remove repeats; match the current typed need and selected concerns; use default importance among similarly relevant, feasible tasks; then use effort preferences and soft feedback to break ties. Cover different selected concerns when useful without displacing a precise current request. Important-but-inapplicable tasks never enter the batch. If context is insufficient, offer a starting choice or one useful clarification rather than treating every common gap as present. This ranking needs no AI call. The research supports recurring needs more strongly than an exact task order; keep a brief rationale and source references with each default priority and revise through user benefit evidence. These draft metadata additions do not change runtime ordering or deploy the pool.
 
 Use a few understandable rules, not a safety score:
 
@@ -58,6 +61,8 @@ Use a ready pool task or authored variant first. Automatically adapt at most one
 Some critical facts genuinely matter. If absent, use a concise conditional route or ask one relevant question only when it would change the next suggestion. For pet care, establish whether she needs to find a carer or already has someone willing. Do not collect a new permanent biography or medical profile. A pet-care interest can justify showing a pet-care option, but it cannot justify inventing a cat or a paid-care budget.
 
 **Resource limit:** at most one linked task per batch, up to two reviewed links in it. Do not strip away a necessary starting link just to fill three cards. Return fewer useful options if several research tasks all require links. Internal evidence citations are not additional user-facing links.
+
+**October 13 resource-copy agreement:** give one or two concrete, relevant apps/services by name with what each helps with and what to check; visible links are not required in task copy. Ada named Rover as an example and agreed to the proposed pet-care wording using Rover, plus Meowtel only for a cat. Names still need reviewed evidence and country/species/budget fit; don't force app recommendations into every task or invent an unsupported provider. The SC26 service-copy revision and resource catalog wiring remain a separate integration item; this priority-only update does not replace its existing PSI text. Preserve the existing batch resource limits when connecting named recommendations.
 
 **Timing and completion:** times are active effort; replies, shopping, travel and appointments can take longer. If the task's finish needs a reply, a sent message is still in progress. A checked unsuitable option can be a useful decision, but it must never be called support that is now available.
 
