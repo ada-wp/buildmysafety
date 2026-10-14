@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import { writeFile } from 'node:fs/promises';
 import { origin, withPrivacyTestSession } from './privacy-test-session.mjs';
 if (!process.argv.includes('--paid')) throw new Error('Pass --paid for one real model attempt. No automatic retries.');
-const file = new URL(process.argv.includes('--follow-up') ? '../verification-delivery-request-followup.json' : '../verification-delivery-request.json', import.meta.url);
+const account = process.argv.includes('--account-a') ? 'a' : 'b';
+const file = new URL(process.argv.includes('--fixed') ? '../verification-delivery-request-fixed.json' : account === 'a' ? '../verification-delivery-request-account-a.json' : process.argv.includes('--follow-up') ? '../verification-delivery-request-followup.json' : '../verification-delivery-request.json', import.meta.url);
 const report = { testedAt: new Date().toISOString(), host: origin,
-  evidence: 'Independent fictional Clerk B session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.' };
+  account, evidence: 'Independent approved fictional Clerk session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.' };
 try {
   await withPrivacyTestSession(false, async ({ api }) => {
     const before = await api('/api/tasks'); assert.equal(before.status, 200);
@@ -29,6 +30,6 @@ try {
     const latest = await api('/api/recommendations/latest'); assert.equal(latest.status, 200);
     assert.deepEqual(latest.body.result.batch, result.body.batch); assert.equal(latest.body.result.request.note, undefined);
     report.checks = { persisted: true, replayedWithoutNewAttempt: true, priorTasksUnchanged: true, rawNoteNotInLatest: true };
-  });
+  }, { account, traceTag: 'delivery-request' });
 } finally { await writeFile(file, JSON.stringify(report, null, 2) + '\n'); }
 console.log(JSON.stringify(report, null, 2));

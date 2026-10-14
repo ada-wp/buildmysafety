@@ -8,6 +8,7 @@ import { sickCareInstructions } from './generated/contracts.mjs';
 export const newNeedInstructions = `${sickCareInstructions}
 ${feedbackGuidance}
 Mode: create ONE new task for the current request. Return only decision and task JSON using the supplied schema.
+For a generated task, include at least one relevant concern_ids value from supported_concerns. Classify the current request even when selected_concerns is empty; unchecked concerns do not forbid a relevant tag. Never invent a concern ID.
 Use a short canonical lower_snake_case action_key, without personal details or random suffixes.
 Estimated active time must fit the explicit maximum and be at most 30 minutes. Researching prices, paid services, prescription delivery and refill administration is allowed; do not recommend medication, treatment or purchases as a research exercise.
 Do not require a payment, subscription or booking. Use purchase_checks [] and no_purchase_option null for this research-focused path. A named service must come from eligible_resources; its resource ID must be included. Do not invent providers.
@@ -29,13 +30,18 @@ export function buildNewNeedRequest(prepared, catalog, history, model) {
   };
   const input = JSON.stringify(packet);
   requireRule(Buffer.byteLength(input, 'utf8') <= 24000, 'context_too_large');
+  // A typed request works without checkbox selection. The writer must still
+  // classify its own task using a supported concern before it can be accepted.
+  const taskSchema = structuredClone(outputSchema.properties.tasks.items);
+  taskSchema.properties.concern_ids = { type: 'array', minItems: 1,
+    items: { type: 'string', enum: topic.concerns.map(c => c.id) } };
   return { model, store: false, instructions: newNeedInstructions,
     input: [{ role: 'user', content: [{ type: 'input_text', text: input }] }],
     reasoning: { effort: 'low' }, max_output_tokens: 2200,
     text: { format: { type: 'json_schema', name: 'safety_new_need_v1', strict: true,
       schema: { type: 'object', additionalProperties: false, required: ['decision', 'task'], properties: {
         decision: { type: 'string', enum: decisions },
-        task: { anyOf: [outputSchema.properties.tasks.items, { type: 'null' }] }
+        task: { anyOf: [taskSchema, { type: 'null' }] }
       } } } }
   };
 }

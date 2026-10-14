@@ -121,6 +121,15 @@ test('US request coverage supplies resources even when a returning profile has n
   assert.equal(unscoped.resources.size, 0, 'Shared API still protects regional eligibility outside app market');
 });
 
+test('typed-only requests require the model to classify its task within supported concerns', async () => {
+  const p = await prepare(options({ note: 'Help me understand home delivery from a pharmacy.' }));
+  const body = buildNewNeedRequest(p, catalog, [], 'gpt-6-luna');
+  assert.deepEqual(JSON.parse(body.input[0].content[0].text).selected_concerns, []);
+  const concerns = body.text.format.schema.properties.task.anyOf[0].properties.concern_ids;
+  assert.equal(concerns.minItems, 1);
+  assert.deepEqual(concerns.items.enum, sickCareConcerns.map(c => c.id));
+});
+
 test('pharmacy delivery remains a new outcome after groceries or clinic research, but not after the same delivery task', async () => {
   const p = await prepare(options({ concernIds: ['getting_care'] }));
   const delivery = { action_key: 'research_pharmacy_delivery', concern_ids: ['getting_care'],
