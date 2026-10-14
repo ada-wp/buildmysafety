@@ -236,6 +236,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
         <p className="hint">Your preferences help order ideas. These limits are optional.</p></details>
       <label className="manual-request">Anything specific you’d like help with? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => { setNote(e.target.value); setNotice(''); }} placeholder="For example: I have a cat and want to understand care options before booking anything." /></label>
       <p className="hint">US resources. Availability varies by area.</p>
+      {state.catalog?.aiUnlimited === true && <p className="hint">Unlimited AI requests on your account.</p>}
       <p className="hint">OpenAI can use your request and relevant preferences to tailor an idea. Leave out private or medical details. We save the task, not your note.</p>
       {feedback}
       <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim()) || Boolean(quota && note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : quota && note.trim() ? 'AI limit reached for today' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>

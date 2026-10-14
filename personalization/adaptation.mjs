@@ -130,7 +130,7 @@ export async function deliverAutomatic({ owner, request, requestId, requestHash,
   let status = requestBoundary(request.note) || 'not_needed';
   let message = null;
   let metadata = null; let adaptedActionKey = null; let token = null; let quota = null;
-  const budget = createAiBudget(env.MEMORY_DB, { limits: env.AI_LIMITS });
+  const budget = createAiBudget(env.MEMORY_DB, { limits: env.AI_LIMITS, unlimitedOwners: env.AI_UNLIMITED_OWNERS });
   const newNeed = Boolean(request.note?.trim() && !prepared.refinement && env.AI_NEW_NEEDS_ENABLED === 'true');
   const target = status === 'not_needed' ? selectTarget(prepared, batch) : null;
   try {

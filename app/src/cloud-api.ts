@@ -252,6 +252,7 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
         ...(selection.expectedStateVersion ? { expectedStateVersion: selection.expectedStateVersion } : {}) }, isRecommendation, options);
     },
     getCatalog: (options?: RequestOptions) => call<CatalogResponse>('/api/catalog', 'GET', undefined, v => record(v) &&
+      (v.aiUnlimited === undefined || typeof v.aiUnlimited === 'boolean') &&
       Array.isArray(v.topics) && v.topics.every(t => record(t) && text(t.id) && text(t.label) && Array.isArray(t.concerns) &&
         t.concerns.every(c => record(c) && text(c.id) && text(c.label))) && Array.isArray(v.resources) &&
       v.resources.every(r => record(r) && text(r.id) && text(r.name) && text(r.url) && r.url.startsWith('https://')), options),

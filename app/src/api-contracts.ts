@@ -124,6 +124,7 @@ export type AiQuota = { scope: 'user' | 'shared'; limit: number; resetsAt: strin
 export type RequestOptions = { signal?: AbortSignal };
 
 export type CatalogResponse = {
+  aiUnlimited?: boolean;
   topics: Array<{ id: TopicId; label: string; scope: string; concerns: Array<{ id: string; label: string }> }>;
   resources: Array<{ id: string; name: string; url: string; purpose: string; limits: string }>;
 };

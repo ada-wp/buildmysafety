@@ -36,6 +36,15 @@ const make = (fetchImpl: typeof fetch, overrides: Partial<Parameters<typeof crea
 });
 const errorCode = (code: string) => (error: unknown) => error instanceof SafetyApiError && error.code === code;
 
+test('catalog accepts only a boolean optional account allowance', async () => {
+  for (const aiUnlimited of [undefined, true, false]) {
+    const client = make(fake(response({ topics: [], resources: [], aiUnlimited })).fetchImpl);
+    assert.equal((await client.getCatalog()).aiUnlimited, aiUnlimited);
+  }
+  const client = make(fake(response({ topics: [], resources: [], aiUnlimited: 'true' })).fetchImpl);
+  await assert.rejects(client.getCatalog(), errorCode('invalid_response'));
+});
+
 test('client validates optional quota metadata while accepting older responses', async () => {
   const quota = { scope: 'user', limit: 10, resetsAt: '2026-10-15T00:00:00.000Z' };
   const limited = { ...batch, adaptation: { status: 'limit_reached', actionKey: null, quota } };

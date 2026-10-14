@@ -7,7 +7,7 @@ import { createHandler } from '../http.mjs';
 // gets integrated HTTP/D1 tests in sick-care-release.test.mjs.
 import { legacyCatalog as catalog } from '../catalog.mjs';
 import { createD1Store } from '../d1-store.mjs';
-import { AI_LIMITS, PREVIEW_AI_LIMITS, createAiBudget } from '../ai-budget.mjs';
+import { AI_LIMITS, PREVIEW_AI_LIMITS, createAiBudget, parseUnlimitedAiOwners, currentAiAllowance } from '../ai-budget.mjs';
 import { prepare } from '../flow.mjs';
 import { buildNewNeedRequest, composeNewNeedBatch } from '../new-needs.mjs';
 
@@ -37,6 +37,75 @@ function setup(t, generate) {
 }
 const input = (overrides = {}) => ({ route: 'auto', requestId: 'adaptation_request_01', expectedStateVersion: '1',
   request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'], note: 'I have little energy and want food with no cooking.' }, ...overrides });
+
+test('unlimited IDs require an explicit server allowlist and malformed configuration fails closed', () => {
+  const owners = parseUnlimitedAiOwners('["user_founder01","user_founder01"]');
+  assert.deepEqual(owners, ['user_founder01']); assert.ok(Object.isFrozen(owners));
+  for (const invalid of [undefined, '', 'null', '{}', 'true', '["*"]', '["ada@example.test"]',
+    '["user_founder01",null]', JSON.stringify(Array(11).fill('user_founder01'))]) {
+    assert.deepEqual(parseUnlimitedAiOwners(invalid), []);
+  }
+});
+
+test('unlimited owner bypasses both daily caps without consuming regular allowance; locks and replay remain', async t => {
+  const { db, store, sqlite } = setup(t);
+  for (const owner of ['founder', 'alice', 'bob', 'carol']) await store.createProfile(owner, {});
+  const budget = createAiBudget(db, { limits: { ...AI_LIMITS, perUserDaily: 2, globalDaily: 3 }, unlimitedOwners: ['founder'] });
+  async function attempt(owner, id) {
+    const r = await budget.reserve(owner, id, '1');
+    if (r.token) await budget.finish(owner, r.token, 'unavailable', { inputTokens: 10, outputTokens: 5 });
+    return r;
+  }
+  for (let i = 0; i < 12; i++) assert.ok((await attempt('founder', `founder_attempt_${i}`)).token);
+  assert.ok((await attempt('alice', 'alice_attempt_1')).token);
+  assert.ok((await attempt('alice', 'alice_attempt_2')).token);
+  assert.equal((await attempt('alice', 'alice_attempt_3')).quota.scope, 'user');
+  assert.ok((await attempt('bob', 'bob_attempt_1')).token);
+  assert.equal((await attempt('carol', 'carol_attempt_1')).quota.scope, 'shared');
+  assert.ok((await attempt('founder', 'founder_after_shared_cap')).token);
+  assert.equal((await attempt('founder', 'founder_after_shared_cap')).reason, 'already_attempted');
+  const pending = await budget.reserve('founder', 'founder_pending', '1'); assert.ok(pending.token);
+  await assert.rejects(budget.reserve('founder', 'founder_parallel', '1'), { code: 'generation_in_progress' });
+  await budget.finish('founder', pending.token, 'unavailable', null);
+  await assert.rejects(budget.reserve('founder', 'founder_stale', '999'), { code: 'stale_state' });
+  assert.equal(sqlite.prepare('SELECT COUNT(*) n FROM memory_ai_attempts WHERE user_id = ?').get('founder').n, 14);
+  const normal = createAiBudget(db, { limits: { ...AI_LIMITS, perUserDaily: 2, globalDaily: 3 } });
+  assert.equal((await normal.reserve('founder', 'removed_exception', '1')).reason, 'limit_reached');
+});
+
+test('current allowance removes stale quota feedback only for its owner without rewriting history', () => {
+  const prior = { adaptation: { status: 'limit_reached', quota: { scope: 'user', limit: 10 }, message: 'Old quota' },
+    batch: { tasks: [], message: 'Old quota' } };
+  const copy = structuredClone(prior);
+  assert.equal(currentAiAllowance(prior, 'alice', ['founder']), prior);
+  const current = currentAiAllowance(prior, 'founder', ['founder']);
+  assert.equal(current.adaptation.quota, undefined); assert.match(current.batch.message, /unlimited AI/);
+  assert.equal(current.adaptation.message, current.batch.message); assert.deepEqual(prior, copy);
+});
+
+test('HTTP exception uses verified owner, unblocks saved quota feedback, and invokes AI beyond regular cap', async t => {
+  let calls = 0;
+  const { request, store, env, db } = setup(t, async () => { calls++; return { batch: { decision: 'no_new_idea', task: null }, metadata: null }; });
+  env.AI_LIMITS = { ...AI_LIMITS, perUserDaily: 1, globalDaily: 1 }; env.AI_NEW_NEEDS_ENABLED = 'true';
+  await store.createProfile('founder', {}); await store.createProfile('regular', {});
+  const first = await (await request('founder', input())).json();
+  const blocked = await (await request('founder', input({ requestId: 'founder_before_access', expectedStateVersion: first.stateVersion }))).json();
+  assert.equal(blocked.adaptation.status, 'limit_reached'); assert.equal(calls, 1);
+  env.AI_UNLIMITED_OWNERS = ['founder'];
+  const handler = createHandler({ catalog, verifyIdentity: async r => r.headers.get('Authorization') });
+  const get = async (owner, path) => (await handler(new Request(`https://example.test${path}`, { headers: { Authorization: owner } }), { ...env, MEMORY_DB: db })).json();
+  assert.equal((await get('founder', '/api/catalog')).aiUnlimited, true);
+  assert.equal((await get('regular', '/api/catalog')).aiUnlimited, undefined);
+  const latest = await get('founder', '/api/recommendations/latest');
+  assert.equal(latest.result.adaptation.quota, undefined);
+  assert.equal((await store.readLatestBatch('founder')).result.adaptation.quota.limit, 1);
+  const next = await (await request('founder', input({ requestId: 'founder_after_access', expectedStateVersion: latest.stateVersion }))).json();
+  assert.equal(next.adaptation.status, 'no_new_idea'); assert.equal(calls, 2);
+  const regular = await (await request('regular', input())).json();
+  assert.equal(regular.adaptation.status, 'no_new_idea'); assert.equal(calls, 3);
+  const spoof = await request('regular', input({ unlimited: true, expectedStateVersion: regular.stateVersion, requestId: 'spoof_exception' }));
+  assert.equal(spoof.status, 400); assert.equal(calls, 3);
+});
 const packet = body => JSON.parse(body.input[0].content[0].text);
 function adapted(body) {
   const task = structuredClone(packet(body).target_task);

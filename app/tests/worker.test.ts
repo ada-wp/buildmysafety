@@ -78,7 +78,7 @@ function setup(t: TestContext) {
     contentReviewHosts: ['app.example'],
     verifyIdentity: async (request: Request, env: Record<string, unknown>) => {
       identityCalls++;
-      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_LIMITS', 'AI_NEW_NEEDS_ENABLED', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'CLERK_SECRET_KEY', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
+      assert.deepEqual(Object.keys(env).sort(), ['AI_ADAPTATION_ENABLED', 'AI_LIMITS', 'AI_NEW_NEEDS_ENABLED', 'AI_UNLIMITED_OWNERS', 'CLERK_AUTHORIZED_PARTIES', 'CLERK_ISSUER', 'CLERK_SECRET_KEY', 'MEMORY_DB', 'OPENAI_API_KEY', 'OPENAI_MODEL']);
       const owner = identities.get(request.headers.get('Authorization') || '');
       if (!owner) throw new FlowError('authentication_required');
       return owner;
@@ -290,9 +290,9 @@ test('editorial content stays absent outside exact founder preview hosts and AI 
 
 test('only the exact enabled founder preview receives the higher server policy; outer overrides are ignored', async t => {
   const { env, send } = setup(t); await send('/api/memory', 'POST', {});
-  const observed: Array<{ limits: unknown; enabled: unknown }> = [];
+  const observed: Array<{ limits: unknown; enabled: unknown; unlimited: unknown }> = [];
   const worker = createAppWorker({ verifyIdentity: async (_request: Request, forwarded: Record<string, unknown>) => {
-    observed.push({ limits: forwarded.AI_LIMITS, enabled: forwarded.AI_ADAPTATION_ENABLED });
+    observed.push({ limits: forwarded.AI_LIMITS, enabled: forwarded.AI_ADAPTATION_ENABLED, unlimited: forwarded.AI_UNLIMITED_OWNERS });
     return 'user_alice';
   } });
   for (const [host, enabled, expected] of [
@@ -303,11 +303,14 @@ test('only the exact enabled founder preview receives the higher server policy; 
   ]) {
     const configuration = Object.create(env, {
       AI_ADAPTATION_ENABLED: { value: enabled },
+      AI_UNLIMITED_USER_IDS: { value: '["user_founder01"]' },
+      AI_UNLIMITED_OWNERS: { get() { throw new Error('An outer exception override must never be read'); } },
       AI_LIMITS: { get() { throw new Error('An outer quota override must never be read'); } }
     });
     const response = await worker.fetch(new Request(`https://${host}/api/memory`), configuration);
     assert.equal(response.status, 200);
     assert.equal(observed.at(-1)?.limits, expected);
     assert.equal(observed.at(-1)?.enabled, expected === PREVIEW_AI_LIMITS ? 'true' : 'false');
+    assert.deepEqual(observed.at(-1)?.unlimited, expected === PREVIEW_AI_LIMITS ? ['user_founder01'] : []);
   }
 });

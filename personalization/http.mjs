@@ -2,6 +2,7 @@ import { createD1Store } from './d1-store.mjs';
 import { createOpenAIClient } from './openai.mjs';
 import { recommend } from './flow.mjs';
 import { deliverAutomatic } from './adaptation.mjs';
+import { currentAiAllowance } from './ai-budget.mjs';
 import { FlowError, requireRule, hash, validRequest } from './contracts.mjs';
 
 const MAX_BODY_BYTES = 16384;
@@ -149,13 +150,14 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, req
         return json({
           topics: catalog.topics.filter(publishable).map(({ id, label, scope, concerns }) => ({ id, label: label || id, scope, concerns })),
           resources: catalog.resources.filter(publishable).map(({ id, name, url, purpose, limits, countries, cost }) => ({ id, name, url, purpose, limits, countries, cost })),
-          reviewRequired: allowEditorialReview
+          reviewRequired: allowEditorialReview,
+          ...(env.AI_UNLIMITED_OWNERS?.includes(owner) ? { aiUnlimited: true } : {})
         });
       }
       if (route === 'GET /api/tasks') return json(await store.readTasks(owner));
       if (route === 'GET /api/recommendations/latest') {
         const { result, stateVersion } = await store.readLatestBatch(owner);
-        return json({ result, stateVersion });
+        return json({ result: currentAiAllowance(result, owner, env.AI_UNLIMITED_OWNERS), stateVersion });
       }
       if (route === 'GET /api/memory') return json(await store.readSnapshot(owner));
       if (route === 'POST /api/memory') {
