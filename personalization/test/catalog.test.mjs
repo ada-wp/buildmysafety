@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { catalog, sickCareConcerns } from '../catalog.mjs';
+// Regression coverage for previously stored content. The current collection and
+// priority-first behavior are exercised in sick-care-release.test.mjs.
+import { legacyCatalog as catalog } from '../catalog.mjs';
+const sickCareConcerns = catalog.topics[0].concerns;
 import { prepare, recommend, validateBatch } from '../flow.mjs';
 import { OWNER, makeStore } from './fixtures.mjs';
 

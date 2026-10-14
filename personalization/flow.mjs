@@ -94,7 +94,12 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     refinement = owned.tasks.find(item => item.state.actionKey === state.actionKey);
     requireRule(refinement, 'task_content_unavailable');
   }
-  const constraints = useProfileDefaults && profile.personalizationEnabled ? profile.answers.constraints : [];
+  const topic = catalog.topics.find(item => item.id === request.topicId && approved(item, testMode, allowEditorialReview));
+  requireRule(topic, 'unsupported_topic');
+  const prioritize = topic.selectionPolicy === 'priority_first';
+  // Broad onboarding preferences rank content. Only current explicit controls
+  // become hard limits in the revised collection.
+  const constraints = !prioritize && useProfileDefaults && profile.personalizationEnabled ? profile.answers.constraints : [];
   const effective = {
     country: Object.hasOwn(request, 'country') ? request.country : profile.answers.country,
     maxMinutes: Object.hasOwn(request, 'maxMinutes') ? request.maxMinutes :
@@ -104,8 +109,6 @@ export async function prepare({ owner, request, store, catalog, testMode = false
       (constraints.includes('support') ? 'unavailable' : 'unknown')
   };
   requireRule(validCountry(effective.country), 'invalid_country');
-  const topic = catalog.topics.find(item => item.id === request.topicId && approved(item, testMode, allowEditorialReview));
-  requireRule(topic, 'unsupported_topic');
   let privateActions = [];
   if (taskStates.some(state => state.actionKey.startsWith(privatePrefix(topic.id)))) {
     const owned = await store.readTasks(owner);
@@ -128,7 +131,7 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     resource.topicIds.includes(topic.id) &&
     (resource.countries.includes('*') || (effective.country && resource.countries.includes(effective.country))) &&
     (effective.noSpend !== true || resource.cost === 'free'));
-  requireRule(resourceCandidates.length <= LIMITS.resources, 'resource_context_too_large');
+  if (!prioritize) requireRule(resourceCandidates.length <= LIMITS.resources, 'resource_context_too_large');
   for (const resource of resourceCandidates) {
     requireRule(/^https:\/\//.test(resource.url), 'invalid_resource_url');
   }
@@ -142,18 +145,36 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     return positives.filter(signal => !negativeKeys.has(signal.action_key) && signal.tags.some(tag => action.tags.includes(tag))).length;
   };
   // Private tasks can be edited explicitly, but never enter the shared pool.
+  const relevance = action => !request.concernIds.length ? 1 : request.concernIds.includes(action.concernIds[0]) ? 2 :
+    action.concernIds.some(id => request.concernIds.includes(id)) ? 1 : 0;
+  const preference = action => !profile.personalizationEnabled ? 0 :
+    (profile.answers.style === 'understand' && action.taskKind === 'learning' ? 2 : 0) +
+    (profile.answers.style === 'resources' && action.task.resources.length ? 1 : 0) +
+    (profile.answers.constraints.includes('cost') && !action.futurePaidService ? 1 : 0) +
+    (profile.answers.constraints.some(c => c === 'energy' || c === 'time') && action.task.estimated_minutes <= 10 ? 1 : 0);
   const candidates = [...catalog.actions, ...(refinement ? privateActions : [])].filter(action => approved(action, testMode, allowEditorialReview) &&
     (!refinement || action.actionKey === refinement.state.actionKey) &&
+    (refinement || (!action.retired && !action.requestOnly)) &&
     action.topicIds.includes(topic.id) && !excluded.has(action.actionKey) && !excludedGroups.has(outcomeGroup(action)) &&
-    (action.requiresConcernIds || []).every(id => request.concernIds.includes(id)) &&
-    (!request.concernIds.length || action.concernIds.some(id => request.concernIds.includes(id))) &&
+    (prioritize || (action.requiresConcernIds || []).every(id => request.concernIds.includes(id))) &&
+    (prioritize || !request.concernIds.length || action.concernIds.some(id => request.concernIds.includes(id))) &&
+    (effective.noSpend !== true || !action.futurePaidService) &&
     matchesConstraints(action, effective) && action.task.resources.every(r => resources.has(r.resource_id)))
-    .sort((a, b) => rank(b) - rank(a) || a.actionKey.localeCompare(b.actionKey)).slice(0, LIMITS.candidates);
+    .sort((a, b) => (prioritize ? relevance(b) - relevance(a) || (a.priority ?? 1) - (b.priority ?? 1) ||
+      preference(b) - preference(a) : 0) || rank(b) - rank(a) ||
+      (prioritize ? (a.editorialOrder ?? 99) - (b.editorialOrder ?? 99) : 0) || a.actionKey.localeCompare(b.actionKey));
+  if (!prioritize) candidates.splice(LIMITS.candidates);
   if (refinement) {
     requireRule(candidates.length === 1, 'refinement_not_available');
     // Tailor the version she actually saw, using the same catalog guidance/resources.
     candidates[0] = { ...candidates[0], task: structuredClone(refinement.content) };
   }
+  const keywords = (request.note || '').toLowerCase().match(/[a-z]{3,}/g)?.filter(w =>
+    !['the', 'and', 'for', 'with', 'want', 'have', 'that', 'this', 'help'].includes(w)) || [];
+  const relatedIds = new Set(candidates.slice(0, 6).flatMap(a => a.task.resources.map(r => r.resource_id)));
+  const resourceFit = r => keywords.filter(word => `${r.id} ${r.name} ${r.purpose}`.toLowerCase().includes(word)).length;
+  const packetResources = prioritize ? [...resources.values()].sort((a, b) => resourceFit(b) - resourceFit(a) ||
+    Number(relatedIds.has(b.id)) - Number(relatedIds.has(a.id))).slice(0, 12) : [...resources.values()];
   const packet = {
     context_version: 1,
     current_topic: { id: topic.id, scope: topic.scope },
@@ -166,14 +187,15 @@ export async function prepare({ owner, request, store, catalog, testMode = false
     previous_actions: taskStates.filter(state => memoryCatalog.actions.some(a => a.actionKey === state.actionKey && a.topicIds.includes(topic.id)))
       .slice(-LIMITS.previous).map(state => ({ action_key: state.actionKey })),
     reviewed_guidance: topic.guidance,
-    eligible_resources: [...resources.values()].map(({ id, name, purpose, countries, cost, limits }) => ({ resource_id: id, name, purpose, countries, cost, limits })),
-    candidate_solutions: candidates.map(action => ({ action_key: action.actionKey, outcome_group: outcomeGroup(action), concern_ids: action.concernIds,
+    eligible_resources: packetResources.map(({ id, name, purpose, countries, cost, limits }) => ({ resource_id: id, name, purpose, countries, cost, limits })),
+    candidate_solutions: candidates.slice(0, prioritize ? 6 : LIMITS.candidates).map(action => ({ action_key: action.actionKey, outcome_group: outcomeGroup(action), concern_ids: action.concernIds,
       outcome: action.outcome, tags: action.tags, requires_spending: action.requiresSpending,
       requires_nearby_support: action.requiresNearbySupport, task: action.task })),
     adaptation_only: true
   };
   requireRule(Buffer.byteLength(JSON.stringify(packet), 'utf8') <= LIMITS.contextBytes, 'context_too_large');
-  return { packet, candidates, resources, excluded, excludedGroups, effective, snapshot, refinement, request: structuredClone(request), promptHash };
+  return { packet, candidates, resources, excluded, excludedGroups, effective, snapshot, refinement,
+    prioritize, topic, request: structuredClone(request), promptHash };
 }
 
 export function buildRequest(prepared, model) {
@@ -203,7 +225,8 @@ export function validateBatch(batch, prepared) {
     requireRule(!prepared.excludedGroups.has(group) && !batchGroups.has(group), 'repeated_outcome');
     batchGroups.add(group);
     requireRule(matchesConstraints({ ...candidate, task }, prepared.effective), 'constraint_violation');
-    requireRule(task.concern_ids.every(id => prepared.request.concernIds.includes(id) && candidate.concernIds.includes(id)), 'invalid_concern');
+    requireRule(task.concern_ids.every(id => (prepared.prioritize ? prepared.topic.concerns.some(c => c.id === id) :
+      prepared.request.concernIds.includes(id)) && candidate.concernIds.includes(id)), 'invalid_concern');
     requireRule(new Set(task.concern_ids).size === task.concern_ids.length, 'invalid_concern');
     requireRule(prepared.request.concernIds.length === 0 || task.concern_ids.length > 0, 'missing_concern');
     requireRule(task.resources.every(r => prepared.resources.has(r.resource_id) && candidate.task.resources.some(cr => cr.resource_id === r.resource_id)), 'invalid_resource');
@@ -225,6 +248,31 @@ export function poolBatch(prepared) {
   const tasks = [];
   const groups = new Set();
   const covered = new Set();
+  // Rank useful options first, then honor the link allowance. Do not skip down
+  // to a weak chore merely to fill a third card after a research task is deferred.
+  if (prepared.prioritize) {
+    const ranked = [...prepared.candidates];
+    const shortlist = [];
+    while (ranked.length && shortlist.length < 3) {
+      const first = ranked[0];
+      const relevance = a => !prepared.request.concernIds.length ? 1 : prepared.request.concernIds.includes(a.concernIds[0]) ? 2 :
+        a.concernIds.some(id => prepared.request.concernIds.includes(id)) ? 1 : 0;
+      const index = ranked.findIndex(a => relevance(a) === relevance(first) && a.priority === first.priority &&
+        a.concernIds.some(id => prepared.request.concernIds.includes(id) && !covered.has(id)));
+      const [chosen] = ranked.splice(index < 0 ? 0 : index, 1);
+      if (groups.has(outcomeGroup(chosen))) continue;
+      groups.add(outcomeGroup(chosen));
+      shortlist.push(chosen);
+      chosen.concernIds.forEach(id => covered.add(id));
+    }
+    for (const candidate of shortlist) {
+      if (candidate.task.resources.length && tasks.some(t => t.resources.length)) continue;
+      tasks.push(structuredClone(candidate.task));
+    }
+    return { status: tasks.length === 3 ? 'ready' : 'no_more_ideas', tasks,
+      message: tasks.length === 3 ? null : tasks.length ? 'Start with what feels useful. More ideas are available below.' :
+        'You have seen the fitting prepared ideas. Tell us what you would like to work on next.' };
+  }
   while (tasks.length < 3) {
     const eligible = prepared.candidates.filter(candidate => !groups.has(outcomeGroup(candidate)) &&
       !(candidate.task.resources.length && tasks.some(task => task.resources.length)));
@@ -279,6 +327,6 @@ export async function recommend(options) {
   if (!same(hash(latest), hash(prepared.snapshot))) return { status: 'stale_state', batch: null, source: null };
   return { status: 'ok', source, batch, metadata,
     reviewRequired: source === 'ai' || Boolean(options.testMode) || Boolean(options.allowEditorialReview),
-    trace: { contextVersion: 1, profileRevision: prepared.snapshot.profile.revision,
+    trace: { contextVersion: 1, concernPolicy: prepared.prioritize ? 'category' : 'selected', profileRevision: prepared.snapshot.profile.revision,
       stateVersion: prepared.snapshot.stateVersion, promptHash, candidateCount: prepared.candidates.length } };
 }

@@ -4,13 +4,15 @@
  * Public delivery must continue to exclude editorial_review records.
  * Never change a published contentRef's body; add a new version instead.
  */
+import { sickCareActions, sickCareResources, sickCareConcerns as revisedConcerns } from './sick-care-catalog.mjs';
+
 const review = {
   author: 'assistant', editorialCheckedAt: '2026-10-12',
   founderApproved: false, professionalReview: false,
   scope: 'Preventive everyday preparation; no clinical or emergency guidance.'
 };
 
-export const sickCareConcerns = [
+const legacyConcerns = [
   { id: 'food', label: 'Food & essentials when I’m unwell' },
   { id: 'check_in', label: 'Someone to check in on me' },
   { id: 'getting_care', label: 'Getting to care or appointments' },
@@ -34,14 +36,14 @@ function task({ key, concerns, title, summary, minutes, steps, done, tags,
   };
 }
 
-export const catalog = {
+export const legacyCatalog = {
   version: 'sick-care-editorial-1',
   topics: [{
     id: 'sick_care', label: 'Sick-day care', reviewState: 'editorial_review',
     review: { ...review }, relatedTopicIds: ['meals_one', 'rest', 'asking_help'],
     onboardingFocus: ['sick'],
     scope: 'Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response.',
-    concerns: sickCareConcerns,
+    concerns: legacyConcerns,
     guidance: [
       'Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.',
       'Use ordinary items the person already owns. No task requires a purchase or an available nearby helper.',
@@ -187,5 +189,27 @@ export const catalog = {
       ],
       done: 'One nonessential chore is rescheduled or removed from your usual reminder.'
     })
+  ]
+};
+
+export const sickCareConcerns = revisedConcerns;
+export const catalog = {
+  version: 'sick-care-priority-2026-10-13',
+  topics: [{ ...legacyCatalog.topics[0], concerns: sickCareConcerns, selectionPolicy: 'priority_first',
+    guidance: [
+      'Prepare before ordinary sick days. No clinical decisions, medication choices or emergency response.',
+      'Use current choices to prioritize; unknown details and unchecked concerns are not automatic exclusions. Offer useful related discovery.',
+      'A directory is a lead, an inquiry is pending, and an arrangement needs confirmation. No availability or protection guarantees.',
+      'Researching a paid service is not buying it. Honor an explicit no-paid-services limit; a broad cost preference only affects priority.',
+      'Learning counts: explain one useful distinction or unfamiliar route without requiring a call, purchase, quiz or trial.',
+      'Pet species, benefits, helpers and planned treatment remain unknown unless supplied. Use conditional wording; practical dependencies still matter.'
+    ] }],
+  resources: [...legacyCatalog.resources, ...sickCareResources],
+  actions: [
+    // Keep prior keys and bodies available for owned history and explicit revision.
+    // The existing sitter-discovery task supplies the bridge to a real candidate.
+    ...legacyCatalog.actions.map(a => ({ ...a, retired: a.actionKey !== 'sick_08_pet_sitter',
+      priority: 1, editorialOrder: 26.5, taskKind: 'preparation', futurePaidService: a.actionKey === 'sick_08_pet_sitter' })),
+    ...sickCareActions
   ]
 };

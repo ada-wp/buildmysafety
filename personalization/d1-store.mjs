@@ -152,7 +152,8 @@ export function createD1Store(db, { now = () => new Date().toISOString() } = {})
       const tasks = payload.contentRefs.map(ref => {
         requireRule(content.has(ref), 'task_content_unavailable');
         const task = structuredClone(content.get(ref));
-        task.concern_ids = task.concern_ids.filter(id => payload.request.concernIds.includes(id));
+        if (payload.result.trace?.concernPolicy !== 'category')
+          task.concern_ids = task.concern_ids.filter(id => payload.request.concernIds.includes(id));
         return task;
       });
       const result = { ...payload.result, requestId: row.request_id, request: payload.request,

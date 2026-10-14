@@ -1,5 +1,7 @@
 # Sick days & care — category writer candidate
 
+**October 13 integration:** this instruction block is now compiled into the app's bounded adaptation and new-need paths. Each path appends its own one-task response contract. The reviewed resource mapper and targeted prescription-logistics guard changes are connected and covered by automated tests. Hosted deployment and a paid end-to-end result remain pending; see [technical status](../technical-status.md). The original candidate status and proposed test cases below are historical context. This is prompt configuration, not model training or public content approval.
+
 October 12, 2026; learning balance and priority-first selection revised October 13. Candidate instructions for the new thirty-task package. Not deployed, not fine-tuned and not yet tested through a new paid API call. The approved V1, older English writing tests and runtime prompts retain their separate status.
 
 This prompt brings the shared philosophy and category-specific judgment together. The app should ordinarily select existing pool content without invoking a writer. Do not send the entire pool and complete user history on every request: select relevant reviewed knowledge, a few eligible examples and the outcome history needed for this request.

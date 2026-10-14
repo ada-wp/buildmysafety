@@ -96,8 +96,10 @@ test('real client, worker and D1 agree on owned catalog, batch, detail, completi
   const first = await alice.recommendations(input);
   assert.equal(first.source, 'pool');
   if (first.source !== 'pool') throw new Error('Expected pool result');
-  assert.equal(first.batch.tasks.length, 3);
-  assert.ok(first.batch.tasks.every(task => task.estimated_minutes <= 10));
+  assert.ok(first.batch.tasks.length >= 1 && first.batch.tasks.length <= 3);
+  assert.ok(first.batch.tasks.filter(task => task.resources.length).length <= 1);
+  // Broad onboarding preferences rank ideas; they are not explicit time limits.
+  assert.ok(first.batch.tasks.every(task => task.estimated_minutes <= 30));
   assert.equal(first.requestId, input.requestId);
   assert.deepEqual(first.request, input.request);
   const retry = await client().recommendations(input);
@@ -118,7 +120,9 @@ test('real client, worker and D1 agree on owned catalog, batch, detail, completi
   const stored = reopened.tasks.find(task => task.state.actionKey === taskKey)!;
   assert.ok(stored.state.completedAt);
   assert.deepEqual(stored.content.steps, first.batch.tasks[0].steps);
-  assert.equal(stored.state.contentRef, `${taskKey}@1`);
+  assert.ok(stored.state.contentRef.startsWith(`${taskKey}@`));
+  assert.equal((await client().getTasks()).tasks.find(task => task.state.actionKey === taskKey)?.state.contentRef,
+    stored.state.contentRef);
   assert.deepEqual((await bob.getTasks()).tasks, []);
   await assert.rejects(bob.taskAction({ actionKey: taskKey, expectedStateVersion: '1', event: { type: 'save' } }),
     error => error instanceof SafetyApiError && error.code === 'task_not_found');
@@ -134,7 +138,7 @@ test('client sends explicit feedback to refine a previously shown unsaved task a
     request: { topicId: 'sick_care', concernIds: ['food'] } });
   if (first.source !== 'pool') throw new Error('Expected the initial pool batch.');
   const before = await alice.getTasks();
-  const target = before.tasks.find(item => item.state.actionKey === 'sick_01_easy_food')!;
+  const target = before.tasks.find(item => item.state.actionKey === first.batch.tasks[0].action_key)!;
   const result = await alice.recommendations({ route: 'auto', requestId: 'refinement_client_01', expectedStateVersion: first.stateVersion,
     request: { topicId: 'sick_care', concernIds: ['food'], refineActionKey: target.state.actionKey,
       note: 'I have no microwave. Please use food with no cooking.' } });
@@ -198,8 +202,9 @@ test('lost committed batch response recovers through an explicit controller relo
   assert.equal(await session.load(), true);
   assert.equal(session.getState().error, null);
   assert.equal(session.getState().latest?.result?.requestId, 'lost_response_request1');
-  assert.equal(session.getState().latest?.result?.batch.tasks.length, 3);
-  assert.equal(session.getState().collection?.tasks.length, 3);
+  const delivered = session.getState().latest!.result!.batch.tasks;
+  assert.ok(delivered.length >= 1 && delivered.length <= 3);
+  assert.equal(session.getState().collection?.tasks.length, delivered.length);
   assert.equal(calls.filter(call => call.path === '/api/recommendations').length, 1);
   assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM memory_latest_batch').get()?.n, 1);
   const newSession = createTaskSession(client());

@@ -251,7 +251,8 @@ test('real task routes persist selected work, replay delivery, and count complet
   const delivered = await deliveredResponse.json();
   assert.equal(delivered.source, 'pool');
   assert.equal(delivered.reviewRequired, true);
-  assert.equal(delivered.batch.tasks.length, 3);
+  assert.ok(delivered.batch.tasks.length >= 1 && delivered.batch.tasks.length <= 3);
+  assert.ok(delivered.batch.tasks.filter((task: { resources: unknown[] }) => task.resources.length).length <= 1);
   const replay = await (await send('/api/recommendations', 'POST', request)).json();
   assert.equal(replay.replayed, true);
   assert.deepEqual(replay.batch, delivered.batch);

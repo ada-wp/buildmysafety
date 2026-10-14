@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync, readdirSync } from 'node:fs';
 import { createHandler } from '../http.mjs';
-import { catalog } from '../catalog.mjs';
+// Preserve the original fixed-content regression cases. The new collection also
+// gets integrated HTTP/D1 tests in sick-care-release.test.mjs.
+import { legacyCatalog as catalog } from '../catalog.mjs';
 import { createD1Store } from '../d1-store.mjs';
 import { createAiBudget } from '../ai-budget.mjs';
 import { prepare } from '../flow.mjs';

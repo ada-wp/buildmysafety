@@ -29,8 +29,8 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const [concerns, setConcerns] = useState<string[]>([]);
   const [note, setNote] = useState('');
   const [refinementNote, setRefinementNote] = useState('');
-  const [short, setShort] = useState(draft.answers.constraints.some(v => v === 'time' || v === 'energy'));
-  const [noSpend, setNoSpend] = useState(draft.answers.constraints.includes('cost'));
+  const [short, setShort] = useState(false);
+  const [noSpend, setNoSpend] = useState(false);
   const [notice, setNotice] = useState('');
   const [showAll, setShowAll] = useState(draft.answers.style !== 'one');
   const origin = useRef<'ideas' | 'list'>(history.state?.taskOrigin === 'list' ? 'list' : 'ideas');
@@ -154,18 +154,18 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       <p>We’re starting with sick-day preparation. Your other interests are saved, and you can choose where to go.</p>
       <button className="primary" disabled={!topic} onClick={() => navigate({ page: 'concerns' })}>Explore sick-day care</button>
       <button className="text-button" onClick={() => navigate({ page: 'explore' })}>Back to Explore</button></section>}
-    {route.page === 'concerns' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>What would make<br />a sick day easier?</h1>
-      <p>A little preparation for future you. Choose any that are on your mind.</p>
+    {route.page === 'concerns' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>What would help you feel<br />more prepared?</h1>
+      <p>Choose what matters to you. We’ll put those ideas first, with room for useful discoveries.</p>
       <div className="choices">{topic?.concerns.map(c => <label className={`choice${concerns.includes(c.id) ? ' selected' : ''}`} key={c.id}><span>{c.label}</span>
         <input type="checkbox" checked={concerns.includes(c.id)} onChange={() => setConcerns(values => values.includes(c.id) ? values.filter(id => id !== c.id) : [...values, c.id])} /></label>)}</div>
       <details className="more-topics"><summary>Make it fit today</summary>
         <label className="choice"><span>Keep each task to 10 minutes or less</span><input type="checkbox" checked={short} onChange={e => setShort(e.target.checked)} /></label>
-        <label className="choice"><span>No spending needed</span><input type="checkbox" checked={noSpend} onChange={e => setNoSpend(e.target.checked)} /></label>
-        <p className="hint">Started from your preferences. You can change these for today.</p></details>
-      <label className="manual-request">Something else? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => setNote(e.target.value)} placeholder="What would you like help preparing for?" /></label>
+        <label className="choice"><span>Leave out paid-service options and purchases</span><input type="checkbox" checked={noSpend} onChange={e => setNoSpend(e.target.checked)} /></label>
+        <p className="hint">Your preferences help order ideas. These limits are optional.</p></details>
+      <label className="manual-request">Anything specific you’d like help with? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => setNote(e.target.value)} placeholder="For example: I have a cat and want to understand care options before booking anything." /></label>
       <p className="hint">A specific request lets AI create a new preparation step, even when you’ve seen the collection. It uses relevant preferences. Leave out private or medical details; your note isn’t saved, but an accepted task stays in your account.</p>
       <p className="hint">Preview: up to 3 AI attempts per day, with a shared daily limit.</p>
-      <button className="primary" disabled={blocked || !topic} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>
+      <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>
       {batch && <button className="text-button" onClick={() => navigate({ page: 'ideas' })}>Return to my latest ideas</button>}
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
     </section>}
@@ -175,7 +175,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       {state.latest?.result?.adaptation?.message && <p className="message" role="status">{state.latest.result.adaptation.message}</p>}
       {batch?.tasks.slice(0, showAll ? 3 : 1).map(task => card(task))}
       {batch && !showAll && batch.tasks.length > 1 && <button className="text-button" onClick={() => setShowAll(true)}>See the other ideas</button>}
-      {(!batch || batch.status === 'no_more_ideas') && !state.latest?.result?.adaptation?.newNeed && <p className="message">{batch?.tasks.length ? state.latest?.result?.adaptation?.refinement ? 'This replaces the unsaved version of that idea. It isn’t an extra task on your list.' : 'These are the matching new options in this small collection. There’s no need to add them all.' : 'You’ve seen these prepared ideas. Tell us what you need now, and AI can create a new step within sick-day preparation.'}</p>}
+      {(!batch || batch.status === 'no_more_ideas') && !state.latest?.result?.adaptation?.newNeed && <p className="message">{batch?.tasks.length ? state.latest?.result?.adaptation?.refinement ? 'This replaces the unsaved version of that idea. It isn’t an extra task on your list.' : 'Start with what feels useful. You can explore more ideas below.' : 'You’ve seen the fitting prepared ideas. Change your choices or tell us what you need for a tailored step.'}</p>}
       <button className="primary" onClick={() => navigate({ page: 'list' })}>Go to my list{saved.length ? ` (${saved.length})` : ''}</button>
       <button className="secondary" onClick={() => navigate({ page: 'concerns' })}>Tell us what you need</button>
       {batch && batch.tasks.length > 0 && ['ready', 'no_more_ideas'].includes(batch.status) && !state.latest?.result?.adaptation?.refinement && !state.latest?.result?.adaptation?.newNeed && <button className="secondary" disabled={blocked} onClick={() => void suggest()}>See more ideas</button>}

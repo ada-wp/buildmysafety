@@ -1,5 +1,7 @@
 # Sick days & care — first category package
 
+**October 13 integration update:** the priority-first runtime mapper is [sick-care-catalog.mjs](../../sick-care-catalog.mjs), with [current runtime tests](../../test/sick-care-release.test.mjs). It connects 27 non-parked candidates, applies conditional copy, retains five real-dependency tasks for explicit relevant requests, and preserves existing saved instructions. An existing sitter-search task supplies the missing transition to an actual candidate. The category prompt and checked source IDs are wired. All 267 backend/app tests pass; cloud deployment and a real API test are pending. See [technical status](../../../docs/technical-status.md) for the release state; the historical notes below record earlier review stages.
+
 October 12, 2026. **Thirty complete authored task candidates, proposed checkboxes and selection guidance for founder review.** Sources were researched; tasks are not professionally approved, published in the app or tested as new API outputs. Start with this category, then repeat the approach for the other categories. The existing app flow stays intact.
 
 - [Read the 30 tasks](REVIEW.md) — readable view generated from the pool.

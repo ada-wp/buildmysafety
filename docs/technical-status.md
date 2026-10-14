@@ -1,5 +1,19 @@
 # Technical status and next implementation boundary
 
+## October 13 priority-first collection integration
+
+Implementation and automated verification are complete; the new preview deployment and hosted AI smoke test are pending. Automatic permission review timed out twice before the Windows packaging command ran. The existing preview is still `cfb9661a`; do not report the release as deployed until the hosted evidence below is recorded.
+
+- `personalization/sick-care-catalog.mjs` maps the authored pool into stable existing concern IDs and immutable content hashes. It adds 27 tasks and 23 reviewed resource records. Three work/business candidates stay parked. Five context-dependent tasks (planned procedure/recovery or an actual pet-care arrangement) are available as writing guidance for explicit requests, not ordinary checkbox suggestions. The old sitter-search task remains the practical bridge from learning to selecting a candidate; eight other old tasks are retired from new selection but remain readable and explicitly editable in owned history.
+- The matcher prioritizes current concerns, editorial importance, explicit preferences and soft behavioral signals. Unknown circumstances and unchecked concerns are not blanket exclusions. Actual no-paid-service/time controls, regional resource availability, real dependencies and previously shown outcomes remain boundaries. The old resting-shelf outcome and its new equivalent share a duplicate group; materially different learning outcomes do not inherit completion from old preparation tasks.
+- Batches contain up to three useful tasks, with at most one resource-bearing task. Strong research candidates deferred by that allowance stay available for More ideas; the matcher does not fill a short batch with weak chores. No learning percentage is forced on individual batches.
+- Both AI paths compile the category writer from `docs/prompts/sick-care-category-v0.md`. New requests get at most twelve relevant resource records and bounded previous outcomes, rather than thirty full task examples. Prescription-delivery administration and self-pay research are permitted; clinical decisions and urgent situations retain a separate gate. Returned resources must have been supplied to that request. Existing quotas and strict output validation remain. No new user fields or D1 migration are needed.
+- Verification: **152 backend tests and 115 app tests pass**. New tests exercise actual matching, handler and D1 storage contracts, checkbox-only starts, multiple concerns, priority versus explicit limits, resource bounds, prescription logistics, duplicate prevention, stable replay and separate owners. App regression tests accept up to three tasks and preserve hashed references. TypeScript/Vite succeeded; final packaging awaits permission. The read-only hosted pending-deletion check returned **zero** at `2026-10-14T03:21:36Z` (October 13 local).
+
+Hosted verification script: `app/scripts/check-sick-care-release-cloud.mjs --paid`, scoped to the previously authorized fictional B account. It checks three distinct pool batches, replay, save/complete/undo/return, preservation of prior tasks and one actual OpenAI request. It must produce `app/verification-sick-care-release.json` before claiming a hosted pass. It does not delete accounts, use Ada's browser session or mutate production.
+
+Earlier checkpoints below are historical. This release changes the founder preview content, not production authentication, public launch approval or the elephant/progress design.
+
 Consolidated 29 September 2026; current cloud-journey status updated 12 October from code and actual Cloudflare preview tests. The existing production website has not been replaced or freshly end-to-end tested by this app work. Earlier checkpoints below are historical; the following section is the active state.
 
 ## Discovery follow-up — October 12, current content checkpoint
