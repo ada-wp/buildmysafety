@@ -94,6 +94,7 @@ test('regional resource limits remain real; bounded AI packet contains useful cu
 
 test('prescription logistics and self-pay research work; clinical decisions and unsafe instructions stay blocked', async () => {
   for (const note of ['Research prescription delivery before a future sick day.',
+    'I want to understand how to have medicine delivered without going out.',
     'Prescription delivery is arranged. Help me research affordable virtual visits.',
     'I want to understand self-pay clinic costs.']) assert.equal(requestBoundary(note), null, note);
   for (const note of ['What medication should I take?', 'What dose should I take?', 'I have chest pain now'])
@@ -106,6 +107,18 @@ test('prescription logistics and self-pay research work; clinical decisions and 
   assert.ok(namedButUnsent);
   assert.throws(() => acceptNewNeed({ decision: 'generated', task: { ...t, action_key: 'different_route',
     resources: [{ resource_id: namedButUnsent, why: 'Research here.' }] } }, p, catalog, [], checkTaskCopy), /invalid_resource/);
+});
+
+test('US request coverage supplies resources even when a returning profile has no country', async () => {
+  const o = options({ concernIds: ['getting_care'], note: 'I want to research medicine delivery options before I need them.' });
+  o.store.change(s => { s.profile.answers.country = null; });
+  const p = await prepare(o);
+  const packet = JSON.parse(buildNewNeedRequest(p, catalog, [], 'gpt-6-luna').input[0].content[0].text);
+  assert.equal(p.effective.country, 'US');
+  assert.ok(packet.eligible_resources.length > 0);
+  assert.equal(o.store.inspect().profile.answers.country, null);
+  const unscoped = await prepare({ ...o, request: { ...o.request, country: null } });
+  assert.equal(unscoped.resources.size, 0, 'Shared API still protects regional eligibility outside app market');
 });
 
 function setup(t, generate) {

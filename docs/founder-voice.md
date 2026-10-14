@@ -4,6 +4,8 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- On October 14, Ada said “we will only focus on US now the app” and “remove country selection for now.” Keep V0 resource coverage US-focused, without adding a location question or inferring a person's actual location.
+
 - On October 13, after the three selection rehearsals, Ada corrected the approach: “exclusions are not good, maybe not exclude, just use rules to prioritize.” Treat her answers as signals for which useful suggestions to show first. Do not require her to identify every gap before the app can reveal overlooked options, or turn unknown context and unselected interests into automatic bans. The shared ranking plan records the narrower remaining boundaries for genuine conflicts, repeats and practical dependencies.
 
 - On October 13, after reviewing the tier mapping, Ada asked for roughly 30–50% of tasks to focus on learning, gaining useful knowledge and awareness of resources, especially in tiers 2 and 3. She wants less relationship-building and fewer trials done for their own sake. Treat practical understanding as a genuine gain in agency; do not require a call, favor, purchase, rehearsal or quiz to make learning count. Keep purposeful preparation when it solves a real stated gap. The assistant's revised target of twelve dedicated learning tasks in the thirty-task draft is a proposal within her range, not automatic approval of those twelve texts.

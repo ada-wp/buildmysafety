@@ -9,6 +9,7 @@ import { recommendationFeedback } from '../recommendation-feedback';
 import { Elephant } from './Elephant';
 import { TaskFeedback } from './TaskFeedback';
 import { accountIsLeaving } from '../navigation';
+import { SERVICE_COUNTRY } from '../service-market';
 
 type Route = { page: 'explore' | 'list' | 'concerns' | 'ideas' | 'earlier' } | { page: 'topic'; topic: TopicId } |
   { page: 'task' | 'complete' | 'refine'; task: string };
@@ -36,6 +37,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const origin = useRef<'ideas' | 'list'>(history.state?.taskOrigin === 'list' ? 'list' : 'ideas');
   const restored = useRef(false);
   const root = useRef<HTMLDivElement>(null);
+  const feedbackArea = useRef<HTMLDivElement>(null);
   const identityError = useRef(onIdentityError);
   identityError.current = onIdentityError;
   useEffect(() => { session.connect(); void session.load(); return () => session.dispose(); }, [session]);
@@ -55,6 +57,12 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       restored.current = true;
     }
   }, [state.loaded, state.latest]);
+  useEffect(() => {
+    if (active && (route.page === 'concerns' || route.page === 'refine') && (notice || state.error)) {
+      feedbackArea.current?.scrollIntoView({ block: 'center' });
+      feedbackArea.current?.focus({ preventScroll: true });
+    }
+  }, [notice, state.error, active, route.page]);
   function navigate(next: Route) {
     setNotice('');
     if (hash(next) !== location.hash) history.pushState({ taskOrigin: origin.current }, '', hash(next));
@@ -76,7 +84,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
     const submittedNote = note;
     setNotice('');
     const okay = await session.recommend({ topicId: 'sick_care', concernIds: concerns, maxMinutes: short ? 10 : null,
-      ...(note.trim() ? { note: note.trim() } : {}), noSpend,
+      ...(note.trim() ? { note: note.trim() } : {}), noSpend, country: SERVICE_COUNTRY,
       localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' });
     if (okay && location.hash === startingHash) {
       const feedback = recommendationFeedback(session.getState().latest?.result, Boolean(submittedNote.trim()));
@@ -98,7 +106,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   async function refine(task: RecommendationTask) {
     const startingHash = location.hash;
     const okay = await session.recommend({ topicId: 'sick_care', concernIds: task.concern_ids,
-      refineActionKey: task.action_key, note: refinementNote.trim(), maxMinutes: short ? 10 : null, noSpend,
+      refineActionKey: task.action_key, note: refinementNote.trim(), maxMinutes: short ? 10 : null, noSpend, country: SERVICE_COUNTRY,
       localSupport: draft.answers.constraints.includes('support') ? 'unavailable' : 'unknown' });
     if (okay && location.hash === startingHash) {
       const result = session.getState().latest?.result;
@@ -137,13 +145,19 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
   const ordered = orderTopics(draft);
   const chosen = draft.personalizationEnabled ? ordered.filter(([id]) => draft.interests.includes(id)) : [];
   const others = chosen.length ? ordered.filter(([id]) => !draft.interests.includes(id)) : ordered;
-  if (!state.loaded && !state.error) return <div className="task-journey" role="status"><p>Finding your saved place…</p></div>;
-  return <div className="task-journey" ref={root} aria-busy={state.busy}>
-    {route.page !== 'explore' && route.page !== 'list' && <button className="back" onClick={back}><span aria-hidden>‹</span> Back</button>}
-    {state.busy && <p className="hint" role="status">Finding your next step or checking your saved progress…</p>}
+  const requestPage = route.page === 'concerns' || route.page === 'refine';
+  // Keep request outcomes next to their submit button, including errors/quotas.
+  // The same block is used at the top of non-form screens; never duplicate it.
+  const feedback = <div ref={feedbackArea} tabIndex={-1} aria-label="Request update">
+    {state.busy && <p className="hint" role="status">{requestPage ? 'Working on your request. This can take a moment…' : 'Checking your saved progress…'}</p>}
     {state.error && <div role="alert" className="message error"><p>{state.error.code === 'refinement_not_available' ? 'This idea can’t be changed with your current choices, or it has already been saved. Check your progress and choose another unsaved idea.' : state.error.code === 'generation_in_progress' ? 'A suggestion is still being prepared. Give it a moment, then check your saved progress.' : state.error.conflict ? 'Your list changed in another tab. Check the latest version before trying again.' : state.error.outcomeUnknown ? 'We couldn’t confirm the result. Check your saved progress before trying again.' : 'We couldn’t connect to your tasks just now.'}</p>
       <button className="secondary" disabled={state.busy} onClick={() => void session.load()}>Check saved progress</button></div>}
     {notice && <p className="message" role="status">{notice}</p>}
+  </div>;
+  if (!state.loaded && !state.error) return <div className="task-journey" role="status"><p>Finding your saved place…</p></div>;
+  return <div className="task-journey" ref={root} aria-busy={state.busy}>
+    {route.page !== 'explore' && route.page !== 'list' && <button className="back" onClick={back}><span aria-hidden>‹</span> Back</button>}
+    {!requestPage && feedback}
     {route.page === 'explore' && <section><span className="eyebrow">Explore</span><h1 tabIndex={-1}>One small place<br />to begin.</h1>
       <p>Sick-day preparation is ready to explore. More areas will grow from here.</p>
       {chosen.length > 0 && <><h2 className="topic-group-title">Your interests</h2><div className="topic-grid">{chosen.map(([id, label]) => topicCard(id, label))}</div></>}
@@ -162,9 +176,11 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
         <label className="choice"><span>Keep each task to 10 minutes or less</span><input type="checkbox" checked={short} onChange={e => setShort(e.target.checked)} /></label>
         <label className="choice"><span>Leave out paid-service options and purchases</span><input type="checkbox" checked={noSpend} onChange={e => setNoSpend(e.target.checked)} /></label>
         <p className="hint">Your preferences help order ideas. These limits are optional.</p></details>
-      <label className="manual-request">Anything specific you’d like help with? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => setNote(e.target.value)} placeholder="For example: I have a cat and want to understand care options before booking anything." /></label>
+      <label className="manual-request">Anything specific you’d like help with? <span className="hint">Optional</span><textarea maxLength={800} value={note} onChange={e => { setNote(e.target.value); setNotice(''); }} placeholder="For example: I have a cat and want to understand care options before booking anything." /></label>
+      <p className="hint">Resource suggestions currently focus on the US. Availability varies by area.</p>
       <p className="hint">A specific request lets AI create a new preparation step, even when you’ve seen the collection. It uses relevant preferences. Leave out private or medical details; your note isn’t saved, but an accepted task stays in your account.</p>
       <p className="hint">Preview: up to 3 AI attempts per day, with a shared daily limit.</p>
+      {feedback}
       <button className="primary" disabled={blocked || !topic || (!concerns.length && !note.trim())} onClick={() => void suggest()}>{state.busy ? 'Finding a useful step…' : note.trim() ? 'Create a step for my request' : 'Find my next steps'}</button>
       {batch && <button className="text-button" onClick={() => navigate({ page: 'ideas' })}>Return to my latest ideas</button>}
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
@@ -191,12 +207,13 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
     {route.page === 'refine' && <section><span className="pill">Make it yours</span><h1 tabIndex={-1}>What would<br />fit better?</h1>
       {current && canRefine(current.content) ? <><p>Let’s find another way to approach “{current.content.title}”.</p>
         <label className="manual-request">What would you like to change?<textarea maxLength={800} value={refinementNote}
-          onChange={e => setRefinementNote(e.target.value)} placeholder="For example: I don’t have a microwave. I’d prefer something with no cooking." /></label>
+          onChange={e => { setRefinementNote(e.target.value); setNotice(''); }} placeholder="For example: I don’t have a microwave. I’d prefer something with no cooking." /></label>
         <p className="hint">OpenAI uses this note and relevant preferences to tailor this one idea. Leave out private or medical details. Your note isn’t saved; an accepted alternative stays in your account.</p>
+        {feedback}
         <button className="primary" disabled={blocked || refinementNote.trim().length < 5} onClick={() => void refine(current.content)}>Try a tailored alternative</button>
         <p className="hint">Same preparation goal, a different approach. Up to 3 AI attempts per day in this preview.</p>
         <button className="text-button" onClick={() => navigate({ page: 'task', task: current.state.actionKey })}>Keep the original idea</button></>
-        : <><p>Saved and completed tasks stay as you left them. Choose an unsaved idea to try a different approach.</p>
+        : <>{feedback}<p>Saved and completed tasks stay as you left them. Choose an unsaved idea to try a different approach.</p>
           <button className="primary" onClick={() => navigate({ page: 'earlier' })}>Choose an unsaved idea</button></>}
     </section>}
     {route.page === 'task' && (current ? <section className="detail"><div className="task-meta"><span className="pill">Sick-day care</span><span>{current.content.estimated_minutes} min</span></div>

@@ -10,6 +10,10 @@ export const questions: Question[] =[
   {id:'strengths',title:'What already helps you find your footing?',multi:true,exclusive:['discovering'],options:[['person','Someone I trust.'],['routine','Familiar routines.'],['prepared','Things I’ve already put in place.'],['experience','Remembering what I’ve handled before.'],['learning','Learning something useful.'],['discovering','I’m still discovering what helps.']]},
   {id:'hope',title:'What would a stronger sense of safety feel like for you?',multi:true,max:2,options:[['start','“I trust myself to take care of me.”'],['prepared','“I have things in place that help me feel more prepared.”'],['support','“I know where to turn—I don’t have to handle everything alone.”'],['trust','“When life feels uncertain, I can find my footing.”'],['choice','“I feel freer to enjoy life on my own.”']]},
   {id:'style',title:'How would you like us to help you begin?',options:[['one','Suggest one gentle first step.'],['choice','Give me a few ideas to choose from.'],['understand','Help me understand my options.'],['resources','Show me useful tools and resources.']]},
-  {id:'country',title:'Which country are you based in?',kind:'country',optional:true},
   {id:'note',title:'Anything else you’d like us to understand?',kind:'text',optional:true}
  ];
+
+// A returning draft may still point at the removed country question.
+export function questionStep(id: string) {
+  return Math.max(0, questions.findIndex(question => question.id === (id === 'country' ? 'note' : id)));
+}

@@ -5,7 +5,7 @@ import { ElephantMessage } from './components/ElephantMessage';
 import { acknowledgementMessage, startingPointMessage } from './elephant-messages';
 import { emptyDraft, editableProfile, type ProfileDraft } from './profile-draft';
 import type { ProfileSession, ProfileSessionState } from './profile-session';
-import { questions } from './onboarding';
+import { questions, questionStep } from './onboarding';
 import { interestEntries } from './interest-labels';
 import { createSignInHandoff } from './sign-in-handoff';
 import { TaskJourney } from './components/TaskJourney';
@@ -155,7 +155,7 @@ function ProfileScreens({ session, client, state, initialDraft, onSignIn, accoun
         ? { page: returnTo.page, step: returnTo.step }
         : { page: 'question', step: questions.length - 1 };
       if (value === 'question') {
-        const restoredStep = questions.findIndex(question => question.id === questionId);
+        const restoredStep = questionStep(questionId);
         setStep(restoredStep >= 0 ? restoredStep : 0);
       }
     };
