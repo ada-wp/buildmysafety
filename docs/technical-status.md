@@ -1,6 +1,18 @@
 # Technical status and next implementation boundary
 
-## October 14 priority-first collection release — current preview
+## October 14 request feedback and US market repair — current preview
+
+Deployment `bc3f93c1` (code `5716fb0`, client `index-deCQQKD9.js`) is live on the existing app-auth-staging alias. Only `app/dist/client` was uploaded; production is unchanged. No schema/data migration, quota increase or credential change was needed. The pre-release remote D1 pending-deletion count was zero.
+
+- The reported button failure was an invisible response: a clarification appeared above the user's scroll position. Busy status, clarification, generation limits and connection errors now appear beside the submit button; outcomes scroll into view and receive focus. A declined request keeps its draft. The same recovery is available on the refinement screen.
+- US-only is now the V0 resource market. Country selection is removed from onboarding and requests. Requests explicitly supply US coverage, including for existing profiles whose country is null. Existing personal country answers are not rewritten. Old `question/country` checkpoints continue to the optional note. Shared backend regional eligibility remains intact.
+- The writer recognizes medicine delivery as logistics without permitting clinical advice. It distinguishes unseen collection inspiration from already received outcomes. Diagnostic testing also found `missing_concern`: a typed-only response could leave concern IDs empty and be rejected. The new-need response schema now requires at least one supported concern ID, with explicit classification guidance.
+
+Verification: **155 backend and 117 app tests pass**; TypeScript, Vite and allowlisted Worker packaging pass. An isolated, ignored local fixture exercised the actual TaskJourney component with injected clarification and network failures. Browser checks confirmed visible feedback, retained text, US request scope and working recovery at a 320px viewport. This fixture made no real account or AI calls and is excluded from the published artifact. The hosted user tab was refreshed to the new version and its original text and selections restored, without submitting it to AI. An inspection of the account preferences briefly reopened onboarding metadata; Continue restored completion with unchanged answers before the preview refresh.
+
+Four genuine paid diagnostic attempts used only the previously approved fictional A/B accounts, without resetting history or quotas. Preserve all evidence: [initial B result](../app/verification-delivery-request.json) returned `no_new_idea`; [B follow-up](../app/verification-delivery-request-followup.json) and [A diagnostic](../app/verification-delivery-request-account-a.json) returned `unavailable`. A scoped live log for the tagged A request identified `missing_concern`; the exact cause of the earlier B failures was not captured. After the schema correction, [A verification](../app/verification-delivery-request-fixed.json) generated “Find out how pharmacy delivery works” with the reviewed `cvs_delivery` resource. Persistence, exact replay, absence of the raw note from latest-batch storage and unchanged prior tasks passed. The accepted task addresses delivery eligibility, area, cost, timing and handoff checks without choosing medicine or promising availability. This is one successful hosted generation, not a reliability benchmark or approval of all AI answers.
+
+## October 14 priority-first collection release — earlier checkpoint
 
 Implementation, packaging, preview deployment and hosted verification are complete. Deployment `90c31b61` serves [the existing app preview](https://app-auth-staging.buildmysafety.pages.dev/?v=90c31b61#/app/concerns/sick_care), built from commit `1396694`. Only `app/dist/client` was uploaded. The October 13 permission-review timeout was resolved after Ada asked to continue. Production was not deployed.
 
