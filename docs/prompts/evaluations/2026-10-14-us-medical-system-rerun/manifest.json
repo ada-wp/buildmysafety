@@ -1,0 +1,27 @@
+{
+  "status": "generated_candidate_rejected",
+  "exact_user_request": "i want to udnerstand US medical system",
+  "model": "gpt-6-luna",
+  "reasoning": {
+    "effort": "low"
+  },
+  "store": false,
+  "max_output_tokens": 5000,
+  "context": "Same blank new-user context and input as the previous trial; no invented profile, additional facts or history.",
+  "method": "One intended real Playground Responses generation with the actual prepare/buildNewNeedRequest packet and existing catalog. Revised writer, relevant Example A and one supplemental schema field.",
+  "changes": [
+    "Updated writer and relevant Example A",
+    "Candidate nullable search_prompt field, limited to 60 words/600 characters in the test"
+  ],
+  "selected_examples": [
+    "A"
+  ],
+  "prompt_sha256": "651e8e2f49249d7bb9b5183c9a37a4db43b657dcc117ff900774b84530373b66",
+  "input_sha256": "887373b60890179186fe5dc4a69da7c3936706eb42f3592720740d7876c1ef36",
+  "prompt_checksum": "e0ec7c07",
+  "input_checksum": "58bacf8d",
+  "prompt_chars": 21401,
+  "input_chars": 11607,
+  "limitations": "Not deployed. Candidate search_prompt is not supported by the live schema/UI. Record unchanged-live acceptance separately from a base-task check without the new field. Playground transport, token cap and timeout may differ from the Worker. No user-data writes.",
+  "deployed": false
+}

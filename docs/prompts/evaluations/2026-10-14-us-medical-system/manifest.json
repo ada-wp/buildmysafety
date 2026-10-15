@@ -1,0 +1,40 @@
+{
+  "status": "generated_validation_rejected",
+  "method": "One intended paid Playground Responses generation using the actual app prepare/buildNewNeedRequest pipeline, catalog, schema and acceptance checks. Revised draft writer replaces the old core for this test only.",
+  "model": "gpt-6-luna",
+  "reasoning": {
+    "effort": "low"
+  },
+  "store": false,
+  "max_output_tokens": 5000,
+  "exact_user_request": "i want to udnerstand US medical system",
+  "profile": "Empty new-user context; no invented insurance, doctor, budget or saved-task history. Not the founder account.",
+  "selected_examples": [
+    "A"
+  ],
+  "prompt_source": "docs/prompts/sick-care-discovery-draft.md",
+  "prompt_sha256": "f0ab3a41d72392502dbf980cbf2e65b9d1ce0e63e3509d9d8db3bc85631e24fb",
+  "input_sha256": "887373b60890179186fe5dc4a69da7c3936706eb42f3592720740d7876c1ef36",
+  "prompt_checksum": "d0e81086",
+  "input_checksum": "58bacf8d",
+  "prompt_chars": 19145,
+  "input_chars": 11607,
+  "resource_ids": [
+    "hhs_find",
+    "hrsa",
+    "medicaid_rides",
+    "local_211",
+    "cvs_delivery",
+    "feeding_america",
+    "us_211_local",
+    "us_rover_sitting",
+    "hhs_prep",
+    "medline_surgery",
+    "cms_estimate_guide",
+    "cvs_refill_help"
+  ],
+  "limitations": "Content-path test, not a cloud transport/persistence test. No handpicked sources or newly researched facts added. No live deployment or user data writes. Playground token cap/timeout parity must be reported separately.",
+  "validation_file": "validation.json",
+  "raw_output_file": "raw-output.txt",
+  "observation_file": "observation.json"
+}

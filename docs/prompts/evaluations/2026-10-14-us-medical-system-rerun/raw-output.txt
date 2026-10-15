@@ -1,0 +1,71 @@
+{
+"decision": "generated",
+"tasks": [
+{
+"action_key": "compare_care_routes",
+"concern_ids": [
+"getting_care"
+],
+"title": "Map your routes to care",
+"summary": "In the US, a first visit might start through health benefits, an online service or a community health center. Access and cost vary, so compare what each route requires.",
+"estimated_minutes": 20,
+"steps": [
+"If you have coverage or employer benefits, explore whether they offer virtual care and what access and visit costs to check.",
+"Explore standalone online appointments and community health centers as other routes; availability and first-visit requirements vary.",
+"Compare how each route handles new patients, location, likely cost and follow-up before choosing one to investigate further."
+],
+"done_when": "You understand the main routes and have identified one plausible option and what to verify.",
+"resources": [
+{
+"resource_id": "hhs_find",
+"why": "A starting point for exploring telehealth access and first-visit details."
+},
+{
+"resource_id": "hrsa",
+"why": "Finds community health centers to investigate, including fees and new-patient access."
+}
+],
+"purchase_checks": [],
+"no_purchase_option": null,
+"search_prompt": "Explore US routes to nonemergency care, including benefits-based virtual care, standalone online appointments and community health centers. Compare new-patient access, location, likely costs and limitations using reliable sources."
+},
+{
+"action_key": "understand_care_estimates",
+"concern_ids": [
+"getting_care"
+],
+"title": "Understand what a care estimate covers",
+"summary": "A written estimate can help you understand expected costs, but it may not represent every part of a final bill. Learn what it includes and where uncertainty remains.",
+"estimated_minutes": 15,
+"steps": [
+"Explore what a written estimate may include for nonemergency care when paying without insurance.",
+"Notice which costs or circumstances may not be captured, and why an estimate is not a guaranteed final bill.",
+"Learn what information to have ready when requesting an estimate, without sharing personal details in this task."
+],
+"done_when": "You understand an estimate’s scope, limits and how to request one.",
+"resources": [],
+"purchase_checks": [],
+"no_purchase_option": null,
+"search_prompt": "Using reliable US sources, explain what a written estimate for nonemergency self-pay care may cover, its limits, and how someone can request one."
+},
+{
+"action_key": "learn_telehealth_access",
+"concern_ids": [
+"getting_care"
+],
+"title": "See how a video visit works",
+"summary": "Telehealth can have practical requirements beyond choosing a provider: joining instructions, technology and accessibility support vary. Knowing what to check makes the route easier to assess.",
+"estimated_minutes": 12,
+"steps": [
+"Explore what a provider may require to join a video visit, such as a device or connection, and what can vary.",
+"Learn what accessibility or joining support to ask about before a first visit.",
+"Compare whether a provider offers a phone alternative or other support; these options are not universal."
+],
+"done_when": "You understand the likely joining requirements and what support or alternatives to verify.",
+"resources": [],
+"purchase_checks": [],
+"no_purchase_option": null,
+"search_prompt": "Find reliable US guidance on preparing for a first telehealth visit, including joining requirements, accessibility support and whether phone alternatives are available."
+}
+]
+}

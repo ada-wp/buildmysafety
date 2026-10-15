@@ -7,6 +7,8 @@ A peaceful place to embrace solo living and enjoy it fully. Practical knowledge,
 | Need | Canonical reference |
 | --- | --- |
 | What we are building now | [Current product](docs/current-product.md) |
+| Latest writing prompt — candidate, not live | [Shared discovery writer](docs/prompts/discovery-writer-core.md) + selected [Sick days & care](docs/prompts/sick-care-discovery-draft.md) or [My home](docs/prompts/my-home-discovery-draft.md) module |
+| My home content and ranking | [56-task review package](personalization/content-candidates/my-home-v0/README.md) — research, concerns, ranked options and examples; not deployed |
 | Approved AI task-generation prompt | [Task generator V1](docs/prompts/task-generator-v1.md) |
 | Writing calibration before building the pool | [V1.1 draft and teaching plan](docs/prompts/task-writer-v1.1-draft.md) — not activated |
 | Memory storage and API test flow | [Cloud personalization module](personalization/README.md) — D1 staging verified; email login and live backend AI call pending |

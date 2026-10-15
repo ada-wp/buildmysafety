@@ -1,0 +1,56 @@
+{
+  "method": "Unchanged app acceptNewNeedBatch/checkTaskCopy validation against the frozen first-user context.",
+  "passed": false,
+  "error": "unsupported_task_copy",
+  "copy": [
+    {
+      "title": "See the main ways to get care",
+      "titleWords": 7,
+      "summaryWords": 29,
+      "stepWords": [
+        20,
+        18,
+        15
+      ],
+      "doneWords": 14
+    },
+    {
+      "title": "Understand what a care estimate tells you",
+      "titleWords": 7,
+      "summaryWords": 29,
+      "stepWords": [
+        13,
+        17,
+        15
+      ],
+      "doneWords": 11
+    },
+    {
+      "title": "Decode common care-cost terms",
+      "titleWords": 4,
+      "summaryWords": 25,
+      "stepWords": [
+        16,
+        17,
+        14
+      ],
+      "doneWords": 13
+    }
+  ],
+  "individualCopyChecks": [
+    {
+      "title": "See the main ways to get care",
+      "passed": false,
+      "error": "unsupported_task_copy"
+    },
+    {
+      "title": "Understand what a care estimate tells you",
+      "passed": true
+    },
+    {
+      "title": "Decode common care-cost terms",
+      "passed": true
+    }
+  ],
+  "diagnosis": "The first summary says \"none is guaranteed to fit\". The existing copyRisk regex rejects guarantee\\w* even when it negates a guarantee. This is a false positive. Batch acceptance is atomic, so no task is accepted. Other checks after this failure have not all been exercised."
+}
