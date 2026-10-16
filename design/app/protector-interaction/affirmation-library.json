@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "feature": "Protector Interaction",
+  "contentVersion": "2026-10-15",
+  "status": "editorial_draft",
+  "reviewStatus": "Supporting editorial draft selected from existing content. The trust-small-choices message appears in the approved mockups.",
+  "voice": "The elephant is a calm female protector. Each message addresses the user as you and supports self-trust, self-love, or feeling steady. No physical-safety guarantees or claims that the user must earn care.",
+  "affirmations": [
+    {
+      "id": "trust-small-choices",
+      "theme": "self_trust",
+      "text": "You can build trust in yourself, one small choice at a time."
+    },
+    {
+      "id": "trust-your-needs",
+      "theme": "self_trust",
+      "text": "You can take your own needs seriously."
+    },
+    {
+      "id": "trust-change-direction",
+      "theme": "self_trust",
+      "text": "You can make a choice and change your mind."
+    },
+    {
+      "id": "trust-with-support",
+      "theme": "self_trust",
+      "text": "You can ask for help and keep your own voice."
+    },
+    {
+      "id": "care-quieter-day",
+      "theme": "self_love",
+      "text": "You deserve care, even when you need a quieter day."
+    },
+    {
+      "id": "care-no-earning",
+      "theme": "self_love",
+      "text": "You do not have to earn kindness."
+    },
+    {
+      "id": "care-on-your-side",
+      "theme": "self_love",
+      "text": "You can be on your own side, even today."
+    },
+    {
+      "id": "steady-pause-and-choose",
+      "theme": "inner_steadiness",
+      "text": "You can pause, notice what you need, and choose your next step."
+    },
+    {
+      "id": "steady-your-pace",
+      "theme": "inner_steadiness",
+      "text": "You are allowed to move at your own pace."
+    },
+    {
+      "id": "steady-open-questions",
+      "theme": "inner_steadiness",
+      "text": "You can leave some questions open for today."
+    },
+    {
+      "id": "steady-notice-support",
+      "theme": "inner_steadiness",
+      "text": "You can notice what supports you right now."
+    },
+    {
+      "id": "gentle-trust",
+      "theme": "self_trust",
+      "text": "You do not have to feel certain to give your next step some thought."
+    },
+    {
+      "id": "gentle-steady",
+      "theme": "inner_steadiness",
+      "text": "You do not have to settle everything in this moment."
+    }
+  ]
+}
