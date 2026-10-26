@@ -1,0 +1,37 @@
+{
+  "testedAt": "2026-10-12T16:44:27.675Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "account": "approved fictional B",
+  "evidence": "Actual Clerk sign-in + hosted Worker/OpenAI/D1. Separate HTTP client; not a browser submission.",
+  "poolExhaustedBeforeRequest": true,
+  "generatedBeyondPool": true,
+  "replayedWithoutRegeneration": true,
+  "savedAndReadBack": true,
+  "oldSavedTasksUnchanged": true,
+  "rawNoteAbsent": true,
+  "stateVersion": "11",
+  "metadata": {
+    "responseId": "resp_092f65cecfdcbff0016acd0e6335c887d18266acf779369726",
+    "model": "gpt-6-luna",
+    "inputTokens": 2113,
+    "outputTokens": 335
+  },
+  "task": {
+    "action_key": "custom_sick_care_sick_day_rest_phone_settings",
+    "concern_ids": [
+      "check_in"
+    ],
+    "title": "Set up a phone-friendly rest break",
+    "summary": "Choose a quiet setting for future sick-day rests while keeping calls or messages from important contacts possible.",
+    "estimated_minutes": 10,
+    "steps": [
+      "Open your phone’s quiet, focus, or Do Not Disturb settings.",
+      "Choose which important contacts, if any, can still reach you; check calls and messages separately.",
+      "Save the setting or note the steps to switch it on and off when resting."
+    ],
+    "done_when": "You know how to quiet your phone and allow chosen contacts through.",
+    "resources": [],
+    "purchase_checks": [],
+    "no_purchase_option": null
+  }
+}

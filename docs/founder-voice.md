@@ -1,0 +1,139 @@
+# Ada — founder voice and philosophy
+
+Use this reference for future My Safety website content. Ada's direct statements take priority over earlier assistant-generated positioning. This is a writing reference, not published page copy.
+
+## Directly supplied by Ada
+
+- October 26: Ada chose “implement option a,” then asked to “rollout the font to all app.” Apply the compact checkable-row treatment and Inter typography across the existing app while preserving its elephant, colors and flow. She requested GitHub synchronization after completion, a detailed project checkpoint, and a consistently named latest-UI file Replit can find. `UI-DESIGN-LATEST.md` is that stable handoff. Her implementation approval supersedes the earlier mockup-only boundary for this chosen direction; it does not change content/category approval or automatically deploy the app.
+
+- October 15, mockups before changes: Ada replaced immediate UI implementation with a few mockups using our current screens. Optimize the existing My Safety design: typography is still too large, reduce disclaimer/explanatory text, and organize useful content into compact checkable/expandable blocks. Preserve the theme, elephant and established flow. Treat smaller-type layouts and abbreviated example copy as proposals until reviewed, not permission to change the application or canonical task pool.
+
+- October 15, typography: Ada is unhappy with the current app font and asked for a direction like Uber. Treat this as permission to explore a clean sans-serif heading system. The local Inter trial is not yet visual approval of a final font choice, and the original elephant, palette and flow remain established.
+
+- October 15, demand and discovery: Ada said the polished home suggestions were much better and requested ranking based on market research, with more solutions for stronger needs. She specifically liked Frontdoor video chats and wants tasks to help people become aware of laws, rights, resources, what to look for and how to prepare. Treat this as a content-development principle; do not invent popularity data or add complexity to the app.
+
+- October 15, My home review: Ada found many suggestions unhelpful, especially under "Knowing where to get help when something breaks," and described the language as formal, general and hard to follow. Her quoted example told users to document a nonurgent fault and contact the "responsible party" without helping them discover whom to contact. Treat this as rejection of the draft's usefulness and voice, not a request for cosmetic synonym changes. Explain real options in everyday language; reporting/documentation belongs where it solves an actual obstacle. The home collection remains under review.
+
+- October 14, selected-category boundary: Ada said questions should be limited to the category the user is in or selected. The main prompt can serve every category, while each invocation remains within its active category. Apply this to suggestions, any clarification, search prompts and resources. Broad exploration stays inside that scope; unrelated needs should not silently redirect or expand it.
+
+- October 14, shared prompt clarification: after agreeing to improve broad-versus-specific request handling, Ada said the prompt should not focus only on the sick category. Keep the main writer reusable across categories, with separate subject knowledge, boundaries and relevant examples for each supported category. The shared writer must understand whether she wants a foundation, options or practical preparation before choosing complementary suggestions; resource lists and examples must not determine her goal. This does not activate unsupported categories or approve new factual content.
+
+- October 14, helpful resources clarification: Ada asked to include one or two links when useful, alongside the restored task format and supplemental research search prompt. Use relevant checked resources with a short explanation of their value. Her earlier maximum of one linked suggestion per batch remains; do not force two links or invent resources.
+
+- October 14, latest format correction and clarification: Ada rejected replacing the task with three research questions or an AI brief, asking to restore a title, estimated time, short description, three practical steps and Done when. She then explicitly requested one copyable Google/AI search prompt as an additional part of each research suggestion. Keep the stronger discovery thinking, useful knowledge and multiple solution routes. The search prompt supplements the task; it does not replace the three steps or change the three-card batch. This supersedes the question-format instruction below.
+
+- October 14, prompt calibration: Ada asked to put the actual saved weak suggestions, their original phrasing and why they fall short **inside the prompt**, using the newly authored suggestions she liked as positive examples. Use real project examples rather than invented straw-man failures. Preserve useful familiar tasks when they address a real gap; teach the difference in solution thinking as well as wording. The [discovery writer draft](prompts/sick-care-discovery-draft.md) now includes these contrasts; live generation remains unchanged.
+
+- October 14, later writing review: Ada asked us to understand the person's situation and problems, identify knowledge/resources that would help, and explore different ways to solve the underlying problem. Research tasks should give three areas/questions she can copy to investigate, replacing mandatory action steps for that task type. A narrow question such as “Which pharmacies deliver?” is insufficient when we could introduce online pharmacies, relevant benefits and other distinct routes. She responded positively to ten authored cards and asked to modify the prompt. Preserve that discovery-first judgment, warm concrete voice and separate research/preparation formats; see the [writer revision](prompts/sick-care-discovery-draft.md). The positive review is not proof that the runtime generator already produces this quality or approval to publish the whole collection.
+
+- October 14: finish a polished, coherent app version with the agreed flow, recommendation rules and task format; do not redesign settled screens. This release is for Ada and invited testers, with sick-day preparation first. Preserve the original elephant and milestones 1/3/6/9/10. Keep code maintainable and reusable for additional categories and future scale; verify behavior rather than claiming scalability from architecture alone.
+- October 14: remove the unused “Anything else you’d like us to understand?” onboarding reflection. Users type specific needs on the topic screen, where the request actually informs suggestions.
+
+- On October 14, Ada corrected the single-card results: show **three suggestions at a time**. Preserve the normal three-option choice even when one task is AI-tailored; the older one-at-a-time onboarding answer must not hide the other cards. She then asked for a complete feature, UI-copy and architecture audit, including My Progress, without overriding agreed designs or flows. She explicitly chose readiness for herself and invited testers first, rather than a public launch.
+
+- On October 14, Ada said “we will only focus on US now the app” and “remove country selection for now.” Keep V0 resource coverage US-focused, without adding a location question or inferring a person's actual location.
+
+- On October 13, after the three selection rehearsals, Ada corrected the approach: “exclusions are not good, maybe not exclude, just use rules to prioritize.” Treat her answers as signals for which useful suggestions to show first. Do not require her to identify every gap before the app can reveal overlooked options, or turn unknown context and unselected interests into automatic bans. The shared ranking plan records the narrower remaining boundaries for genuine conflicts, repeats and practical dependencies.
+
+- On October 13, after reviewing the tier mapping, Ada asked for roughly 30–50% of tasks to focus on learning, gaining useful knowledge and awareness of resources, especially in tiers 2 and 3. She wants less relationship-building and fewer trials done for their own sake. Treat practical understanding as a genuine gain in agency; do not require a call, favor, purchase, rehearsal or quiz to make learning count. Keep purposeful preparation when it solves a real stated gap. The assistant's revised target of twelve dedicated learning tasks in the thirty-task draft is a proposal within her range, not automatic approval of those twelve texts.
+
+- Later on October 12, Ada defined two connected content deliverables for every category: situation/concern checkboxes relevant enough to guide the task choice, and at least thirty carefully researched and crafted task options ready for selection, with category-specific AI guidance. Keep the project philosophy visible through practical preparation and useful discoveries. Do not offer gimmicks, generic advice or work that merely restates what the person already knows or has. The first sick-day package is a review draft; its proposed six-checkbox treatment and individual tasks have not yet been approved.
+
+- On October 12, Ada recommended Alone Actually's contractor guide and clarified that the reference is for project category structure and the potential solution pool. Use its situation-specific depth as content inspiration. This does not approve copying the site's categories, wording or claims; proposed groupings remain for discussion. See the [reference review](../research/alone-actually-reference.md).
+
+- During the next three-case test on October 12, Ada chose a category-by-category content approach: keep shared principles but tailor a prompt to each category, repeatedly test it, and carefully craft roughly thirty high-quality reusable tasks for that category. Organize them into a simple roadmap from easier to more involved preparation, with options people can choose. Keep the category prompt available for personal requests within that category. Start by making sick-day preparation good before expanding. This supersedes the earlier rough twenty-task target and makes a simple content roadmap part of the direction now; it does not approve a forced curriculum, new roadmap UI or thirty unreviewed generated tasks.
+
+- After reviewing the English sick-day trial on October 12, Ada emphasized that useful suggestions must help someone discover options she does not yet know about or cannot yet access. Do not ask her to re-list or reorganize what she already knows or has prepared. Consider the case without an existing doctor or service: research online clinics, affordable virtual visits, possible employer/insurance benefits and prescription delivery, with one or two concrete questions that determine whether an option is usable. Account for the person's actual situation; unknown information is not evidence that she has or lacks an arrangement. A note is appropriate when requested or when it solves a real retrieval problem, rather than as a default task.
+
+- On October 12, Ada specified that all future project documents should be in English. This includes internal research, specifications, prompts and test reports, as well as user-facing product content. Conversation with her may still follow her chosen language.
+
+- Ada confirmed My Safety's user-facing product content should be English; discussion with her may remain Chinese. She said the preparation draft felt good and asked to turn it into English and try it. This supports the writing direction and a bounded real-model trial; it does not automatically approve every new model output or publish the content to the app.
+
+- In the following content discussion, Ada said “不要太复杂正规程序化” and agreed to carefully craft the prompt and suggestions together before settling them. Keep the collaboration natural and concrete; do not turn it into a formal scoring or approval program. She further emphasized preparation **before** an event: material supplies, knowledge, useful contacts and memoranda. A memo can be valuable when it contains information or instructions that will actually help later; do not reject notes categorically.
+
+- After the ten-answer review on October 12, Ada said the app should provide a way to build a sense of safety step by step. She then clarified the immediate priority: carefully crafted tasks, especially the first ten a person encounters. Many people do not know what to consider, research or prepare. Content must reveal relevant blind spots, explain useful options and help people make concrete improvements; easy microtasks and the existing abstract usefulness definition have not delivered that value for her.
+- She proposed narrowing the initial offering to roughly three to five categories with about twenty carefully prepared tasks in each. This is a content direction and approximate target, not approval of category names, a quota to fill, or approval of existing drafts. Specific-request AI guides also need substantive revision.
+- Her follow-up: “每个主题有个 简单的等级 roadmap 也是可以的，但是无需复杂，可以之后加上” — a simple per-topic level roadmap is acceptable later. Do not make a new roadmap interface, compulsory progression or elaborate leveling system a prerequisite for improving task quality now.
+
+- After the foundation reliability pass on October 12, Ada asked: “can you review the suggestions you gave, test 10 ai answers and we review how to improve.” This authorizes a concrete baseline evaluation and joint editorial review, not automatic approval or deployment of rewritten tasks. Preserve weak/declined outputs rather than selecting only flattering examples.
+
+- Later on October 12 she explicitly said “lets finish the app foundations first.” Finish the bounded account, navigation and reliability work before returning to recommendation quality; this does not approve poor suggestions or authorize public release.
+
+- On October 12 she said to move to the next step “even though the suggestion is really bad.” Keep recommendation quality explicitly unfinished. Her permission to continue building is not approval of the content or a reason to expand categories before reviewing useful examples.
+
+- Her public name is Ada.
+- She has lived alone for more than seven years, with a cat.
+- She dislikes fear-based content that keeps people scrolling without helping them take action.
+- She wants My Safety to be a peaceful place where people embrace solo living and enjoy it fully.
+- On October 1 she reaffirmed that living solo is the key audience/context, while the deeper purpose is helping women build a sense of agency, safety and control. Onboarding should add focus rather than rule their experience, and reusable solution pools should reduce unnecessary AI generation.
+- On October 11 she rejected a generic help-request draft in the sick-day test. Where outside help is needed, she wants one or two external resources people can research and use later, especially without nearby support. Taskrabbit was an example, not a preferred default: discovering suitable services, tools and resources is a broader part of the product's value.
+- Later on October 11 she approved this definition: “After doing this, she has something she can use—a clearer decision, a real option, something prepared, a skill, or support she can access.” She asked to put it and six suggestion angles—Understand, Discover, Prepare, Arrange, Practice, and Make it easier next time—into the writing prompt. These guide how to address a concern; they do not add navigation categories or a compulsory sequence.
+- After reviewing the new-neighborhood test, she clarified that at most one suggestion per batch may contain external links. The assistant's earlier interpretation that the first task should have links was incorrect. The cap permits zero linked tasks and does not require the linked task to come first.
+- She then called the suggestion tone “dull and dry” and asked for livelier, more personal writing. Use this as a direct correction to the earlier task voice: conversational warmth and relevant personal context should be visible in the suggestions.
+- She reaffirmed the original task output format using the easy-food example: title and estimated time, three numbered steps, then “Done when.” Keep this compact structure while improving the voice; do not substitute summary-only task descriptions during review.
+- She clarified the long-term ambition: teach the agent to provide better suggestions over time, make suggestions more individualized, and expand to additional audiences later. Women living solo remain the initial V0 audience; this is a direction for growth, not an instruction to launch for new groups immediately.
+- She specifically wants the app to use tasks a person likes or adds to their to-do list to recommend more related or similar actions. Treat those choices as personal recommendation signals while preserving current needs and avoiding repeated outcomes.
+- She asked to standardize what the app saves about a user, keep it uncomplicated and avoid unnecessary storage. The compact profile/task contract is an engineering response to that request, not a reason to collect more personal detail or remove her agency-focused onboarding.
+- After asking to begin one small working journey, she clarified that implementation must proceed step by step, not build all parts at once. Keep memory, recommendation rules and interface connection as separate reviewable steps.
+- After the memory test, she clarified that prior choices should help with the next question or problem, not automatically continue the same concern. She also agreed with tightening duplicate-suggestion checks.
+- On October 12 she clarified: “basically i want users can always get new suggestions when they have new needs, that's why we have AI”. The shared task collection is a useful starting point, not the ceiling on possible suggestions. A specific request can justify a new action in a supported category without waiting for exhaustion or requiring an old-task edit. Clear limits and honest failure messages still apply; this is not a promise of unlimited successful generation.
+
+## Core direction
+
+**A peaceful place to embrace solo living and enjoy it fully.**
+
+Lead with the life people want to live. Make practical knowledge, preparation, and support useful companions to that life. Give readers a clear, manageable way to act and respect their time and attention.
+
+The earlier project foundation remains useful: knowledge, people, resources, systems, and practiced actions; one small step at a time; and the confidence of feeling “I can handle it.” Fit these ideas to Ada's emphasis on enjoying solo life. Practical tasks are a way to exercise choice and develop capability; the product is not limited to chores or physical protection. Agency includes choosing support and deciding what matters now.
+
+## Writing voice
+
+Warm, personal, peaceful, concrete, and encouraging. Use “I” for Ada's perspective and “you” when speaking to a reader. Use “we” naturally for a shared invitation to embrace solo living, without implying a staff or an established community.
+
+For app tasks, bring some life to the titles and summaries through natural contractions, curiosity, familiar examples and details the person actually shared. Let those details shape a useful action. Keep steps clear and brief. Personal does not mean inventing feelings or circumstances, repeatedly echoing a worry, adding a name to generic advice, or using exaggerated cheerleading.
+
+Prefer everyday language: living on your own, your home, your cat or pets, someone to turn to, one useful step, at your own pace, and enjoying your life. The exact choice should fit the passage; avoid repeating a fixed set of phrases mechanically.
+
+Describe solo living with dignity and possibility. Respect readers' different budgets, energy, time, health, and available support. Present practical gaps as things someone may choose to work on.
+
+## Companion and progress — October 12 clarification
+
+October 13 navigation addition: Ada requested “a my progress tab” showing “where we are at the each category.” Keep this as a simple cross-category overview alongside My list and Explore, using the same original elephant. My list remains the everyday opening screen. Proposed card details are completed tasks, next milestone and her last explicitly answered check-in; these do not turn task counts into a safety score.
+
+Ada wants a simple Finch-like interaction: open My list, see the elephant and a category progress bar, complete a chosen task, and receive a tiny warm response. Keep the original elephant exactly consistent in all screens and future animations; the earlier replacement and emoji placeholder were explicitly rejected. Milestones are **1, 3, 6, 9 and 10**, with an optional question about how prepared she feels in that theme. If she feels ready, offer another category without requiring her to leave or preventing her return. No daily/weekly logging for V0. See the [current design direction](../design/app/roadmap/README.md); the mockup is not a live app change.
+
+October 13 addition: Ada wants the elephant to speak directly on milestone screens, with a growing-stronger/protector feeling and a hug animation. She explicitly rejected “little protector” because it sounds weak; use “your protector” and a warm, confident voice. Preserve the original character. The latest preview tries short first-person speech, a replayable hug motion and an optional check-in afterward; the exact messages remain draft copy. This uses authored messages rather than generative AI.
+
+## Editorial boundaries
+
+October 13 ranking decision: Ada agreed with personal-fit ranking and added research-informed natural importance. She then explicitly approved the rule and asked: “keep that rules in record! we will use for all category”. Apply the [shared ranking framework](personalization-plan-v0.md#shared-ranking-rules--all-categories) across all current and future categories: Core preparation, Make it reliable and Extra ease, with her current needs and circumstances taking priority. Exact task ratings remain editorial work rather than founder-approved facts.
+
+October 13 concern-screen decision: Ada explicitly removed “Taking time off work or study” from the sick-day choices. She also reaffirmed that users can type a specific need and that this text should be used for AI generation. Keep the five remaining choices and optional typing; do not treat the removal of a checkbox as authorization to delete stored answers or draft tasks.
+
+- Do not manufacture fear, urgency, catastrophe scenarios, guilt, or pressure to keep people reading.
+- Do not equate living alone with loneliness, vulnerability, or dissatisfaction.
+- Do not invent Ada's emotions, incidents, professional qualifications, location, relationship status, surname, or her cat's name.
+- Do not claim that content or products guarantee safety.
+- Do not claim a professional review, service, feature, or outcome that has not been established.
+- Keep the actual story and visible copy clear for readers and search systems; avoid keyword stuffing or invented expertise for GEO.
+
+## Draft founder introduction
+
+> Hi, I’m Ada. I’ve lived on my own for more than seven years, with my cat. I’m building My Safety as a peaceful place where we can embrace solo living and enjoy it fully.
+
+## Draft motivation
+
+> I don’t like fear-based content that keeps us scrolling without helping us take action. I want the time you spend here to feel useful: a little clarity, a practical step you can take, and room to get on with enjoying your life.
+
+These drafts use Ada's supplied facts. Their final wording can evolve as the About page is developed.
+
+
+## Project foundation and provenance
+
+“We are creating, not defending.” The earlier homepage describes Know → Act → Trust: learn what to do, put something useful in place, and practice taking the next step. Safety is built through knowledge, people, resources, systems and practiced actions. This supports the desired feeling “I can handle it”; it does not promise protection.
+
+The four historical internal areas remain My Backup, If I'm Out of Action, My Home and My Body. Life transitions provide context. Follow the evolving topics and established selection flow in the [product brief](current-product.md), rather than treating the five legacy labels as final navigation. The founder specifically dislikes “backup” as user-facing wording and removed Money from those choices.
+
+Mental/body support should help someone notice stress, feel more settled and take practical action. It is optional, not a prerequisite or a treatment claim. Feeling calm is not evidence of external safety.
+
+Sources: Ada's documented direct statements above; [earlier homepage source](../archive/deployed-pilot/index.html); [early build-spec text](../archive/early-v0/spec.txt); the referenced conversation “低成本数字产品” (conversation ID 6aa986a8-4138-83ea-9cad-8b3a93040306) and later founder decisions in this task. Earlier assistant summaries and product proposals are interpretations, not additional founder biography. This consolidates the September 23 philosophy source notes and the separate founder-voice reference.

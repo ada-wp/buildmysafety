@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-14",
+  "scope": "Account-specific daily AI allowance on existing tester app",
+  "deployment": "415a8acf",
+  "codeCommit": "5358d6c",
+  "clientAsset": "index-C2R59VFK.js",
+  "checks": {
+    "backendTestsPassed": 178,
+    "appTestsPassed": 130,
+    "typescriptBuildAndAllowlistedPackaging": "passed",
+    "predeployPendingDeletions": 0,
+    "founderIdentityMatchedInClerkUsers": true,
+    "founderHostedUi": "Unlimited AI requests on your account.",
+    "independentFictionalAccountUnlimited": false,
+    "healthStatus": 200,
+    "unauthenticatedCatalogStatus": 401
+  },
+  "retained": ["Other-account daily and shared caps", "Concurrent-request lock", "Replay and version guards", "Content/category validation", "Paid provider usage and provider limits"],
+  "verificationModelCalls": 0,
+  "realTaskOrProfileMutations": 0,
+  "databaseMigrations": 0,
+  "limits": "Over-cap behavior exercised with real SQL/HTTP and an injected model fixture locally; hosted access flags verified without consuming hundreds of paid calls."
+}

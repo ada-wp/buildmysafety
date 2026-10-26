@@ -1,0 +1,201 @@
+{
+  "checkedAt": "2026-10-12T18:59:45.452Z",
+  "checks": [
+    {
+      "id": "01",
+      "preflightDecision": null,
+      "modelDecision": "no_new_idea",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_02_rest_shelf",
+        "sick_03_local_help",
+        "sick_09_pause_chore"
+      ],
+      "stepsWordCounts": [],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": false
+    },
+    {
+      "id": "02",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_01_easy_food"
+      ],
+      "stepsWordCounts": [
+        9,
+        9,
+        22
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": true
+    },
+    {
+      "id": "03",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_09_pause_chore"
+      ],
+      "stepsWordCounts": [
+        9,
+        16,
+        17
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": true
+    },
+    {
+      "id": "04",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_01_easy_food",
+        "sick_02_rest_shelf",
+        "sick_03_local_help",
+        "sick_09_pause_chore"
+      ],
+      "stepsWordCounts": [
+        17,
+        13,
+        14
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": true
+    },
+    {
+      "id": "05",
+      "preflightDecision": null,
+      "modelDecision": "no_new_idea",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_07_pet_care_note",
+        "sick_08_pet_sitter"
+      ],
+      "stepsWordCounts": [],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": false
+    },
+    {
+      "id": "06",
+      "preflightDecision": null,
+      "modelDecision": "no_new_idea",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_03_local_help",
+        "sick_05_care_contact",
+        "sick_06_appointment_trip"
+      ],
+      "stepsWordCounts": [],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": false
+    },
+    {
+      "id": "07",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_03_local_help",
+        "sick_04_remote_check_in"
+      ],
+      "stepsWordCounts": [
+        18,
+        22,
+        24
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": true
+    },
+    {
+      "id": "08",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_02_rest_shelf",
+        "sick_03_local_help",
+        "sick_09_pause_chore"
+      ],
+      "stepsWordCounts": [
+        19,
+        24,
+        20
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": true
+    },
+    {
+      "id": "09",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 3,
+      "eligibleUnshownPoolActions": [
+        "sick_03_local_help"
+      ],
+      "stepsWordCounts": [
+        15,
+        21,
+        13
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "passed",
+      "deliverableTask": true
+    },
+    {
+      "id": "10",
+      "preflightDecision": null,
+      "modelDecision": "generated",
+      "knownPreviousOutcomes": 0,
+      "eligibleUnshownPoolActions": [
+        "sick_01_easy_food",
+        "sick_02_rest_shelf",
+        "sick_09_pause_chore"
+      ],
+      "stepsWordCounts": [
+        16,
+        17,
+        16
+      ],
+      "withinTimeLimit": true,
+      "resourceLinks": 0,
+      "validator": "rejected",
+      "error": "constraint_violation",
+      "deliverableTask": false,
+      "keywordDiagnostic": {
+        "onlyChange": "place an order → request the service",
+        "acceptedAfterChange": true,
+        "rawOutputPreserved": true
+      }
+    }
+  ],
+  "totals": {
+    "realModelRuns": 10,
+    "tasksGenerated": 7,
+    "noIdeaDecisions": 3,
+    "validatorAcceptedTasks": 6,
+    "rejectedOutputs": 1,
+    "tasksWithLinkedResources": 0
+  },
+  "note": "Offline replay of the current application validators against genuine captured model outputs. Format acceptance is not editorial approval or a hosted delivery."
+}

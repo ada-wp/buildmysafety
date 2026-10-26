@@ -1,0 +1,23 @@
+{
+  "template": "Asme",
+  "commit": "72fa5c747912adb192b0a8dd0306bad044afbe9f",
+  "repository": "https://github.com/MohammadShehadeh/hirael",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "registry/hirael/bases/radix/templates/asme/about.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/asme/about.tsx",
+      "sha256": "9d15a66d1ccfdf7a2ea237f38b01a9787cf551a7be99aa5e5ebdb7470c8470e5"
+    },
+    {
+      "path": "registry/hirael/bases/radix/templates/asme/philosophy.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/templates/asme/philosophy.tsx",
+      "sha256": "efe875e035ff7453d22fa062d421436a5732f2c67084ea736182230d7eb516e1"
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/LICENSE",
+      "sha256": "d74a67fe12e89c99fb81cf6fd8add925accb28a16f36e6c1b37d2277598858d3"
+    }
+  ]
+}

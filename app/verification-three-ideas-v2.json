@@ -1,0 +1,53 @@
+{
+  "testedAt": "2026-10-14T19:20:05.091Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "account": "a",
+  "evidence": "Existing fictional Clerk session; no history resets. UI checks are separate.",
+  "firstElapsedMs": 9044,
+  "request": {
+    "topicId": "sick_care",
+    "concernIds": [
+      "getting_care"
+    ],
+    "country": "US",
+    "note": "Before a future sick day, I want to understand affordable virtual care when I have no established clinic. Help me research access, costs and practical limitations without booking or buying anything."
+  },
+  "httpStatus": 200,
+  "result": {
+    "status": "ok",
+    "source": "pool",
+    "delivery": "shown",
+    "reviewRequired": true,
+    "metadata": null,
+    "batch": {
+      "status": "needs_context",
+      "message": "I couldn’t put together three useful new ideas just now. Your choices are still here—please try again.",
+      "tasks": []
+    },
+    "adaptation": {
+      "status": "unavailable",
+      "actionKey": null,
+      "message": null,
+      "refinement": false,
+      "newNeed": true
+    },
+    "trace": {
+      "contextVersion": 1,
+      "concernPolicy": "category",
+      "profileRevision": 2,
+      "stateVersion": "12",
+      "promptHash": "01c91c73be510761544397f2c7453f51a8b7d7d91c0b776b6fef91e280711d4e",
+      "candidateCount": 20
+    },
+    "requestId": "9b7416fd-862e-4eee-9a92-4c7f189787e2",
+    "request": {
+      "topicId": "sick_care",
+      "concernIds": [
+        "getting_care"
+      ],
+      "country": "US"
+    },
+    "stateVersion": "13",
+    "replayed": false
+  }
+}

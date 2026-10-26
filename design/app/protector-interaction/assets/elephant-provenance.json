@@ -1,0 +1,9 @@
+{
+  "asset": "elephant.svg",
+  "source": "https://app-auth-staging.buildmysafety.pages.dev/elephant.svg",
+  "observedOn": "https://app-auth-staging.buildmysafety.pages.dev/?v=7c597a2f#/app/list",
+  "retrievedDate": "2026-10-15",
+  "method": "Browser page asset inventory and bundle",
+  "purpose": "Reuse the current app character in the Protector Interaction design mockups",
+  "modified": false
+}

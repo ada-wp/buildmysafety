@@ -1,0 +1,47 @@
+{
+  "testedAt": "2026-10-14T17:16:55.481Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "evidence": "Independent fictional Clerk B session, hosted Worker/D1 and one real OpenAI attempt; separate from UI checks.",
+  "input": {
+    "topicId": "sick_care",
+    "concernIds": [],
+    "country": "US",
+    "note": "I want to understand how to have medicine delivered to my home without going out."
+  },
+  "httpStatus": 200,
+  "result": {
+    "status": "ok",
+    "source": "pool",
+    "delivery": "shown",
+    "reviewRequired": true,
+    "metadata": null,
+    "batch": {
+      "status": "needs_context",
+      "message": "That would repeat an earlier outcome. Tell me what still feels missing or what you need to do differently.",
+      "tasks": []
+    },
+    "adaptation": {
+      "status": "no_new_idea",
+      "actionKey": null,
+      "message": null,
+      "refinement": false,
+      "newNeed": true
+    },
+    "trace": {
+      "contextVersion": 1,
+      "concernPolicy": "category",
+      "profileRevision": 7,
+      "stateVersion": "42",
+      "promptHash": "ebcc15cd47f1a3b5c7a443db6657bd369637ff570174a166ed5dc76d020ad7f8",
+      "candidateCount": 16
+    },
+    "requestId": "26691bdc-96a0-4245-9eb6-3036f51e8653",
+    "request": {
+      "topicId": "sick_care",
+      "concernIds": [],
+      "country": "US"
+    },
+    "stateVersion": "43",
+    "replayed": false
+  }
+}

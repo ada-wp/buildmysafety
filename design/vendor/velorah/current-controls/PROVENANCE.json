@@ -1,0 +1,16 @@
+{
+  "commit": "72fa5c747912adb192b0a8dd0306bad044afbe9f",
+  "downloadedAt": "2026-09-24T02:05:58.928Z",
+  "files": [
+    {
+      "name": "toggle.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/ui/toggle.tsx",
+      "sha256": "fbf15f7be851504f639ba80938e5545d4246b00399c04f2f1027b47c0620409e"
+    },
+    {
+      "name": "toggle-group.tsx",
+      "url": "https://raw.githubusercontent.com/MohammadShehadeh/hirael/72fa5c747912adb192b0a8dd0306bad044afbe9f/registry/hirael/bases/radix/ui/toggle-group.tsx",
+      "sha256": "01a507e656964fc7533665f79492b4486de90a9a61e53aa528ef28d26f5be3de"
+    }
+  ]
+}

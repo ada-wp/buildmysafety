@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-29",
+  "status": "completed",
+  "documentsRemovedFromOldActiveFolders": 10,
+  "recoveryArchive": "outputs/safety-project-sync-20260929/redundant-documents-recovery-20260929.zip",
+  "recoverySha256": "7b54b704dd7c0b6069b99d08e64659211884806d9dca8767a4ab7c0de81fbc15",
+  "verification": "Every ZIP entry and source checksum matched before removal; original files are recoverable.",
+  "files": [
+    {
+      "source": "2026-09-18/referenced-chatgpt-conversation-this-is-an/outputs/Safety_Project_V0_Build_Spec.pdf",
+      "bytes": 146546,
+      "sha256": "2ceea7a95c0cbfac3835b4ac988c2f6c9c6dc7eca826c3db1bce49ab4679ef4a"
+    },
+    {
+      "source": "2026-09-18/referenced-chatgpt-conversation-this-is-an/outputs/Safety_Project_V0_Build_Spec.docx",
+      "bytes": 69718,
+      "sha256": "786cda8d912139140efaa1aa22d3890c811b989a32ef6703a30f4cdb527f39fc"
+    },
+    {
+      "source": "2026-09-18/referenced-chatgpt-conversation-this-is-an/outputs/Safety_Project_Setup_Guide.pdf",
+      "bytes": 72196,
+      "sha256": "3a1dbb789d7ffcfce49705c73dc0b13f60572587f7de5f3678cb7dd289c1c6f9"
+    },
+    {
+      "source": "2026-09-18/referenced-chatgpt-conversation-this-is-an/outputs/Safety_Project_Setup_Guide.docx",
+      "bytes": 43009,
+      "sha256": "f3d54dd60e2b6c86cfd976009961cd1c0a06f6ed940e8beeb7e9529321b3f9ab"
+    },
+    {
+      "source": "2026-09-18/referenced-chatgpt-conversation-this-is-an/outputs/Safety_Pilot_Current_Plan.md",
+      "bytes": 7290,
+      "sha256": "93c3718089900478d5c2c76bc18bd149c1df91ae5fbaea3a08c3d6feccf581d3"
+    },
+    {
+      "source": "outputs/safety-market-20260923/Safety_Philosophy_Source_Notes.md",
+      "bytes": 4861,
+      "sha256": "31dcbe6ddf5e9e183e9e198ee7e0637662691e7f4c22846fd68b1e468c533b94"
+    },
+    {
+      "source": "outputs/safety-preventive-20260923/Build_My_Safety_Project_Instructions.md",
+      "bytes": 3498,
+      "sha256": "5a15ec9767d6fb243c610a260edd3588c97fe3ef19fe86e8d6a2fb973119ca3d"
+    },
+    {
+      "source": "outputs/safety-open-source-20260929/Reuse_Recommendation.md",
+      "bytes": 8219,
+      "sha256": "8d883940e620705d59606b4f6e4cb49b52950f8933f2753f089db95bc3accbd6"
+    },
+    {
+      "source": "outputs/safety-open-source-20260929/Second_Search_and_Live_Test.md",
+      "bytes": 8832,
+      "sha256": "cbe2d2ac56118206eb707c850895461fec6d7f15ce0067ef6ab6953c26eddb79"
+    },
+    {
+      "source": "outputs/safety-open-source-20260929/Product_Engineering_Decision.md",
+      "bytes": 18825,
+      "sha256": "7e187d9e64fd30ef18dfa644bbf1778de691aefd8a66b943ab6021ff095ca0ad"
+    }
+  ]
+}

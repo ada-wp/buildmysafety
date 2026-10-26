@@ -1,0 +1,27 @@
+{
+  "capturedAt": "2026-10-12T20:14:31.268Z",
+  "model": "gpt-6-luna",
+  "reasoning": "low",
+  "method": "Three independent OpenAI Playground Responses runs; Store logs off; no tools; same one-task schema; candidate prompt and candidate resource knowledge; no authored examples supplied.",
+  "promptHash": "ab08b21b6ac4cc2fb4489dea5ba8d1a1b988fa7705f3a62406b12527ccd4fd19",
+  "promptChecksum": "c83525e7",
+  "packetChecksums": ["7f8858b6", "9ebda646", "1bb2948c"],
+  "billing": "Exact billed amounts and full input/output token accounting not retrieved. UI token badges are not billing totals.",
+  "results": [
+    {
+      "id": "A",
+      "uiBadge": "4.1s 204t",
+      "rawText": "{\n\"decision\": \"generated\",\n\"task\": {\n\"action_key\": \"sick_10_errand_helper\",\n\"concern_ids\": [\n\"daily_tasks\"\n],\n\"title\": \"Compare a local errand-helper option\",\n\"summary\": \"Taskrabbit can be a starting point for paid everyday errands in supported areas. Check the full cost and coverage before deciding whether it suits a future sick day.\",\n\"estimated_minutes\": 15,\n\"steps\": [\n\"Search Taskrabbit for shopping or errands in your area; note whether the service is available locally.\",\n\"Compare the total charges, what tasks are included, and how much notice booking requires.\",\n\"Save one candidate and any unanswered questions, or note that coverage or cost makes it unsuitable.\"\n],\n\"done_when\": \"One local candidate and its key cost and availability questions are saved, or a specific barrier is clear.\",\n\"resources\": [\n{\n\"resource_id\": \"us_taskrabbit_errands_candidate\",\n\"why\": \"Research paid shopping and errand help in supported locations.\"\n}\n],\n\"purchase_checks\": [],\n\"no_purchase_option\": null\n}\n}"
+    },
+    {
+      "id": "B",
+      "uiBadge": "3.6s 230t",
+      "rawText": "{\n\"decision\": \"generated\",\n\"task\": {\n\"action_key\": \"research_cat_sitter\",\n\"concern_ids\": [\n\"pets\"\n],\n\"title\": \"Find a cat sitter worth contacting\",\n\"summary\": \"Compare local drop-in sitters before you need one. A listing is only a lead, so check the details directly before relying on anyone.\",\n\"estimated_minutes\": 15,\n\"steps\": [\n\"Compare nearby cat drop-in profiles on Rover or find member businesses through Pet Sitters International.\",\n\"Shortlist one candidate with relevant cat-care experience; check visit fees, notice needed and whether they can meet you first.\",\n\"Send a brief inquiry about future availability and what happens if they cannot attend; save the reply as pending until agreed.\"\n],\n\"done_when\": \"One candidate and their key details are saved, with any unanswered inquiry clearly marked pending.\",\n\"resources\": [\n{\n\"resource_id\": \"us_rover_sitting\",\n\"why\": \"Compare paid cat drop-in sitter profiles in your area.\"\n},\n{\n\"resource_id\": \"us_psi_sitter_candidate\",\n\"why\": \"Find pet-care businesses to contact about experience, fees and future availability.\"\n}\n],\n\"purchase_checks\": [],\n\"no_purchase_option\": null\n}\n}"
+    },
+    {
+      "id": "C",
+      "uiBadge": "2.5s 169t",
+      "rawText": "{\n\"decision\": \"generated\",\n\"task\": {\n\"action_key\": \"sick_day_note\",\n\"concern_ids\": [\n\"daily_tasks\"\n],\n\"title\": \"Make a short sick-day note\",\n\"summary\": \"Bring your existing details together in one private note, so the useful information is easy to find when you’re resting.\",\n\"estimated_minutes\": 8,\n\"steps\": [\n\"Choose a private place on your phone or paper where you can find the note easily.\",\n\"Add headings: pharmacy delivery and number; food and resting spot; clinic contact or appointment details, if known.\",\n\"Under each heading, add only the details you already have; leave anything unknown blank rather than guessing.\"\n],\n\"done_when\": \"One private note holds your pharmacy number and useful headings for your existing sick-day arrangements.\",\n\"resources\": [],\n\"purchase_checks\": [],\n\"no_purchase_option\": null\n}\n}"
+    }
+  ]
+}

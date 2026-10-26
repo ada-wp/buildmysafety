@@ -1,0 +1,41 @@
+{
+  "testedAt": "2026-10-14T18:30:43.014Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "status": "passed",
+  "accounts": "Existing approved fictional A and B; independent Clerk development sessions",
+  "evidence": "Actual hosted Worker/D1/API reads and writes, not browser-button or device evidence.",
+  "aiCalls": 0,
+  "accountsCreated": 0,
+  "accountsDeleted": 0,
+  "unauthenticatedDenied": true,
+  "initialCountsMatchOwnedTaskState": true,
+  "accountCounts": {
+    "a": {
+      "tasks": 9,
+      "awards": 1
+    },
+    "b": {
+      "tasks": 16,
+      "awards": 3
+    }
+  },
+  "ownerOverrideDenied": true,
+  "milestoneAcknowledgementPersists": true,
+  "acknowledgementReplayIsIdempotent": true,
+  "optionalCheckInPersists": true,
+  "checkInReplayIsIdempotent": true,
+  "ownerExportIncludesProgress": true,
+  "undoRecompletionDoesNotRepeatAwards": true,
+  "seenMilestonesSurviveUndo": true,
+  "taskCompletionRestorationConfirmed": true,
+  "otherAccountUnchanged": true,
+  "taskMembershipAndCompletionRestored": true,
+  "taskInstructionsAndOtherTaskStatesUnchanged": true,
+  "earnedAwardsUnchanged": true,
+  "aiAttemptHistoryUnchanged": true,
+  "profileAndLatestSuggestionsUnchanged": true,
+  "finalCountsMatchOwnedTaskState": true,
+  "completionTimestampMayHaveChanged": false,
+  "syntheticProgressRecordRetained": true,
+  "finishedAt": "2026-10-14T18:31:08.576Z"
+}

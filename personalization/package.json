@@ -1,0 +1,21 @@
+{
+  "name": "my-safety-personalization",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "build:check": "node build.mjs --check",
+    "pretest": "node build.mjs --check",
+    "test": "node --test test/*.test.mjs",
+    "demo": "node demo.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "jose": "6.2.12"
+  }
+}

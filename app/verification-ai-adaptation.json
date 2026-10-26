@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-12",
+  "deployment": "6671e673",
+  "clientBundle": "index-DuMECxhm.js",
+  "environment": "app-auth-staging, Clerk development, remote staging D1",
+  "migration": "0004_ai_adaptation.sql",
+  "model": "gpt-6-luna",
+  "realCalls": 2,
+  "limits": { "attemptsPerUserUtcDay": 3, "attemptsGlobalUtcDay": 30, "timeoutSeconds": 30, "maxOutputTokens": 2200, "automaticRetries": 0 },
+  "automated": { "appTestsPassed": 91, "backendTestsPassed": 119, "typeScriptAndPagesBuild": "passed" },
+  "examples": [
+    {
+      "account": "Approved fictional B",
+      "input": "I want to prepare food for a future low-energy day. I have no microwave and prefer familiar food that needs no cooking. Use what I already own.",
+      "selectedConcerns": ["food", "daily_tasks"],
+      "explicitLimits": { "maxMinutes": 10, "noSpend": true },
+      "title": "Pick two no-cook favorites",
+      "estimatedMinutes": 8,
+      "summary": "Choose familiar food you already have that’s ready to eat without cooking or a microwave.",
+      "steps": [
+        "Check what ready-to-eat food you already have at home.",
+        "Choose two familiar options you’d be happy to eat on a low-energy day.",
+        "Note each option and where you keep it in your usual note."
+      ],
+      "doneWhen": "Two familiar, no-cook options you already have are noted.",
+      "batchSize": 3,
+      "adaptedTasks": 1,
+      "inputTokens": 1335,
+      "outputTokens": 224,
+      "verified": ["Saved", "Reload retained identical instructions", "Completed", "One completion reward", "A retained its own original food task"]
+    },
+    {
+      "account": "Approved fictional A",
+      "input": "I am often away from my desk. I want the contact number and booking details for a future routine appointment easy to find on my phone. This is preparation for later.",
+      "selectedConcerns": ["getting_care"],
+      "title": "Keep appointment details in your pocket",
+      "estimatedMinutes": 5,
+      "summary": "Save a future routine appointment contact on your phone so you can find it when you’re away from your desk.",
+      "steps": [
+        "On your phone, open the official website of a clinic you use or might consider for a routine appointment.",
+        "Find its appointment number or booking page, opening hours, and any new-patient or payment details you need.",
+        "Save the details in your phone contacts or a note you can quickly find; flag anything to confirm with the clinic."
+      ],
+      "doneWhen": "One clinic’s appointment contact and any unanswered practical questions are saved on your phone.",
+      "batchSize": 2,
+      "adaptedTasks": 1,
+      "inputTokens": 1363,
+      "outputTokens": 302,
+      "verified": ["New concern overrides earlier food request", "No unrelated filler", "Saved", "Reload retained identical instructions"]
+    }
+  ],
+  "cloudChecks": { "finishedAdaptedAttempts": 2, "privateContentRows": 2, "aiRowsInSharedContent": 0, "rawNotesInLatestBatches": 0 },
+  "browserChecks": ["Two authenticated owners remain separate", "393px generated-detail visual inspection", "320px no horizontal overflow", "Observed browser error log empty", "Viewport reset", "Fictional account signed out"],
+  "limitations": [
+    "Two synthetic scenarios do not establish broad content quality or medical safety",
+    "No public content approval or public launch",
+    "Only sick-day preparation supported",
+    "Other failure and quota scenarios were mocked automated checks, not forced live provider failures",
+    "No physical-device, second-browser-engine or load tests"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "checkedOn": "2026-09-29",
+  "passed": true,
+  "content": "sample tasks; no API request",
+  "checks": [
+    "three suggestions",
+    "expand brief description",
+    "save three",
+    "next batch preserves saved",
+    "saved list",
+    "first completion grows elephant",
+    "undo preserves growth",
+    "re-completion does not re-award",
+    "reload restores preview state",
+    "manual-only concern input",
+    "320/393/736px layout",
+    "no JavaScript page errors"
+  ],
+  "limits": [
+    "same-browser preview state only",
+    "no account, push or real AI test",
+    "content requires review before release"
+  ]
+}

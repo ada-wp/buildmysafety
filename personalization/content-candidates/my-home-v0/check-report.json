@@ -1,0 +1,39 @@
+{
+  "status": "structural_checks_passed",
+  "checked_at": "2026-10-15",
+  "task_count": 56,
+  "checkbox_count": 5,
+  "learning_tasks": 26,
+  "preparation_tasks": 30,
+  "learning_percentage": 46.4,
+  "original_tasks_ranked": 50,
+  "added_tasks": [
+    "HM51",
+    "HM52",
+    "HM53",
+    "HM54",
+    "HM55",
+    "HM56"
+  ],
+  "ranking_status": "proposed_research_informed_order_not_live",
+  "resource_bearing_tasks": 26,
+  "source_count": 70,
+  "priority_counts": {
+    "core_preparation": 18,
+    "make_it_reliable": 31,
+    "extra_ease": 7
+  },
+  "checks": [
+    "unique IDs/outcome keys/titles",
+    "three practical steps",
+    "valid concern/source/resource references",
+    "at most two resources per card",
+    "one concise search prompt per learning card",
+    "agreed learning proportion",
+    "basic copy and required fields",
+    "complete unique editorial order and original-fifty ranking",
+    "three-card example batches respect resource and outcome rules"
+  ],
+  "limitations": "Editorial structure only. No model call, runtime matcher, hosted app, provider availability or professional content validation was tested.",
+  "errors": []
+}

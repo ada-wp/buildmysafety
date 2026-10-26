@@ -1,0 +1,31 @@
+# Design collection
+
+There are two distinct design assets: the approved ivory/lavender app direction and a separate cinematic branding website. Neither is a newly deployed app.
+
+## App journey
+
+- [Latest approved UI and Replit handoff](../UI-DESIGN-LATEST.md): October 26 Option A compact checkable rows, with Inter throughout the app. Implemented in source; cloud migration/deployment and fresh visual review remain. This supersedes the historical oversized-font trial below.
+- [Protector Interaction](app/protector-interaction/README.md): separate approved four-screen journey/affirmation design; not yet integrated into the app.
+- [Inter typography trial](app/typography/README.md): historical October 15 font preview, now frozen. Ada found the type too large and requested compact mockups first; unapproved app changes were restored. Preserve the palette, elephant and established flow while reviewing smaller type and checkable/expandable content. Earlier screenshots remain design references.
+
+- [Conversational onboarding](app/onboarding/README.md): the latest clickable entry journey, with eleven choice-led questions, a solo-living text-bubble interest picker, brief answer-based comments, an editable recap, and connected sample tasks. Includes Ada's earthy-green button trial; ivory and lavender remain dominant. Ready for visual review. The [personalization plan](../docs/personalization-plan-v0.md) describes how answers should shape topics and feasible recommendations.
+- [Five V0 flow details](app/v0-flow/README.md): email-code sign-in, removal/Undo, empty/all-done lists, generation recovery and gentle growth. Email sign-in is confirmed; the new screen treatments are ready for review and use synthetic behavior.
+- [Simple navigation proposal](app/navigation/README.md): two main destinations, labeled return paths, and a clickable sample preview; awaiting visual review.
+- [Completion and elephant-growth proposal](app/completion-feedback-proposal.md): research-informed next-screen behavior under discussion; fun, gentle feedback after either completion entry point.
+- [Approved task detail](app/task-detail/README.md): Option A as shown in Ada's screenshot, with visible steps and collapsed optional link/purchase rows. The [three-option comparison](app/task-detail-options/README.md) is retained as design history.
+- [Interactive sick-day preview and Figma reference](app/README.md): the next list/completion/growth views, plus links to seven editable onboarding frames.
+- [My list](app/screens/03-my-list.png) and [first elephant growth](app/screens/04-first-growth.png).
+- [Current concern choices](app/concern-content.json): five categories, five choices each, mapped to research IDs.
+- [Chosen minimal elephant direction](assets/meet-your-protector-minimal.png) and [revision brief](assets/minimal-revision-prompt.md).
+
+Use the conversational onboarding preview for the latest connected entry journey; keep the approved task-detail reference for its layout and the five-flow notes for behavior. Earlier realistic animal options were rejected and remain in local history. Do not copy Finch's artwork. The new screens await founder review and have not been written into Figma.
+
+## Branding website source
+
+[React/Vite source and run instructions](website-preview/README.md), [third-party notices](website-preview/THIRD_PARTY_LICENSES.txt) and [vendor provenance](vendor/) are preserved together. The approved woman illustration has one canonical file in `website-preview/public/media`; the duplicate documentation copy was omitted. About-page story, SEO/prerender behavior and optional scene motion are documented in the source README. Earlier setup/animation plans were consolidated into it rather than kept as parallel instructions.
+
+Run from `design/website-preview` with `npm ci --ignore-scripts`, then `npm run dev`. The committed lockfile preserves the existing source environment; no dependency upgrade was performed in this cleanup. Review third-party asset rights and dependencies before production use.
+
+## Review focus
+
+Try adding a suggestion, opening My list, completing a task, and returning for more ideas. Check whether the list feels calm and usable, task detail is short enough, and the elephant acknowledges progress without dominating the action. Sample content is for interaction review; personalized AI quality is the next implementation gate.

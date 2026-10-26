@@ -1,0 +1,941 @@
+Safety Project V0 Build Spec
+Implementation guide for the free Safety Scan and paid Safety Journey
+
+Version 1.0 | 18 September 2026
+
+Build a small, dependable product that helps someone notice a practical gap, choose one manageable action, and build everyday support over time.
+
+The free product is a 14-question Safety Scan, an immediate personalized result, and an optional emailed Safety Map. The paid product is Build My Backup System, a four-week digital Safety Journey for $29 USD, paid once.
+
+The four areas are My Backup, If I’m Out of Action, My Home, and My Body. Life transitions provide context. They are never a fifth area, a risk multiplier, or a reason to pressure someone to buy.
+
+This specification is the implementation contract for the founder and Codex. It supplies customer copy, deterministic rules, integration contracts, delivery steps, operational safeguards, and acceptance tests. Build the free journey first; activate checkout only after the paid materials and fulfillment have passed testing.
+
+Release principle
+Personalization selects from a fixed, human-reviewed library. No model generates, rewrites, ranks, or delivers safety advice at runtime. Scores describe reported preparation, not a person’s actual safety, health, or likelihood of harm.
+
+Decision owners
+The founder approves product wording, operational policies, vendors, and pricing. A suitable human reviewer checks each action for scope, accessibility, and foreseeable harm before publication. Codex implements and tests the approved version. Draft copy in this document must not be represented as already professionally reviewed.
+
+Launch defaults
+English-language pilot for adults aged 18 and over; women are the initial audience, while the language welcomes anyone who finds the planning useful. No diagnosis, emergency response, safeguarding assessment, insurance advice, or professional certification is offered.
+
+===PAGE===
+01 Reading and build order
+Use this document as the single product reference
+
+The sections follow the customer journey and then the implementation sequence. Customer-facing strings are identified as Copy. Everything else is an implementation requirement or a proposed operating default.
+
+Document map
+02 Product and scope; 03–04 landing page; 05–07 exact quiz; 08–09 scoring and routing; 10–11 result templates; 12–14 action library; 15–16 emails; 17–18 paid journey; 19 architecture; 20–23 setup; 24–25 schemas and contracts; 26 reliability; 27 privacy; 28 QA; 29 launch and metrics; 30 acquisition and upgrade; 31–32 Codex prompts; 33 sources and launch decisions.
+
+Stage 1  Build the free experience locally
+Implement the copy, typed content library, scoring function, four-area results, and test fixtures using fake data. Prove that the same answers always produce the same output. No vendor credentials are needed for this stage.
+
+Stage 2  Connect a staging environment
+Create a separate Tally test form, Airtable test base, Make scenarios, and Brevo test templates. Deploy a protected preview. Connect the full scan-to-map flow and test failure recovery before sharing publicly.
+
+Stage 3  Release the free pilot
+Complete human content review, privacy notice, support address, domain authentication, accessibility checks, deletion test, and live smoke test. Invite a small group. Keep the paid CTA hidden until Stage 4 passes.
+
+Stage 4  Activate the paid offer
+Prepare all four workbooks and emails before charging anyone. Connect Stripe in test mode, verify fulfillment and refunds, then switch to live credentials and approved checkout policies.
+
+Stage 5  Decide with evidence
+Review activation, action completion, willingness to pay, refunds, and support effort. Improve the scan or content before adding software features.
+
+Done means
+A real person can complete the scan, receive the correct result, carry out one appropriate action, request a private email map, unsubscribe, and request deletion. An operator can recover a failed run without guessing or accidentally sending every message again.
+
+===PAGE===
+02 Positioning and product boundaries
+Safety as practical preparation
+
+Positioning
+For women who want everyday life to feel more manageable, Safety Project helps turn vague worries into small, practical preparations across support, continuity, home, and personal care navigation. The benefit is greater readiness and agency. The emotional ambition is “I can handle it,” never a guarantee that nothing bad will happen.
+
+Philosophy
+Safety can be strengthened through knowledge, people, resources, systems, and practiced actions. A useful next step should be specific, affordable where possible, and within the person’s control. A lack of money, reliable contacts, mobility, or time must not be framed as personal failure.
+
+Four areas
+My Backup: people and services someone could realistically ask for practical help.
+If I’m Out of Action: continuity for everyday responsibilities if someone is unavailable.
+My Home: access to trusted household guidance, maintenance contacts, and simple preparation.
+My Body: organizing questions and knowing how to reach qualified care; no symptom assessment or treatment.
+
+Transition context
+Moving, changes in household or relationships, caregiving, work changes, and changes in health or energy can make old arrangements less useful. The scan may add one neutral reminder to revisit arrangements. It must never infer abuse, pregnancy, disability, diagnosis, income, or relationship status beyond what the user explicitly selects.
+
+Deliverables for the free user
+Four descriptive area summaries; up to three reported strengths; up to three things to strengthen; one first action; a private printable result page; optionally an email containing the same map. There is no paywall to see results and no email requirement to complete the scan.
+
+Out of scope for V0
+Accounts, passwords, dashboard, native app, community, chat, AI recommendations, live monitoring, location tracking, emergency alerts, contact vaults, medical records, document uploads, appointment booking, automatic messages to family, subscriptions, and personalized professional advice. Do not add an overall safety score or red danger meter.
+
+===PAGE===
+03 Exact landing page copy
+Primary page structure
+
+Navigation
+Safety Project | How it works | What you get | Questions
+Button: Take the Free Safety Scan
+
+Hero copy
+Build a safer life, one practical block at a time.
+Find a useful place to start across your people, your everyday responsibilities, your home, and your care arrangements. Get a simple Safety Map and one action you can take next.
+Button: Take the Free Safety Scan
+Supporting line: Free. 14 questions. About 5 minutes. No account or email required to see your result.
+
+Trust copy
+Your answers select from a fixed library of practical planning steps reviewed before publication. No AI-generated safety advice. This is a preparation tool, not an assessment of how safe you are.
+Implementation: publish the review claim only after the review register is complete. Until then, keep the pilot private and label it as a prototype.
+
+Four areas copy
+My Backup — Who or what could help when you need a hand?
+If I’m Out of Action — What needs to keep going if you cannot manage things for a few days?
+My Home — Where can you find the information and help you need for your home?
+My Body — How can you make it easier to find care and ask the questions that matter to you?
+
+How it works copy
+1. Take a short scan. Tell us what you already have in place. Skip anything you do not want to answer.
+2. See your Safety Map. Notice what you reported as ready and what you might like to strengthen.
+3. Choose one small step. Start with a practical action. You decide whether it fits your life.
+
+Result preview copy
+Already solid: You know how to contact someone for practical help.
+Worth strengthening: Your everyday responsibilities could use a simple backup note.
+Your first safety block: Write down three things that would need attention if you were unavailable for three days.
+Caption: Example only. Your map depends on your answers.
+
+===PAGE===
+04 Landing page continuation and interface copy
+Use calm language throughout
+
+Why this exists copy
+You do not need to prepare for everything at once. Sometimes one clear contact, one useful note, or one small conversation makes daily life easier to manage. Safety Project gives you a place to begin.
+
+FAQ copy
+Does this tell me whether I’m safe?
+No. The scan reflects your answers about practical arrangements. It cannot measure risk or predict what will happen.
+
+Do I have to share personal details?
+You do not need to share names of contacts, an address, diagnoses, passwords, or documents. You can skip any scan question. Email is optional.
+
+Will you send me marketing emails?
+Only if you separately ask for the follow-up emails. Requesting your Safety Map does not subscribe you to marketing.
+
+Is this for emergencies?
+No. This service is not monitored for emergencies. If you need urgent help, contact the appropriate local emergency service or qualified local support.
+
+What happens after the free scan?
+Your map is free. If you want more structure, you can choose Build My Backup System, a four-week digital Safety Journey for $29 USD, paid once. There is no subscription.
+Implementation: hide the paid FAQ and links until the paid offer is ready.
+
+Final CTA copy
+Start with one thing you can make easier.
+Button: Take the Free Safety Scan
+
+Footer copy
+Practical planning for everyday life. Not medical, legal, financial, or emergency advice.
+Links: Privacy | Terms | Contact | Email preferences
+
+System states copy
+Loading: “We’re putting your map together. This usually takes a moment.”
+After 60 seconds: “Your map is taking longer than expected. You can try again here shortly. If you requested email, we’ll send it when it’s ready.”
+Expired link: “This private link has expired. You can take a new scan.”
+Missing session: “We can’t open this map in this browser. Use the private link from your email or start a new scan.”
+Error: “We couldn’t load your map. Your answers may already be saved. Please retry before submitting again.”
+No fear-based headlines, fake scarcity, invented testimonials, certification badges, or promises to prevent harm.
+
+===PAGE===
+05 Exact scan introduction and answer options
+Fourteen questions plus optional email controls
+
+Copy
+Your Safety Scan
+This is a short reflection on practical arrangements, not a test. Choose what fits today. “Not yet” is a useful starting point. You can choose “Prefer not to answer” on any question.
+Please do not enter names, addresses, medical details, passwords, or stories about emergencies. This service is for adults aged 18 and over and is not monitored for urgent help.
+
+Entry confirmation
+Before opening Tally, show a required checkbox: “I am 18 or older and understand that this is a practical planning tool, not an emergency service.” If unchecked, do not start the form. Do not collect a date of birth. This is self-attestation, not age verification.
+
+Questions Q01–Q12
+Use a single-select field for every question. All fields are required to choose an option, but all offer an explicit skip. Use the same options in the same order:
+READY — “Yes — in place and usable now”
+PARTLY — “Partly — started, but not reliable yet”
+NOT_YET — “Not yet”
+UNSURE — “I’m not sure”
+NA — “This does not apply to me”
+SKIP — “Prefer not to answer”
+
+Do not silently treat a missing or unrecognized answer as NOT_YET. Missing required payload fields are a validation failure. NA and SKIP are deliberate excluded answers, not zeroes.
+
+Form organization
+Page 1: introduction and My Backup, Q01–Q03.
+Page 2: If I’m Out of Action, Q04–Q06.
+Page 3: My Home, Q07–Q09.
+Page 4: My Body, Q10–Q12.
+Page 5: optional context Q13 and preference Q14, both with skip options; email controls and Submit.
+Display progress, Back, and Continue. Final button: “Show my Safety Map”. Do not calculate scores inside Tally; maintain one scoring implementation in Next.js.
+
+Hidden fields
+scan_id, session_proof, quiz_version, source_code. The app supplies them. They are technical identifiers, not extra questions. Never put an email address or answer in a URL parameter.
+
+===PAGE===
+06 Exact preparation questions
+Three questions in each area
+
+My Backup
+Q01 — “Do you have at least one person or service you could realistically ask for practical help if you were unwell for three days?”
+Q02 — “Have you checked what kind of help that person or service could offer, and when?”
+Q03 — “Do you have another option if your first source of help is unavailable?”
+
+If I’m Out of Action
+Q04 — “Do you have a short list of the everyday responsibilities that would need attention if you were unavailable for three days?”
+Q05 — “Does an appropriate person know where to find basic instructions for those responsibilities, without needing your passwords?”
+Q06 — “Have you chosen one realistic backup arrangement for a responsibility that cannot simply wait?”
+
+My Home
+Q07 — “Do you know where to find trusted guidance for an urgent household problem or a local emergency affecting your home?”
+Q08 — “Do you know who to contact about a repair or safety concern in your home?”
+Q09 — “Have you identified one basic household preparation to check using official local guidance or the relevant manufacturer’s instructions?”
+
+My Body
+Q10 — “Do you know how to contact a qualified healthcare service for a non-urgent question?”
+Q11 — “Do you have a private way to write down questions before a healthcare appointment?”
+Q12 — “Have you thought about any practical support that could help you access care, such as transport, language support, or time away from responsibilities?”
+
+Implementation notes
+Use the answer options on the previous page exactly. Do not add conditionals that ask for diagnoses, symptoms, names of dependants, vulnerabilities in a home, or contact details for other people. Question identifiers remain stable even if approved wording changes. A meaning change requires a new quiz version and updated fixtures.
+
+These questions measure self-reported arrangements only. Someone who answers READY to all twelve has not been medically or professionally assessed and must never be told that they are safe, low risk, protected, or fully prepared.
+
+===PAGE===
+07 Exact context and email controls
+Context changes language and preference breaks ties
+
+Q13 — “Is a recent or upcoming change a reason you’re checking your arrangements today?”
+Single select; required selection with a skip option.
+NONE — “No particular change”
+MOVE — “Moving or a change at home”
+HOUSEHOLD — “A change in my household or relationships”
+CARE — “New or changing caring responsibilities”
+WORK — “A change in work or daily routine”
+ENERGY — “A change in health or energy”
+OTHER — “Another change — no details needed”
+SKIP — “Prefer not to answer”
+
+Q14 — “If two areas look equally useful to work on, where would you prefer to start?”
+Single select; required selection with a skip option.
+BACKUP — “My Backup”
+CONTINUITY — “If I’m Out of Action”
+HOME — “My Home”
+BODY — “My Body”
+NONE — “No preference”
+SKIP — “Prefer not to answer”
+
+Email controls after Q14
+Unchecked checkbox map_requested: “Email me a copy of my Safety Map.”
+Show an email input only if checked. Label: “Email address”. Helper: “Use an inbox you feel comfortable receiving this in. We will send a private link and your planning summary.” Require a valid email only on this branch.
+Show a separate unchecked checkbox followup_consent only on this branch: “Also send me three follow-up emails over the next week, including an optional paid Safety Journey. I can unsubscribe at any time.”
+Text with Privacy link: “We use your answers to create your map. Read how we store and delete data in our Privacy Notice.” No bundled marketing consent or prechecked boxes.
+
+Confirmation copy
+“Thanks. Your map is being prepared. If this page doesn’t move automatically, return to your Safety Map in the original tab.”
+
+Rules
+No email branch means no email address retained, no Brevo contact, and no follow-up jobs. A map request alone permits the requested map delivery, not the promotional sequence. Consent timestamps and exact consent text version must be recorded. Q13 never changes scores or action priority. Q14 only breaks ties between eligible areas.
+
+===PAGE===
+08 Deterministic scoring specification
+Internal preparation scores only
+
+Answer values
+READY = 2; PARTLY = 1; NOT_YET = 0; UNSURE = 0; NA and SKIP = excluded. Keep the original answer enum so that UNSURE gets different language from NOT_YET. Score only Q01–Q12.
+
+Area calculation
+For each three-question area, n is the number of non-excluded answers and sum is their point total. If n = 0, score is null. Otherwise score = sum / (2 × n). Keep numerator and denominator for comparisons; do not compare rounded percentages.
+If n < 2: status = NOT_ENOUGH_INFORMATION regardless of the numerical score.
+If n ≥ 2 and score ≥ 0.75: status = REPORTED_READY.
+If n ≥ 2 and 0.40 ≤ score < 0.75: status = PARTLY_IN_PLACE.
+If n ≥ 2 and score < 0.40: status = START_SMALL.
+No overall score. Do not display numbers or percentile rankings to customers.
+
+Evidence lists
+Already solid contains the approved strength statement for each READY answer, in Q01–Q12 order, maximum three. The full map still shows all four area summaries. If none are READY, use: “You’ve made time to look at your arrangements. We don’t have a specific ready item to highlight from these answers.” Do not invent a strength.
+Worth strengthening contains up to three non-ready, non-excluded items. Order the chosen first-action question first, then other items by question ID. For UNSURE use “You weren’t sure whether [topic] is in place.” For PARTLY use “You’ve started [topic]; checking the remaining detail may help.” For NOT_YET use “You haven’t yet put [topic] in place.” If none, use: “Your answers did not identify a specific item to strengthen. Skipped items have not been assessed.”
+
+Selecting an area
+Eligible = n ≥ 2 AND at least one answer is PARTLY, NOT_YET, or UNSURE. Choose the eligible area with the lowest score. If tied, use Q14 if it names a tied area. Otherwise use BACKUP, CONTINUITY, HOME, BODY in that order. This ordering is a product convention, not a clinical or risk priority.
+
+Selecting an action
+Within the chosen area choose the earliest question ID among NOT_YET or UNSURE answers. If none, choose the earliest PARTLY answer. Use its fixed action ID. Never add generative text. Store quiz_version, rules_version, content_version and selected action ID with every map.
+
+===PAGE===
+09 Routing exceptions and worked examples
+No missing-data penalties
+
+Not enough information
+If no area is eligible and at least one area has n < 2, show “There isn’t enough information to choose an area for you.” Let the user choose one of the four areas on the result page. Do not rescore excluded answers. Selection uses the area’s default action: B01, O01, H01, or M01. If the user does not choose, offer G01, the private reflection action. Mark route_reason = insufficient_information.
+
+All applicable arrangements ready
+If no area is eligible and every area has n ≥ 2, all applicable answers must be READY. Select G02, a maintenance reminder. Copy: “You reported usable arrangements across the areas you answered. Pick one to revisit when circumstances change.” Never call this a clean bill of health.
+
+Personal preference after the result
+Offer “Choose a different first step” under the primary action. This opens four area buttons, then the three actions in that area. The user may select one. Keep the original route for evaluation and record selected_action_id separately. No new questionnaire is needed. Manual choice must not claim to be a recommendation based on missing data.
+
+Transition sentence
+For MOVE, HOUSEHOLD, CARE, WORK, ENERGY, or OTHER, add only: “When life changes, old arrangements may need another look. Choose a step that fits your situation now.” For NONE or SKIP add nothing. Do not repeat the selected transition in emails or analytics.
+
+Fixtures for automated tests
+F01: all READY → four REPORTED_READY areas; G02; no strengthening items.
+F02: all NOT_YET, no preference → BACKUP, B01; four START_SMALL areas.
+F03: all NOT_YET, Q14 HOME → HOME, H01.
+F04: BACKUP [READY, PARTLY, READY], others READY → BACKUP score 5/6, REPORTED_READY but still eligible; B02. Area readiness must not hide a remaining gap.
+F05: BACKUP [READY, SKIP, NA], others READY → no eligible area; insufficient-information route and G01 until choice.
+F06: all SKIP → four NOT_ENOUGH_INFORMATION summaries; G01; no gap claims.
+F07: BACKUP [PARTLY, UNSURE, READY], others READY → B02, not B01; unstarted/uncertain takes precedence over partly started.
+F08: change Q13 only → scores, selected area and action unchanged.
+F09: one unknown enum or missing Q06 → reject ingestion; do not produce a map.
+
+===PAGE===
+10 Result page assembly and first two area templates
+Every result includes all four areas
+
+Shared header copy
+Your Safety Map
+“A snapshot of the practical arrangements you reported today. This is not a risk assessment or a guarantee of safety.”
+Then render three primary sections: Already solid / Worth strengthening / Your first safety block. Follow with the four-area overview, optional context sentence, print button, and private-link expiry date. A map request displays email delivery status separately from result status.
+
+First action card
+Title = action title. Body = exact approved steps. Show time estimate, completion criterion, and fallback. Buttons: “I did this”, “I’ll do this later”, “This doesn’t fit”, and “Choose a different first step”. Completion is self-report only; never infer it from an email open or link click.
+
+Area summary labels
+REPORTED_READY: “You reported several usable arrangements here.”
+PARTLY_IN_PLACE: “Some arrangements are started; a small follow-through may help.”
+START_SMALL: “This may be a useful place for one small planning step.”
+NOT_ENOUGH_INFORMATION: “You skipped or excluded too many items for an area summary.”
+
+My Backup template
+Intro: “Practical help can come from a person, a community service, or another reliable option. The aim is to know what is realistically available.”
+READY statements: Q01 “You have a possible source of practical help.” Q02 “You have checked what help is available.” Q03 “You have another option if the first is unavailable.”
+Gap topics: Q01 “a possible source of practical help”; Q02 “the kind of help available”; Q03 “an alternative source of help”.
+First-action IDs: Q01 B01, Q02 B02, Q03 B03.
+
+If I’m Out of Action template
+Intro: “A short note can make everyday responsibilities easier to hand over when you are unavailable. Keep private details and passwords out of shared notes.”
+READY statements: Q04 “You have listed responsibilities that would need attention.” Q05 “An appropriate person knows where basic instructions are.” Q06 “You have a backup arrangement for something that cannot wait.”
+Gap topics: Q04 “a short responsibility list”; Q05 “access to basic instructions”; Q06 “a backup arrangement for an essential responsibility”.
+First-action IDs: Q04 O01, Q05 O02, Q06 O03.
+
+===PAGE===
+11 Remaining result templates and example output
+Results are composed from reviewed strings
+
+My Home template
+Intro: “Knowing where to find reliable information and who to contact can make a household problem easier to navigate. Use official local guidance and qualified help when needed.”
+READY statements: Q07 “You know where to find trusted household or local emergency guidance.” Q08 “You know whom to contact about a home repair or concern.” Q09 “You have identified a household preparation to check.”
+Gap topics: Q07 “a trusted source of household guidance”; Q08 “a home repair contact route”; Q09 “one basic household preparation check”.
+First-action IDs: Q07 H01, Q08 H02, Q09 H03.
+
+My Body template
+Intro: “This area is about finding qualified care and preparing for conversations. It does not assess symptoms, recommend treatment, or tell you whether care is urgent.”
+READY statements: Q10 “You know how to contact a healthcare service for a non-urgent question.” Q11 “You have a private way to prepare appointment questions.” Q12 “You have considered practical support for accessing care.”
+Gap topics: Q10 “a non-urgent healthcare contact route”; Q11 “a private appointment question list”; Q12 “practical support for accessing care”.
+First-action IDs: Q10 M01, Q11 M02, Q12 M03.
+
+Worked customer result
+Answers: Q01 READY, Q02 PARTLY, Q03 NOT_YET; all other preparation answers READY; Q13 MOVE; Q14 NONE.
+Already solid: “You have a possible source of practical help.” “You have listed responsibilities that would need attention.” “An appropriate person knows where basic instructions are.”
+Worth strengthening: “You haven’t yet put an alternative source of help in place.” “You’ve started the kind of help available; checking the remaining detail may help.”
+Your first safety block: B03 “Find one alternative”. My Backup has 3/6 points and PARTLY_IN_PLACE status. The other three areas have REPORTED_READY status. Add the neutral transition sentence from section 09.
+
+Rendering contract
+Escape every value. No free-text HTML. Hide empty optional sections rather than printing null. On a narrow screen, show the primary action before the area overview. Use semantic headings, visible focus, labeled buttons, readable contrast, and a print layout without navigation or purchase prompts.
+
+===PAGE===
+12 Action library for people and continuity
+Approved wording candidates for human review
+
+B01  Identify one possible source of help | 5 minutes
+Privately write down one person or service you might ask for a specific practical task if you were unwell for three days. Name the task, such as collecting groceries. You do not need to contact anyone today.
+Done: one possible source and one task are written down privately.
+Fallback: if nobody comes to mind, identify an official local community information service to explore later. It is acceptable to leave this unfinished. Do not store names in Safety Project.
+
+B02  Check one realistic offer of help | 5–10 minutes
+If it feels appropriate, ask your chosen person or service: “If I needed help with [task] for a few days, is that something you could sometimes help with?” Note any limits privately. An offer is not guaranteed availability.
+Done: you know one type of help they can or cannot offer.
+Fallback: draft the question without sending it. Do not contact someone if doing so feels unsafe or uncomfortable.
+
+B03  Find one alternative | 5 minutes
+Privately list one different person or service you could explore if your first option were unavailable. Note how you would find their current contact details. Do not assume a service is available or free until you check.
+Done: one alternative is listed with a way to check availability.
+Fallback: bookmark an official local directory; no outreach is required.
+
+O01  Write a three-item responsibility list | 5 minutes
+Privately list three everyday tasks that would need attention if you were unavailable for three days. Choose the one that would be hardest to postpone. Do not include passwords or sensitive personal records.
+Done: three tasks and one priority are written down.
+Fallback: write just one task if three feels too much.
+
+O02  Make one basic handover note | 10 minutes
+Choose one routine task. Write plain instructions someone appropriate could follow. Keep passwords, financial access details, and sensitive health information out of the note. Decide privately where to keep it and who, if anyone, should know it exists.
+Done: one usable instruction note has a deliberate storage location.
+Fallback: create the note for yourself without sharing it.
+
+O03  Explore a backup for one task | 10 minutes
+For one responsibility that cannot wait, identify a person or service you could ask about a backup arrangement. Check suitability, consent, availability, and cost before relying on it. Care arrangements may need additional professional or local checks.
+Done: you have identified what must be checked before the arrangement can be used.
+Fallback: write down the unresolved question; do not improvise care or access arrangements.
+
+===PAGE===
+13 Action library for home and care navigation
+No technical repairs or medical decisions
+
+H01  Save one trusted guidance source | 5 minutes
+Find your local government or emergency management website and bookmark its household preparation guidance. Check that it covers your location. You do not need to disclose your location to Safety Project.
+Done: one relevant official source is saved where you can find it.
+Fallback: write “find official local guidance” on your private list. This is not an action for an active emergency.
+
+H02  Identify a repair contact route | 5 minutes
+Find the appropriate way to report a household repair or concern: your landlord, building manager, utility, or a qualified local professional. Save the contact route privately and check when it is monitored.
+Done: you know where to report one type of concern.
+Fallback: use an official website to identify the correct contact. Do not attempt electrical, gas, structural, or other hazardous work based on this product.
+
+H03  Choose one household check | 5–10 minutes
+Read relevant official local guidance or a manufacturer’s instructions. Choose one basic preparation item you can review safely, such as locating the instructions for a household alarm. Follow the source’s directions and seek qualified help if unsure.
+Done: you have identified the item and its authoritative instructions.
+Fallback: save the instructions for later. Do not climb, dismantle equipment, or perform a test that you cannot safely carry out.
+
+M01  Find a non-urgent care contact route | 5 minutes
+Find the official contact or booking information for a qualified healthcare service you could approach with a non-urgent question. Check opening hours and how appointments are requested.
+Done: you know a current route for asking a non-urgent care question.
+Fallback: use an official local health-service directory. Do not use this step to decide whether a symptom is urgent; seek appropriate qualified or emergency help when needed.
+
+M02  Start a private appointment question list | 5 minutes
+In a place you control, write one question you want to ask at a healthcare appointment. You can add what you hope to understand or what practical barrier you want to discuss. Keep the contents out of this scan.
+Done: one question is written down privately.
+Fallback: write “What should I ask about next?” as a reminder. The product does not interpret or answer medical questions.
+
+M03  Name one access need | 5 minutes
+Privately identify one practical thing that could make attending care easier, such as transport, interpretation, accessibility, or time away from another responsibility. Check with the provider or appropriate support service what options actually exist.
+Done: one access need and one place to ask about it are identified.
+Fallback: prepare the question without making a booking. Do not promise that a service is available, affordable, or suitable.
+
+===PAGE===
+14 Generic actions and editorial control
+Make the library safe to maintain
+
+G01  Choose one thing to make easier | 3 minutes
+Privately finish this sentence: “If I were unavailable for a few days, I would like to make ___ easier.” You can choose a related area in your map, or leave the reflection there for now.
+Done: one possible focus is written down, or you have decided to return later.
+Fallback: no action is required. You can use the scan without sharing more information.
+
+G02  Set one review reminder | 3 minutes
+Choose one arrangement you reported as ready and add a private reminder to revisit it in a month or after a relevant life change. Check whether the information and people involved are still available.
+Done: one reminder is set in a place you control.
+Fallback: note an event that would prompt a review instead of choosing a date.
+
+Content record for every action
+id; area; triggering_question_id or generic; title; estimated_minutes; exact_steps; done_when; fallback; boundary; source_ids; content_version; reviewer_name; reviewer_role; reviewed_at; status; next_review_at. Allowed statuses: draft, approved, retired. Production builds reject any referenced action whose status is not approved.
+
+Human review checklist
+Check that the action is within practical planning scope, does not imply diagnosis or urgency assessment, has a low-effort alternative, does not assume a trusted household or supportive family, does not ask users to disclose private details, and does not substitute for local professional guidance. Verify official links and avoid universal claims about services or costs.
+
+Review process
+Founder prepares the action and its rationale. A reviewer with relevant competence checks home and care-navigation wording; obtain specialist review where wording exceeds general organization. Record approval rather than inventing credentials. Review again after a complaint, a substantive source change, or at six months. Retire unsafe content immediately and pause affected sends.
+
+Runtime rule
+The deployed content file is the approved source of truth. Airtable is an operational store, not a live content-editing interface. Editing a rule or action requires a versioned code change, fixture update, review, and deployment. Old maps use their stored snapshot, except where a safety correction requires withdrawal and replacement.
+
+Sources and limits
+The actions are product-design proposals, not validated interventions. Official preparedness and healthcare-conversation resources inform review, but do not endorse the product or validate its scoring. Do not use logos or imply endorsement.
+
+===PAGE===
+15 Exact free email copy
+One requested map and three optional follow-ups
+
+E00  Requested Safety Map | immediately after result is ready
+Subject: Your Safety Map is ready
+Preview: One practical step, at your pace.
+Body: “Here is the Safety Map you requested. It reflects the arrangements you reported today; it does not assess risk or guarantee safety.
+Already solid: {{strengths_text}}
+Worth strengthening: {{gaps_text}}
+Your first safety block: {{action_title}}
+{{action_steps}}
+You can keep this private, adapt the step, or choose another one.
+Open your private Safety Map: {{map_link}}
+This link expires on {{expiry_date}}. Anyone with the link can open the map, so avoid forwarding it. You can print or save a copy from the page.
+You received this email because you requested a map. It does not subscribe you to follow-up emails. Contact: {{support_email}}.”
+If there are no strengths or gaps, use the exact empty-state copy, not a blank line. Do not put transition labels or answers in the subject line.
+
+E01  Optional follow-up | 2 days after E00 is accepted for delivery
+Subject: A small step is enough
+Body: “Your first step was {{action_title}}. You do not have to finish everything at once. If that step fits your life, try its smallest version today. If it does not, choose a different step in your map.
+Open my map: {{map_link}}
+You can mark a step done, save it for later, or tell us it does not fit. That helps us understand whether the scan is useful.
+You asked for these follow-up emails. Unsubscribe: {{unsubscribe_link}}.”
+
+E02  Optional follow-up | 5 days after E00
+Subject: What would make your next step easier?
+Body: “A useful arrangement is one you can realistically use. You might need more time, clearer information, or a different source of help. It is fine to adjust the step rather than push through one that does not fit.
+Return to my map: {{map_link}}
+There is no need to send us private details.
+Unsubscribe: {{unsubscribe_link}}.”
+
+===PAGE===
+16 Offer email and email operating rules
+Keep requested service and marketing separate
+
+E03  Optional follow-up | 8 days after E00
+Subject: Want a little more structure?
+Body: “If you would like to keep building, Build My Backup System is a four-week digital Safety Journey. Each week gives you one short workbook and a practical focus: identify support, clarify responsibilities, make a simple handover, and review your arrangements.
+It costs $29 USD once. There is no subscription, monitoring, or personal safety advice. Your free map stays free.
+See what is included: {{journey_url}}
+You can also stop here and keep using your free map.
+This is the last email in this follow-up sequence. Unsubscribe: {{unsubscribe_link}}.”
+Only send when checkout and all paid materials are live. Suppress this offer for an existing purchaser. If the offer is not ready, skip E03; do not create a waitlist promise automatically.
+
+Timing and suppression
+Use UTC timestamps. Schedule jobs for E00 accepted_at + 2, 5, and 8 days; process due jobs every 15 minutes, subject to the selected Make plan’s minimum interval. Before each send, reread consent and provider suppression status. Unsubscribed, hard-bounced, complained, or deleted contacts get no promotional messages. Stop after E03. Never restart the sequence merely because someone retakes the scan.
+
+Retakes
+Each scan gets a distinct result. Send E00 only when requested for that scan. The contact keeps at most one active free follow-up sequence. A new explicit opt-in may update its map link but does not reset already sent steps. A previously unsubscribed person must actively opt in again; preserve the history and start a new sequence only after confirmation.
+
+Footer requirements
+Promotional emails include the founder’s actual business identity, required mailing details for the launch market, contact information, and a working unsubscribe link. These are release configuration values, not invented placeholders. Review applicable rules for the selected launch market before sending.
+
+One-click preference outcome
+Copy: “You’re unsubscribed from Safety Project follow-up and offer emails.” A signed opaque token may authorize unsubscribe without login. GET shows a confirmation page; POST changes state so link scanners cannot silently alter preferences. Support standard email-provider unsubscribe handling as well. This does not revoke access to purchased material or the requested map.
+
+===PAGE===
+17 Paid offer and complete four-week scope
+Build My Backup System
+
+Sales page copy
+Build My Backup System
+A four-week Safety Journey to organize practical support and everyday backup arrangements.
+“Turn your first step into a small system you can keep using. Each week includes a short guide, a private worksheet, and one practical task. Work at your own pace. You do not send us your completed worksheets.”
+Price: “$29 USD, one-time payment. No subscription.”
+Button: “Get the four-week journey — $29”
+Supporting line: “Four digital workbooks and four weekly delivery emails. No coaching, monitoring, emergency response, or personalized professional advice.”
+
+Week 1  Identify realistic support
+Workbook: one-page introduction, private support map, task-and-availability worksheet, B01–B03 action cards, and review questions. Prompt: “What help might I need, and what could this option realistically offer?” Deliverable: one primary option and one alternative, with unknowns clearly marked.
+
+Week 2  Keep essential responsibilities visible
+Workbook: O01 responsibility inventory; “can wait / needs attention / ask someone qualified” sorting exercise; O03 backup-check worksheet. Deliverable: a short list of essential tasks and one arrangement to explore. No legal delegation or financial-access templates.
+
+Week 3  Prepare one simple handover
+Workbook: O02 basic instructions template; access-boundary checklist; private-storage choice; optional conversation draft. Deliverable: one non-sensitive handover note. Never ask for passwords, account recovery codes, identity documents, or medical records.
+
+Week 4  Review and practice the arrangement
+Workbook: tabletop walkthrough of one ordinary interruption, availability checks, unresolved questions, and G02 review reminder. Deliverable: a one-page personal plan kept by the customer. Home and care-navigation needs can be noted as questions for appropriate sources, without expanding into treatment or technical guidance.
+
+Production acceptance
+Prepare four accessible PDFs, an editable worksheet pack, and a read-me before launch. Each workbook should take roughly 15–25 minutes to use, excluding outside conversations. The current build-spec deliverables describe these materials; the workbooks are a separate implementation task, not included as finished course assets here.
+
+===PAGE===
+18 Payment and paid fulfillment
+Make a purchase dependable before promoting it
+
+Checkout setup
+Create a Stripe product named Build My Backup System with a one-time USD price of 2900 cents. Disable adjustable quantity, subscriptions, and optional upsells. Use a Stripe Payment Link and collect only checkout information needed for payment and delivery. Configure receipts, support details, and the launch market’s approved tax treatment. Do not promise a tax-inclusive amount unless configured that way.
+
+Delivery timing
+On verified successful payment, send P00 immediately with links to all four workbooks, the editable pack, and a suggested weekly schedule. Send P01–P04 on purchase day and days 7, 14, and 21. P00 and P01 may be one message to avoid two emails at purchase. Providing all materials immediately prevents a scheduling failure from withholding a paid product.
+
+Exact delivery copy
+Subject: Your Build My Backup System materials
+“Thank you for purchasing Build My Backup System. Download your four workbooks and editable worksheets here: {{download_link}}. Your first focus is identifying realistic support. Begin with Workbook 1 when it suits you. We will also send one workbook reminder each week for the next three weeks. You can stop these reminders and still keep the materials. For delivery help, contact {{support_email}}.”
+Weekly subject: “Week {{week_number}} — {{week_title}}”
+Weekly body: “This week’s focus is {{week_title}}. Open Workbook {{week_number}}: {{download_link}}. Your small outcome is {{week_outcome}}. Keep your completed worksheet private. Work at your own pace. Stop course reminders: {{course_unsubscribe_link}}.”
+
+Verification and recovery
+Use the official Stripe library to verify the raw webhook body. Allow only the configured product/price and currency. Fulfill only a verified paid Checkout Session; for delayed methods, wait for asynchronous payment success. Never treat a browser success page as proof of payment. Deduplicate by Checkout Session ID, not email. On refund or dispute, stop future course reminders and record status; already downloaded files cannot be recalled.
+
+Policy decisions before activation
+Founder must finalize refund terms, support response target, business identity, tax handling, and geographic availability. Suggested commercial policy for review: allow refund requests within 14 days by contacting support, without overriding mandatory consumer rights. Keep checkout disabled until final policies and actual files are present. Use a manual refund workflow in Stripe for the pilot; no refund automation is necessary.
+
+===PAGE===
+19 Architecture and source of truth
+One rule engine and a small operational store
+
+Default stack
+Codex builds a Next.js App Router site in a private GitHub repository; Vercel hosts it. Tally collects the scan. Next.js verifies submissions and computes the deterministic result. Make queues and coordinates storage and email. Airtable holds minimal operational records. Brevo sends requested maps, consented follow-ups, and paid delivery. Stripe Payment Links are added only for the paid phase.
+
+Flow
+Browser starts a signed scan session → Tally receives hidden identifiers → Tally posts a signed webhook to Next.js → Next.js validates and builds the map → Make accepts a normalized job → one sequential intake scenario upserts Airtable records → browser reads its map through a private Next.js endpoint → scheduled Make worker sends Brevo emails and records outcomes.
+
+Why Airtable is the default
+The operator can inspect statuses and resolve failed jobs without a dashboard. Use one storage choice, not Airtable plus Google Sheets. Google Sheets is a possible manual-pilot substitute, but it lacks robust uniqueness and concurrency controls; substituting it requires redesigning the lookup, serialization, and retry steps. The executable specification below uses Airtable only.
+
+Responsibility boundaries
+Next.js owns field validation, signed sessions, content versions, rules, authorization, and private result responses. Make owns sequential intake, deduplication, delivery job scheduling, and retry coordination. Airtable owns stored state, not business logic. Brevo owns email transport and provider suppression. Stripe owns payment truth.
+
+No durable background work inside an HTTP response
+The Next.js webhook responds successfully only after Make acknowledges that the job entered its queue. Do not use an unawaited promise after returning 200. If queue acceptance fails, return an error so Tally can retry. Once accepted, Make’s failed-run recovery handles later errors.
+
+Operational constraints
+This design suits a small pilot, not high concurrency. Airtable has no enforced unique constraint. Exactly one sequential intake scenario writes new scan/contact/job records, and exactly one scheduled worker processes outgoing mail. No cloned active scenarios or manual parallel replays. If this becomes a bottleneck, migrate to a transactional database before increasing traffic.
+
+===PAGE===
+20 Setup the site and deployment
+Founder and Codex work in the same repository
+
+1. Create accounts and ownership
+Use founder-owned GitHub, Vercel, Tally, Make, Airtable, Brevo, and later Stripe accounts. Enable multifactor authentication where available. Record billing owner and recovery access privately. Do not paste credentials into a chat, document, source file, or screenshots.
+
+2. Create the repository
+Create a private repository named safety-project-v0. Open it in Codex. Give Codex the prompts in sections 31–32 and this entire specification. Ask it to inspect repository instructions first. Use the currently supported stable Next.js release, TypeScript, App Router, and a lockfile. Avoid adding a separate CMS, authentication provider, or AI API.
+
+3. Required pages and files
+Routes: /, /scan, /results, /map, /journey, /downloads, /privacy, /terms, /contact, /email-preferences. The journey purchase button is controlled by PAID_ENABLED.
+Modules: content/questions, content/actions, content/copy, lib/score, lib/tally-adapter, lib/session, lib/airtable, lib/email-render, lib/stripe. Keep content and rules separate from UI components. Include .env.example with names only, a setup README, fixtures, and a release checklist.
+
+4. Build and preview
+Run type checks, scoring tests, and a production build. Import the repository into Vercel using the Next.js preset. Create preview-specific environment variables and a staging SITE_URL. Redeploy after environment-variable changes. Connect the domain through Vercel’s shown DNS instructions; verify HTTPS before live webhooks.
+
+5. Environment variables
+Public or non-secret configuration: SITE_URL, NEXT_PUBLIC_TALLY_FORM_ID, QUIZ_VERSION, RULES_VERSION, CONTENT_VERSION, PAID_ENABLED, STRIPE_PAYMENT_LINK.
+Server secrets: TALLY_SIGNING_SECRET, SCAN_SESSION_SECRET, RESULT_LINK_SECRET, MAKE_INGEST_URL, MAKE_INGEST_KEY, AIRTABLE_PAT, AIRTABLE_BASE_ID, INTERNAL_API_KEY; paid phase adds STRIPE_SECRET_KEY and STRIPE_WEBHOOK_SECRET.
+Brevo API key stays in Make’s secure connection, not in the browser. Airtable table IDs and allowed Stripe price ID are server configuration. Never prefix a secret with NEXT_PUBLIC_. Preview and production must use different forms, bases, keys, and recipients.
+
+6. First acceptance
+The public page loads on a phone, the quiz has a keyboard-accessible fallback link, fake-data results work, no secret appears in browser assets, and staging cannot email real customers or charge money.
+
+===PAGE===
+21 Connect Tally and private browser results
+Do not expose answers in redirects
+
+1. Build the form
+Create and publish the five-page form from sections 05–07. Add hidden fields scan_id, session_proof, quiz_version, source_code. Add conditional visibility and required email logic. Set the completion redirect to the fixed URL https://YOUR_DOMAIN/results. For the embed, verify that completion navigates the top-level page; if it stays inside the frame, the parent may navigate on Tally’s documented completion event after checking the message origin. That event is navigation only, never proof of submission.
+
+2. Start the session
+On /scan, POST /api/scan-session after adult confirmation. Generate a cryptographically random 32-byte scan_id. Set a signed, Secure, HttpOnly, SameSite=Lax cookie for that scan with a 24-hour lifetime. Return a session_proof: an HMAC-signed payload containing scan_id, quiz_version, and issued_at. Pass only these identifiers into the Tally embed URL. Source code must be from an allowlist, not arbitrary query text.
+
+3. Configure the webhook
+In the published Tally form’s Integrations, connect Webhooks to https://YOUR_DOMAIN/api/tally. Set a signing secret and put the identical value in Vercel. Test a submission and capture the actual field keys and option IDs. Store the mapping in the adapter; map by stable field/option IDs, not field position or translated label. Unknown form IDs or versions fail validation.
+
+4. Verify and normalize
+Follow Tally’s documented signature algorithm and test against real webhook payloads; use constant-time comparison. Validate event type, form ID, schema, allowed answer enums, session proof, and email branches. For delayed retries, validate session proof against the signed event creation time, not the retry arrival time; allow at most 24 hours from session issuance to original submission. Accept delayed signed retries for seven days. Compute and freeze the result snapshot. Send only normalized required fields to Make with its authentication header.
+
+5. Show the result
+/results polls GET /api/result every 3 seconds for up to 60 seconds, then stops and offers Retry. The API verifies the signed browser cookie, queries Airtable server-side by scan_id, and returns only the result DTO. Return 202 while pending, 200 when ready, 401 for no valid session, and 410 for expired/deleted data. Use Cache-Control: no-store, noindex, and Referrer-Policy: no-referrer. Never return email addresses or raw answers.
+
+===PAGE===
+22 Connect Airtable and Make intake
+One serialized path creates records
+
+1. Create the base
+Create Safety Project V0 with Scans, Contacts, EmailJobs, Orders, and Feedback tables using section 24. Create separate staging and production bases. Restrict workspace access. In Airtable’s developer hub, create a personal access token scoped to data.records:read and data.records:write for this base only. Schema changes are manual; do not grant broad workspace access. Connect Make and the server using separate restricted tokens if practical.
+
+2. Create the Make intake scenario
+Add Webhooks → Custom webhook. Configure an API key if available and require it on every call; otherwise validate a high-entropy shared header before any processing. Store the URL/key as Vercel secrets. Turn on sequential processing and incomplete execution storage, with data loss disabled. A webhook acknowledgment confirms queue acceptance, not completion of every later step.
+
+3. Normalize the first sample
+Run once with a staging submission. Confirm the payload fields from section 25. Filter to kind=scan. Search Scans for form_id + submission_id; if a record exists, reuse it and do not replace its result or reset jobs. Otherwise search scan_id; if already associated with a different submission, quarantine as a conflict. Create the immutable scan snapshot, initially ready once required fields are stored.
+
+4. Create contact and jobs
+If map_requested=false, stop after storing the scan. Otherwise normalize email by trimming and lowercasing for matching, without stripping plus aliases or dots. Search Contacts by normalized email and upsert its map request/consent metadata. Do not overwrite a prior opt-out from an absent checkbox. Create E00 only if job_key scan_id:E00 does not exist. Use explicit Send status fields, not row order.
+
+5. Schedule follow-ups
+After E00 is accepted, the mail worker enqueues a schedule request back to this same intake scenario. The intake creates E01–E03 using sequence_id:template_id keys and E00 accepted_at as anchor, only with valid consent and no existing active sequence. Record skipped E03 if the offer is disabled. Do not create duplicate sequence steps on retake.
+
+6. Verify
+Submit the same webhook twice; exactly one scan and one E00 job must remain. Submit without email; no contact or email job must appear. Disconnect Airtable; Make must show a recoverable incomplete run. Restore access and replay only the failed step or deduplicated job.
+
+===PAGE===
+23 Connect Brevo and optional Stripe
+Delivery workers and provider events
+
+1. Configure Brevo
+Add a sender on the founder’s domain. Follow Brevo’s current domain authentication instructions and add the DNS records it supplies. Verify the sender and send tests to multiple mailbox providers. Create E00–E03 and P00/P02/P03/P04 templates from this specification with both readable HTML and plain text. Store numeric template IDs in Make configuration. Keep map delivery separate from marketing consent lists.
+
+2. Build the scheduled email worker
+Every 15 minutes, search EmailJobs where status=pending and due_at≤now. Use one active worker and sequential processing. Recheck Contacts suppression, consent, deletion, current order status, and content approval. Mark the job sending with attempt timestamp before calling Brevo. Render escaped parameters and call the send-transactional-email API or equivalent Make module. Store returned messageId and mark accepted. “Accepted” is not “delivered”. Schedule free follow-ups only after E00 acceptance through the intake queue.
+
+3. Capture provider outcomes
+Configure Brevo delivery, bounce, complaint, and unsubscribe events to a separate authenticated Make webhook that forwards normalized changes into the single intake queue. Use provider-supported authentication. Deduplicate event IDs or a stable fingerprint; match messageId and update delivery/suppression state through intake. Website preference changes use the same queue. Show “Updating preferences” until persistence is confirmed; do not claim success on queue acceptance. Pause promotional sends if preference processing is delayed. Reconcile provider suppression daily.
+
+4. Connect Stripe when paid content is ready
+Create the Payment Link described in section 18. Configure Stripe’s webhook destination as /api/stripe, register Checkout completion/asynchronous success and refund/dispute events needed by the adapter, and save the endpoint signing secret. Validate the event with the official library, retrieve session/line-item data if needed, verify allowed price and paid status, then enqueue a normalized order job into the same Make intake. Never send card details to Airtable.
+
+5. Fulfill orders
+Intake deduplicates order by Checkout Session ID, upserts purchaser contact, records payment status, and creates paid jobs by order_id:template_id. Use a signed download link to a server route that verifies an active order, or an equivalent controlled delivery service. Link expiry: 90 days, with support-assisted renewal. Existing downloaded files remain usable. Purchases do not opt someone into marketing; course reminders have a separate stop control.
+
+===PAGE===
+24 Suggested data schema
+Minimum operational fields
+
+Scans
+scan_id text; tally_submission_id text; form_id text; created_at UTC; quiz_version text; rules_version text; content_version text; answers_json long text; context enum; preference enum; result_json long text; route_reason enum; first_action_id text; selected_action_id text; map_requested boolean; contact_id link nullable; source_code enum; result_expires_at UTC; deleted_at UTC nullable. Unique logical key: form_id + tally_submission_id; unique scan_id enforced by serialized intake. Raw answers/context are purged after 30 days; result_json remains for 90 days.
+
+Contacts
+contact_id random ID; email_normalized email; created_at UTC; followup_consent boolean; consent_at UTC nullable; consent_text_version text; consent_source_scan_id text; marketing_unsubscribed_at UTC nullable; provider_suppressed boolean; course_reminders_enabled boolean; active_sequence_id text nullable; deleted_at UTC nullable. Logical key: email_normalized. Keep map delivery requests on Scans, not as a blanket permission to send again.
+
+EmailJobs
+job_key text; contact_id link; scan_id link nullable; order_id link nullable; sequence_id text nullable; template_id enum; due_at UTC; status enum pending/sending/accepted/delivered/failed/uncertain/suppressed; attempts integer; last_attempt_at UTC; provider_message_id text nullable; accepted_at UTC nullable; delivered_at UTC nullable; error_code text nullable; payload_version text. Logical key: job_key. Never store full email bodies or secrets in error fields.
+
+Orders
+order_id text equal to Checkout Session ID; stripe_event_ids long text; stripe_payment_intent_id text; contact_id link; price_id text; currency text; amount_total integer; paid_at UTC; status enum pending/paid/refunded/disputed/failed; fulfillment_status enum pending/accepted/failed; product_version text; download_expires_at UTC. Payment ledger retention follows the selected market’s requirements; keep it separate from scan-answer deletion.
+
+Feedback
+feedback_id random ID; scan_id link nullable; created_at UTC; action_id text; event enum action_done/action_later/action_not_fit/map_useful/map_not_useful; source_code enum; rules_version text. No free text in V0. A person clicking twice must not inflate completion; dedupe scan_id + action_id + event.
+
+Derived reporting
+Use Airtable views for due jobs, uncertain sends, paid orders awaiting fulfillment, content versions, and pending deletion. Do not share public views or exports containing contact or scan data. Aggregated metrics may outlive the underlying personal records only when they cannot identify an individual.
+
+===PAGE===
+25 API and payload contracts
+Enough detail for a deterministic implementation
+
+POST /api/scan-session
+Input: adult_confirmed=true and allowlisted source_code. Enforce same-origin/CSRF protection, body limit, and rate limiting. Output: scan_id, session_proof, quiz_version plus signed cookie. Rotate the cookie when a new scan starts; warn that an earlier anonymous map may no longer be available in the same browser.
+
+POST /api/tally
+Authenticated by Tally signature. Input: actual Tally event envelope. Output: 202 only after Make queue acceptance; 400 for schema/version errors; 401 for invalid signature/proof; 503 for temporary queue failure. No sensitive payload logging. The adapter produces the normalized payload below.
+
+Normalized scan job example
+kind: scan
+event_id: vendor event ID
+form_id: configured form ID
+submission_id: vendor submission ID
+scan_id: random session identifier
+submitted_at: ISO UTC timestamp
+quiz_version / rules_version / content_version: v1 / v1 / v1
+answers: object with Q01 through Q12 answer enums
+context: NONE; preference: NONE
+map_requested: true; email: the validated request address
+followup_consent: false; consent_text_version: free-followup-v1
+source_code: direct
+result: {areaSummaries, strengths, gaps, firstAction, routeReason, versions}
+Omit email when map_requested=false. Never copy the vendor’s submission PDF or preview URLs; they may contain access tokens.
+
+GET /api/result and email link exchange
+Browser cookie access is valid for 24 hours. Email uses /map#token=SIGNED_TOKEN, where the token contains scan_id, purpose=map, and a 90-day expiry. Fragment handling posts the token to /api/map-session, which verifies it, sets a short signed result cookie, and immediately removes the fragment from browser history. Disable third-party scripts on private pages. Bearer links can be forwarded; explicitly warn users. No email or answers in the token. Revocation checks deleted_at and expiry server-side.
+
+Other endpoints
+POST /api/feedback: cookie-authorized, CSRF protected, enum-only; queue to intake.
+POST /api/selected-action: cookie-authorized and CSRF protected; accept only approved action IDs; update selection through intake without changing the original route.
+POST /api/email-preferences: signed purpose-limited token, explicit change; queue to intake.
+POST /api/internal/render-email: Make bearer credential; returns approved subject/body/parameters for a known job template and map snapshot. Never sends email itself.
+POST /api/stripe: raw-body official signature verification; queues verified order changes.
+All private responses are no-store; unauthenticated access never reveals whether an email address exists.
+
+===PAGE===
+26 Reliability and operator runbook
+Recover without duplicate delivery
+
+Submission handling
+Tally expects a prompt webhook response and retries failures. Keep signature validation and normalization fast; acknowledge only after durable queue acceptance. Alert the operator if the queue fails. Make incomplete executions must be retained with data loss disabled. A successful Tally response does not prove the email arrived; each state is tracked separately.
+
+Single-writer rule
+All record creation and state-change requests go through one sequential intake scenario. The email worker is the only component allowed to claim/send EmailJobs; it updates send state for existing jobs. Do not allow overlap between scheduled worker runs. Use Make’s scenario execution controls and verify with a long-running test. If those controls cannot guarantee one worker, do not launch automated sends until a durable lock is added.
+
+Retry policy
+For a definitive pre-send temporary failure, retry after 5 minutes, 30 minutes, and 2 hours, then mark failed for operator review. A timeout after submitting to Brevo is uncertain, because the provider may have accepted the email. Mark uncertain, inspect Brevo logs for the recipient/time/job correlation, and reconcile before any resend. Never assume a long-lived provider idempotency guarantee. Provider acceptance followed by a failed Airtable update is also uncertain.
+
+Daily pilot check
+Review uncertain sends, failed jobs, submissions with no result, and paid orders with no accepted delivery. Compare yesterday’s vendor submission count with stored scans. Reconcile Stripe paid sessions with Orders. Check suppression events. Use IDs and counts in alerts, not answer details or email contents. Target an operational acknowledgment within one business day; publish only a support promise the founder can maintain.
+
+Common repairs
+No result: check Tally delivery, Vercel error code, Make queue, then Airtable record. Never tell the user to submit again before checking for a saved record.
+No email: inspect job, suppression state, sender authentication, and provider outcome. Correct a typo only after verifying the requester controls the new address. Resend only the specific requested message.
+Wrong result: pause affected content version, fix the pure rule/adapter, run fixtures, and assess whether previous recipients need a factual correction. Do not silently re-score every map.
+
+Pause and rollback
+Disable new scans at the landing page if results cannot be produced. Hide checkout if fulfillment is broken. Pause promotional workers independently. Preserve IDs needed for recovery. Roll back to the last reviewed content and tested deployment; never substitute generated advice to keep the funnel running.
+
+===PAGE===
+27 Privacy and safety release requirements
+Data minimization is part of the product
+
+Collect less
+Do not collect exact location, age beyond adult confirmation, health conditions, abuse experiences, finances, names of helpers, children’s details, passwords, documents, or free-text stories. Avoid advertising pixels, session replay, and cross-site tracking on scan and result pages. Treat even broad preparation answers as private. Do not send answer content to analytics or an AI provider.
+
+Retention defaults to implement
+Delete raw answers, preference, and transition context from Airtable and Tally within 30 days. Delete maps and scan-linked feedback after 90 days; anonymous results expire sooner only by browser-access limits, not by hidden extra collection. Review inactive non-purchaser contact data for deletion at 90 days after the last requested service or consented sequence. Retain minimum suppression records needed to honor opt-outs. Set Make and provider log retention to the shortest workable period and verify the selected plan supports the policy; otherwise change the promise before launch.
+
+Deletion procedure
+Contact link allows a deletion request. Verify control of the relevant inbox, or possession of the anonymous map token; never demand identity documents for this purpose. Record a request ID, stop jobs, revoke map access, delete scan data in Airtable and Tally, and remove applicable Brevo contact data and vendor logs where possible. Record completion without retaining deleted answers. Explain separately any legally required payment record retention and vendor backup deletion limits. Pilot target: handle requests within 7 days, subject to applicable rules.
+
+Privacy notice content
+Name the actual operator and contact, data categories, each purpose, vendors, hosting/transfer arrangements, retention periods, rights/request process, marketing controls, payment record handling, and the limitation that private links are bearer access. Do not claim anonymity if email, IP logs, or vendor metadata can identify a person. Do not copy a generic policy that promises controls the stack does not provide.
+
+Safety boundaries
+No risk classifications, diagnosis, treatment, abuse detection, emergency triage, guaranteed prevention, or automated outreach to third parties. An urgent-help footer should direct people to appropriate local emergency services without pretending the product can choose the right response. No fixed emergency number unless the launch region is established and the number is verified. Let users skip, leave, or use the tool without email. A quick-exit button is out of scope unless separately threat-modeled; never promise it erases history.
+
+Release review
+Founder confirms launch market, age scope, vendor permissions, consent handling, and privacy/consumer-policy review appropriate to that market. These are launch decisions, not reasons to stop local implementation or prototype testing.
+
+===PAGE===
+28 QA and acceptance checklist
+Test behavior and failures before inviting users
+
+Rules and content
+[ ] Fixtures F01–F09 pass. Test 0/1/2/3 applicable answers per area, exact threshold comparisons, every tie preference, and all excluded combinations.
+[ ] Every non-generic action can be selected by a fixture; action IDs map to the correct question. A PARTLY gap can still exist inside REPORTED_READY.
+[ ] Different Q13 values never change scores. Identical input and versions produce identical snapshots.
+[ ] No unapproved/retired action can ship. No AI calls or runtime generated copy exist.
+
+Forms and privacy
+[ ] All 14 questions match the copy and mapping. NA and SKIP are accepted. Unknown option IDs fail closed.
+[ ] Email is optional, conditional validation works, and marketing consent is unchecked. No-email creates no contact.
+[ ] Consent-only logic cannot send without an email/map request. No answer/email is in redirects, analytics, browser logs, or error traces.
+[ ] Another browser cannot fetch a map by changing an ID. Invalid, expired, wrong-purpose, and revoked tokens fail. Private pages do not cache or index.
+
+Integrations and resilience
+[ ] A real Tally staging submission produces the expected result. Test top-frame redirect and disabled embed fallback.
+[ ] Duplicate delivery creates one map and one email job. Conflicting submissions for one scan_id are quarantined.
+[ ] Queue failure returns non-success; an accepted queue plus Airtable failure produces a recoverable incomplete execution.
+[ ] Email timeout becomes uncertain, not an automatic resend. Sending state survives a worker restart.
+[ ] Unsubscribe, complaint, hard bounce, and deletion prevent the next promotional send. Retake does not restart a sequence.
+
+Paid and accessibility
+[ ] Test payment succeeds once; duplicate event fulfills once; unpaid/failed/wrong-price events do not fulfill. Refund stops future course reminders.
+[ ] All paid files exist and links work before live checkout. Private download expiry and renewal work.
+[ ] Phone, tablet, desktop, keyboard-only navigation, labels, focus, contrast, error announcements, and print layout pass. Long copy does not clip.
+
+Release evidence
+Keep dated fixture output, test submission IDs, payment test IDs, screenshots of all result states, deletion verification, content approvals, and the current version numbers in the repository’s release record. Perform one small live smoke test with controlled accounts after deployment, then remove test records. Do not mark real users as tests to conceal metrics.
+
+===PAGE===
+29 Validation metrics and pilot decisions
+Measure useful action before software ambition
+
+Event vocabulary
+landing_view; scan_start; scan_submitted; result_viewed; map_requested; email_accepted; email_delivered; action_done; action_not_fit; offer_viewed; checkout_clicked; purchase_paid; refund. No raw answers, transition values, email addresses, or private map tokens in analytics. Use coarse source_code and version. Count action_done only from an explicit user choice.
+
+Core definitions
+Scan completion = unique valid submissions / unique scan starts.
+Result visibility = scans with a viewed result within 24 hours / valid submissions.
+Email request rate = scans requesting a map / valid submissions.
+Activation = scans with at least one action_done within 7 days / scans whose result was viewed at least 7 days ago.
+Action mismatch = scans with action_not_fit / result viewers; inspect by action ID with small-group privacy limits.
+Purchase conversion = unique paid purchasers / unique eligible offer viewers, with a defined 14-day window.
+Refund rate = refunded orders / paid orders old enough to complete the refund window.
+Contribution per sale = price less fees, refunds, allocated delivery costs, and support time valued consistently.
+
+Initial decision thresholds
+These are hypotheses, not industry benchmarks. After 50 completed scans, seek at least 60% scan completion, 95% result availability within one minute under normal conditions, and 20% self-reported action completion within seven days. Missing follow-up feedback is not evidence that an action was completed. Aim for fewer than 10% “doesn’t fit” responses, but investigate any concerning comment or complaint regardless of count.
+
+Paid pilot
+After 100 eligible offer views, use five purchases as an initial willingness-to-pay signal, then seek ten paid customers before interpreting delivery and refund patterns. A small sample does not establish product-market fit. If purchases are low but free actions are used, revise the offer or audience before building more features. If actions are not used, improve the core product before selling more.
+
+Weekly review
+A single 30-minute review: funnel by source, action fit, delivery failures, paid fulfillment, refunds, and support minutes. Use counts beside percentages. Exclude controlled tests, known bots, and duplicates consistently. Do not optimize quiz wording to make people feel less prepared merely to increase sales.
+
+===PAGE===
+30 Low-maintenance acquisition and app upgrade
+Run a few bounded experiments
+
+Experiment 1  One useful search page
+Publish a practical page titled “How to make a simple backup plan for everyday responsibilities” with a genuinely usable blank checklist and one scan CTA. Use the same reviewed boundaries. Track source_code=search_checklist. Time budget: one initial writing session and monthly review. Evaluate qualified scan completions over 6–8 weeks; search traffic may take longer, so do not claim instant validation.
+
+Experiment 2  Two aligned newsletters
+Ask two small community or women-focused newsletters whether a free scan and practical checklist would serve their readers. Prepare one static image and short description; let the publisher decide placement. No fear framing or scraped personal outreach. Track separate allowlisted source codes. Budget: two outreach sessions plus one follow-up, performed only when the founder authorizes sending. Compare result views and action completion, not just clicks.
+
+Experiment 3  One community resource listing
+With a moderator’s permission, share a useful free worksheet in one relevant community or resource directory. Make the paid offer transparent but secondary. Do not mass-post or imply endorsement. Track source_code=community_pilot and review after 20 valid scan completions or four weeks.
+
+Operating limits
+No daily social schedule, founder video requirement, large affiliate program, broad paid-ad spend, or automatic outreach in V0. These are proposed experiments, not campaigns already launched or claims about current market performance. Start with one or two channels and keep a simple weekly source table.
+
+Upgrade to an app only when evidence requires it
+Consider accounts and persistent plans when at least 20 paying customers have completed a journey, repeat usage is observable, and users repeatedly ask to update or revisit their plan. Consider a database/queue upgrade earlier if serialized automation becomes unreliable or expensive. Require clear economics and an owner for ongoing maintenance.
+
+Possible next steps in order
+First improve content and retention. Then replace Airtable/Make bottlenecks with a transactional database and reliable job queue. Only then consider optional accounts, saved progress, review reminders, and additional reviewed journeys. Sensitive document storage, contact networks, emergency services, and AI advice require a separate product, privacy, and safety design; they are not automatic upgrades.
+
+===PAGE===
+31 Main Codex build prompt
+Copy this after attaching the entire specification
+
+PROMPT
+Read the complete Safety Project V0 Build Spec before changing files. Treat it as the product contract. Inspect repository instructions and existing code. Build the smallest complete V0 with Next.js App Router, TypeScript, Tally, Make, Airtable, Brevo, and an optional Stripe Payment Link. Use supported stable dependencies and a lockfile. Identify genuine contradictions before dependent implementation, but continue independent work. Do not introduce new product features.
+
+Implement the exact landing-page copy, 14-question schema, four areas, deterministic scoring, tie rules, skipped-answer handling, fixed action library, result templates, and consent-aware email templates. Life transitions are context only. Do not build an overall safety score. No runtime AI calls, generated advice, account system, dashboard, community, tracking pixels, or emergency monitoring.
+
+Start with typed content files, a pure scoring function, and fixtures F01–F09. Add fixtures for all action routes, sparse answers, ties, thresholds, and invalid input. Keep draft content visibly non-production until review metadata marks it approved. Add a build-time gate for unapproved referenced actions.
+
+Build mobile-friendly pages and private result endpoints. Implement signed scan sessions, Tally signature verification, actual field-ID adapters, immutable map snapshots, authenticated Make ingestion, and no-store result responses. Use the contracts in sections 19–26. Never expose secrets, answers, or email addresses in URLs or logs. Do not use a browser redirect or payment success page as proof of a verified event.
+
+Create .env.example with names only and a step-by-step README for founder-owned accounts. Provide exact Airtable fields and Make module mappings. Use staging forms, base, credentials, and recipient allowlists before production. Build mocked integrations first if credentials are not available; clearly distinguish mocked tests from live verification.
+
+Implement email-job deduplication, consent/suppression checks, uncertain-send recovery, and paid order deduplication. Keep PAID_ENABLED=false until approved policies, reviewed workbooks, live files, and test-mode fulfillment pass. Do not invent missing business details, credentials, or review approvals.
+
+Run type checks, rule tests, integration-contract tests, production build, and relevant browser acceptance checks. Produce a release checklist with passed, failed, and unverified items. Report what works, what still needs account configuration or founder decisions, and the exact next setup step. Implement locally and in staging; ask for production publication only when the concrete release is ready and publication has not already been authorized.
+END PROMPT
+
+===PAGE===
+32 Focused Codex prompts and founder workflow
+Use these sequentially when building in stages
+
+Prompt A  Rules and interface
+“Implement sections 03–14 of the attached spec using fake data only. Create the exact copy and action records, the pure rule engine, every fixture, and all result states. Add the landing page, scan shell, private-result UI, and print layout. Keep content draft and paid checkout disabled. Show me a local preview and the rule-test results.”
+
+Prompt B  Connections
+“Implement sections 19–26 in staging. Create the Tally adapter after inspecting an actual test payload; do not guess field IDs. Provide the Airtable schema and Make scenario module-by-module mappings. Connect signed scan sessions, webhook verification, sequential ingestion, private result retrieval, and E00 delivery. Use test recipients only. Demonstrate duplicate submission and queue-failure recovery.”
+
+Prompt C  Email and privacy
+“Finish E01–E03, suppression synchronization, explicit unsubscribe, retake rules, data retention, and deletion. Create the operational views and runbook. Test a no-email scan, map-only request, marketing opt-in, unsubscribe before due time, bounce, uncertain send, and deletion across vendors. Flag any vendor plan limitation that prevents the promised retention policy.”
+
+Prompt D  Paid product
+“Create the four workbooks and editable worksheets defined in section 17 for human review. After review and approved business policies, implement test-mode Stripe Payment Link fulfillment, all-materials access, weekly reminders, duplicate-event handling, and refund suppression. Do not enable live checkout until every paid file and delivery check passes.”
+
+Prompt E  Release audit
+“Audit the built product against every acceptance item in section 28. Challenge unnecessary dependencies and any advice exceeding the approved planning scope. Report evidence for each pass and the reason for each unverified item. Prepare the release and rollback steps, but do not claim that mocked tests verify live integrations.”
+
+Founder’s first working session
+Create the private repository and supply this document with Prompt A. Review a real local result before opening every vendor account. While Codex builds, choose the product domain, support inbox, initial launch market, and reviewer. Keep credentials in vendor connections and deployment secrets. After the first local acceptance, complete the staging setup in order and review one real end-to-end test together.
+
+Budget control
+Use monthly pilot limits, not assumed free tiers: approve a total operating cap before activating services, alert at 80%, and review vendor operation/email limits. Do not buy an app platform or annual plans just to test whether people use the free map and buy the journey.
+
+===PAGE===
+33 Sources and final release decisions
+Official implementation references
+
+Vendor documentation checked 18 September 2026. Interfaces, quotas, and plan availability can change; verify the named capability during setup. The product rules, copy, thresholds, and proposed retention periods are design decisions in this specification, not vendor requirements or legal conclusions.
+
+Tally form embedding
+https://tally.so/help/embed-your-form
+Use for embedding and parent-page behavior. Keep private information out of query parameters.
+
+Tally hidden fields and completion redirect
+https://tally.so/help/hidden-fields
+https://tally.so/help/redirect-on-completion
+Use to carry technical session identifiers and navigate to the fixed result page.
+
+Tally signed webhooks
+https://tally.so/help/webhooks
+Use for the signature algorithm, event envelope, response timeout, and retry behavior. Test with the real provider payload.
+
+Make webhook and incomplete-run controls
+https://help.make.com/webhooks
+https://help.make.com/options-related-to-incomplete-executions
+Use for queue processing and recoverable failures. Confirm serial execution in the chosen scenario configuration.
+
+Airtable scoped personal access tokens
+https://support.airtable.com/articles/9934989703-creating-personal-access-tokens
+Use restricted scopes and base access.
+
+Vercel environment configuration
+https://vercel.com/docs/environment-variables
+Keep secrets server-side and redeploy after changes.
+
+Brevo transactional email API
+https://developers.brevo.com/reference/send-transac-email
+Use documented request parameters and provider message IDs. Do not assume exactly-once delivery.
+
+Stripe Payment Links and webhook verification
+https://docs.stripe.com/payment-links
+https://docs.stripe.com/webhooks
+Use for hosted checkout and server-verified payment events.
+
+Care-conversation editorial reference
+https://medlineplus.gov/talkingwithyourdoctor.html
+Use as a review reference for organizing healthcare questions, not as validation of the scan.
+
+Final founder decisions before public release
+Actual domain and operator identity; launch market; support address; approved privacy/terms/refund language; reviewed content register; vendor retention settings; real paid files; affordable operating cap; and a tested recovery owner. These decisions do not change the four-area product or justify adding an app before validation.

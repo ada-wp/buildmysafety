@@ -1,0 +1,64 @@
+{
+"decision": "generated",
+"tasks": [
+{
+"action_key": "compare_care_routes",
+"concern_ids": [
+"getting_care"
+],
+"title": "See the main ways to get care",
+"summary": "US care can start through benefits-based virtual care, a standalone online visit, or a community health center. Each has different access and cost rules; none is guaranteed to fit.",
+"estimated_minutes": 15,
+"steps": [
+"Benefits route: “Does my health plan or employer benefits offer virtual care, and how do I check access and cost?”",
+"Online visit: “What should I check about state availability, new-patient access, visit cost and follow-up before using telehealth?”",
+"Community care: “How do health centers set fees, accept new patients and offer first visits?”"
+],
+"done_when": "You can name two routes to investigate and the key access details each requires.",
+"resources": [],
+"purchase_checks": [],
+"no_purchase_option": null
+},
+{
+"action_key": "understand_care_estimates",
+"concern_ids": [
+"getting_care"
+],
+"title": "Understand what a care estimate tells you",
+"summary": "A written estimate can help with planning for some nonemergency, self-pay care, but it is not always the final bill. Learn what it covers and what still needs confirmation.",
+"estimated_minutes": 12,
+"steps": [
+"Read the guide: “What does a written estimate for nonemergency self-pay care include?”",
+"Check the limits: “What services or charges might be missing, and when might the final bill differ?”",
+"Plan a useful question: “How can I request an estimate and ask what is excluded?”"
+],
+"done_when": "You understand an estimate’s purpose, limits and how to request one.",
+"resources": [
+{
+"resource_id": "cms_estimate_guide",
+"why": "Explains what a US nonemergency self-pay estimate may cover and its limits."
+}
+],
+"purchase_checks": [],
+"no_purchase_option": null
+},
+{
+"action_key": "learn_insurance_cost_terms",
+"concern_ids": [
+"getting_care"
+],
+"title": "Decode common care-cost terms",
+"summary": "A plan’s network and cost-sharing rules can change what a visit costs. Knowing what to ask helps you compare options without assuming you have coverage.",
+"estimated_minutes": 12,
+"steps": [
+"Network: “Is this provider in-network for my plan, and how could out-of-network care affect my cost?”",
+"Visit cost: “What might I owe for this type of visit, including any deductible, copay or coinsurance?”",
+"Before care: “Who can confirm the estimate, and could separate services create additional charges?”"
+],
+"done_when": "You can explain which plan details to verify before comparing a care option.",
+"resources": [],
+"purchase_checks": [],
+"no_purchase_option": null
+}
+]
+}

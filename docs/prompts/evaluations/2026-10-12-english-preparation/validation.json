@@ -1,0 +1,47 @@
+{
+  "method": "Offline replay; no hosted app delivery",
+  "checks": [
+    {
+      "id": "A",
+      "decision": "generated",
+      "preflight": null,
+      "resourceCount": 1,
+      "candidateResources": {
+        "passes": true,
+        "hasTask": true
+      },
+      "unchangedApp": {
+        "passes": false,
+        "error": "invalid_resource"
+      }
+    },
+    {
+      "id": "B",
+      "decision": "generated",
+      "preflight": null,
+      "resourceCount": 2,
+      "candidateResources": {
+        "passes": true,
+        "hasTask": true
+      },
+      "unchangedApp": {
+        "passes": false,
+        "error": "invalid_resource"
+      }
+    },
+    {
+      "id": "C",
+      "decision": "generated",
+      "preflight": null,
+      "resourceCount": 0,
+      "candidateResources": {
+        "passes": true,
+        "hasTask": true
+      },
+      "unchangedApp": {
+        "passes": true,
+        "hasTask": true
+      }
+    }
+  ]
+}

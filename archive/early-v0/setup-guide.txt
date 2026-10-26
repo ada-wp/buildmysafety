@@ -1,0 +1,157 @@
+Safety Project Setup Guide
+Build the flow and shell first
+
+The first milestone is simple: someone opens the website, submits a test form, and receives a sample Safety Map by email. We prove that the tools connect before designing the full scan or personalized content.
+
+This guide replaces the detailed build spec as the starting point. Do not implement the earlier question list, scoring model, action library, or complex delivery system yet. Those decisions can be made after the basic flow works.
+
+The product direction stays the same
+Four areas: My Backup, If I’m Out of Action, My Home, and My Body. Life transitions remain context rather than a fifth category. The eventual free product is a personalized Safety Map with one practical next step. The optional paid product is a $29 one-time, four-week Safety Journey.
+
+Build in this order
+1. Website shell.
+2. Test form.
+3. Form-to-email connections.
+4. End-to-end test.
+5. Personalization design and content.
+6. Paid offer, after the free experience works.
+
+The first connected flow
+Website → Tally test form → Make → Airtable → Brevo → sample email.
+After submitting, the visitor sees a simple confirmation page. The website also has a clearly labeled sample result page so we can review the visual design.
+
+What success looks like now
+One test submission creates one record and sends one sample email to your own inbox. You can see where the submission went and identify a failed step. The sample output is clearly marked as test content.
+
+What comes later
+The real questions, scoring or matching rules, reviewed content library, personalized results page, follow-up sequence, and payment. We keep space for them in the design without building them all now.
+
+===PAGE===
+01 Build the website shell
+Start with something you can see and click
+
+Tools and their jobs
+Codex builds and edits the website. GitHub stores the files. Vercel puts the website online. Tally collects form submissions. Make connects the tools. Airtable stores submissions and their status. Brevo sends emails. Use these as the default path; do not set up several competing tools for the same job.
+
+Step 1  Create a project
+Create a private GitHub repository called safety-project-v0 and open it in Codex. Ask Codex to build a small Next.js website. Start with fake data, so account connections do not slow down the first design review.
+
+Step 2  Build four simple pages
+Home: a brief explanation of the project, the four areas, and a Start button.
+Scan: space for the Tally form, with a temporary form placeholder.
+Thank you: confirmation that a submission was received and a sample email is on its way.
+Sample map: the visual layout for Already solid, Worth strengthening, and Your first safety block, using clearly labeled example text.
+
+Step 3  Keep content easy to replace
+Put sample headings, paragraphs, and map sections in a separate content file. The page design should not depend on the final questions or wording. Use one reusable map layout rather than four separately designed result pages.
+
+Step 4  Review the shell
+Click through on a phone and a computer. Check that the main button, form area, confirmation page, and sample map are understandable. At this stage, no actual safety assessment or personalized recommendation should appear.
+
+Step 5  Create a test deployment
+Connect the GitHub repository to Vercel and deploy the shell. Keep it private or clearly marked as a prototype. Use the test URL while connecting the tools; buy or connect the final domain later if preferred.
+
+Done when
+You have a working website link and can walk through the intended experience with sample content. There is no login, dashboard, app, AI API, payment, or finished questionnaire.
+
+===PAGE===
+02 Connect the form and submission storage
+Make one test submission travel through the system
+
+Step 6  Create a small Tally test form
+Use only a test email address and a simple test choice, such as a demo version A or B. These are connection-testing fields, not the final Safety Scan. Include a short note that the form is a prototype. Use your own addresses and invented data only.
+
+Step 7  Put the form on the website
+Publish the form in Tally, copy its embed configuration, and give the form ID to Codex. Ask Codex to place it on the Scan page. Set the completion destination to the website’s Thank you page. Test the redirect in the embedded form; keep a visible return link as a fallback.
+
+Step 8  Create one Airtable table
+Create a base called Safety Project Test and a table called Submissions. Start with these fields: submission_id, submitted_at, test_email, demo_variant, delivery_status, provider_message_id, and error_note. There is no need for a complex database yet.
+
+Step 9  Connect Tally to Make
+Create a Make scenario. Add the Tally Watch New Responses trigger and connect the test form. Use Tally’s supported Make integration and follow its connection prompts. Run the scenario once in listening mode, then submit your test form so Make can see the real fields.
+
+Step 10  Connect Make to Airtable
+Add an Airtable search step using Tally’s submission ID. If no record exists, create a record and map the fields from the form. Set delivery_status to received. If the submission already exists, skip creating a duplicate. Enable sequential processing for this small test flow.
+
+Done when
+Submitting the form produces a readable Airtable record. Replaying the same submission does not create another record. You can trace a submission using its ID without putting personal details in troubleshooting notes.
+
+Keep the setup lightweight
+Use the native connections first. Codex can guide you through the account configuration and prepare field mappings; it does not need to build a custom webhook service for this first connection test. Account credentials belong in the tools’ secure connection settings, not in chat or the website’s public code.
+
+===PAGE===
+03 Connect the sample email and test the flow
+Finish the first working loop
+
+Step 11  Set up Brevo
+Create a sender address and complete the verification Brevo requires. For public delivery later, authenticate your sending domain using the DNS records Brevo supplies. Create one email template called Sample Safety Map. Use a fixed subject and sample content; do not generate advice.
+
+Step 12  Add email delivery to Make
+After Airtable storage, add Brevo’s email-sending action. Map the test email address to the recipient and choose the sample template. During testing, allow only your approved test addresses. Before sending, check delivery_status so an already-sent submission is not sent again.
+
+Step 13  Record the outcome
+Set status to sending before the email step. When Brevo returns success, store its message ID and set status to accepted. This means the email provider accepted it, not that the recipient read it. If a send times out, mark it uncertain and check the provider’s logs before retrying.
+
+Step 14  Complete a full test
+Open the website → start the form → submit test data → see the Thank you page → find the Airtable record → receive the sample email. Confirm that the email layout matches the sample map’s basic structure.
+
+Step 15  Test the obvious failures
+Replay the same submission and confirm there is no duplicate email. Enter an invalid email and check validation. Disconnect a test connection and confirm Make shows the failure. Restore the connection and recover that specific submission. Do not blindly rerun every send step.
+
+The first milestone is complete
+You now have a connected product shell. Save a short note listing the website URL, Tally form, Make scenario, Airtable base, and Brevo template names. Do not include credentials. Keep using test data until the public content and privacy controls are ready.
+
+Deliberate limitation
+The first build sends the same sample map to everyone. Its result page is a visual example, not a private personalized result. This is enough to prove the connections; live personalization is the next milestone.
+
+===PAGE===
+04 Add personalized content after the flow works
+Decide what changes before deciding how to generate it
+
+Step 16  Define the output first
+Review the sample map and decide what should vary between people: the highlighted area, what is already in place, what could be strengthened, and the first practical action. Keep the same overall layout. We can design the questions only after agreeing what information the output needs.
+
+Step 17  Choose the personalization method
+Recommended V0: select approved content blocks using fixed rules. A person’s answers choose which prepared paragraphs and action appear. This gives a customized result without generating new safety advice during submission.
+
+Where AI can help
+AI can help us draft alternative copy, organize modules, and improve wording during content creation. A human reviews and approves the content before it enters the library. Runtime AI-generated safety advice remains outside V0. If you want another generation model later, we should decide its boundaries separately.
+
+Step 18  Prove selection with two examples
+Before writing a full library, create demo content A and demo content B. Use the test form’s demo choice to route to A or B in Make. Insert the selected text into the same Brevo template. Confirm that each test address receives the expected variant. This tests customization mechanics without prematurely deciding the real quiz or scoring.
+
+Step 19  Build the real content library
+Once the two-variant test works, define the actual scan and matching rules together. Create the minimum approved blocks for the four areas. Each block needs an ID, area, title, body, action, version, and approval status. Keep content separate from the delivery flow so changes do not require rebuilding the whole system.
+
+Step 20  Add the live personalized result page
+After email personalization works, ask Codex to make the same selected content available on a private result page. This needs secure result access, a loading state while processing finishes, and matching content between page and email. Do not put email addresses or answers in result URLs. Choose the simplest secure implementation at this stage.
+
+Done when
+Two different test inputs produce the intended different outputs, the same input is repeatable, and no unapproved content can be delivered. Then replace test fields with the agreed scan and complete the public-launch checks.
+
+===PAGE===
+05 Launch order and the prompt for Codex
+Keep the first build small
+
+Before a public free pilot
+Finish the real scan and reviewed content. Add a clear privacy notice, optional email collection, separate permission for follow-up marketing, unsubscribe, retention/deletion handling, and a support contact. Test private result access and failed delivery. These are needed before inviting real people, not before reviewing the shell with test data.
+
+Add follow-ups next
+Once the requested map reliably arrives, add a short optional email sequence. Do not enroll people in marketing just because they requested their map. Keep follow-ups separate from the main form-to-map delivery so they can be paused independently.
+
+Add the paid offer last
+Prepare the four-week Safety Journey materials first. Then add a $29 one-time Stripe Payment Link, verified-payment delivery, and the weekly course emails. Test payment and fulfillment before showing the buy button. There is no need for a membership area or subscription.
+
+Copy this prompt into Codex
+Build the first connected shell for Safety Project using this Setup Guide. This guide supersedes the earlier detailed specification for the current build stage. Do not implement the earlier full quiz, scoring, action library, or paid flow yet.
+Use Next.js and Vercel for the website, Tally for a tiny test form, Make for connections, Airtable for submission tracking, and Brevo for one sample email. Create Home, Scan, Thank you, and clearly labeled Sample Map pages. Keep sample content in a separate editable content file.
+Start with a local clickable shell. Then guide me through connecting the test form, storage, and email step by step. Use native tool integrations where possible. Keep the first flow simple, but prevent duplicate submissions and duplicate sends. Use only approved test addresses and invented data.
+The first milestone is a test visitor submitting the form and receiving a fixed sample map. No final questions, risk scoring, AI-generated safety advice, private personalized results, payment, accounts, or dashboard in this milestone. If credentials are missing, finish the shell and show the exact connection step that needs configuration. Do not claim a mocked connection is live.
+After this loop works, demonstrate two content variants selected by a test field. We will decide the real questions, matching rules, and content library together after reviewing that demonstration. Do not publish the prototype as a live safety service.
+
+Setup references
+Tally and Make: https://tally.so/help/make-integration
+Tally embedding: https://tally.so/help/embed-your-form
+Vercel configuration: https://vercel.com/docs/environment-variables
+Brevo email API: https://developers.brevo.com/reference/send-transac-email
+Stripe later: https://docs.stripe.com/payment-links

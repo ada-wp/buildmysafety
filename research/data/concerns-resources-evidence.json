@@ -1,0 +1,1756 @@
+{
+  "rows": [
+    {
+      "id": "C1-01",
+      "concern": "Illness or injury without practical help",
+      "order": 1,
+      "area": "A basic sick-day setup",
+      "pain": "Ordinary tasks such as getting water or preparing food become difficult during illness. People describe realizing too late that they lack easy meals and supplies.",
+      "solution": "An editable sick-day checklist covering familiar shelf-stable food, drinking water, tissues, charging, and delivery options. Start with items already owned; leave medication choices to the person and their clinician or pharmacist.",
+      "personalize": [
+        "Food and accessibility needs",
+        "Available storage and spending limit",
+        "Local delivery availability"
+      ],
+      "done": "A small set of personally useful supplies is gathered and one missing essential has a realistic acquisition plan.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Observed: mixed audience",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/"
+      ]
+    },
+    {
+      "id": "C1-02",
+      "concern": "Illness or injury without practical help",
+      "order": 2,
+      "area": "One agreed practical helper",
+      "pain": "Knowing people does not mean feeling able to ask them for help, particularly late at night. A social network may contain no confirmed person for a specific task.",
+      "solution": "A short request template to agree one task, such as collecting groceries. If no personal helper is available, provide a worksheet for checking local community or paid services, including hours, eligibility, and cost.",
+      "personalize": [
+        "Nearby people the user is comfortable asking",
+        "Most difficult illness-day task",
+        "Budget for outside help"
+      ],
+      "done": "A person agrees to a specific task, or a service's eligibility, hours, and request method are verified and saved.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C1-03",
+      "concern": "Illness or injury without practical help",
+      "order": 3,
+      "area": "An agreed check-in and missed-contact plan",
+      "pain": "People worry nobody would notice if illness or injury stopped them communicating. Existing daily habits sometimes provide a simple cue, but the next action may be undefined.",
+      "solution": "A consent-based check-in agreement with timing, a missed-contact follow-up, backup contact, and locally appropriate emergency instructions. Offer a service-comparison worksheet when no helper is available; explain that a check-in is not emergency monitoring.",
+      "personalize": [
+        "Existing regular contact routine",
+        "Available and willing contacts",
+        "Preferred contact method and privacy limits"
+      ],
+      "done": "Participants explicitly agree on the timing and missed-contact response, or a suitable service's actual limits and setup are documented.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1m5ziku/emergencies_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C1-04",
+      "concern": "Illness or injury without practical help",
+      "order": 4,
+      "area": "Finding appropriate care without starting from zero",
+      "pain": "When someone feels unwell and alone, finding the right contact adds another decision. The discussions suggest a need for navigation prepared before a stressful moment.",
+      "solution": "A local care-contact card for the person's usual provider, after-hours advice, pharmacy, and emergency number. Link only to verified official service pages; do not generate symptom triage or treatment instructions.",
+      "personalize": [
+        "Country or region",
+        "Existing healthcare access",
+        "Language and communication needs"
+      ],
+      "done": "Relevant phone numbers or official service pages are saved with opening hours and any known access requirements.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C1-05",
+      "concern": "Illness or injury without practical help",
+      "order": 5,
+      "area": "Transport when usual travel is unavailable",
+      "pain": "Being temporarily unable to drive, walk, or use a usual route can interrupt access to appointments and supplies. A workable alternative may have eligibility, booking, or cost constraints.",
+      "solution": "A transport backup card with a willing contact and locally verified accessible or non-emergency transport options. Include booking lead time and cost questions; keep emergency transport instructions separate and follow the care provider's requirements.",
+      "personalize": [
+        "Usual transport and accessibility needs",
+        "Local service area",
+        "Available helper or transport budget"
+      ],
+      "done": "One realistic non-emergency option is checked and its booking details saved; any required escort is separately confirmed.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C1-06",
+      "concern": "Illness or injury without practical help",
+      "order": 6,
+      "area": "Pet care if the owner cannot act",
+      "pain": "A pet's needs continue during illness or hospitalization. One poster's main worry was what would happen to their dog if they needed hospital care.",
+      "solution": "A pet handover sheet covering routine, vet contact, supplies, and owner-provided instructions, plus a request template for a backup carer. Provide a service-vetting checklist when friends or family cannot help.",
+      "personalize": [
+        "Pet type and existing care needs",
+        "Available carer or service",
+        "Spending limit and safe access arrangement"
+      ],
+      "done": "A carer or service has confirmed availability conditions, and a completed care sheet and agreed access method are ready.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Observed: mixed audience",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/",
+        "https://www.reddit.com/r/LivingAlone/comments/1m5ziku/emergencies_alone/"
+      ]
+    },
+    {
+      "id": "C1-07",
+      "concern": "Illness or injury without practical help",
+      "order": 7,
+      "area": "A temporary absence handover",
+      "pain": "Illness can leave someone managing essential commitments while unable to function normally. A short handover can reduce the need to invent explanations and instructions when already depleted.",
+      "solution": "A one-page absence template: whom to notify at work or study, the next essential commitment, and what can be postponed. Include editable messages and a no-helper version focused on pausing obligations.",
+      "personalize": [
+        "Employment or study situation",
+        "Time-sensitive commitments",
+        "Whether anyone can temporarily cover a task"
+      ],
+      "done": "Notification contacts and one reusable message are saved, and essential commitments have a named cover or pause plan.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/",
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/"
+      ]
+    },
+    {
+      "id": "C1-08",
+      "concern": "Illness or injury without practical help",
+      "order": 8,
+      "area": "A low-effort recovery space",
+      "pain": "During a period of low mobility or energy, ordinary items can become difficult to reach. The useful change may be arranging existing belongings rather than buying a new tool.",
+      "solution": "A five-minute setup card for placing water, phone, charger, tissues, and personally useful items within comfortable reach. Adapt to the user's access needs and any professional recovery instructions, without prescribing exercises or treatment.",
+      "personalize": [
+        "Usual resting place",
+        "Mobility or reach constraints the user chooses to share",
+        "Items already available"
+      ],
+      "done": "The chosen resting area contains accessible essentials and the user has checked that the arrangement is comfortable and practical.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/"
+      ]
+    },
+    {
+      "id": "C1-09",
+      "concern": "Illness or injury without practical help",
+      "order": 9,
+      "area": "Support requirements before a planned procedure",
+      "pain": "A planned procedure may require an escort or temporary help that a solo household cannot assume exists. Identifying the requirement late can make arranging care much harder.",
+      "solution": "A question sheet for the clinical team: escort rules, expected practical support, transport, and available care-coordination help. Offer a request template for arranging that support; never substitute generic AI advice for discharge requirements.",
+      "personalize": [
+        "Whether a procedure is planned",
+        "Requirements already supplied by the clinical team",
+        "Available support and budget"
+      ],
+      "done": "The provider's practical requirements are recorded and required support is confirmed, or the care team has been told about the unresolved gap.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C1-10",
+      "concern": "Illness or injury without practical help",
+      "order": 10,
+      "area": "A minimal emergency contact and handover note",
+      "pain": "If someone cannot explain their situation, important contacts and practical responsibilities may be hard to discover. People also worry that pets or other obligations will be overlooked.",
+      "solution": "A minimal printable or phone-based contact note with a chosen contact, essential responsibilities, and where further instructions can be found. Let the person choose what to disclose and store sensitive information locally.",
+      "personalize": [
+        "Willing emergency contact",
+        "Responsibilities that cannot wait",
+        "Preferred format and privacy limits"
+      ],
+      "done": "The note is completed, stored where intended, and the chosen contact knows its purpose and any agreed responsibility.",
+      "productArea": "If I'm Out of Action",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1m5ziku/emergencies_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/"
+      ]
+    },
+    {
+      "id": "C2-01",
+      "concern": "Every responsibility falls on me",
+      "order": 1,
+      "area": "A manageable low-energy day",
+      "pain": "Basic tasks still need doing when work, stress or poor sleep has used up available energy.",
+      "solution": "Offer an editable minimum-day card: essential food, one necessary responsibility and what can wait. Let the user choose a smaller version.",
+      "personalize": "Energy today; unavoidable responsibilities; accessibility needs",
+      "done": "The user saves a personally chosen minimum-day plan and postpones one nonessential task.",
+      "productArea": "My Body",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/"
+      ]
+    },
+    {
+      "id": "C2-02",
+      "concern": "Every responsibility falls on me",
+      "order": 2,
+      "area": "Easy meals for one",
+      "pain": "Cooking and washing up every day can feel disproportionate when only one person benefits.",
+      "solution": "Create a three-meal fallback list and matching shopping checklist using foods the user already likes. Find local low-cost food support if needed.",
+      "personalize": "Cooking access; food preferences; available budget",
+      "done": "Three feasible meals and the ingredients needed are recorded.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C2-03",
+      "concern": "Every responsibility falls on me",
+      "order": 3,
+      "area": "A lighter cleaning routine",
+      "pain": "Cleaning has no natural handover, so tasks pile up or consume the whole weekend.",
+      "solution": "Provide a small cleaning rotation with a user-selected minimum standard. Offer a booking checklist for paid help only when wanted and affordable.",
+      "personalize": "Home size; mobility; tasks most disliked",
+      "done": "One realistic recurring task is scheduled and unnecessary standards are removed.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/"
+      ]
+    },
+    {
+      "id": "C2-04",
+      "concern": "Every responsibility falls on me",
+      "order": 4,
+      "area": "Tracking home maintenance",
+      "pain": "Remembering filters, leaks, appliance care and landlord follow-ups becomes another job.",
+      "solution": "Provide a maintenance log tied to landlord responsibilities and manufacturer instructions, with one next reminder and a contact to use.",
+      "personalize": "Renter or owner; appliance instructions; current issue",
+      "done": "One relevant maintenance task and the responsible contact have a reminder.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/"
+      ]
+    },
+    {
+      "id": "C2-05",
+      "concern": "Every responsibility falls on me",
+      "order": 5,
+      "area": "Tasks that need another pair of hands",
+      "pain": "Heavy groceries, furniture assembly and moving objects can be awkward or physically inaccessible alone.",
+      "solution": "Offer a two-person-task decision card: simplify the task, borrow appropriate equipment, ask a willing helper or seek a verified service.",
+      "personalize": "Task; physical access; helper and budget availability",
+      "done": "A feasible method and any necessary helper are identified before starting.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/"
+      ]
+    },
+    {
+      "id": "C2-06",
+      "concern": "Every responsibility falls on me",
+      "order": 6,
+      "area": "Keeping appointments and paperwork manageable",
+      "pain": "Calls, renewals and documents compete for attention without anyone sharing the load.",
+      "solution": "Create a one-page admin inbox and a short weekly appointment block. Link only to the user's actual provider or official agency when known.",
+      "personalize": "Outstanding task; deadline; preferred reminder method",
+      "done": "One important item has a next action, official contact and reminder.",
+      "productArea": "My Backup",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/"
+      ]
+    },
+    {
+      "id": "C2-07",
+      "concern": "Every responsibility falls on me",
+      "order": 7,
+      "area": "Transport when a car or usual route fails",
+      "pain": "A repair or cancelled ride can interrupt work, errands and appointments with no automatic lift available.",
+      "solution": "Help compare existing transit, a willing contact and local transport services. Save two usable options, including accessibility and booking constraints.",
+      "personalize": "Location; usual transport; mobility and budget",
+      "done": "Two backup routes or contacts are saved with how to book them.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/"
+      ]
+    },
+    {
+      "id": "C2-08",
+      "concern": "Every responsibility falls on me",
+      "order": 8,
+      "area": "Errands and household supplies",
+      "pain": "Shopping, carrying groceries and remembering essentials become repetitive effort.",
+      "solution": "Offer a short reusable essentials list, grouped errands and optional pickup or delivery comparison. Keep a no-subscription option.",
+      "personalize": "Shopping access; storage; cost and time limits",
+      "done": "A short essentials list and the next feasible restocking method are saved.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C2-09",
+      "concern": "Every responsibility falls on me",
+      "order": 9,
+      "area": "Choosing what to do first",
+      "pain": "A long list of reasonable recommendations can add more decisions to an already full day.",
+      "solution": "Create a choose-one worksheet based on consequence, effort and personal priority. Offer 'make this smaller' instead of another long plan.",
+      "personalize": "Most disruptive problem; effort available; existing strengths",
+      "done": "The user selects one concrete action and a time to attempt it.",
+      "productArea": "My Body",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/",
+        "https://www.reddit.com/r/LivingAlone/comments/1riqcvd/how_do_you_prep_for_long_term_living_alone/"
+      ]
+    },
+    {
+      "id": "C2-10",
+      "concern": "Every responsibility falls on me",
+      "order": 10,
+      "area": "Learning unfamiliar household basics",
+      "pain": "Not knowing how to handle a small household issue can feel embarrassing and lead to delay or unnecessary expense.",
+      "solution": "Offer a beginner checklist using manufacturer or qualified-source guidance. Help identify when to contact a landlord or professional; avoid hazardous DIY instructions.",
+      "personalize": "Specific task; housing responsibility; confidence and access",
+      "done": "The user has an appropriate instruction source or a qualified contact for one task.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/",
+        "https://www.reddit.com/r/LivingAlone/comments/1riqcvd/how_do_you_prep_for_long_term_living_alone/"
+      ]
+    },
+    {
+      "id": "C3-01",
+      "concern": "Financial vulnerability on one income",
+      "order": 1,
+      "area": "Knowing the cost of keeping essentials running",
+      "pain": "People describe covering ordinary bills while feeling one unexpected expense away from trouble. Without an essentials-only view, it is difficult to understand the size of a disruption.",
+      "solution": "A private essentials worksheet for housing, utilities, food, transport, required payments, and care costs. Use user-entered figures and clearly separate confirmed amounts from estimates; require no bank connection.",
+      "personalize": [
+        "Stable or variable income",
+        "Essential obligations",
+        "Known upcoming cost changes"
+      ],
+      "done": "An essentials total is recorded with dates and uncertain amounts marked for checking.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/"
+      ]
+    },
+    {
+      "id": "C3-02",
+      "concern": "Financial vulnerability on one income",
+      "order": 2,
+      "area": "A personally realistic first cash buffer",
+      "pain": "Financial stability can feel fragile even when monthly bills are paid. A large generic savings target may feel unattainable to someone with little spare income.",
+      "solution": "A small-buffer planning sheet based on one disruption the user chooses. Let them select any affordable contribution or a zero-contribution resource-finding step; do not recommend a financial product or promise a target is sufficient.",
+      "personalize": [
+        "Chosen disruption to prepare for",
+        "Available monthly margin",
+        "Existing accessible savings"
+      ],
+      "done": "A user-chosen target and feasible next contribution or no-cost alternative action are recorded with a review date.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/"
+      ]
+    },
+    {
+      "id": "C3-03",
+      "concern": "Financial vulnerability on one income",
+      "order": 3,
+      "area": "A bill calendar for a short income gap",
+      "pain": "A delayed paycheck or brief interruption can create a cash gap before the next payment arrives. Total monthly spending alone does not reveal which dates are difficult.",
+      "solution": "A simple cash-timing calendar showing expected income, essential due dates, and an optional disruption scenario. Flag gaps for the user to investigate rather than telling them which legally required payments to skip.",
+      "personalize": [
+        "Pay schedule",
+        "Essential bill due dates",
+        "Possible length of income interruption"
+      ],
+      "done": "The next payment cycle is mapped and each visible shortfall has a contact or information-gathering action.",
+      "productArea": "My Backup",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/"
+      ]
+    },
+    {
+      "id": "C3-04",
+      "concern": "Financial vulnerability on one income",
+      "order": 4,
+      "area": "Knowing whom to contact before a bill becomes unmanageable",
+      "pain": "When rent, utilities, or another essential expense rises, people can feel there is no available solution. Finding the right provider contact while distressed adds friction.",
+      "solution": "A provider-contact sheet and editable hardship inquiry asking about available arrangements, eligibility, fees, consequences, and written terms. Populate links from verified official providers or local assistance directories without assuming relief will be granted.",
+      "personalize": [
+        "Expense causing concern",
+        "Country or locality",
+        "Provider and upcoming due date"
+      ],
+      "done": "An official contact route and relevant questions are saved, or an inquiry has been sent and its response recorded.",
+      "productArea": "My Backup",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/"
+      ]
+    },
+    {
+      "id": "C3-05",
+      "concern": "Financial vulnerability on one income",
+      "order": 5,
+      "area": "Understanding income support during absence or job loss",
+      "pain": "A single income may support the whole household. Discussions describe layoffs, burnout, and concern that losing employment would rapidly undermine stability.",
+      "solution": "An income-interruption fact sheet for checking employer leave policies, existing benefits, and official local assistance. Record eligibility questions, waiting periods, application routes, and documents needed; do not infer entitlement from a short quiz.",
+      "personalize": [
+        "Employment type",
+        "Country or region",
+        "Known employer or public benefits"
+      ],
+      "done": "Relevant policies or official resources are located and the user has recorded verified facts and unresolved questions.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/",
+        "https://www.reddit.com/r/LivingAlone/comments/1p7o7dn/women_living_alone_what_do_you_do_for_a_living/"
+      ]
+    },
+    {
+      "id": "C3-06",
+      "concern": "Financial vulnerability on one income",
+      "order": 6,
+      "area": "Affordable options for a practical backup task",
+      "pain": "Solo households may need to pay for help with transport, repairs, or delivery that another household could share. These smaller costs can accumulate or become unaffordable during a disruption.",
+      "solution": "A comparison card for one needed task: free community support where eligible, a trusted reciprocal arrangement, and paid services. Check actual fees, service area, availability, and limits before presenting an option as usable.",
+      "personalize": [
+        "Specific task needing backup",
+        "Maximum affordable cost",
+        "Location and eligibility constraints"
+      ],
+      "done": "At least one feasible option has a verified cost and request method, or the remaining affordability gap is clearly recorded.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/"
+      ]
+    },
+    {
+      "id": "C3-07",
+      "concern": "Financial vulnerability on one income",
+      "order": 7,
+      "area": "Preparing for one irregular but foreseeable expense",
+      "pain": "Car replacement, repairs, or home upkeep can disrupt an otherwise workable monthly budget. People describe having little room to absorb these larger costs alone.",
+      "solution": "A single-expense planning card with expected timing, a user-entered estimate or quote, existing coverage, and an optional savings plan. Include an information-gathering first step when the cost or available money is unknown.",
+      "personalize": [
+        "Upcoming essential expense",
+        "Timing and existing estimate",
+        "Amount already available"
+      ],
+      "done": "One expense has a documented estimate, likely timing, and a feasible next step or funding gap to address.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/"
+      ]
+    },
+    {
+      "id": "C3-08",
+      "concern": "Financial vulnerability on one income",
+      "order": 8,
+      "area": "Housing-cost continuity",
+      "pain": "Rent increases and expensive housing threaten the ability to keep living independently. Moving also has costs, so a cheaper headline rent is not a complete backup plan.",
+      "solution": "A housing-cost scenario worksheet covering renewal timing, current costs, one alternative, and potential moving expenses. Link to official local tenant information and assistance resources without generating legal conclusions or assuming moving is feasible.",
+      "personalize": [
+        "Renting or owning",
+        "Renewal or payment-change timing",
+        "Location and practical housing constraints"
+      ],
+      "done": "The next housing decision date is saved and one realistic scenario has costs, unknowns, and a next inquiry documented.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C3-09",
+      "concern": "Financial vulnerability on one income",
+      "order": 9,
+      "area": "Understanding potential care costs and assistance",
+      "pain": "Healthcare costs and possible loss of coverage add uncertainty to one-income living. People may not know what their existing arrangements cover or where to ask about financial help.",
+      "solution": "A care-cost questions sheet for the relevant provider or insurer, covering estimates, existing coverage, payment support, and official eligibility information. Store user-confirmed answers; do not recommend delaying care or choosing an insurance product.",
+      "personalize": [
+        "Country or healthcare system",
+        "Known coverage",
+        "Planned care or coverage change"
+      ],
+      "done": "The appropriate official contact and key coverage or cost documents are located, with a completed inquiry or clear list of unanswered questions.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/"
+      ]
+    },
+    {
+      "id": "C3-10",
+      "concern": "Financial vulnerability on one income",
+      "order": 10,
+      "area": "Debt obligations and a credible advice route",
+      "pain": "Existing debt payments can leave little flexibility for an emergency. Some participants describe credit-card or student debt alongside high living costs and feeling unable to get ahead.",
+      "solution": "A private obligations inventory and questions for a verified nonprofit or regulated debt-advice service. Compare eligibility, fees, and conflicts of interest; avoid recommending new borrowing, repayment order, or debt products from quiz answers.",
+      "personalize": [
+        "Types of obligations the user chooses to include",
+        "Country or region",
+        "Whether payments are currently manageable"
+      ],
+      "done": "Known payment obligations and official contact routes are recorded, and an appropriate advice service is checked if the user wants support.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/"
+      ]
+    },
+    {
+      "id": "C4-01",
+      "concern": "Comfort and security at home",
+      "order": 1,
+      "area": "A clear starting point for home readiness",
+      "pain": "A new home or recent move can make it hard to know which practical checks matter first.",
+      "solution": "Offer a short walkthrough covering entry, alarms, routes out and who handles repairs. Select one unresolved item and the right official guidance.",
+      "personalize": "Home type; renter or owner; checks already done",
+      "done": "One relevant gap is identified and has a feasible next action.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-02",
+      "concern": "Comfort and security at home",
+      "order": 2,
+      "area": "Entry locks and access responsibilities",
+      "pain": "Residents may be unsure who can enter, whether a lock works properly or what changes a lease allows.",
+      "solution": "Provide a landlord or locksmith question list covering lock function, authorized access and permitted changes. Link local rules and vetted professionals.",
+      "personalize": "Housing tenure; concern with access; local requirements",
+      "done": "The user knows who is responsible and has resolved or reported one access issue.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-03",
+      "concern": "Comfort and security at home",
+      "order": 3,
+      "area": "Feeling settled at night",
+      "pain": "Unfamiliar noises and repeated checking can interfere with enjoying an otherwise comfortable home.",
+      "solution": "Help create one proportionate practical check followed by an optional settling routine. Ask whether there is a concrete unresolved hazard before offering reassurance.",
+      "personalize": "What happens at night; actual concern; preferred calming activities",
+      "done": "A practical concern is addressed or referred, and an optional night routine is chosen.",
+      "productArea": "My Body",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-04",
+      "concern": "Comfort and security at home",
+      "order": 4,
+      "area": "Choosing and booking repair help",
+      "pain": "Having an unfamiliar worker enter the home can be uncomfortable, especially during the first months alone.",
+      "solution": "Offer a provider-verification and booking checklist: company details, scope, written quote, arrival process and optional support arrangement.",
+      "personalize": "Repair type; renter or owner; available support",
+      "done": "The appointment has a verified provider, agreed scope and a comfortable arrival plan.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/TheGirlSurvivalGuide/comments/1rvvl2s/first_time_living_alone_what_do_you_all_do_when/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-05",
+      "concern": "Comfort and security at home",
+      "order": 5,
+      "area": "Unexpected visitors and deliveries",
+      "pain": "People may feel pressure to answer the door or reveal more about their household than they want.",
+      "solution": "Offer a visitor and delivery preference card with short boundary scripts and guidance from the building or carrier. Avoid requiring extra devices.",
+      "personalize": "Building entry setup; delivery needs; communication preferences",
+      "done": "One suitable delivery or door-answering preference is set.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/",
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-06",
+      "concern": "Comfort and security at home",
+      "order": 6,
+      "area": "Getting from street or parking to the door",
+      "pain": "Poor lighting, unfamiliar entrances or uncomfortable encounters can make arriving home stressful.",
+      "solution": "Provide an arrival-route review and a ready-to-send maintenance request. Help find an alternate accessible entrance or local support where appropriate.",
+      "personalize": "Arrival time; route and access; specific concern",
+      "done": "One actionable lighting or access issue is reported or an alternative route is saved.",
+      "productArea": "My Home",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-07",
+      "concern": "Comfort and security at home",
+      "order": 7,
+      "area": "Working smoke alarms and a way out",
+      "pain": "Fire preparedness can remain unfinished because nobody else checks equipment or discusses an exit plan.",
+      "solution": "Link official fire-service guidance and create a check-and-report reminder appropriate to the property. Respect building-specific evacuation instructions.",
+      "personalize": "Home layout; alarm responsibility; mobility needs",
+      "done": "Alarm status and the building's exit instructions are checked or a fault is reported.",
+      "productArea": "My Home",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/"
+      ]
+    },
+    {
+      "id": "C4-08",
+      "concern": "Comfort and security at home",
+      "order": 8,
+      "area": "Carbon monoxide and fuel-related hazards",
+      "pain": "People may not know whether their home needs a particular alarm or which official advice applies.",
+      "solution": "Route to local fire or public-health guidance and manufacturer instructions. Provide a landlord question list, with no DIY gas or electrical work.",
+      "personalize": "Fuel appliances; housing responsibility; country",
+      "done": "The user has the relevant official guidance and a responsible contact for an unresolved issue.",
+      "productArea": "My Home",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/",
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-09",
+      "concern": "Comfort and security at home",
+      "order": 9,
+      "area": "Power outages and local disruptions",
+      "pain": "Losing power or access to normal services is harder without another person sharing preparation.",
+      "solution": "Offer a small outage checklist based on local hazards, accessibility and equipment needs. Link official alerts and identify charging or backup options.",
+      "personalize": "Local hazard; mobility or powered-equipment needs; storage",
+      "done": "One relevant supply or contact is ready and an official alert source is saved.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C4-10",
+      "concern": "Comfort and security at home",
+      "order": 10,
+      "area": "Getting locked out",
+      "pain": "A misplaced key or failed entry method can leave someone without a trusted person to call.",
+      "solution": "Create a lockout contact card with landlord or building procedures, a verified locksmith option and a user-chosen permitted backup-access arrangement.",
+      "personalize": "Housing rules; existing spare access; budget",
+      "done": "A legitimate entry-recovery procedure and contact are saved somewhere accessible.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/"
+      ]
+    },
+    {
+      "id": "C5-01",
+      "concern": "Meaningful connection and being noticed",
+      "order": 1,
+      "area": "A support circle with different roles",
+      "pain": "Having friends does not always mean knowing whom to approach for company, encouragement, or a practical favor. Distant relationships and local connections offer different kinds of support.",
+      "solution": "Offer a private support-circle worksheet that separates companionship, listening, local favors, and shared interests. Let users include people, groups, or community services without requiring contact details.",
+      "personalize": [
+        "Existing local connections",
+        "Support they want more of",
+        "Comfort asking for help"
+      ],
+      "done": "One support need is matched to a realistic person or group, with a next approach chosen.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1j5w6n4/30something_women/"
+      ]
+    },
+    {
+      "id": "C5-02",
+      "concern": "Meaningful connection and being noticed",
+      "order": 2,
+      "area": "One recurring activity with familiar faces",
+      "pain": "After moving, someone may enjoy living alone but miss familiar faces and an accessible social scene. Occasional events do not necessarily create a regular point of connection.",
+      "solution": "Provide a local activity finder brief and comparison card for library groups, classes, volunteering, or interest meetups. Prioritize recurring options that fit the person's interests, travel range, access needs, and budget.",
+      "personalize": [
+        "Interests",
+        "Travel or access limits",
+        "Available time and budget"
+      ],
+      "done": "One recurring activity has a verified next date and a chosen first-attendance plan.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1j5w6n4/30something_women/"
+      ]
+    },
+    {
+      "id": "C5-03",
+      "concern": "Meaningful connection and being noticed",
+      "order": 3,
+      "area": "Asking for a small, specific favor",
+      "pain": "Some respondents hesitate to ask for help because they do not want to inconvenience others. A vague request can feel harder to make than a small favor with clear limits.",
+      "solution": "Offer editable request messages for a bounded everyday favor, such as accompanying a first visit to a group. Include the task, timing, an easy way to decline, and an alternative.",
+      "personalize": [
+        "Favor needed",
+        "Possible person to ask",
+        "Preferred communication channel"
+      ],
+      "done": "A specific request is ready to send or has been sent by the user; a reply is not required for completion.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/"
+      ]
+    },
+    {
+      "id": "C5-04",
+      "concern": "Meaningful connection and being noticed",
+      "order": 4,
+      "area": "A shared-day conversation",
+      "pain": "Someone can value their own home while missing an ordinary person to tell about the day. This is a different need from emergency help or joining a large social group.",
+      "solution": "Offer a low-pressure invitation template for a regular call, voice-note exchange, or walk. Help choose a comfortable frequency and make participation voluntary for both people.",
+      "personalize": [
+        "Preferred kind of conversation",
+        "Existing person to invite",
+        "Comfortable frequency"
+      ],
+      "done": "One invitation has been prepared or sent, specifying the format and an optional first time.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/"
+      ]
+    },
+    {
+      "id": "C5-05",
+      "concern": "Meaningful connection and being noticed",
+      "order": 5,
+      "area": "Keeping distant relationships active",
+      "pain": "A move can leave trusted people far away while local friendships are still developing. Distance changes access to shared time without making those relationships unimportant.",
+      "solution": "Provide a reconnecting message and a shared-activity menu for a call, online hobby, or planned visit. Include time-zone and scheduling prompts without requiring access to anyone's calendar.",
+      "personalize": [
+        "Distance or time zones",
+        "Shared interests",
+        "Preferred contact frequency"
+      ],
+      "done": "One distant connection has a proposed shared activity and a realistic time window.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1j5w6n4/30something_women/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/"
+      ]
+    },
+    {
+      "id": "C5-06",
+      "concern": "Meaningful connection and being noticed",
+      "order": 6,
+      "area": "Low-pressure neighborhood familiarity",
+      "pain": "Women in the discussions describe comfort from knowing neighbors and having local ties. A newcomer may want familiarity without hosting, disclosing personal information, or committing to a close friendship.",
+      "solution": "Offer a neighborhood introduction menu: greet a familiar neighbor, attend an open community event, or revisit a welcoming local venue. Include a short introduction that does not reveal living arrangements.",
+      "personalize": [
+        "How new the area feels",
+        "Preferred level of interaction",
+        "Comfort sharing information"
+      ],
+      "done": "One low-pressure local interaction has been chosen and attempted, with no obligation to exchange contact details.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/"
+      ]
+    },
+    {
+      "id": "C5-07",
+      "concern": "Meaningful connection and being noticed",
+      "order": 7,
+      "area": "Connection during holidays and changing life stages",
+      "pain": "A generally satisfying solo life can feel lonelier during holidays or when friends' family commitments change. The difficult period may be specific rather than a wish to stop living alone.",
+      "solution": "Offer a plan for one upcoming difficult date, combining a desired social invitation or public activity with a satisfying independent option. Include an invitation template and space for a flexible backup choice.",
+      "personalize": [
+        "Upcoming difficult occasion",
+        "Wanted amount of company",
+        "Available people or activities"
+      ],
+      "done": "The date has one preferred connection option and one independent option the user would enjoy.",
+      "productArea": "My Backup",
+      "evidence": "Observed: mixed audience",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1pyl9xa/making_peace_with_being_alone/"
+      ]
+    },
+    {
+      "id": "C5-08",
+      "concern": "Meaningful connection and being noticed",
+      "order": 8,
+      "area": "A small connection when energy is limited",
+      "pain": "Someone may want contact but find a full event or lengthy conversation too demanding. A smaller option could fit without turning connection into another obligation.",
+      "solution": "Offer an optional menu of brief connections: send one photo, exchange a voice note, or invite a short walk. Let the user choose a time limit and opt out without losing progress.",
+      "personalize": [
+        "Available energy",
+        "Preferred communication format",
+        "Desired duration"
+      ],
+      "done": "One chosen brief connection has been attempted or deliberately scheduled within the user's energy limit.",
+      "productArea": "My Backup",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/"
+      ]
+    },
+    {
+      "id": "C5-09",
+      "concern": "Meaningful connection and being noticed",
+      "order": 9,
+      "area": "Reciprocal support with manageable boundaries",
+      "pain": "Local favors can build connection, but open-ended obligations may undermine the independence someone values. A clear, limited exchange could make giving and receiving help feel more manageable.",
+      "solution": "Provide a mutual-favor conversation card for something specific, such as sharing a lift to a class. Include capacity, frequency, permission to decline, and a review date.",
+      "personalize": [
+        "Possible shared activity",
+        "Capacity to offer help",
+        "Limits on frequency"
+      ],
+      "done": "Both people have agreed to one bounded arrangement, or the user has recorded that it is not a fit.",
+      "productArea": "My Backup",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1kty7br/living_alone_i_think_we_need_to_talk/"
+      ]
+    },
+    {
+      "id": "C5-10",
+      "concern": "Meaningful connection and being noticed",
+      "order": 10,
+      "area": "Community that fits a current life stage",
+      "pain": "Someone may have friends yet miss people with similar schedules or experiences after a move, separation, or another transition. More social contact alone may not provide the sense of fit they want.",
+      "solution": "Offer a community-fit checklist for interest groups or moderated communities: shared purpose, welcoming format, access, privacy, and participation expectations. Help shortlist one place to try without requiring personal disclosure.",
+      "personalize": [
+        "Current transition",
+        "Shared experience or interest sought",
+        "Online versus local preference"
+      ],
+      "done": "One community has been assessed against the checklist and a low-commitment first step chosen.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/LivingAlone/comments/1pyl9xa/making_peace_with_being_alone/",
+        "https://www.reddit.com/r/LivingAlone/comments/1j5w6n4/30something_women/"
+      ]
+    },
+    {
+      "id": "C6-01",
+      "concern": "Peace, privacy and control over space",
+      "order": 1,
+      "area": "A personal definition of a peaceful home",
+      "pain": "Respondents value being able to control their space, noise, routines, and social contact. Recommendations that assume more company is always better can work against that preference.",
+      "solution": "Offer a one-page home-preferences card: what helps me relax, what I want to protect, and what I want to change. Use it to filter later suggestions.",
+      "personalize": [
+        "Most valued part of solo living",
+        "Current source of friction",
+        "Desired change"
+      ],
+      "done": "The user has named two things to preserve and one specific improvement they want.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/"
+      ]
+    },
+    {
+      "id": "C6-02",
+      "concern": "Peace, privacy and control over space",
+      "order": 2,
+      "area": "Contact preferences without constant availability",
+      "pain": "Someone can want relationships while also valuing quiet and freedom from other people's schedules. They may need a way to communicate availability without feeling permanently reachable.",
+      "solution": "Provide an editable contact-preferences message covering usual reply times, preferred channels, and quiet periods. Offer an optional guide to configuring ordinary notification settings around those preferences.",
+      "personalize": [
+        "Preferred contact channels",
+        "Desired quiet periods",
+        "People who need expectations clarified"
+      ],
+      "done": "One contact preference has been written and, if desired, communicated or reflected in notification settings.",
+      "productArea": "My Backup",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/"
+      ]
+    },
+    {
+      "id": "C6-03",
+      "concern": "Peace, privacy and control over space",
+      "order": 3,
+      "area": "Visitor and hosting boundaries",
+      "pain": "Having a home of one's own can mean enjoying visitors by choice while preserving private space. Hosting expectations or unplanned visits may interfere with that control.",
+      "solution": "Offer invitation and boundary scripts for advance notice, visit duration, overnight stays, and meeting elsewhere. Let users select only the boundary relevant to their situation.",
+      "personalize": [
+        "Unwanted visitor expectation",
+        "Preferred visit format",
+        "Comfort stating a boundary"
+      ],
+      "done": "One specific hosting boundary has a ready-to-use message or has been communicated by the user.",
+      "productArea": "My Home",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/"
+      ]
+    },
+    {
+      "id": "C6-04",
+      "concern": "Peace, privacy and control over space",
+      "order": 4,
+      "area": "Responding to pressure about living alone",
+      "pain": "Some women describe family warnings that solo living will lead to loneliness or inability to cope. They want practical support without having to defend their living arrangement repeatedly.",
+      "solution": "Provide a short conversation template: acknowledge concern, state the user's choice, name the kind of support welcome, and set a limit on repeated debate. Avoid making relationship decisions for the user.",
+      "personalize": [
+        "Source of pressure",
+        "Support they would welcome",
+        "Preferred firmness"
+      ],
+      "done": "The user has drafted a response that states their choice and one clear conversational limit.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1wgyhhe/living_alone/"
+      ]
+    },
+    {
+      "id": "C6-05",
+      "concern": "Peace, privacy and control over space",
+      "order": 5,
+      "area": "Making one part of home feel personally theirs",
+      "pain": "Control over decor, comfort, and use of space is repeatedly described as a benefit of living alone. After a transition, a home may not yet reflect the person's own preferences.",
+      "solution": "Offer a no-purchase-first corner reset: choose one small area, name its purpose, and rearrange existing items to support it. Provide a simple before-and-after preference checklist.",
+      "personalize": [
+        "Activity the space should support",
+        "Available space",
+        "Existing items or spending limit"
+      ],
+      "done": "One small area is arranged for the chosen purpose and has been tried once.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1wgyhhe/living_alone/"
+      ]
+    },
+    {
+      "id": "C6-06",
+      "concern": "Peace, privacy and control over space",
+      "order": 6,
+      "area": "An optional arrival-home transition",
+      "pain": "A person may want to shift from a demanding day into enjoying their own space. A brief, personally chosen transition could make that moment feel more intentional without adding a demanding routine.",
+      "solution": "Offer an optional two-minute arrival menu: put belongings down, choose silence or familiar sound, and select what happens next. Avoid requiring breathing exercises or a particular emotional response.",
+      "personalize": [
+        "Typical arrival feeling",
+        "Sound or silence preference",
+        "Available energy"
+      ],
+      "done": "The user has tried one chosen arrival sequence and recorded whether to keep, change, or skip it.",
+      "productArea": "My Body",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/"
+      ]
+    },
+    {
+      "id": "C6-07",
+      "concern": "Peace, privacy and control over space",
+      "order": 7,
+      "area": "Optional orientation when feeling unsettled",
+      "pain": "Some respondents describe feeling unsettled by silence or unfamiliar sounds despite valuing independence. A user may want a brief settling option alongside any practical concern they choose to address.",
+      "solution": "Offer an optional, reviewed orientation card inviting the user to notice a few neutral things around them. Include an eyes-open choice, permission to stop, and a non-body-focused alternative; never label the home safe based on the exercise.",
+      "personalize": [
+        "Moment they feel unsettled",
+        "Preference for sensory versus practical activity",
+        "Comfort with body attention"
+      ],
+      "done": "The user has tried or skipped the option and chosen whether they want another step; feeling calm is not required.",
+      "productArea": "My Body",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1gik819/women_living_home_alone_is_it_scary/"
+      ]
+    },
+    {
+      "id": "C6-08",
+      "concern": "Peace, privacy and control over space",
+      "order": 8,
+      "area": "Choosing what personal information to share",
+      "pain": "Some women describe keeping their address or solo living arrangement private. They may want connection and useful services while retaining control over what they disclose.",
+      "solution": "Provide a personal-information boundary worksheet for acquaintances, group introductions, and public profiles. Include neutral response scripts and a user-led review of one chosen profile, without collecting addresses or account credentials.",
+      "personalize": [
+        "Situation involving disclosure",
+        "Information they prefer private",
+        "Preferred response style"
+      ],
+      "done": "One disclosure boundary is written and one selected introduction or profile has been reviewed against it.",
+      "productArea": "My Backup",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/"
+      ]
+    },
+    {
+      "id": "C6-09",
+      "concern": "Peace, privacy and control over space",
+      "order": 9,
+      "area": "Keeping solo time within a connected week",
+      "pain": "Respondents often value both independent time and friendships. A crowded social schedule can threaten the quiet they enjoy, while an empty one may not meet their own wishes for contact.",
+      "solution": "Offer a weekly preference planner with one protected solo period and one optional connection chosen by the user. Treat both as valid and allow either to change without a completion streak.",
+      "personalize": [
+        "Desired balance of company and solitude",
+        "Fixed weekly commitments",
+        "Preferred solo activity"
+      ],
+      "done": "A realistic week includes the amount of solo time and connection the user has chosen, with one opportunity to review it.",
+      "productArea": "My Home",
+      "evidence": "Inferred sub-need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/"
+      ]
+    },
+    {
+      "id": "C6-10",
+      "concern": "Peace, privacy and control over space",
+      "order": 10,
+      "area": "Defining space needs in close relationships",
+      "pain": "Some women want close relationships while retaining their own home, room, or time alone. Moving closer to someone can raise questions about privacy, pet arrangements, and expectations.",
+      "solution": "Offer a neutral space-needs discussion worksheet covering private time, shared time, possessions, and pets. Help the user articulate preferences without recommending whether to separate, cohabit, or end a relationship.",
+      "personalize": [
+        "Relationship or housing transition",
+        "Space they want to retain",
+        "Shared responsibilities"
+      ],
+      "done": "The user has written three space preferences and identified any topic they want to discuss with the other person.",
+      "productArea": "My Home",
+      "evidence": "Observed need",
+      "sourceUrls": [
+        "https://www.reddit.com/r/AskWomenOver30/comments/1wgyhhe/living_alone/",
+        "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "T01",
+      "title": "Sick-day setup planner",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "A short checklist of existing supplies, practical needs and one missing item.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Use the person's own care instructions. Do not prescribe medication."
+    },
+    {
+      "id": "T02",
+      "title": "Specific help-request messages",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Editable messages naming a task, timing and permission to decline.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "A sent request is not confirmed support. Capture an actual agreement separately."
+    },
+    {
+      "id": "T03",
+      "title": "Contacts and temporary handover card",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Minimal contacts, cover responsibilities and chosen access to further instructions.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Keep sensitive information local. Get consent from anyone assigned a responsibility."
+    },
+    {
+      "id": "T04",
+      "title": "Minimum-day and effort planner",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "A small plan for essentials, deferrable work and one manageable next action.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "The user chooses their capacity and can skip a step."
+    },
+    {
+      "id": "T05",
+      "title": "Household routine and admin tracker",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Meal fallbacks, supplies, cleaning, maintenance and appointments in reusable lists.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Tailor to available time, access and housing responsibilities."
+    },
+    {
+      "id": "T06",
+      "title": "Financial disruption worksheet",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Private user-entered costs, due dates, unknowns and questions for official providers.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "No bank connection or product recommendation. Local entitlements and terms need checking."
+    },
+    {
+      "id": "T07",
+      "title": "Local service or transport comparison",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Compare actual scope, area, eligibility, cost, hours and request process.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "A directory listing does not establish availability, suitability or safety."
+    },
+    {
+      "id": "T08",
+      "title": "Support-circle and connection planner",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Separate emotional connection, nearby practical support and shared interests.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Respect solitude preferences; do not require contact names or addresses in the product."
+    },
+    {
+      "id": "T09",
+      "title": "Preferences and boundary scripts",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "User-chosen messages about visits, contact, private time and living arrangements.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Support user decisions without deciding relationships for them."
+    },
+    {
+      "id": "T10",
+      "title": "Comfort and optional settling choices",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Small environmental preferences and optional reviewed stress-coping choices.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Body attention is optional. Stop or skip if uncomfortable; a calmer feeling does not prove external safety."
+    },
+    {
+      "id": "T11",
+      "title": "Pet-care handover sheet",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Owner-provided routine, supplies, vet contact and confirmed backup-care arrangements.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Veterinary instructions come from the owner or vet; confirm caretaker availability and access."
+    },
+    {
+      "id": "T12",
+      "title": "Home readiness and repair requests",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "Focused home checks, responsibility questions and landlord or provider messages.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Use local fire/building guidance. Avoid hazardous DIY or obstructing exits."
+    },
+    {
+      "id": "T13",
+      "title": "Personal information and account review",
+      "provider": "Build My Safety — proposed",
+      "url": null,
+      "geography": "Adapt to the person and location",
+      "type": "Template concept",
+      "helpsWith": "A checklist of chosen disclosure boundaries and official account settings to inspect.",
+      "accessCost": "Proposed free product resource; not built",
+      "checkStatus": "To create and review",
+      "checkedDate": null,
+      "limitation": "Never collect credentials, recovery codes, precise addresses or unnecessary health details."
+    },
+    {
+      "id": "R01",
+      "title": "Building an Emergency Kit",
+      "provider": "CDC",
+      "url": "https://www.cdc.gov/disability-emergency-preparedness/people-with-disabilities/build-a-kit.html",
+      "geography": "United States; planning concepts adaptable elsewhere",
+      "type": "Guide and activity sheets",
+      "helpsWith": "List personally necessary supplies, health documents, support contacts, mobility or communication equipment, and pet needs before an interruption.",
+      "accessCost": "Free public guide; supplies cost varies",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Designed for emergency preparedness and disability inclusion, not illness treatment. Ask a clinician or pharmacist about medication quantities, storage, and refills."
+    },
+    {
+      "id": "R02",
+      "title": "First Aid Classes",
+      "provider": "American Red Cross",
+      "url": "https://www.redcross.org/take-a-class/first-aid/first-aid-training/first-aid-classes",
+      "geography": "United States",
+      "type": "Course finder",
+      "helpsWith": "Find first-aid instruction by location and compare online, in-person, or blended formats.",
+      "accessCost": "Public finder; course fees vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Check local availability, accessibility, price, and certification requirements. Online-only learning does not demonstrate hands-on proficiency."
+    },
+    {
+      "id": "R03",
+      "title": "Pet Disaster Preparedness and Recovery",
+      "provider": "American Red Cross",
+      "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/pet-disaster-preparedness.html",
+      "geography": "United States; general preparation ideas adaptable elsewhere",
+      "type": "Guide and checklist",
+      "helpsWith": "Prepare pet care instructions, supplies, veterinarian details, transport, and possible backup carers or boarding locations.",
+      "accessCost": "Free public guide; care and supplies vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Primarily dogs and cats. Confirm actual carers, boarding eligibility, and shelter policies; medical or behavior concerns go to a veterinarian."
+    },
+    {
+      "id": "R04",
+      "title": "Make a Plan",
+      "provider": "American Red Cross",
+      "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/make-a-plan.html",
+      "geography": "United States; adapt emergency numbers and hazards elsewhere",
+      "type": "Emergency-plan and contact-card templates",
+      "helpsWith": "Write emergency contacts, meeting places, responsibilities, and evacuation arrangements that can include chosen supporters outside the household.",
+      "accessCost": "Free templates and guide",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Family-oriented template needs adaptation for a solo household. Confirm supporter consent, accessibility, local risks, and current local instructions."
+    },
+    {
+      "id": "R05",
+      "title": "Smoke Alarms",
+      "provider": "U.S. Fire Administration / FEMA",
+      "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/smoke-alarms/",
+      "geography": "United States",
+      "type": "Home fire preparation guide",
+      "helpsWith": "Review alarm placement, testing, replacement, hearing-accessible options, and possible local fire-department assistance.",
+      "accessCost": "Free public guide; devices and installation vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Follow device instructions and local requirements. Check landlord responsibilities; qualified electricians handle hardwired installations."
+    },
+    {
+      "id": "R06",
+      "title": "Carbon Monoxide Poisoning Prevention",
+      "provider": "U.S. Fire Administration / FEMA",
+      "url": "https://www.usfa.fema.gov/prevention/life-safety-hazards/carbon-monoxide/",
+      "geography": "United States",
+      "type": "Prevention guide",
+      "helpsWith": "Find authoritative carbon-monoxide prevention and alarm information when reviewing home readiness.",
+      "accessCost": "Free public guide; devices and maintenance vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Adapt to local building rules and appliance instructions. Product should refer users to official emergency guidance rather than troubleshoot an active alarm."
+    },
+    {
+      "id": "R07",
+      "title": "Home Fire Escape Plans",
+      "provider": "U.S. Fire Administration / FEMA",
+      "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans/",
+      "geography": "United States",
+      "type": "Planning guide",
+      "helpsWith": "Plan an exit and practice what to do if a fire alarm sounds, including personal access and mobility needs.",
+      "accessCost": "Free public guide",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Building-specific procedures, high-rise arrangements, and mobility needs require local advice; never suggest blocking an exit for security."
+    },
+    {
+      "id": "R08",
+      "title": "How To Avoid a Home Improvement Scam",
+      "provider": "Federal Trade Commission",
+      "url": "https://consumer.ftc.gov/articles/how-avoid-home-improvement-scam",
+      "geography": "United States",
+      "type": "Consumer checklist",
+      "helpsWith": "Prepare a contractor comparison checklist covering licensing, insurance, references, written estimates, pressure tactics, and payment terms.",
+      "accessCost": "Free public guide; contractor services vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Licensing and contract rules vary locally. A checklist cannot certify that a particular contractor is safe or reliable."
+    },
+    {
+      "id": "R09",
+      "title": "Your Money, Your Goals Toolkit",
+      "provider": "Consumer Financial Protection Bureau",
+      "url": "https://www.consumerfinance.gov/consumer-tools/educator-tools/your-money-your-goals/toolkit/",
+      "geography": "United States; basic worksheets adaptable elsewhere",
+      "type": "Fillable financial worksheets",
+      "helpsWith": "Use bill calendars, spending trackers, income trackers, savings plans, and cash-flow worksheets to reduce financial uncertainty.",
+      "accessCost": "Free downloadable worksheets",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Choose only the worksheet relevant to the user. Benefits, debt, credit, and financial-product details require country and personal-context checks."
+    },
+    {
+      "id": "R10",
+      "title": "Prioritizing Bills",
+      "provider": "Consumer Financial Protection Bureau",
+      "url": "https://files.consumerfinance.gov/f/documents/cfpb_your-money-your-goals_prioritizing-bills_tool.pdf",
+      "geography": "United States",
+      "type": "Fillable PDF worksheet",
+      "helpsWith": "List essential obligations and consider consequences when income is insufficient to pay every bill on time.",
+      "accessCost": "Free PDF",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Do not let AI decide which legally required payment to miss. Individual consequences and local protections may require a qualified counselor."
+    },
+    {
+      "id": "R11",
+      "title": "An Essential Guide to Building an Emergency Fund",
+      "provider": "Consumer Financial Protection Bureau",
+      "url": "https://www.consumerfinance.gov/an-essential-guide-to-building-an-emergency-fund/",
+      "geography": "United States; general concepts adaptable elsewhere",
+      "type": "Guide and savings-plan link",
+      "helpsWith": "Choose a realistic initial buffer goal and savings method based on irregular expenses, cash flow, and available capacity.",
+      "accessCost": "Free public guide",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Avoid a universal savings target or transfers that create overdrafts. Account terms, benefit asset limits, and available income need checking."
+    },
+    {
+      "id": "R12",
+      "title": "I Need Help Paying My Bills",
+      "provider": "United Way 211",
+      "url": "https://www.211.org/get-help/i-need-help-paying-my-bills",
+      "geography": "United States; local 211 coverage and services vary",
+      "type": "Local support referral directory",
+      "helpsWith": "Find a local specialist or database for food, housing, utility, and other practical support when money or nearby help is limited.",
+      "accessCost": "Public resource page; referral is separate from service eligibility or cost",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Confirm eligibility, current funding, hours, coverage, and service cost with the local provider. Some linked subpages reference older programs; verify the specific destination."
+    },
+    {
+      "id": "R13",
+      "title": "Find a Volunteer Opportunity",
+      "provider": "AmeriCorps",
+      "url": "https://www.americorps.gov/join/find-volunteer-opportunity",
+      "geography": "United States",
+      "type": "Volunteer opportunity directory candidate",
+      "helpsWith": "Look for recurring local service activities where a person can contribute and meet people around shared interests.",
+      "accessCost": "Search listing observed; actual access and participation conditions need checking",
+      "checkStatus": "Access blocked",
+      "checkedDate": "2026-09-23",
+      "limitation": "Official search result found; page fetch returned 403. Manually verify the directory before recommending it, then check transport, accessibility, schedule, and requirements."
+    },
+    {
+      "id": "R14",
+      "title": "Social Connection",
+      "provider": "U.S. Department of Health and Human Services",
+      "url": "https://www.hhs.gov/surgeongeneral/reports-and-publications/connection/index.html",
+      "geography": "United States; educational principles broadly relevant",
+      "type": "Evidence and resource overview",
+      "helpsWith": "Ground optional connection-building ideas in public-health guidance and distinguish supportive relationships from simply increasing social activity.",
+      "accessCost": "Free public resources",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Educational background, not a local-group finder or evidence that this product improves health. Respect solitude preferences and individual access constraints."
+    },
+    {
+      "id": "R15",
+      "title": "Doing What Matters in Times of Stress",
+      "provider": "World Health Organization",
+      "url": "https://www.who.int/publications-detail-redirect/9789240003927",
+      "geography": "Global; multiple languages available",
+      "type": "Stress-management guide and audio",
+      "helpsWith": "Offer an optional source for noticing stress and practicing brief coping skills before or alongside practical action.",
+      "accessCost": "Free downloadable guide and public audio links",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Not individualized treatment. Let users skip activities. Link to the original; commercial adaptation requires WHO permission under the listed noncommercial license."
+    },
+    {
+      "id": "R16",
+      "title": "Use Two-Factor Authentication To Protect Your Accounts",
+      "provider": "Federal Trade Commission",
+      "url": "https://consumer.ftc.gov/articles/use-two-factor-authentication-protect-your-accounts",
+      "geography": "United States source; account concepts globally relevant",
+      "type": "Account-security guide",
+      "helpsWith": "Explain authentication options and help users prepare to secure a high-value account through its official settings.",
+      "accessCost": "Free guide; account features and hardware costs vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Use the account provider's current instructions and recovery process. Never collect passwords, codes, recovery secrets, or security answers."
+    },
+    {
+      "id": "R17",
+      "title": "Protecting Your Privacy Online",
+      "provider": "Federal Trade Commission",
+      "url": "https://consumer.ftc.gov/features/protecting-your-privacy-online",
+      "geography": "United States; general privacy concepts globally relevant",
+      "type": "Privacy resource hub",
+      "helpsWith": "Find guidance on information sharing, people-search sites, connected devices, health-app privacy, and online harassment.",
+      "accessCost": "Free public articles",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Choose the relevant article; removal rights and procedures vary by location. Possible abuse or monitoring needs specialist guidance before device changes."
+    },
+    {
+      "id": "R18",
+      "title": "Protect Your Personal Information From Hackers and Scammers",
+      "provider": "Federal Trade Commission",
+      "url": "https://consumer.ftc.gov/articles/protect-your-personal-information-hackers-and-scammers",
+      "geography": "United States; technical prevention concepts globally relevant",
+      "type": "Security and scam-prevention guide",
+      "helpsWith": "Support a short checklist for software updates, account protection, home-network information, and verifying unexpected requests.",
+      "accessCost": "Free public guide; optional tools vary",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Do not claim immunity from scams. Device and account steps should link to current provider documentation; U.S. recovery services may not apply elsewhere."
+    },
+    {
+      "id": "R19",
+      "title": "How To Recover Your Hacked Email or Social Media Account",
+      "provider": "Federal Trade Commission",
+      "url": "https://consumer.ftc.gov/articles/how-recover-your-hacked-email-or-social-media-account",
+      "geography": "United States; provider recovery links broadly relevant",
+      "type": "Recovery guide",
+      "helpsWith": "Find official account-recovery routes and identify recovery-contact information that should be kept current.",
+      "accessCost": "Free public guide",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Recovery success is not guaranteed. Match the actual account provider and avoid handling user credentials or recommending unofficial recovery agents."
+    },
+    {
+      "id": "R20",
+      "title": "How to Make a Home Fire Escape Plan",
+      "provider": "National Fire Protection Association",
+      "url": "https://content.nfpa.org/-/media/project/storefront/catalog/files/home-fire-safety/escape/escapegrid.pdf?rev=3129771f24e54852864170da79810b1c",
+      "geography": "United States; adapt emergency number and building procedure elsewhere",
+      "type": "Printable plan grid",
+      "helpsWith": "Give users a concrete page to map exits, alarm locations, and an outdoor meeting point.",
+      "accessCost": "Free public PDF",
+      "checkStatus": "Opened",
+      "checkedDate": "2026-09-23",
+      "limitation": "Template needs adaptation for solo living, disability, and multi-unit buildings. Link to the original and check rights before reproducing branded material."
+    }
+  ],
+  "research": [
+    {
+      "id": "S01",
+      "title": "What are the hardest parts about being single and living alone for you?",
+      "subreddit": "AskWomenOver30",
+      "date": "2025-09-10",
+      "dateNote": "Exact date",
+      "audience": "Women-focused; some discuss former solo living",
+      "observation": "Everyday workload, single-income costs, illness, pets, practical tasks and strong preference for independence.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1nddxyv/what_are_the_hardest_parts_about_being_single_and/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S02",
+      "title": "Single ladies: How are you making it, financially?",
+      "subreddit": "AskWomenOver30",
+      "date": "2025-12-01",
+      "dateNote": "Exact date",
+      "audience": "Women-focused; several explicitly live alone",
+      "observation": "Rent and irregular costs, thin financial margin, income insecurity and differences in financial circumstances.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1pb2438/single_ladies_how_are_you_making_it_financially/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S03",
+      "title": "Do you feel lonely living alone?",
+      "subreddit": "AskWomenOver30",
+      "date": "2025-12-01",
+      "dateNote": "Exact date",
+      "audience": "26F original poster; women-focused replies",
+      "observation": "Practical help versus companionship, family pressure, single-income load and differing preferences for care and privacy.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1pblgpw/do_you_feel_lonely_living_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S04",
+      "title": "How do you feel safe living alone?",
+      "subreddit": "women",
+      "date": "2025-01-09",
+      "dateNote": "Exact date",
+      "audience": "Woman, 25, newly separated; first time solo",
+      "observation": "Night noises, unfamiliar surroundings, budget limits and varied comfort levels, including women who feel secure alone.",
+      "url": "https://www.reddit.com/r/women/comments/1hx4ohe/how_do_you_feel_safe_living_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S05",
+      "title": "First time living alone, what do you do when you have repair people over?",
+      "subreddit": "TheGirlSurvivalGuide",
+      "date": null,
+      "dateNote": "About March 2026; exact date unverified",
+      "audience": "Women-directed question; explicitly female service-worker respondent",
+      "observation": "Trusting providers, comfort during service visits and substantial differences in precautions people prefer.",
+      "url": "https://www.reddit.com/r/TheGirlSurvivalGuide/comments/1rvvl2s/first_time_living_alone_what_do_you_all_do_when/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S06",
+      "title": "Have you ever lived alone? If so did you enjoy it?",
+      "subreddit": "AskWomenOver30",
+      "date": "2025-08-01",
+      "dateNote": "Exact date",
+      "audience": "Women-focused discussion",
+      "observation": "Quiet, autonomy, decor, routines, boundaries and relief from cohabitation; some also report anxiety or loneliness.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1mext2a/have_you_ever_lived_alone_if_so_did_you_enjoy_it/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S07",
+      "title": "30-something women",
+      "subreddit": "LivingAlone",
+      "date": "2025-03-07",
+      "dateNote": "Exact date",
+      "audience": "Original poster identifies as 34F; replies mixed",
+      "observation": "Local friendships and recurring activities after a move, access to interests, and distance from family.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1j5w6n4/30something_women/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S08",
+      "title": "Advice for women living alone",
+      "subreddit": "LivingAlone",
+      "date": "2025-08-01",
+      "dateNote": "Exact date",
+      "audience": "Women-directed thread; individual commenters not all verified",
+      "observation": "Home access, practical supplies, neighbor relationships, repairs, cost, privacy and enjoyment of home.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1mekqfn/advice_for_women_living_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S09",
+      "title": "How do you prep for long term living alone?",
+      "subreddit": "LivingAlone",
+      "date": "2026-03-02",
+      "dateNote": "Exact date",
+      "audience": "Woman considering solo living; mixed replies, several women identify ages",
+      "observation": "Illness contingency, local support, cost and maintenance; positive counterexamples from established solo residents.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1riqcvd/how_do_you_prep_for_long_term_living_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S10",
+      "title": "What do you do when you live alone, and you're unwell?",
+      "subreddit": "LivingAlone",
+      "date": "2026-07-24",
+      "dateNote": "Exact indexed date",
+      "audience": "Original poster gender unspecified; supplementary solo-living evidence",
+      "observation": "Illness in a new city with distant support and worry about a dog's care during hospitalization.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1v52y1e/what_do_you_do_when_you_live_alone_and_youre/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S11",
+      "title": "Emergencies alone?",
+      "subreddit": "LivingAlone",
+      "date": "2025-07-22",
+      "dateNote": "Exact date",
+      "audience": "Gender unspecified for most contributors; supplementary evidence",
+      "observation": "Who notices a missed routine, reaching help and continued pet care; low-tech check-ins discussed.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1m5ziku/emergencies_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S12",
+      "title": "Anyone else who lives alone struggling?",
+      "subreddit": "AskWomenOver30",
+      "date": "2022-03-21",
+      "dateNote": "Exact date; older baseline",
+      "audience": "Original poster explicitly 37F",
+      "observation": "Illness changes felt vulnerability despite an active social life; difficulty asking for help at inconvenient times.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/tjgemt/anyone_else_who_lives_alone_struggling/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S13",
+      "title": "Advice for the Solitary Woman",
+      "subreddit": "AskWomenOver30",
+      "date": null,
+      "dateNote": "2024; exact date unverified",
+      "audience": "Original poster explicitly woman, 31",
+      "observation": "First solo home after health-related delay, unfamiliar routines, maintenance, costs and respectful beginner help.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1foqhmi/advice_for_the_solitary_woman/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S14",
+      "title": "Women Living Alone: What Do You Do For A Living?",
+      "subreddit": "LivingAlone",
+      "date": "2025-11-27",
+      "dateNote": "Exact date",
+      "audience": "Explicitly asks women living alone",
+      "observation": "Affording independent housing and income sufficiency, including transitions from relationships.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1p7o7dn/women_living_alone_what_do_you_do_for_a_living/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S15",
+      "title": "Living alone?",
+      "subreddit": "AskWomenOver30",
+      "date": "2026-09-15",
+      "dateNote": "Exact date",
+      "audience": "Woman, 33, considering separate housing",
+      "observation": "Desire for space and self-knowledge alongside cost, guilt and pet logistics.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1wgyhhe/living_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S16",
+      "title": "Women living home alone! Is it scary?",
+      "subreddit": "AskWomenOver30",
+      "date": "2024-11-03",
+      "dateNote": "Exact date; older context",
+      "audience": "Woman in mid-20s considering buying a home",
+      "observation": "Night comfort, home type, entrances, neighbor familiarity, illness and enjoyment of independent living.",
+      "url": "https://www.reddit.com/r/AskWomenOver30/comments/1gik819/women_living_home_alone_is_it_scary/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S17",
+      "title": "Making peace with being alone",
+      "subreddit": "LivingAlone",
+      "date": "2025-12-29",
+      "dateNote": "Exact date",
+      "audience": "Original poster gender unspecified; supplementary evidence",
+      "observation": "Holiday loneliness and changes in friends' family commitments.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1pyl9xa/making_peace_with_being_alone/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    },
+    {
+      "id": "S18",
+      "title": "Living Alone, I think we need to talk",
+      "subreddit": "LivingAlone",
+      "date": "2025-05-23",
+      "dateNote": "Exact date",
+      "audience": "Mixed or unspecified genders; supplementary evidence",
+      "observation": "Debate about solitude versus loneliness and overly negative framing of solo living.",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1kty7br/living_alone_i_think_we_need_to_talk/",
+      "access": "Opened: original post and available comments",
+      "reviewed": "2026-09-23"
+    }
+  ],
+  "counts": {
+    "observed": 37,
+    "inferred": 20,
+    "mixed": 3
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "status": "completed",
+  "calls": 1,
+  "model": "gpt-6-luna",
+  "reasoning": "low",
+  "schema": "safety_three_ideas_v2",
+  "promptChecksum": "d0e81086",
+  "inputChecksum": "58bacf8d",
+  "uiLatencyBadge": "11.5s",
+  "uiResponseTokenBadge": "897t",
+  "uiHeaderTokenBadge": "6,262t",
+  "storeLogs": false,
+  "hostedTools": false,
+  "websocket": false,
+  "exactBilledCost": null,
+  "appTokenCapAndTimeoutConfiguredInPlayground": false,
+  "transport": "OpenAI Playground Responses, not deployed app transport"
+}

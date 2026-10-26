@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+@import './theme.css';
+body { margin: 0; background: #000; }
+html { scroll-behavior: smooth; }
+@media(prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.about-serif { font-family: var(--font-velorah-serif), Georgia, serif; font-weight: 400; }
+.about-page a:focus-visible, .site-menu summary:focus-visible {
+  outline: 2px solid #fff; outline-offset: 5px;
+}
+.about-story-link:hover { color: #fff; }
+.about-skip-link {
+  position: absolute; top: 0; left: 16px; z-index: 50; padding: 12px 20px;
+  background: #fff; color: #000; transform: translateY(-150%);
+}
+.about-skip-link:focus { transform: translateY(0); }
+.site-menu summary { list-style: none; }
+.site-menu summary::-webkit-details-marker { display: none; }
+
+.quiet-scene { position: absolute; inset: 0; overflow: hidden; background: #0a2335; }
+/* Overscan clips the screenshot's outer black border at every card size. */
+.quiet-scene__frame { position: absolute; inset: -10%; }
+.quiet-scene__image {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;
+  animation: quiet-scene-drift 12s ease-in-out -4s infinite alternate;
+  will-change: transform;
+}
+.quiet-scene__stars, .quiet-scene__fireflies { position: absolute; inset: 0; pointer-events: none; }
+.quiet-scene__star {
+  position: absolute; width: 2px; height: 2px; border-radius: 50%;
+  background: #dcefff; box-shadow: 0 0 6px 1px #a3d4ff70;
+  opacity: .2; animation: quiet-scene-twinkle 4s ease-in-out infinite;
+}
+.quiet-scene__firefly {
+  position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: #ffe2a0; box-shadow: 0 0 10px 3px #ffd67766;
+  animation: quiet-scene-float 10s ease-in-out infinite;
+}
+.quiet-scene__control {
+  position: absolute; right: 16px; bottom: 16px;
+  display: grid; place-items: center; width: 44px; height: 44px;
+  border: 1px solid #ffffff30; border-radius: 50%; color: #fff;
+  background: #08142180; backdrop-filter: blur(12px); cursor: pointer;
+}
+.quiet-scene__control:hover { background: #081421c0; }
+.quiet-scene__control:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.quiet-scene[data-motion-ready="false"] .quiet-scene__control { display: none; }
+.quiet-scene[data-motion-ready="false"] .quiet-scene__image,
+.quiet-scene[data-motion-ready="false"] .quiet-scene__star,
+.quiet-scene[data-motion-ready="false"] .quiet-scene__firefly,
+.quiet-scene[data-paused="true"] .quiet-scene__image,
+.quiet-scene[data-paused="true"] .quiet-scene__star,
+.quiet-scene[data-paused="true"] .quiet-scene__firefly { animation-play-state: paused; }
+@keyframes quiet-scene-drift {
+  from { transform: translate3d(-1.5%, .8%, 0) scale(1.02); }
+  to { transform: translate3d(1.5%, -.8%, 0) scale(1.14); }
+}
+@keyframes quiet-scene-twinkle {
+  0%, 100% { opacity: .15; }
+  50% { opacity: 1; }
+}
+@keyframes quiet-scene-float {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: .15; }
+  25% { transform: translate3d(12px, -28px, 0); opacity: .95; }
+  50% { transform: translate3d(-8px, -48px, 0); opacity: .55; }
+  75% { transform: translate3d(-20px, -20px, 0); opacity: .9; }
+}

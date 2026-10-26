@@ -1,0 +1,764 @@
+{
+  "checked_at": "2026-10-15",
+  "scope": "US-first editorial research. Retrieved pages support bounded facts; they do not validate this app, rank needs, guarantee providers or establish individual eligibility.",
+  "sources": [
+    {
+      "id": "CSLB_CONTRACT",
+      "title": "California CSLB: Written home-improvement agreements",
+      "url": "https://www.cslb.ca.gov/Consumers/Hire_A_Contractor/Home_Improvement_Contracts/What_Is_A_Contract.aspx",
+      "basis": "state consumer guidance",
+      "supports": "Clear written scope and prior agreement to work changes.",
+      "limits": "California-specific law; no thresholds or statutory rights are generalized to other states.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "RING_USERS",
+      "title": "Ring: Manage user permissions",
+      "url": "https://ring.com/support/articles/clv68/Managing-Shared-Users",
+      "basis": "official product documentation",
+      "supports": "Account ownership, shared permissions and removal of users.",
+      "limits": "Product-specific capability evidence, not a recommendation to buy or use Ring.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "CONED_OUTAGE",
+      "title": "Con Edison: Report and track an outage",
+      "url": "https://www.coned.com/en/services-and-outages/report-track-service-issue/report-outage-status",
+      "basis": "official utility service",
+      "supports": "An official outage-reporting channel, status and notification options are distinct.",
+      "limits": "Service-area example only; task directs each person to her actual utility, without promising the same features.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "FTC_PEOPLE",
+      "title": "FTC: People-search sites and opting out",
+      "url": "https://consumer.ftc.gov/articles/what-know-about-people-search-sites-sell-your-information",
+      "basis": "official guidance",
+      "supports": "Free individual opt-outs versus paid removal services; public records and reappearance remain limitations.",
+      "limits": "Removal is not immediate or comprehensive.",
+      "reader_title": "Free and paid address-removal options",
+      "reader_description": "The FTC explains opt-outs, paid services and what removal cannot erase.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "GOOGLE_RESULTS",
+      "title": "Google: Results about you",
+      "url": "https://support.google.com/websearch/answer/12719076?hl=en",
+      "basis": "official product documentation",
+      "supports": "Contact-information monitoring and removal requests from Search, distinct from deleting source content.",
+      "limits": "Eligibility, rollout and exceptions apply. Do not enter private data into My Safety or its AI.",
+      "reader_title": "Google Results about you",
+      "reader_description": "Learn how to find and request removal of personal contact details in Search.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "APPLE_SHARING",
+      "title": "Apple: Safety Check",
+      "url": "https://support.apple.com/guide/personal-safety/safety-check-iphone-ios-16-ips2aad835e1/web",
+      "basis": "official product documentation",
+      "supports": "Review people, apps and account access on supported iPhones.",
+      "limits": "Apple-specific. Sharing changes may be noticed; ongoing coercion needs a separate support route."
+    },
+    {
+      "id": "GOOGLE_LOCATION",
+      "title": "Google: Manage Location Sharing",
+      "url": "https://support.google.com/accounts/answer/9363497?hl=en",
+      "basis": "official product documentation",
+      "supports": "Review and manage Google Location Sharing.",
+      "limits": "Does not describe all other apps' sharing settings."
+    },
+    {
+      "id": "FTC_WIFI",
+      "title": "FTC: Secure your home Wi-Fi",
+      "url": "https://consumer.ftc.gov/articles/how-secure-your-home-wi-fi-network",
+      "basis": "official indexed guidance; full fetch unavailable",
+      "supports": "Separate router administration from everyday Wi-Fi access; use provider guidance and software updates.",
+      "limits": "Only indexed guidance was readable. No step-by-step router configuration or guest-network isolation claim is based on this page.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "RING_PRIVACY",
+      "title": "Ring: Camera privacy controls",
+      "url": "https://blog.ring.com/?p=8147",
+      "basis": "manufacturer documentation",
+      "supports": "Shared-user access, privacy zones, covers and notification schedules are different controls on supported products.",
+      "limits": "Used for capability examples only, not surveillance efficacy, burglary statistics or a recommendation to buy a camera. Other devices differ.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "UPS_DELIVERY",
+      "title": "UPS: Change a delivery",
+      "url": "https://www.ups.com/us/en/track/change-delivery",
+      "basis": "official service documentation",
+      "supports": "Delivery changes and pickup-location options.",
+      "limits": "Shipper restrictions, contents, fees and eligibility can limit changes.",
+      "reader_title": "UPS delivery options",
+      "reader_description": "Explore changes and pickup choices for eligible UPS parcels.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "FEDEX_DELIVERY",
+      "title": "FedEx Delivery Manager",
+      "url": "https://www.fedex.com/en-us/delivery-manager.html",
+      "basis": "official service documentation",
+      "supports": "Manage eligible deliveries, instructions and pickup arrangements.",
+      "limits": "Delivery-specific eligibility and fees; not a universal solution for all carriers.",
+      "reader_title": "FedEx Delivery Manager",
+      "reader_description": "Check pickup locations and delivery choices for eligible FedEx parcels.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "USPS_HOLD",
+      "title": "USPS Hold Mail",
+      "url": "https://www.usps.com/manage/hold-mail.htm",
+      "basis": "official service documentation",
+      "supports": "Hold Mail, identity verification and separate forwarding options.",
+      "limits": "Hold Mail is ordinarily 3–30 days; confirm address eligibility. Other carriers are separate.",
+      "reader_title": "USPS Hold Mail",
+      "reader_description": "Check dates and request an eligible mail hold before a trip.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "USA_TENANT",
+      "title": "USAGov: Landlord complaints and renter help",
+      "url": "https://www.usa.gov/tenant-rights",
+      "basis": "official referral guidance",
+      "supports": "State-specific tenant-rights and complaint routes.",
+      "limits": "No universal notice period, remedy, withholding or lease advice is asserted.",
+      "reader_title": "Find tenant help in your state",
+      "reader_description": "Start with local renter guidance and routes for unresolved problems."
+    },
+    {
+      "id": "LSC_HELP",
+      "title": "Legal Services Corporation: Find legal help",
+      "url": "https://www.lsc.gov/about-lsc/what-legal-aid/i-need-legal-help",
+      "basis": "official referral directory",
+      "supports": "Find local civil legal-aid organizations.",
+      "limits": "Eligibility and capacity vary; a directory is not representation.",
+      "reader_title": "Find local legal aid",
+      "reader_description": "Look for civil legal help and check whether you qualify.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "FTC_CONTRACTOR",
+      "title": "FTC: Avoid home-improvement scams",
+      "url": "https://consumer.ftc.gov/articles/how-avoid-home-improvement-scam",
+      "basis": "official consumer guidance",
+      "supports": "Relevant licensing and insurance, written estimates and clear scope/payment terms.",
+      "limits": "Local licensing and contract requirements vary. No fixed safe deposit percentage or trust guarantee.",
+      "reader_title": "Before hiring a contractor",
+      "reader_description": "A consumer guide to credentials, estimates and agreements."
+    },
+    {
+      "id": "FTC_WARRANTY",
+      "title": "FTC: Warranties",
+      "url": "https://consumer.ftc.gov/articles/warranties",
+      "basis": "official consumer guidance",
+      "supports": "Manufacturer warranty coverage, terms, receipts and service-contract distinctions.",
+      "limits": "No automatic free repair or particular warranty entitlement is promised.",
+      "reader_title": "Understand warranty coverage",
+      "reader_description": "Learn what to check in warranty and service-plan terms.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "FRONTDOOR",
+      "title": "Frontdoor: App support and FAQs",
+      "url": "https://www.frontdoor.com/member-support",
+      "basis": "official service documentation",
+      "supports": "Remote video consultation is an alternative route to understanding some home issues.",
+      "limits": "Commercial service, current fees/limits must be checked. No hazardous repair guidance is imported. It cannot certify a home or replace an on-site inspection.",
+      "reader_title": "Frontdoor video repair advice",
+      "reader_description": "Explore video consultations, what they cover and current membership terms."
+    },
+    {
+      "id": "USA_REPAIR_HELP",
+      "title": "USAGov: Home repair assistance",
+      "url": "https://www.usa.gov/repairing-home",
+      "basis": "official referral guidance",
+      "supports": "Government repair assistance varies by program, location and eligibility.",
+      "limits": "Many programs target owners; loans differ from grants. No approval or funds are promised.",
+      "reader_title": "Explore home-repair assistance",
+      "reader_description": "Find government programs and eligibility information.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "BERKELEY_TOOLS",
+      "title": "Berkeley Public Library: Tool lending",
+      "url": "https://www.berkeleypubliclibrary.org/locations/tool-lending-library",
+      "basis": "official local service",
+      "supports": "Tool lending is a real alternative to ownership.",
+      "limits": "Berkeley residents/property owners aged 18+ only. Used as evidence of the service model, not offered to every US user; hours and availability require local checks.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "SCHLAGE_LOCK",
+      "title": "Schlage: Smart-lock support",
+      "url": "https://www.schlage.com/en/home/support/faqs.html",
+      "basis": "manufacturer documentation",
+      "supports": "Lock support must match the specific model.",
+      "limits": "Do not generalize power, key or battery behavior across models; no bypass instructions.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "GILA_PRIVACY",
+      "title": "Gila: Home window film FAQs",
+      "url": "https://gilafilms.com/en/home-window-film/faq/",
+      "basis": "manufacturer documentation",
+      "supports": "Reflective daytime privacy is not the same as nighttime privacy; glass compatibility matters.",
+      "limits": "No product endorsement. Check exact film, glass, lease and installation requirements.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "CA_LOCKSMITH",
+      "title": "California DCA: Hiring a locksmith",
+      "url": "https://www.dca.ca.gov/publications/locksmith_tips.html",
+      "basis": "state consumer guidance",
+      "supports": "Research a provider before a lockout, obtain a charge estimate and check applicable licensing.",
+      "limits": "California licensing rules apply in California only. No universal promise of non-destructive entry.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "RED_CROSS_OUTAGE",
+      "title": "American Red Cross: Power-outage preparation",
+      "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/power-outage.html",
+      "basis": "preparedness guidance",
+      "supports": "Lighting, charging, power dependencies and plans for a home that cannot remain usable.",
+      "limits": "Preventive content only; do not invent safe temperatures, generator instructions or medical-device continuity.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "CDC_WATER",
+      "title": "CDC: Store emergency water",
+      "url": "https://www.cdc.gov/water-emergency/about/how-to-create-and-store-an-emergency-water-supply.html",
+      "basis": "official guidance",
+      "supports": "Water storage quantities, suitable containers and storage conditions.",
+      "limits": "General guidance is a starting point; individual and local needs can differ. No treatment or chemical mixing instructions.",
+      "reader_title": "Plan your drinking-water supply",
+      "reader_description": "Check recommended amounts and safe storage guidance.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "FOOD_OUTAGE",
+      "title": "FoodSafety.gov: Food during an outage",
+      "url": "https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage",
+      "basis": "official guidance",
+      "supports": "Refrigerated/frozen food decisions depend on time and temperature; do not taste food to judge safety.",
+      "limits": "Use the current chart; this task does not determine whether the user's food is safe.",
+      "reader_title": "Food after a power outage",
+      "reader_description": "Use the official refrigerated and frozen food charts.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "NWS_ALERTS",
+      "title": "National Weather Service: Active alerts",
+      "url": "https://www.weather.gov/alerts",
+      "basis": "official alert directory",
+      "supports": "Find official current weather alerts by location.",
+      "limits": "Not a utility outage map or a guarantee of complete warning coverage."
+    },
+    {
+      "id": "NWS_WEA",
+      "title": "National Weather Service: Wireless Emergency Alerts",
+      "url": "https://www.weather.gov/wrn/wea",
+      "basis": "official guidance",
+      "supports": "Wireless Emergency Alerts are distinct from ordinary app notifications; device and coverage limitations matter.",
+      "limits": "Do not promise delivery, change critical alert settings blindly, or substitute an app for local instructions.",
+      "reader_title": "Understand phone emergency alerts",
+      "reader_description": "Learn what built-in alerts do and how they differ from ordinary app notifications.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "NWS_HEAT",
+      "title": "National Weather Service: Heat preparation",
+      "url": "https://www.weather.gov/jan/beprepared-heat",
+      "basis": "official guidance",
+      "supports": "Identify cooling options before hot weather.",
+      "limits": "Local sites, hours, accessibility and transport must be confirmed; a library is not automatically a cooling center.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "USFA_ESCAPE",
+      "title": "US Fire Administration: Home fire escape plans",
+      "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans/index.html",
+      "basis": "official guidance",
+      "supports": "Understand available exits and a home/building plan before an incident.",
+      "limits": "Building-specific fire procedures and individual access needs matter. No universal high-rise evacuation instruction is provided.",
+      "reader_title": "Home escape planning",
+      "reader_description": "Learn what to include in a plan for your own home.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "USFA_SMOKE",
+      "title": "US Fire Administration: Smoke alarms",
+      "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/smoke-alarms/",
+      "basis": "official guidance",
+      "supports": "Alarm placement, testing, maintenance and replacement guidance.",
+      "limits": "Follow the exact device and local rental responsibilities; no rewiring, disabling or live smoke tests.",
+      "reader_title": "Smoke alarm care and replacement",
+      "reader_description": "Check testing, replacement ages and possible local installation help.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "USFA_CO",
+      "title": "US Fire Administration: Carbon monoxide",
+      "url": "https://www.usfa.fema.gov/prevention/life-safety-hazards/carbon-monoxide/",
+      "basis": "official guidance",
+      "supports": "CO alarms and smoke alarms have different detection purposes; maintain alarms per instructions.",
+      "limits": "Preparation only. Never use generated troubleshooting for an active alarm or suspected exposure.",
+      "reader_title": "Carbon monoxide alarm guidance",
+      "reader_description": "Learn about CO alarms and recommended locations.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "EPA_LEAK",
+      "title": "EPA WaterSense: Finding household leaks",
+      "url": "https://www.epa.gov/watersense/fix-leak-week",
+      "basis": "official guidance",
+      "supports": "Leaks can be noticed through visible evidence and reported before further waste/damage.",
+      "limits": "No instructions to dismantle plumbing, operate unfamiliar valves or repair a shared system."
+    },
+    {
+      "id": "EPA_MOLD",
+      "title": "EPA: Mold and moisture at home",
+      "url": "https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home",
+      "basis": "official guidance",
+      "supports": "Moisture control matters; some circumstances warrant professional assistance rather than cosmetic cleanup.",
+      "limits": "No diagnosis, mold identification from photos, bleach recipes or remediation assurance.",
+      "reader_title": "Understand moisture and mold",
+      "reader_description": "Learn why the moisture source needs attention and when to get help.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "EPA_PEST",
+      "title": "EPA: Pest prevention",
+      "url": "https://www.epa.gov/safepestcontrol/dos-and-donts-pest-control",
+      "basis": "official guidance",
+      "supports": "Prevention includes food, water and entry sources before unnecessary pesticide use.",
+      "limits": "No chemical recommendations, mixtures, dangerous gap sealing or infestation diagnosis.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "CPSC_RECALL",
+      "title": "CPSC: Recalls and safety warnings",
+      "url": "https://www.cpsc.gov/Recalls",
+      "basis": "official recall database",
+      "supports": "Model-specific product recall checks and manufacturer remedies.",
+      "limits": "No search match is not a safety certification; follow the actual notice rather than improvised repairs.",
+      "reader_title": "Check a product for recalls",
+      "reader_description": "Search by product or brand, then match the exact affected model.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "NAIC_RENTERS",
+      "title": "NAIC: Renters insurance",
+      "url": "https://content.naic.org/article/consumer_insight_renting_your_home_protect_your_belongings_renters_insurance.htm",
+      "basis": "insurance regulator association guidance",
+      "supports": "Belongings, liability and possible additional living expenses are distinct coverage areas.",
+      "limits": "Policy terms, exclusions and deductibles control. No insurer recommendation or assumed coverage.",
+      "reader_title": "Understand renters insurance",
+      "reader_description": "Learn the main cover types and the difference between replacement cost and current value.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "NAIC_ALE",
+      "title": "NAIC: Additional living expenses",
+      "url": "https://content.naic.org/article/what-are-additional-living-expenses-and-how-can-insurance-help",
+      "basis": "insurance regulator association guidance",
+      "supports": "Covered losses may trigger limited reimbursement of extra living costs.",
+      "limits": "Ordinary outages do not automatically qualify; confirm applicable policy and limits.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "NAIC_INVENTORY",
+      "title": "NAIC: Policy understanding and home inventory",
+      "url": "https://content.naic.org/article/consumer-insight-understanding-your-homeowners-or-renters-policy",
+      "basis": "insurance regulator association guidance",
+      "supports": "Photos, item details and purchase evidence can assist a future claim.",
+      "limits": "Older article; do not recommend its legacy app links or insecure sharing practices. A starter record is not a complete inventory or proof of coverage.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "USFA_ELECTRIC",
+      "title": "US Fire Administration: Appliance and electrical safety",
+      "url": "https://www.usfa.fema.gov/prevention/home-fires/prevent-fires/appliance-and-electrical/",
+      "basis": "official guidance",
+      "supports": "Power strips do not solve every outlet problem; appliances and cords require suitable use and maintenance.",
+      "limits": "No live wiring work, electrical diagnosis or universal load calculations.",
+      "reader_title": "Appliance and cord safety",
+      "reader_description": "Check guidance on outlets, extension cords and power strips.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "AA_CONTRACTOR",
+      "title": "Alone Actually: Hiring a contractor while living alone",
+      "url": "https://aloneactually.com/how-to-hire-a-contractor-when-you-live-alone/",
+      "basis": "editorial inspiration",
+      "supports": "Situations involving service visits, scope, quotations and communication.",
+      "limits": "Not an authority for prices, licensing, demographic prevalence or effectiveness. Final task facts use primary guidance."
+    },
+    {
+      "id": "AA_MAINTENANCE",
+      "title": "Alone Actually: Home maintenance for women living alone",
+      "url": "https://aloneactually.com/home-maintenance-for-women-living-alone/",
+      "basis": "editorial inspiration",
+      "supports": "Renter/owner differences and manageable preparation around a real home.",
+      "limits": "Not a verified technical manual. Do not import every DIY instruction or claim."
+    },
+    {
+      "id": "REDDIT_SPACE",
+      "title": "LivingAlone: Privacy and control of one's space",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1qdexui/living_alone_has_made_me_more_protective_of_my/",
+      "basis": "qualitative community discussion",
+      "supports": "Some people want control over visits and access while others prefer open visiting.",
+      "limits": "Demographics unverified; votes not reliably exposed. Not prevalence or a reason to encourage isolation."
+    },
+    {
+      "id": "REDDIT_LOCKOUT",
+      "title": "LivingAlone: Concern about getting locked out",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1hbzza9/i_am_afraid_of_locking_myself_out_of_the_house/",
+      "basis": "qualitative community discussion",
+      "supports": "Lockout preparation is a concrete expressed need.",
+      "limits": "No hidden-key, lockbox-placement or bypass advice copied; no measured rank."
+    },
+    {
+      "id": "REDDIT_VISIT",
+      "title": "Homeowners: Feeling uncomfortable during a repair visit",
+      "url": "https://www.reddit.com/r/homeowners/comments/1h6tniz/single_female_homeowners_what_do_you_do_when/",
+      "basis": "qualitative community discussion",
+      "supports": "Visit boundaries and having a route to the service company are expressed needs.",
+      "limits": "No confrontation scripts, weapons or promises of protection copied. Not population evidence."
+    },
+    {
+      "id": "REDDIT_OUTAGE",
+      "title": "TwoXPreppers: Practical lessons from an outage",
+      "url": "https://www.reddit.com/r/TwoXPreppers/comments/1pq930l/two_suggestions_from_in_the_moment_powers_out/",
+      "basis": "qualitative community discussion",
+      "supports": "Usable lighting locations and preparation details matter in actual interruptions.",
+      "limits": "Advice checked against official guidance; candles and improvised heating are not adopted. Votes not used as evidence."
+    },
+    {
+      "id": "TASKRABBIT_HANDY",
+      "title": "Taskrabbit: Handyman services",
+      "url": "https://www.taskrabbit.com/services/handyman",
+      "basis": "official service documentation",
+      "supports": "Service listings include small furniture, cabinet and door repairs; scope and qualifications vary by provider.",
+      "limits": "Commercial marketplace, not an endorsement of a worker. Local availability, total charges, licensing and job suitability require checks.",
+      "reader_title": "Taskrabbit",
+      "reader_description": "Explore handyperson services for small jobs; check each provider and the full price.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "THUMBTACK_HELP",
+      "title": "Thumbtack: Home repair services",
+      "url": "https://www.thumbtack.com/essential-home-services",
+      "basis": "official service page indexed in web search",
+      "supports": "Discovery listings for appliance repair, plumbing, electrical and other home services.",
+      "limits": "Provider-specific qualifications, charges and availability are unverified. Homepage/about direct text extraction was limited; official service listings were available in search. Do not use the page for emergency-response promises.",
+      "reader_title": "Thumbtack",
+      "reader_description": "Explore local repair specialists by job and check their qualifications.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "REPAIR_CAFE",
+      "title": "Repair Cafe: How local repair events work",
+      "url": "https://www.repaircafe.org/en/faq/",
+      "basis": "official organization guidance",
+      "supports": "Local volunteer events help repair small items; the site links to its directory, while accepted items and event arrangements vary.",
+      "limits": "No local event or successful repair is guaranteed. Check booking, item rules and parts charges with the organizer. Not a substitute for qualified building-system repairs.",
+      "reader_title": "Repair Cafe",
+      "reader_description": "Learn how volunteer repair events work and find the local directory.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "WHIRLPOOL_FILTER",
+      "title": "Whirlpool: Dishwasher filter care",
+      "url": "https://producthelp.whirlpool.com/Dishwashers/Dishwasher/Other/Cleaning_and_Odor/Cleaning_and_Maintenance/Cleaning_the_Filter/Cleaning_the_Filter_-_Dishwasher",
+      "basis": "official manufacturer guidance",
+      "supports": "Some dishwasher models have owner-cleaned filters; the matching user guide determines maintenance.",
+      "limits": "Illustrates model-specific user care, not universal instructions for every appliance. Do not import disassembly or presume all dishwashers need manual filter cleaning.",
+      "polish_review_checked_at": "2026-10-15"
+    },
+    {
+      "id": "DEMAND_FANNIE_2023",
+      "title": "Fannie Mae: Renter challenges, 2023 survey",
+      "url": "https://www.fanniemae.com/research-and-insights/perspectives/research-identifies-renter-challenges",
+      "basis": "commissioned US renter survey, published February 1, 2024",
+      "supports": "Maintenance/property-management problems and limited rights knowledge; deposit return is a recurring moving concern.",
+      "limits": "2023 data, 2,550 respondents across online/phone samples; general renters, not specifically solo-living women. Not a task-popularity study.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "DEMAND_FANNIE_REPORT",
+      "title": "Fannie Mae: Renter Needs Research findings",
+      "url": "https://multifamily.fanniemae.com/media/document/pdf/renter-needs-research",
+      "basis": "primary survey methods and findings, September 2023 fieldwork",
+      "supports": "Maintenance problems include pests, building condition, heating/cooling and inefficient homes; page 35 says there is no single stand-out maintenance issue.",
+      "limits": "Same study as DEMAND_FANNIE_2023, not independent corroboration. PDF text read; chart screenshot retrieval failed, so no chart-specific numeric ranking is used.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "DEMAND_ANGI",
+      "title": "Angi: Home-repair information survey",
+      "url": "https://www.angi.com/articles/google-home-repairs-survey.htm",
+      "basis": "commercial provider survey of 1,000 Americans",
+      "supports": "Respondents seek online information and often then seek professional help; solo respondents report lower DIY confidence.",
+      "limits": "Vendor incentives; living-alone and gender findings are separate, not a women-living-alone cross-tab. Page updated July 2026; fieldwork date not verified.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "DEMAND_VISITS_SURVEY",
+      "title": "Lombardo Homes: Women and home improvement, 2023",
+      "url": "https://lombardohomes.com/blog/nationwide-survey-of-american-womens-diy-home-improvement-habits-and-trends-in-2023",
+      "basis": "commercial survey of 902 US women",
+      "supports": "Some women report discomfort during contractor visits and being treated differently.",
+      "limits": "Not a solo-living sample. The 27% discomfort figure appears within the group who worked with contractors; do not call it 27% of all women. Older sponsor survey.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "DEMAND_REPAIR_ANXIETY",
+      "title": "LivingAlone: Home repairs and anxiety",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1swlh4f/those_pesky_home_repairs_and_anxiety/",
+      "basis": "qualitative community discussion",
+      "supports": "Self-described 38-year-old woman experiences uncertainty about a failed water heater, then pride after arranging a plan.",
+      "limits": "First-person need, not evidence for a particular service or prevalence. Full thread opened.",
+      "checked_at": "2026-10-15",
+      "indexed_post_date": "2026-04-26",
+      "indexed_votes_observed": 76,
+      "votes_checked_at": "2026-10-15",
+      "vote_limit": "Search-index snapshot only; not a live verified count, representative poll or ranking weight."
+    },
+    {
+      "id": "DEMAND_REPAIR_ORGANIZE",
+      "title": "LivingAlone: What is harder about caring for a home?",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1x5lvy4/whats_something_about_taking_care_of_a_home_that/",
+      "basis": "qualitative community discussion",
+      "supports": "A response names arranging repairs, negotiating prices and having unfamiliar workers at home.",
+      "limits": "Mixed/unknown demographics and geography. Full thread opened. The quoted response had +35 in the index; post count stored separately.",
+      "checked_at": "2026-10-15",
+      "indexed_post_date": "2026-10-14",
+      "indexed_votes_observed": 11,
+      "votes_checked_at": "2026-10-15",
+      "vote_limit": "Search-index snapshot only; not a live verified count, representative poll or ranking weight."
+    },
+    {
+      "id": "DEMAND_QUOTE_FRICTION",
+      "title": "HomeImprovement: Frustration with contractors",
+      "url": "https://www.reddit.com/r/HomeImprovement/comments/1wyk3n8/frustrated_with_contractors_they_respect_my/",
+      "basis": "qualitative community discussion",
+      "supports": "Describes feeling dismissed, uncertainty about repair scope, quotes and quality. Replies disagree about causes and mention variation between providers.",
+      "limits": "Poster lives with a husband, so adjacent evidence only. Different quotes do not prove gender discrimination or overcharging. Indexed date conflicts with relative ages on opened page; recency uncertain.",
+      "checked_at": "2026-10-15",
+      "indexed_post_date": "2026-10-05",
+      "indexed_votes_observed": 1022,
+      "votes_checked_at": "2026-10-15",
+      "vote_limit": "Search-index snapshot only; not a live verified count, representative poll or ranking weight."
+    },
+    {
+      "id": "DEMAND_REPAIR_BURDEN",
+      "title": "LivingAlone: Frustration with repairs falling to one person",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1u34g9w/frustrated_that_all_repairs_fall_to_me/",
+      "basis": "qualitative community discussion",
+      "supports": "The burden of arranging or doing every repair can be tiring, even with some skills.",
+      "limits": "Search-result text only. DIY details not adopted; no demographic inference beyond the post.",
+      "checked_at": "2026-10-15",
+      "indexed_post_date": "2026-06-11",
+      "indexed_votes_observed": 13,
+      "votes_checked_at": "2026-10-15",
+      "vote_limit": "Search-index snapshot only; not a live verified count, representative poll or ranking weight."
+    },
+    {
+      "id": "DEMAND_HEAVY_HELP",
+      "title": "LivingAlone: Home tasks that need more strength",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1f7oboi/",
+      "basis": "qualitative community discussion",
+      "supports": "A solo resident cannot complete a home task alone and asks what help is available.",
+      "limits": "2024 discussion; search-index text available, full open failed. Not proof of provider quality or a reason to encourage hazardous DIY.",
+      "checked_at": "2026-10-15",
+      "indexed_post_date": "2024-09-03",
+      "indexed_votes_observed": 124,
+      "votes_checked_at": "2026-10-15",
+      "vote_limit": "Search-index snapshot only; not a live verified count, representative poll or ranking weight."
+    },
+    {
+      "id": "DEMAND_OUTAGE_OPTIONS",
+      "title": "LivingAlone: Power outages in an all-electric home",
+      "url": "https://www.reddit.com/r/LivingAlone/comments/1kbusnz/",
+      "basis": "qualitative community discussion",
+      "supports": "A renter wants affordable options for a longer outage without nearby helpers or guaranteed hotel money.",
+      "limits": "Search-result text only; full open failed. Hazardous camping/heating advice in replies is not imported.",
+      "checked_at": "2026-10-15",
+      "indexed_post_date": "2025-04-30",
+      "indexed_votes_observed": 19,
+      "votes_checked_at": "2026-10-15",
+      "vote_limit": "Search-index snapshot only; not a live verified count, representative poll or ranking weight."
+    },
+    {
+      "id": "NYC_HOUSING_STANDARDS",
+      "title": "NYC HPD: Tenant rights and responsibilities",
+      "url": "https://www.nyc.gov/site/hpd/services-and-information/tenants-rights-and-responsibilities.page",
+      "basis": "official local housing guidance",
+      "supports": "Illustrates housing-condition duties, essential services and local help routes.",
+      "limits": "NYC-specific; no temperature, deadline, remedy or fee is generalized nationally. Used to teach what to look up locally, not individual legal advice.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "SEATTLE_CONDITION",
+      "title": "Seattle: Move-in condition checklist",
+      "url": "https://www.seattle.gov/rentinginseattle/renters/moving-in/security-deposit-check-list",
+      "basis": "official local tenant guidance",
+      "supports": "A detailed condition record can matter for later deposit disputes.",
+      "limits": "Seattle law only. Official indexed text read; direct open returned 403. No universal deadline, mandated checklist or refund promise is inferred.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "SEATTLE_DEPOSIT",
+      "title": "Seattle: Deposit returns and condition evidence",
+      "url": "https://seattle.gov/rentinginseattle/renters/moving-out/return-of-your-security-deposit",
+      "basis": "official local tenant guidance",
+      "supports": "Distinguishes wear from damage and discusses condition records and photographs.",
+      "limits": "Official indexed text read. Seattle-specific legal terms and deadlines are not exported to other states.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "SEATTLE_PERMITS",
+      "title": "Seattle: When permits are needed",
+      "url": "https://seattle.gov/construction-and-inspections/permits/do-you-need-a-permit",
+      "basis": "official local building guidance",
+      "supports": "Permit requirements depend on the work; some small projects are exempt.",
+      "limits": "Official indexed text read; Seattle-specific rules are examples, not a national permit list.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "CSLB_PERMIT_AGREEMENT",
+      "title": "California CSLB: What to include in a contract",
+      "url": "https://www2.cslb.ca.gov/Consumers/Hire_A_Contractor/Contracts_And_Binding_Agreements.aspx",
+      "basis": "official state consumer guidance",
+      "supports": "A contract should identify who obtains necessary permits.",
+      "limits": "Official indexed text read. No California threshold or statutory right is applied nationally.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "TASKRABBIT_MOVING",
+      "title": "Taskrabbit: Heavy furniture moving",
+      "url": "https://www.taskrabbit.com/services/moving/heavy-furniture",
+      "basis": "official provider documentation",
+      "supports": "Offers furniture-moving help and describes coordinating more than one Tasker.",
+      "limits": "Commercial marketplace, not a guarantee of safety, equipment, insurance or availability. Check each booking; marketing promises and starting prices not adopted.",
+      "checked_at": "2026-10-15",
+      "reader_title": "Taskrabbit furniture-moving help",
+      "reader_description": "Explore help with heavy furniture and confirm the crew, equipment and full price."
+    },
+    {
+      "id": "USA_CONSUMER",
+      "title": "USAGov: State consumer protection offices",
+      "url": "https://www.usa.gov/state-consumer",
+      "basis": "official national referral directory",
+      "supports": "Find the state office that handles consumer complaints.",
+      "limits": "A referral is not a guaranteed remedy, investigation, refund or legal representation.",
+      "checked_at": "2026-10-15",
+      "reader_title": "Find your state consumer office",
+      "reader_description": "Look up where to ask about an unresolved problem with a business."
+    },
+    {
+      "id": "USA_SERVICE_COMPLAINT",
+      "title": "USAGov: Company and service complaints",
+      "url": "https://www.usa.gov/company-product-service-complaints",
+      "basis": "official consumer guidance",
+      "supports": "Contact the company first and seek appropriate outside help for unresolved problems.",
+      "limits": "Complaint routes and outcomes depend on the case; not an instruction to take legal or payment action.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "DOE_ASSESSMENT",
+      "title": "US DOE: Consumer guide to home energy assessments",
+      "url": "https://www.energy.gov/sites/default/files/2021-08/ES-Home%20Energy%20Assessments_080221.pdf",
+      "basis": "official educational guide, 2021",
+      "supports": "Professional assessment can explain energy use and comfort issues; utilities and energy offices can help find providers.",
+      "limits": "Use professional-assessment concepts only; do not import DIY tests, dated prices, tax credits or promises of savings.",
+      "checked_at": "2026-10-15",
+      "reader_title": "Understand a home energy assessment",
+      "reader_description": "See what a professional assessment can explain and where to look for one."
+    },
+    {
+      "id": "MASS_SAVE_EXAMPLE",
+      "title": "Mass Save: Somerville energy assessments",
+      "url": "https://www.masssave.com/en/community-first/somerville",
+      "basis": "official local program example",
+      "supports": "Shows that some utility-supported programs include eligible renters and no-cost assessments.",
+      "limits": "Massachusetts/Somerville program, not nationwide availability. Indexed official page read; no offer is promised to users elsewhere. Not a default in-card resource.",
+      "checked_at": "2026-10-15"
+    },
+    {
+      "id": "CSLB_COMPLAINT",
+      "title": "California CSLB: How complaints work",
+      "url": "https://cslb.ca.gov/Consumers/Filing_A_Complaint/How_The_Complaint_Process_Works.aspx",
+      "basis": "official state regulator guidance",
+      "supports": "Illustrates license-board complaint jurisdiction and possible referral to other dispute-resolution routes.",
+      "limits": "California only; official indexed guidance checked October 15, 2026. Does not establish the same board powers or remedies in every state.",
+      "checked_at": "2026-10-15"
+    }
+  ],
+  "unavailable_sources": [
+    "Ready.gov power-outage and water pages returned 403; use retrieved Red Cross and CDC guidance instead.",
+    "The initial CPSC CO and USFA escape URLs failed; use the retrieved USFA pages listed above.",
+    "FTC Wi-Fi full page and CISA wireless guide were unavailable; only bounded FTC indexed facts are retained. This source is not an app resource link.",
+    "FCC WEA page was unavailable; use retrieved NWS WEA guidance instead."
+  ],
+  "polish_review": {
+    "date": "2026-10-15",
+    "rechecked_source_ids": [
+      "FTC_PEOPLE",
+      "GOOGLE_RESULTS",
+      "FTC_WIFI",
+      "USPS_HOLD",
+      "FEDEX_DELIVERY",
+      "UPS_DELIVERY",
+      "CDC_WATER",
+      "FOOD_OUTAGE",
+      "USFA_SMOKE",
+      "USFA_CO",
+      "USFA_ELECTRIC",
+      "EPA_MOLD",
+      "USA_REPAIR_HELP",
+      "CA_LOCKSMITH",
+      "CSLB_CONTRACT",
+      "NAIC_RENTERS",
+      "NAIC_ALE",
+      "BERKELEY_TOOLS",
+      "FTC_WARRANTY",
+      "GILA_PRIVACY",
+      "LSC_HELP",
+      "EPA_PEST",
+      "RED_CROSS_OUTAGE",
+      "RING_USERS",
+      "RING_PRIVACY",
+      "SCHLAGE_LOCK",
+      "CPSC_RECALL",
+      "NWS_WEA",
+      "USFA_ESCAPE",
+      "NAIC_INVENTORY",
+      "NWS_HEAT",
+      "CONED_OUTAGE",
+      "TASKRABBIT_HANDY",
+      "THUMBTACK_HELP",
+      "REPAIR_CAFE",
+      "WHIRLPOOL_FILTER"
+    ],
+    "notes": "Rechecked supporting official pages and service facts for the full editorial pass. No local provider, appointment, price quote or individual eligibility verified. Primary-source facts support suggestions; full cards are original editorial work. Search-only service evidence is identified in its entry."
+  },
+  "demand_review": {
+    "checked_at": "2026-10-15",
+    "method": "Purposive desk-research sample, not representative or exhaustive. Search queries partly targeted repairs after founder feedback; source counts cannot establish relative market share. General-renter, homeowner, women and solo-living evidence are not interchangeable. No task-level selection rates exist yet. Votes, sponsor claims and service features do not prove demand or efficacy.",
+    "not_counted_as_market_evidence": [
+      "Official advice establishes facts, not popularity.",
+      "Provider pages establish a service offering, not efficacy or audience demand.",
+      "Multiple reports from the same survey count as one study.",
+      "Buildpad and Alone Actually are leads/editorial inspiration, not independent prevalence data."
+    ],
+    "access_limits": [
+      "Some Reddit content available only in search index; each source records that limit.",
+      "Seattle and Massachusetts pages sometimes returned 403; official indexed text used where stated.",
+      "DOE professional-assessment page returned 404; official educational PDF used for stable concepts instead."
+    ]
+  }
+}

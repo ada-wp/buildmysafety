@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Free Safety Scan | Build My Safety</title>
+    <meta
+      name="description"
+      content="Answer five practical questions, enter your email, and receive a calm Safety Map with one first block to build."
+    >
+    <meta name="theme-color" content="#f4eee6">
+    <link rel="canonical" href="https://buildmysafety.com/scan/">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="scan.css">
+    <script src="../site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#scan-app">Skip to scan</a>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="scroll-rail" aria-hidden="true"><span></span></div>
+
+    <header class="site-header scan-header" aria-label="Scan navigation">
+      <a class="brand" href="../index.html" aria-label="Build My Safety home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Build My Safety</span>
+      </a>
+      <nav class="nav-links" aria-label="Scan links">
+        <a href="../index.html">Home</a>
+        <a href="#scan-app">Safety Scan</a>
+      </nav>
+    </header>
+
+    <main class="scan-page" id="scan-app">
+      <section class="scan-intro reveal" aria-labelledby="scan-title">
+        <p class="eyebrow">Free Safety Scan</p>
+        <h1 id="scan-title">Find one thing to make more solid.</h1>
+        <p>
+          This short scan looks at practical systems around your life. You will
+          answer five questions, add your email, then see a Safety Map with one
+          first block to build from.
+        </p>
+        <div class="scan-notes" aria-label="Scan principles">
+          <span>No score</span>
+          <span>Five questions</span>
+          <span>One next step</span>
+        </div>
+      </section>
+
+      <section class="quiz-shell reveal" aria-live="polite">
+        <div class="quiz-progress" aria-label="Scan progress">
+          <span id="progressLabel">Question 1 of 5</span>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+
+        <form class="quiz-card" id="quizForm">
+          <div class="quiz-step is-active" data-step="0">
+            <p class="step-kicker">Home support</p>
+            <h2>Who could access your home if you needed help?</h2>
+            <div class="choice-list">
+              <label><input type="radio" name="home" value="solid"> A family member has access</label>
+              <label><input type="radio" name="home" value="solid"> A trusted friend has access</label>
+              <label><input type="radio" name="home" value="attention"> I have a lockbox or keypad, but no plan</label>
+              <label><input type="radio" name="home" value="attention"> I am not sure yet</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="1">
+            <p class="step-kicker">Pet backup</p>
+            <h2>If you have a pet, is one person confirmed as backup?</h2>
+            <div class="choice-list">
+              <label><input type="radio" name="pet" value="solid"> Yes, confirmed</label>
+              <label><input type="radio" name="pet" value="attention"> Not yet, but someone is in mind</label>
+              <label><input type="radio" name="pet" value="attention"> Working on it</label>
+              <label><input type="radio" name="pet" value="na"> Not applicable</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="2">
+            <p class="step-kicker">Renter coverage</p>
+            <h2>Do you know what your renter policy covers?</h2>
+            <div class="choice-list">
+              <label><input type="radio" name="coverage" value="solid"> Yes, I am clear</label>
+              <label><input type="radio" name="coverage" value="attention"> Somewhat</label>
+              <label><input type="radio" name="coverage" value="attention"> Not really</label>
+              <label><input type="radio" name="coverage" value="na"> I do not rent</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="3">
+            <p class="step-kicker">Digital recovery</p>
+            <h2>Could you recover key accounts without one device?</h2>
+            <div class="choice-list">
+              <label><input type="radio" name="digital" value="solid"> Yes, I have backups</label>
+              <label><input type="radio" name="digital" value="attention"> Some accounts</label>
+              <label><input type="radio" name="digital" value="attention"> I am not sure</label>
+              <label><input type="radio" name="digital" value="attention"> Not set up yet</label>
+            </div>
+          </div>
+
+          <div class="quiz-step" data-step="4">
+            <p class="step-kicker">First block choice</p>
+            <h2>What feels most worth strengthening this week?</h2>
+            <div class="choice-list">
+              <label><input type="radio" name="priority" value="home"> Home support</label>
+              <label><input type="radio" name="priority" value="pet"> Pet backup</label>
+              <label><input type="radio" name="priority" value="coverage"> Renter coverage</label>
+              <label><input type="radio" name="priority" value="digital"> Digital recovery</label>
+            </div>
+          </div>
+
+          <div class="quiz-step email-step" data-step="5">
+            <p class="step-kicker">Your map is ready</p>
+            <h2>Where should we send your Safety Map?</h2>
+            <p>
+              Add your email to unlock the map. For this prototype, your result
+              appears immediately and the saved email can be wired to Cloudflare
+              storage next.
+            </p>
+            <label class="email-field">
+              Email address
+              <input id="emailInput" type="email" name="email" autocomplete="email" placeholder="you@example.com">
+            </label>
+            <p class="form-note">No fear score. No spam. You can come back to this later.</p>
+          </div>
+
+          <p class="quiz-error" id="quizError" role="alert"></p>
+
+          <div class="quiz-controls">
+            <button class="button secondary" id="backButton" type="button">Back</button>
+            <button class="button primary" id="nextButton" type="button">Next</button>
+          </div>
+        </form>
+
+        <article class="result-card" id="resultCard" hidden>
+          <div class="map-header">
+            <p>Your Safety Map</p>
+            <span>First version</span>
+          </div>
+
+          <div class="result-summary">
+            <h2 id="resultTitle">Start with one block.</h2>
+            <p id="resultIntro"></p>
+          </div>
+
+          <div class="map-grid">
+            <section>
+              <h3>Already solid</h3>
+              <ul id="solidList"></ul>
+            </section>
+            <section>
+              <h3>Worth strengthening</h3>
+              <ul id="attentionList"></ul>
+            </section>
+          </div>
+
+          <section class="first-block">
+            <span class="block-icon" aria-hidden="true"></span>
+            <div>
+              <h3>Your first block</h3>
+              <p id="firstBlockText"></p>
+            </div>
+          </section>
+
+          <div class="result-actions">
+            <a class="button primary" href="../index.html">Back to homepage</a>
+            <button class="button secondary" id="restartButton" type="button">Retake scan</button>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="scan.js"></script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+{
+  "candidateSchema": {
+    "passed": true,
+    "errors": null
+  },
+  "unchangedLiveAcceptance": {
+    "passed": false,
+    "error": "invalid_output_shape"
+  },
+  "baseTasksWithoutNewField": {
+    "passed": false,
+    "error": "unsupported_task_copy"
+  },
+  "searchPromptChecks": [
+    {
+      "title": "Map your routes to care",
+      "passed": true,
+      "wordCount": 28,
+      "error": null
+    },
+    {
+      "title": "Understand what a care estimate covers",
+      "passed": true,
+      "wordCount": 23,
+      "error": null
+    },
+    {
+      "title": "See how a video visit works",
+      "passed": true,
+      "wordCount": 22,
+      "error": null
+    }
+  ],
+  "candidatePassed": false,
+  "caveat": "A candidate pass is not a deployed-app pass. The original output is preserved unchanged; removal of search_prompt is diagnostic only.",
+  "copy": [
+    {
+      "title": "Map your routes to care",
+      "titleWords": 5,
+      "summaryWords": 29,
+      "stepWords": [
+        21,
+        16,
+        18
+      ],
+      "doneWords": 15
+    },
+    {
+      "title": "Understand what a care estimate covers",
+      "titleWords": 6,
+      "summaryWords": 28,
+      "stepWords": [
+        14,
+        19,
+        17
+      ],
+      "doneWords": 11
+    },
+    {
+      "title": "See how a video visit works",
+      "titleWords": 6,
+      "summaryWords": 26,
+      "stepWords": [
+        21,
+        13,
+        16
+      ],
+      "doneWords": 13
+    }
+  ],
+  "individualCoreCopyChecks": [
+    {
+      "title": "Map your routes to care",
+      "passed": true
+    },
+    {
+      "title": "Understand what a care estimate covers",
+      "passed": false,
+      "error": "unsupported_task_copy"
+    },
+    {
+      "title": "See how a video visit works",
+      "passed": true
+    }
+  ],
+  "observedFailure": "Card 2 step 2 says an estimate is not a guaranteed final bill. The current blanket guarantee-word regex rejects this negation. The live schema also lacks search_prompt. No checks were bypassed for acceptance, and later batch checks may remain unexercised."
+}

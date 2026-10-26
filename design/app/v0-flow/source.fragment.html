@@ -1,0 +1,191 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500&display=swap">
+<div id="safety-v0-flow" aria-label="My Safety navigation design">
+  <p class="sn-preview-label">Design preview · sample tasks · no emails sent</p>
+
+  <div class="sn-phone"><div class="sn-content"></div><nav class="sn-nav" aria-label="Main navigation"></nav></div>
+  <div class="sn-sr" role="status" aria-live="polite"></div>
+</div>
+<style>
+#safety-v0-flow{--sn-paper:#faf7f2;--sn-ink:#2e2b4d;--sn-muted:#696376;--sn-lilac:#eee8f6;--sn-line:#e3dce6;--sn-radius:28px;font-family:Inter,Arial,sans-serif;color:var(--sn-ink);max-width:393px;margin:0 auto}
+#safety-v0-flow *{box-sizing:border-box}
+#safety-v0-flow .sn-phone{background:var(--sn-paper);border-radius:var(--sn-radius);min-height:700px;display:flex;flex-direction:column;overflow:hidden}
+#safety-v0-flow .sn-content{padding:22px 24px 26px;flex:1}
+#safety-v0-flow button,#safety-v0-flow input,#safety-v0-flow textarea{font:inherit;color:inherit}
+#safety-v0-flow button{background:none;border:0;min-height:44px}
+#safety-v0-flow button:disabled{opacity:.45}
+#safety-v0-flow .sn-top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;margin-bottom:22px}
+#safety-v0-flow .sn-wordmark{font-size:13px;letter-spacing:.02em}
+#safety-v0-flow .sn-text{font-size:12px;color:var(--sn-muted);padding:0;display:inline-flex;align-items:center;gap:5px}
+#safety-v0-flow .sn-icon{min-width:44px;display:inline-flex;align-items:center;justify-content:center;padding:10px}
+#safety-v0-flow h1{font-family:'Instrument Serif',Georgia,serif;font-size:44px;line-height:1.04;letter-spacing:-.6px;font-weight:400;margin:0 0 20px}
+#safety-v0-flow h2{font-size:14px;font-weight:500;margin:0}
+#safety-v0-flow p{font-size:14px;line-height:1.7;margin:0 0 20px;color:var(--sn-muted)}
+#safety-v0-flow .sn-companion{display:flex;align-items:center;gap:16px;margin:2px 0 26px;padding:15px 17px;background:var(--sn-lilac);border-radius:20px}
+#safety-v0-flow .sn-companion img{width:72px;height:72px;object-fit:contain}
+#safety-v0-flow .sn-companion p{font-size:12px;margin:5px 0 0}
+#safety-v0-flow .sn-mini{width:42px;height:42px;object-fit:contain}
+#safety-v0-flow .sn-section{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+#safety-v0-flow .sn-row{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--sn-line);padding:12px 0}
+#safety-v0-flow .sn-check{flex:none;width:44px;padding:10px;display:grid;place-items:center}
+#safety-v0-flow .sn-circle{border:1px solid #afa6bc;border-radius:50%;height:23px;width:23px;display:grid;place-items:center}
+#safety-v0-flow .sn-circle.done{background:var(--sn-ink);color:var(--sn-paper);border-color:var(--sn-ink)}
+#safety-v0-flow .sn-open{font-size:14px!important;text-align:left;flex:1;padding:3px 0;line-height:1.5;display:block}
+#safety-v0-flow small{display:block;font-size:11px;color:var(--sn-muted);line-height:1.5;margin-top:5px}
+#safety-v0-flow .sn-nav{display:flex;gap:8px;padding:12px 20px 20px;border-top:1px solid var(--sn-line);background:var(--sn-paper)}
+#safety-v0-flow .sn-nav[hidden]{display:none}
+#safety-v0-flow .sn-nav button{flex:1;display:flex;justify-content:center;align-items:center;gap:8px;border-radius:19px;min-height:50px;font-size:13px}
+#safety-v0-flow .sn-nav button[aria-current="page"]{background:var(--sn-lilac);font-weight:500}
+#safety-v0-flow .sn-primary{width:100%;min-height:50px;border-radius:28px;background:var(--sn-ink);color:var(--sn-paper);padding:14px 18px;font-size:13px;font-weight:500;margin-top:24px;line-height:1.5}
+#safety-v0-flow .sn-secondary{width:100%;font-size:12px;color:var(--sn-muted);margin-top:4px}
+#safety-v0-flow .sn-choice{display:flex;align-items:center;gap:14px;min-height:67px;width:100%;text-align:left;border-bottom:1px solid var(--sn-line);padding:13px 0;font-size:14px}
+#safety-v0-flow .sn-choice .sn-next{margin-left:auto}
+#safety-v0-flow .sn-choice input{accent-color:var(--sn-ink);height:19px;width:19px;flex:none}
+#safety-v0-flow .sn-choice span{line-height:1.6}
+#safety-v0-flow .sn-field-label{display:block;font-size:12px;margin:22px 0 8px}
+#safety-v0-flow textarea{display:block;width:100%;min-height:84px;resize:vertical;border:1px solid var(--sn-line);border-radius:14px;padding:12px;background:var(--sn-paper);font-size:16px;line-height:1.5}
+#safety-v0-flow .sn-tag{display:inline-block;font-size:11px;line-height:1.5;background:var(--sn-lilac);border-radius:24px;padding:6px 10px;margin-right:9px}
+#safety-v0-flow .sn-meta{font-size:12px;color:var(--sn-muted);margin-bottom:15px}
+#safety-v0-flow .sn-idea{border-bottom:1px solid var(--sn-line);padding:18px 0}
+#safety-v0-flow .sn-idea-head{display:flex;gap:8px;align-items:start}
+#safety-v0-flow .sn-idea p{font-size:12px;margin:7px 0 0}
+#safety-v0-flow .sn-add{flex:none;width:44px;border:1px solid var(--sn-line);border-radius:50%;display:grid;place-items:center}
+#safety-v0-flow .sn-add[disabled]{opacity:1;background:var(--sn-lilac);border-color:var(--sn-lilac)}
+#safety-v0-flow .sn-steps{list-style:none;padding:0;display:grid;gap:20px;margin:25px 0}
+#safety-v0-flow .sn-steps li{display:grid;grid-template-columns:27px 1fr;gap:12px;font-size:13px;line-height:1.65}
+#safety-v0-flow .sn-number{border-radius:50%;height:27px;background:var(--sn-lilac);display:grid;place-items:center;font-size:11px}
+#safety-v0-flow .sn-outcome{padding:15px 16px;background:#f1ede8;border-radius:15px;font-size:12px;line-height:1.65;margin-bottom:20px}
+#safety-v0-flow .sn-outcome strong{font-weight:500;font-size:11px;display:block;margin-bottom:4px}
+#safety-v0-flow details{border-bottom:1px solid var(--sn-line)}
+#safety-v0-flow summary{min-height:50px;padding:12px 0;font-size:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none}
+#safety-v0-flow summary::-webkit-details-marker{display:none}
+#safety-v0-flow details p,#safety-v0-flow details li{font-size:12px;line-height:1.65}
+#safety-v0-flow details a{color:var(--sn-ink);display:inline-block;padding:10px 0;font-size:12px}
+#safety-v0-flow details ul{padding:0 0 12px 18px;margin:0}
+#safety-v0-flow .sn-celebrate{text-align:center;padding:5px 0 14px}
+#safety-v0-flow .sn-celebrate>img{width:175px;height:175px;margin:16px 0}
+#safety-v0-flow .sn-celebrate h1{margin-top:22px}
+#safety-v0-flow .sn-note{background:var(--sn-lilac);padding:12px 14px;border-radius:12px;font-size:12px;line-height:1.6;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+#safety-v0-flow .sn-empty{padding:38px 8px;text-align:center}
+#safety-v0-flow .sn-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#safety-v0-flow .sn-done-list{margin-top:20px}
+#safety-v0-flow .sn-done-list .sn-row:last-child{border:0}
+@media(max-width:359px){#safety-v0-flow .sn-content{padding-left:20px;padding-right:20px}#safety-v0-flow h1{font-size:39px}}
+#safety-v0-flow .sn-preview-label{font-family:Inter,Arial,sans-serif;font-size:11px;line-height:1.6;color:var(--sn-muted);text-align:center;margin:0;padding:8px 12px;background:var(--sn-paper);border-radius:14px 14px 0 0}
+#safety-v0-flow .sn-input{width:100%;min-height:52px;border:1px solid #c9c1cf;border-radius:12px;background:#fffdf9;padding:12px;font-size:16px;line-height:1.5}
+#safety-v0-flow .sn-code{text-align:center;letter-spacing:.35em;font-size:24px}
+#safety-v0-flow .sn-error{font-size:12px;color:#863b4f;margin:14px 0 0}
+#safety-v0-flow .sn-fine{font-size:11px;line-height:1.65;margin:17px 0;text-align:center}
+#safety-v0-flow .sn-auth-art{text-align:center;margin:18px 0}
+#safety-v0-flow .sn-auth-art img{width:80px;height:80px}
+#safety-v0-flow .sn-auth-art+h1{text-align:center}
+#safety-v0-flow .sn-auth-art+h1+p{text-align:center}
+#safety-v0-flow .sn-empty h2{margin:0 0 12px}
+#safety-v0-flow .sn-note{margin:0 0 18px}
+#safety-v0-flow .sn-reward-elephant{display:block;margin:18px auto 22px!important;transform-origin:50% 80%}
+#safety-v0-flow .sn-celebrate .sn-outcome{margin:18px 0}
+#safety-v0-flow [data-growth="rhythm"] .sn-companion img{width:84px;height:84px}
+#safety-v0-flow [data-growth="friendship"] .sn-companion img{width:94px;height:94px}
+#safety-v0-flow [data-growth="rhythm"] .sn-reward-elephant{width:190px;height:190px}
+#safety-v0-flow [data-growth="friendship"] .sn-reward-elephant{width:205px;height:205px}
+
+</style>
+<script>
+(()=>{
+ const root=document.getElementById('safety-v0-flow'),content=root.querySelector('.sn-content'),nav=root.querySelector('.sn-nav');
+ const topics=[{"id": "sick", "label": "Sick days", "icon": "heart", "area": "If I’m Out of Action", "items": [["Food & essentials when I’m unwell", "C1-01"], ["Someone to check in on me", "C1-03"], ["Getting to care or appointments", "C1-04", "C1-05"], ["Pet care while I recover", "C1-06"], ["Daily tasks when I need to rest", "C1-07", "C1-08"]]}, {"id": "daily", "label": "Daily life", "icon": "sun", "area": "My Home / My Backup / My Body", "items": [["Meals when I have little energy", "C2-02"], ["Keeping up with cleaning", "C2-03"], ["Tasks that need a second person", "C2-05"], ["Appointments & paperwork piling up", "C2-06"], ["Knowing what to tackle first", "C2-09"]]}, {"id": "home", "label": "My home", "icon": "home", "area": "My Home", "items": [["Doors, locks & who has access", "C4-02"], ["Finding someone reliable for repairs", "C4-04"], ["Handling unexpected visitors", "C4-05"], ["Checking alarms & my way out", "C4-07", "C4-08"], ["Having essentials for a power outage", "C4-09"]]}, {"id": "people", "label": "People I can turn to", "icon": "people", "area": "My Backup", "items": [["Knowing who I can ask for help", "C5-01"], ["Asking for a small favor", "C5-03"], ["Getting to know people nearby", "C5-06"], ["Finding regular company", "C5-02", "C5-04"], ["Staying close to faraway people", "C5-05"]]}, {"id": "peace", "label": "Peace of mind", "icon": "leaf", "area": "My Body / My Home / My Backup", "items": [["Feeling unsettled at night", "C4-03"], ["Unwinding when I get home", "C6-06"], ["Setting boundaries around visits", "C6-03"], ["Choosing what I share with others", "C6-08"], ["Balancing alone time & connection", "C6-09"]]}];
+ const ELEPHANT='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+CjxwYXRoIGZpbGw9IiNFQUU1RjIiIGQ9Ik0zNCAxMThDNDMgNDMgMTAzIDE5IDE2NCAzNWM2OCAxOCAxMTkgNjggMTExIDEzNy02IDUxLTU5IDkxLTEzMyA5MUM2NSAyNjMgMjIgMjEzIDM0IDExOFoiLz4KPGVsbGlwc2UgY3g9IjE1MSIgY3k9IjI2NSIgcng9IjEwMyIgcnk9IjE0IiBmaWxsPSIjRERENUU5Ii8+CjxwYXRoIGZpbGw9IiNCREI2RDIiIGQ9Ik05OSAxNjRjLTEwIDI0LTMyIDYwLTIzIDg0IDYgMTYgMzUgMjUgNTkgMTlsMTMtMTkgMTUgMjBjMjYgNCA2MCAwIDY1LTEzIDgtMTgtMTMtMzUtMjctNDVsLTEzLTQ5WiIvPgo8cGF0aCBmaWxsPSIjQURBM0M1IiBkPSJNMTExIDk1Yy0yNi01Ni03Ny01MS04NC0xMy02IDMxIDcgNjggMzQgODQgMTcgMTAgMzUgNCA1NC0xN1oiLz4KPHBhdGggZmlsbD0iI0FEQTNDNSIgZD0iTTE4NyA5NWMyNS01NSA3Ni00OSA4NC0xMiA3IDI5LTQgNjctMzEgODQtMTkgMTAtMzYgMy01NS0xN1oiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTkwIDExOWMwLTUzIDI1LTcwIDU5LTcwIDM1IDAgNjMgMjEgNjIgNjgtMSAzNC0xNyA1OC00MSA2M2wtNDQtMWMtMjMtNi0zNi0yOC0zNi02MFoiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTEzNSAxMzdjLTIgMjMgMyA1NCAyNiA2NiAyOSAxNSA1Ni0zIDU5LTIyIDItMTAtMTAtMTUtMTYtNi03IDExLTE2IDEyLTIyIDctNy02LTQtMjMtNi0zNVoiLz4KPHBhdGggZD0iTTE0NiAxNTljOS0zIDE4LTEgMjUgNE0xNDkgMTcyYzgtMiAxNCAwIDIwIDMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0FEQTNDNSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGVsbGlwc2UgY3g9IjExNyIgY3k9IjEyNCIgcng9IjMuNCIgcnk9IjUiIGZpbGw9IiMyNjJCNTAiLz48ZWxsaXBzZSBjeD0iMTgxIiBjeT0iMTI0IiByeD0iMy40IiByeT0iNSIgZmlsbD0iIzI2MkI1MCIvPgo8cGF0aCBkPSJNMTA0IDExM3E1LTUgMTAtM00xODIgMTA5cTYtMSAxMCA0TTExNyAxNDNxMiA4IDcgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI2MkI1MCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIzIDIwMmMwIDI0IDQgNDAgMTIgNTNNMTg0IDIxMWMxIDE5IDAgMzEtNCA0NSIgc3Ryb2tlPSIjOEU4NUE4IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGZpbGw9IiNGQUY3RjIiIGQ9Ik05MyAyNjBjLTEtOSA1LTE0IDEwLTdsMyAxMVpNMTA5IDI2NWMtMS0xMCA1LTE1IDExLTdsMiA5Wk0xNDcgMjY0Yy0xLTExIDYtMTYgMTEtNmwxIDEwWk0xNjQgMjY4Yy0xLTExIDYtMTYgMTEtNmwxIDZaTTE5MSAyNjRjMC05IDYtMTQgMTEtNmwyIDRaIi8+CjxwYXRoIGZpbGw9IiNDOTk1NDQiIGQ9Im0yMzcgMzMgNCAxMSAxMSA0LTExIDQtNCAxMS00LTExLTExLTQgMTEtNFoiLz4KPHBhdGggZD0iTTUyIDI1M2MtNS0xNy0xMy0yNy0xOC0zOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQTA5NkJEIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBmaWxsPSIjQkRCNkQyIiBkPSJNMzggMjI2Yy0xNy0xLTIzLTktMjAtMTggMTIgMCAxOCA4IDIwIDE4Wm01IDEyYy00LTE3IDAtMjQgNy0yNSA1IDEyIDMgMjAtNyAyNVoiLz4KPC9zdmc+';
+ const catalog={
+ sick:[['Set up a sick-day shelf','10','A few essentials within reach when you need to rest.',['Choose a reachable shelf or basket near where you usually rest.','Gather familiar easy-to-prepare food, tissues and a charging cable you already own.','Note one missing item for your next usual shopping trip.'],'Your essentials are together, with any missing item noted.'],['Choose two easy meals','5','Make low-energy days a little easier.',['Choose two familiar meals that take little effort.','Check what you already have for them.','Put any missing ingredients on your usual shopping list.'],'You have two meal ideas and know what you need.'],['Draft a check-in message','5','Prepare a small, clear request you could send when you need company.',['Think of someone you feel comfortable asking.','Draft a message naming the kind of check-in you would like.','Save it somewhere you can find easily.'],'Your message is saved; sending it is your choice.']],
+ daily:[['Choose one low-effort meal','5','Keep one familiar option ready for a busy day.'],['Make a ten-minute tidy list','5','Choose a small area and three manageable actions.'],['Put appointments in one place','10','Bring upcoming dates into the calendar you already use.']],
+ home:[['Save a repair contact','10','Find the contact information you would use for an ordinary home repair.'],['Find your flashlight','5','Put a working light somewhere easy to reach.'],['Write down your repair questions','5','Prepare what to ask before arranging a repair.']],
+ people:[['Draft a small help request','5','Name one specific favor you would feel comfortable asking for.'],['Plan a simple catch-up','5','Choose someone you would enjoy hearing from.'],['Find one local gathering','10','Look for an activity that fits your interests and energy.']],
+ peace:[['Make a gentle evening cue','5','Choose a familiar activity that helps you wind down.'],['Write one visiting boundary','5','Find words for a preference you would like visitors to respect.'],['Plan a little connection','5','Choose one comfortable way to connect this week.']]
+ };
+ const taskMap={};for(const topic of topics)catalog[topic.id].forEach((t,i)=>taskMap[topic.id+i]={id:topic.id+i,category:topic.id,title:t[0],time:t[1],description:t[2],steps:t[3]||['Choose a small version that fits your day.','Write down the person, place or item you want to start with.','Save your next practical step somewhere you can find it.'],done:t[4]||'You have a specific next step written down.'});
+ const state={page:'signin',explorePage:'categories',category:'sick',drafts:{},saved:[],done:[],awards:[],task:'sick0',origin:'ideas',helpOrigin:'list',notice:'',undo:null,pending:'sick0',authOrigin:'ideas',signedIn:false,email:'you@example.com',authError:'',codeExpired:false,elephantName:'',batches:{},generation:null};
+ const design={scenario:'Sign in',generation:'Success'};
+ let timer=null,requestId=0,lastSaved='';
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const icon=n=>`<i data-lucide="${n}" aria-hidden="true"></i>`;
+ const img=cls=>`<img class="${cls}" src="${ELEPHANT}" alt="Lavender elephant companion">`;
+ const button=(action,label,cls='sn-text',extra='')=>`<button type="button" class="${cls} cursor-interaction" data-action="${action}" ${extra}>${label}</button>`;
+ const top=(back,label='My list')=>`<div class="sn-top">${back?button(back,icon('chevron-left')+esc(label)):'<span class="sn-wordmark">My Safety</span>'}${back?img('sn-mini'):button('account',icon('user-round'),'sn-icon','aria-label="Account and help"')}</div>`;
+ const draft=()=>state.drafts[state.category]||(state.drafts[state.category]={selected:[],text:''});
+ const category=()=>topics.find(t=>t.id===state.category);
+ const validDraft=()=>draft().selected.length>0||draft().text.trim().length>0;
+ const elephantName=()=>state.elephantName||'Your elephant';
+ const stage=()=>state.awards.length>=15?'A growing friendship':state.awards.length>=5?'Finding our rhythm':'First little steps';
+ const notice=()=>state.notice?`<div class="sn-note" role="status"><span>${esc(state.notice)}</span>${state.undo?button('undo','Undo'):''}</div>`:'';
+ const row=id=>{const t=taskMap[id],done=state.done.includes(id);return `<div class="sn-row">${button('toggle',`<span class="sn-circle ${done?'done':''}">${done?icon('check'):''}</span>`,'sn-check',`data-id="${id}" aria-label="${done?'Undo completion of':'Complete'} ${esc(t.title)}"`)}${button('task',esc(t.title)+`<small>${done?'Completed':esc(topics.find(c=>c.id===t.category).label)+' · '+t.time+' min'}</small>`,'sn-open',`data-id="${id}"`)}${button('taskmenu',icon('ellipsis'),'sn-icon',`data-id="${id}" aria-label="Options for ${esc(t.title)}"`)}</div>`;};
+ function signin(){return `${top('authback','Back')}<div class="sn-auth-art">${img('sn-mini')}</div><h1>Keep your<br>little wins.</h1><p>Sign in with email to keep your list and grow together.</p>${state.pending?`<div class="sn-outcome"><strong>Ready to add</strong>${esc(taskMap[state.pending].title)}</div>`:''}<form data-form="email"><label class="sn-field-label" for="sn-email">Email address</label><input class="sn-input" id="sn-email" name="email" type="email" autocomplete="email" required value="${esc(state.email)}"><button class="sn-primary cursor-interaction" type="button" data-action="submitform">Email me a code</button></form>${button('authback','Keep exploring','sn-secondary')}<p class="sn-fine">New here? Your account starts with the same step.</p>`;}
+ function code(){return `${top('emailback','Email')}<h1>Check your<br>inbox.</h1><p>Enter the code for<br><strong>${esc(state.email)}</strong></p><form data-form="code"><label class="sn-field-label" for="sn-code">Six-digit code</label><input class="sn-input sn-code" id="sn-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required aria-describedby="sn-code-help${state.authError?' sn-code-error':''}" ${state.authError?'aria-invalid="true"':''}><small id="sn-code-help">Preview code: 123456. No email is sent.</small>${state.authError?`<p class="sn-error" id="sn-code-error" role="alert">${esc(state.authError)}</p>`:''}<button class="sn-primary cursor-interaction" type="button" data-action="submitform">Continue</button></form>${button('resend','Send a new code','sn-secondary')}${button('emailback','Use another email','sn-secondary')}${state.notice?`<p class="sn-fine" role="status">${esc(state.notice)}</p>`:''}`;}
+ function list(){const active=state.saved.filter(id=>!state.done.includes(id)),done=state.saved.filter(id=>state.done.includes(id));if(!state.signedIn)return `${top()}<h1>My list</h1><div class="sn-empty">${img('sn-mini')}<p>A little place for the things you want to do.</p>${button('signin','Sign in with email','sn-primary')}${button('explore','Explore first','sn-secondary')}</div>`;return `${top()}<h1>My list</h1><div class="sn-companion">${img('')}<div><h2>${state.elephantName?esc(state.elephantName)+' & you':'Growing together'}</h2><p>${state.awards.length?state.awards.length+' little win'+(state.awards.length===1?'':'s')+' together':'Ready when you are.'}</p>${state.awards.length>=5?`<small>${stage()}</small>`:''}</div></div>${notice()}${active.length?`<div class="sn-section"><h2>At your own pace</h2>${button('explore',icon('plus')+' Find a task')}</div>${active.map(row).join('')}`:`<div class="sn-empty"><h2>${done.length?'A little room to breathe.':'Your list starts here.'}</h2><p>${done.length?'You’ve finished what you chose. It’s okay to stop here.':'Choose one small thing you’d like to make easier.'}</p>${button('explore',done.length?'Explore when you’re ready':'Find my first task',done.length?'sn-secondary':'sn-primary')}</div>`}${done.length?`<details class="sn-done-list"><summary class="cursor-interaction">Completed · ${done.length}${icon('chevron-down')}</summary>${done.map(row).join('')}</details>`:''}`;}
+ function categories(){return `${top()}<h1>What’s on<br>your mind?</h1>${topics.map(t=>button('category',icon(({people:'users',peace:'leaf',sick:'heart',daily:'sun',home:'house'})[t.id])+`<span>${esc(t.label)}</span><span class="sn-next">${icon('chevron-right')}</span>`,'sn-choice',`data-id="${t.id}"`)).join('')}`;}
+ function concerns(){const d=draft();return `${top('categories','Categories')}<span class="sn-tag">${esc(category().label)}</span><h1 style="margin-top:18px">Where shall<br>we start?</h1>${category().items.map((v,i)=>`<label class="sn-choice cursor-interaction"><input type="checkbox" data-concern="${i}" ${d.selected.includes(i)?'checked':''}><span>${esc(v[0])}</span></label>`).join('')}<label class="sn-field-label" for="sn-manual">Something else? <span>(optional)</span></label><textarea id="sn-manual" maxlength="300" placeholder="A little about what’s on your mind…">${esc(d.text)}</textarea>${button('generate','See task ideas','sn-primary',validDraft()?'':'disabled')}`;}
+ function ideas(){const ids=state.batches[state.category]||catalog[state.category].map((_,i)=>state.category+i);return `${top('concerns','Your choices')}<span class="sn-tag">${esc(category().label)}</span><h1 style="margin-top:18px">A few small<br>places to start.</h1>${ids.map(id=>{const t=taskMap[id],saved=state.saved.includes(id);return `<div class="sn-idea"><div class="sn-idea-head">${button('task',esc(t.title)+`<small>${t.time} min</small>`,'sn-open',`data-id="${id}"`)}${button('add',icon(saved?'check':'plus'),'sn-add',`data-id="${id}" aria-label="${saved?'Added':'Add'} ${esc(t.title)}" ${saved?'disabled':''}`)}</div><p>${esc(t.description)}</p></div>`;}).join('')}${notice()}${button('list','Go to my list','sn-primary')}${button('more','Try another batch','sn-secondary')}`;}
+ function detail(){const t=taskMap[state.task],saved=state.saved.includes(t.id),done=state.done.includes(t.id);return `${top('taskback',state.origin==='ideas'?'Task ideas':'My list')}<div class="sn-meta"><span class="sn-tag">${esc(topics.find(c=>c.id===t.category).label)}</span>${t.time} min</div><h1>${esc(t.title)}.</h1><p>${esc(t.description)}</p><ol class="sn-steps">${t.steps.map((s,i)=>`<li><span class="sn-number">${i+1}</span><span>${esc(s)}</span></li>`).join('')}</ol><div class="sn-outcome"><strong>Done when</strong>${esc(t.done)}</div>${t.id==='sick0'?`<details><summary class="cursor-interaction">Helpful link<span>1 ${icon('chevron-down')}</span></summary><a href="https://www.redcross.org/get-help/how-to-prepare-for-emergencies/survival-kit-supplies.html" target="_blank" rel="noopener noreferrer">Red Cross supply checklist ${icon('arrow-up-right')}</a><p>A broader emergency guide. Use the relevant supply ideas; you don’t need to buy a full kit.</p></details><details><summary class="cursor-interaction">If you’re buying food${icon('chevron-down')}</summary><ul><li>Fits your dietary needs.</li><li>Easy to open and prepare.</li><li>Storage requirements suit your space.</li></ul></details>`:''}${button(saved?(done?'undoTask':'complete'):'addDetail',done?'Undo completion':saved?'Mark as done':'+ Add to my list','sn-primary')}`;}
+ function taskmenu(){return `${top('list')}<h1>This task,<br>your choice.</h1><div class="sn-outcome">${esc(taskMap[state.task].title)}</div>${button('openCurrent','Open task','sn-primary')}${button('remove','Remove from my list','sn-secondary')}<p class="sn-fine">You can undo removal. Your elephant’s growth stays.</p>`;}
+ function celebration(){const t=state.undo?.id&&taskMap[state.undo.id],n=state.awards.length;return `${top('list')}<div class="sn-celebrate"><h1>${n===1?'A little care<br>for future you.':'Look at us<br>growing.'}</h1>${img('sn-reward-elephant')}<p>${t?.id==='sick0'?'Your essentials are together, with any missing item noted.':t?'You finished “'+esc(t.title)+'.”':'Small actions, becoming a story together.'}</p>${button('highfive','Tiny trunk high-five?','sn-secondary')}<div class="sn-outcome"><strong>${esc(elephantName())} & you</strong>${n} little win${n===1?'':'s'} together${n>=5?'<br>'+stage():''}</div>${button('list','Back to my list','sn-primary')}${state.undo?button('undo','Undo completion','sn-secondary'):''}</div>`;}
+ function loading(){return `${top('cancelgeneration','Your choices')}<div class="sn-empty">${img('sn-mini')}<h1>A moment<br>for your ideas.</h1><p role="status">Finding a few manageable places to start…</p>${button('list','Go to my list','sn-primary')}${button('cancelgeneration','Change my choices','sn-secondary')}</div>`;}
+ function generationerror(){return `${top('concerns','Your choices')}<div class="sn-empty"><h1>A small<br>pause.</h1><p>We couldn’t get your ideas this time. Your choices and saved tasks are still here.</p>${button('retry','Try again','sn-primary')}${state.batches[state.category]?button('previousbatch','Keep my previous ideas','sn-secondary'):''}${button('concerns','Change my choices','sn-secondary')}${button('list','Go to my list','sn-secondary')}</div>`;}
+ function exhausted(){return `${top('concerns','Your choices')}<div class="sn-empty"><h1>Let’s leave<br>a little space.</h1><p>No new ideas for these choices right now. You can keep what feels useful or try another concern.</p>${state.batches[state.category]?button('previousbatch','See my previous ideas','sn-primary'):''}${button('concerns','Change my choices','sn-secondary')}${button('list','Go to my list','sn-secondary')}</div>`;}
+ function account(){return `${top('accountback','Back')}<h1>A little<br>about you.</h1>${state.signedIn?`<p>Signed in for this preview.</p><form data-form="name"><label class="sn-field-label" for="sn-name">Your elephant’s name <span>(optional)</span></label><input class="sn-input" id="sn-name" maxlength="24" value="${esc(state.elephantName)}" placeholder="Choose a name"><button type="button" data-action="submitform" class="sn-primary cursor-interaction">Save name</button></form>${notice()}${button('signout','Sign out','sn-secondary')}`:button('signin','Sign in with email','sn-primary')}${button('help','A little help','sn-secondary')}`;}
+ function help(){return `${top('helpback','Back')}<h1>A little help.</h1><details open><summary class="cursor-interaction">How do I start?${icon('chevron-down')}</summary><p>Explore a category, choose your concerns, then add useful ideas to My list.</p></details><details><summary class="cursor-interaction">Can I change my mind?${icon('chevron-down')}</summary><p>Use the options beside a task to remove it. You can undo removal and completion.</p></details><details><summary class="cursor-interaction">What does growth mean?${icon('chevron-down')}</summary><p>Your elephant celebrates completed actions. It doesn’t measure safety, and it never loses growth when you take a break.</p></details>${button('list','Back to my list','sn-primary')}`;}
+ const pages={signin,code,list,categories,concerns,ideas,detail,taskmenu,celebration,loading,generationerror,exhausted,account,help};
+ function render(){content.innerHTML=pages[state.page]();const explore=['categories','concerns','ideas','loading','generationerror','exhausted'].includes(state.page);nav.hidden=!(explore||state.page==='list');nav.innerHTML=button('list',icon('list-checks')+' My list','','aria-current="'+(state.page==='list'?'page':'false')+'"')+button('explore',icon('compass')+' Explore','','aria-current="'+(explore?'page':'false')+'"');if(globalThis.lucide)lucide.createIcons({attrs:{width:16,height:16}});root.querySelector('.sn-phone').dataset.page=state.page;root.querySelector('.sn-phone').dataset.growth=state.awards.length>=15?'friendship':state.awards.length>=5?'rhythm':'first';}
+ function save(){const privateContent={version:'v0-flow-v1',page:state.page,signedIn:state.signedIn,saved:state.saved,done:state.done,awards:state.awards,task:state.task,category:state.category,elephantName:state.elephantName};lastSaved=JSON.stringify(privateContent);if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{flow_design:'Email-code sign-in, task removal/undo, empty and finished lists, recoverable generation, and gentle elephant growth. All behavior is simulated.'},privateContent}).catch(()=>{});}
+ function restore(snapshot){const p=snapshot?.privateContent;if(p?.version!=='v0-flow-v1')return;for(const k of ['saved','done','awards'])if(Array.isArray(p[k]))state[k]=[...new Set(p[k].filter(id=>taskMap[id]))];state.signedIn=p.signedIn===true;if(taskMap[p.task])state.task=p.task;if(topics.some(t=>t.id===p.category))state.category=p.category;if(typeof p.elephantName==='string')state.elephantName=p.elephantName.slice(0,24);state.page=state.signedIn?'list':'signin';state.pending=state.signedIn?null:'sick0';}
+ function finish(message){render();save();if(message)root.querySelector('.sn-sr').textContent=message;}
+ function beginSignIn(id=null){state.pending=id;state.authOrigin=state.page;state.page='signin';state.authError='';state.notice='';}
+ function add(id){if(!state.signedIn){beginSignIn(id);return;}if(!state.saved.includes(id))state.saved.push(id);state.notice='Added to your list.';state.undo=null;}
+ function complete(id){if(!state.signedIn||!state.saved.includes(id))return;const fresh=!state.awards.includes(id);if(!state.done.includes(id))state.done.push(id);if(fresh)state.awards.push(id);state.undo={type:'complete',id};state.notice='A little care for future you.';state.page=fresh&&[1,5,15].includes(state.awards.length)?'celebration':'list';}
+ function undo(){const u=state.undo;if(!u)return;if(u.type==='remove'){if(!state.saved.includes(u.id))state.saved.splice(Math.min(u.index,state.saved.length),0,u.id);}else state.done=state.done.filter(id=>id!==u.id);state.undo=null;state.notice=u.type==='remove'?'Back on your list.':'Completion undone.';state.page='list';}
+ function generate(more=false,retry=false){if(!validDraft()&&!retry)return;clearTimeout(timer);const token=++requestId,cat=state.category;const outcome=retry?'Success':design.generation;state.generation={token,cat,more};state.explorePage=state.page='loading';state.notice='';timer=setTimeout(()=>{if(token!==requestId)return;let next;if(outcome==='Error')next='generationerror';else if(outcome==='No more ideas'||more)next='exhausted';else{state.batches[cat]=catalog[cat].map((_,i)=>cat+i);next='ideas';}state.generation=null;state.explorePage=next;if(state.page==='loading')state.page=next;finish(next==='ideas'?'Your task ideas are ready.':next==='generationerror'?'Unable to get ideas. Your choices are kept.':'No new ideas for these choices.');},900);}
+ function cancelGeneration(){clearTimeout(timer);requestId++;state.generation=null;state.explorePage=state.page='concerns';}
+ restore(window.openai?.widgetState);render();
+ function submitForm(form){if(!form.reportValidity())return;if(form.dataset.form==='email'){state.email=form.querySelector('[name="email"]').value.trim();state.page='code';state.authError='';state.notice='';state.codeExpired=false;}else if(form.dataset.form==='code'){if(state.codeExpired||form.querySelector('[name="code"]').value!=='123456'){state.authError=state.codeExpired?'That code has expired. Request a new one.':'That code didn’t match. Please try again.';finish('Please check the code.');return;}state.signedIn=true;const id=state.pending;state.pending=null;if(id&&!state.saved.includes(id))state.saved.push(id);state.page='list';state.authError='';state.notice=id?'Your task is ready on your list.':'Good to see you again.';state.undo=null;}else if(form.dataset.form==='name'){state.elephantName=form.querySelector('#sn-name').value.trim().slice(0,24);state.notice='Name saved.';state.undo=null;}finish('Updated.');}
+ root.addEventListener('submit',e=>{if(e.target.dataset.form){e.preventDefault();submitForm(e.target);}});
+ root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input')&&e.target.closest('form[data-form]')){e.preventDefault();submitForm(e.target.closest('form'));}});
+ root.addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b||!root.contains(b)||b.disabled)return;const id=b.dataset.id;let message='';switch(b.dataset.action){
+ case'submitform':submitForm(b.closest('form'));return;
+ case'list':state.page='list';break;
+ case'explore':state.page=state.explorePage;break;
+ case'category':cancelGeneration();state.category=id;state.explorePage=state.page='concerns';break;
+ case'categories':cancelGeneration();state.explorePage=state.page='categories';break;
+ case'concerns':cancelGeneration();break;
+ case'generate':generate();break;
+ case'more':generate(true);break;
+ case'retry':generate(false,true);break;
+ case'previousbatch':state.explorePage=state.page='ideas';break;
+ case'cancelgeneration':cancelGeneration();break;
+ case'task':state.task=id;state.origin=state.page==='ideas'?'ideas':'list';state.page='detail';break;
+ case'taskback':state.page=state.origin;break;
+ case'openCurrent':state.origin='list';state.page='detail';break;
+ case'taskmenu':state.task=id;state.page='taskmenu';break;
+ case'remove':state.undo={type:'remove',id:state.task,index:state.saved.indexOf(state.task)};state.saved=state.saved.filter(x=>x!==state.task);state.notice='Removed from your list.';state.page='list';message='Task removed. Undo is available.';break;
+ case'add':add(id);message=state.signedIn?'Added to your list.':'Sign in to save this task.';break;
+ case'addDetail':add(state.task);if(state.signedIn){state.origin='list';state.page='list';}break;
+ case'complete':complete(state.task);message='Task marked done.';break;
+ case'toggle':if(state.done.includes(id)){state.done=state.done.filter(x=>x!==id);state.undo=null;state.notice='Completion undone.';}else complete(id);break;
+ case'undoTask':state.done=state.done.filter(x=>x!==state.task);state.undo=null;state.notice='Completion undone.';state.page='list';break;
+ case'undo':undo();break;
+ case'signin':beginSignIn();break;
+ case'authback':state.page=state.authOrigin==='account'?'account':state.authOrigin==='detail'?'detail':'ideas';state.authError='';break;
+ case'emailback':state.page='signin';state.authError='';state.notice='';break;
+ case'resend':state.codeExpired=false;state.authError='';state.notice='A new demo code is ready: 123456.';break;
+ case'account':state.helpOrigin=state.page;state.page='account';state.notice='';break;
+ case'accountback':state.page=state.helpOrigin;break;
+ case'signout':state.signedIn=false;state.page='list';state.notice='';state.undo=null;state.pending=null;break;
+ case'help':state.page='help';break;
+ case'helpback':state.page='account';break;
+ case'highfive':{const el=root.querySelector('.sn-reward-elephant');if(el&&!matchMedia('(prefers-reduced-motion: reduce)').matches)el.animate([{transform:'rotate(0)'},{transform:'rotate(-7deg)'},{transform:'rotate(6deg)'},{transform:'rotate(0)'}],{duration:650,iterations:1});root.querySelector('.sn-sr').textContent='A tiny trunk high-five.';return;}
+ default:return;}
+ finish(message||({list:'My list.',signin:'Sign in with email.',ideas:'Task ideas.',concerns:'Your choices.',categories:'Categories.',detail:'Task details.'})[state.page]||'Screen updated.');});
+ root.addEventListener('change',e=>{if(e.target.matches('[data-concern]')){const d=draft(),v=Number(e.target.dataset.concern);d.selected=e.target.checked?[...new Set([...d.selected,v])]:d.selected.filter(x=>x!==v);root.querySelector('[data-action="generate"]').disabled=!validDraft();}});
+ root.addEventListener('input',e=>{if(e.target.id==='sn-manual'){draft().text=e.target.value;root.querySelector('[data-action="generate"]').disabled=!validDraft();}});
+ window.addEventListener('openai:set_globals',e=>{const snapshot=e.detail?.globals?.widgetState;if(snapshot&&JSON.stringify(snapshot.privateContent)!==lastSaved){restore(snapshot);render();}});
+ function showScenario(){clearTimeout(timer);requestId++;state.generation=null;state.notice='';state.undo=null;state.category='sick';state.drafts.sick={selected:[0],text:''};switch(design.scenario){case'Sign in':state.signedIn=false;state.pending='sick0';state.page='signin';break;case'Expired code':state.page='code';state.codeExpired=true;state.authError='That code has expired. Request a new one.';break;case'Empty list':state.signedIn=true;state.saved=[];state.done=[];state.awards=[];state.page='list';break;case'Tasks to manage':state.signedIn=true;state.saved=['sick0','sick1','sick2'];state.done=[];state.awards=[];state.page='list';break;case'All done':state.signedIn=true;state.saved=['sick0','sick1'];state.done=[...state.saved];state.awards=[...state.saved];state.page='list';break;case'Generation error':state.page=state.explorePage='generationerror';break;case'No more ideas':state.batches.sick=['sick0','sick1','sick2'];state.page=state.explorePage='exhausted';break;case'First win':case'Five wins':case'Fifteen wins':{const n=design.scenario==='First win'?1:design.scenario==='Five wins'?5:15;state.signedIn=true;state.awards=Object.keys(taskMap).slice(0,n);state.saved=[...state.awards];state.done=[...state.awards];state.page='celebration';break;}}render();}
+ if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:showScenario});tweak.addSelect(design,'scenario',{label:'Preview moment',options:['Sign in','Expired code','Empty list','Tasks to manage','All done','Generation error','No more ideas','First win','Five wins','Fifteen wins']});tweak.addSelect(design,'generation',{label:'Next generation result',options:['Success','Error','No more ideas']});}
+})();
+
+</script>

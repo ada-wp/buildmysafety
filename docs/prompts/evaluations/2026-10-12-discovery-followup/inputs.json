@@ -1,0 +1,771 @@
+{
+  "kind": "Three synthetic discovery-writing tests; no real user data",
+  "sourceCommit": "d9cc911",
+  "model": "gpt-6-luna",
+  "reasoning": "low",
+  "promptHash": "d77d55822aa4c3921274c53aa6268e538f6150dc5e143f462b0fa90f49fb679e",
+  "method": "Revised English core, unchanged one-task adapter/schema, manually scoped reviewed resources. No authored task examples. Not a controlled prompt-only comparison or deployed retrieval test.",
+  "cases": [
+    {
+      "id": "A",
+      "label": "Insured through work, no regular doctor",
+      "concerns": [
+        "getting_care"
+      ],
+      "minutes": 15,
+      "support": "unknown",
+      "noSpend": false,
+      "style": "resources",
+      "note": "I live alone in the US and have health insurance through work, but I don't have a regular doctor. I don't know where I would start if I wanted a virtual visit on a future sick day. I'd like to prepare while I'm well. I have 15 minutes to look into this, but I'm not booking a visit today.",
+      "request": {
+        "topicId": "sick_care",
+        "concernIds": [
+          "getting_care"
+        ],
+        "note": "I live alone in the US and have health insurance through work, but I don't have a regular doctor. I don't know where I would start if I wanted a virtual visit on a future sick day. I'd like to prepare while I'm well. I have 15 minutes to look into this, but I'm not booking a visit today.",
+        "maxMinutes": 15,
+        "noSpend": false,
+        "localSupport": "unknown",
+        "country": "US"
+      },
+      "snapshot": {
+        "profile": {
+          "schemaVersion": 1,
+          "userId": "fictional-discovery-a",
+          "revision": 1,
+          "updatedAt": "2026-10-11T12:00:00Z",
+          "answers": {
+            "why": "ease",
+            "home": "alone",
+            "focus": "sick",
+            "difficulty": [],
+            "constraints": [],
+            "strengths": [],
+            "hope": [
+              "prepared",
+              "choice"
+            ],
+            "style": "resources",
+            "country": "US"
+          },
+          "interests": [
+            "sick_care"
+          ],
+          "personalizationEnabled": true,
+          "signalsResetAt": null,
+          "elephantName": null
+        },
+        "taskStates": [],
+        "stateVersion": "1"
+      },
+      "history": [],
+      "packet": {
+        "context_version": 1,
+        "current_topic": {
+          "id": "sick_care",
+          "scope": "Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response."
+        },
+        "selected_concerns": [
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          }
+        ],
+        "user_context": {
+          "current_request": "I live alone in the US and have health insurance through work, but I don't have a regular doctor. I don't know where I would start if I wanted a virtual visit on a future sick day. I'd like to prepare while I'm well. I have 15 minutes to look into this, but I'm not booking a visit today.",
+          "explicit_limits": {
+            "max_minutes": 15,
+            "no_spend": false,
+            "nearby_support": "unknown",
+            "country": "US"
+          }
+        },
+        "user_memory": {
+          "personalization_enabled": true,
+          "explicit_preferences": {
+            "household": "alone",
+            "constraints": [],
+            "difficulty": [],
+            "strengths": [],
+            "goals": [
+              "prepared",
+              "choice"
+            ],
+            "preferred_help": "resources",
+            "interests": [
+              "sick_care"
+            ]
+          },
+          "preference_signals": []
+        },
+        "previous_actions": [],
+        "reviewed_guidance": [
+          "Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.",
+          "Prepare before a future sick day. Start with existing supplies; service research is allowed without booking or payment. Respect explicit budget and support limits.",
+          "A directory result is only a research lead. Check eligibility, costs and availability directly; do not promise help.",
+          "Care-contact and travel tasks are administrative preparation for nonurgent appointments, not decisions about when or where to seek urgent care.",
+          "Only suggest pet tasks when the person selects the pet concern. Never assume a pet from living alone.",
+          "Keep chosen concerns in charge. Return fewer useful actions when the library cannot support three distinct fits."
+        ],
+        "eligible_resources": [
+          {
+            "resource_id": "us_hhs_telehealth_candidate",
+            "name": "HHS — finding telehealth",
+            "purpose": "Find routes to virtual care through an insurer or a health center without assuming an existing doctor.",
+            "countries": [
+              "US"
+            ],
+            "cost": "free",
+            "limits": "Information guide, not a care provider. Confirm eligible services, first-patient access, regional availability and personal cost with the plan or provider. Insurance coverage does not mean a visit is free."
+          },
+          {
+            "resource_id": "us_teladoc_benefits_candidate",
+            "name": "Teladoc — benefits and access FAQ",
+            "purpose": "Understand how an employer or health plan may provide virtual care and how to check eligibility.",
+            "countries": [
+              "US"
+            ],
+            "cost": "free",
+            "limits": "Teladoc is an example, not known to be in this user's plan. Use the service actually named by her benefits. Service eligibility and fees vary. Do not promise free care or copy a headline price."
+          }
+        ],
+        "supported_concerns": [
+          {
+            "id": "food",
+            "label": "Food & essentials when I’m unwell"
+          },
+          {
+            "id": "check_in",
+            "label": "Someone to check in on me"
+          },
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          },
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          },
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "previous_outcomes": [],
+        "collection_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_03_local_help",
+            "title": "Find one local place to ask for help",
+            "outcome": "A relevant service contact, or your local 211 contact, is saved with a specific question.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_04_remote_check_in",
+            "title": "Make a check-in feel easy to ask for",
+            "outcome": "Your request is sent and clearly marked as agreed or awaiting a reply.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_06_appointment_trip",
+            "title": "Work out a future appointment trip",
+            "outcome": "A possible round trip is saved, or a specific transport question is ready for the clinic.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_08_pet_sitter",
+            "title": "Find a pet sitter worth contacting",
+            "outcome": "One potential sitter and a question are saved, or the care gap is clearly noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_09_pause_chore",
+            "title": "Give one nonessential chore a day off",
+            "outcome": "One nonessential chore is rescheduled or removed from your usual reminder.",
+            "already_shown": false
+          }
+        ]
+      },
+      "baselineCase": null,
+      "resourceSelection": [
+        "us_hhs_telehealth_candidate",
+        "us_teladoc_benefits_candidate"
+      ]
+    },
+    {
+      "id": "B",
+      "label": "Uninsured, limited budget, no established clinic",
+      "concerns": [
+        "getting_care"
+      ],
+      "minutes": 15,
+      "support": "unknown",
+      "noSpend": false,
+      "style": "resources",
+      "note": "I live alone in the US, don't have health insurance or a regular clinic, and money is tight. Before a future sick day, I want to find out whether there is an affordable way to talk to a clinician online. I'm well now and have 15 minutes to research; I'm not booking or paying for care today.",
+      "request": {
+        "topicId": "sick_care",
+        "concernIds": [
+          "getting_care"
+        ],
+        "note": "I live alone in the US, don't have health insurance or a regular clinic, and money is tight. Before a future sick day, I want to find out whether there is an affordable way to talk to a clinician online. I'm well now and have 15 minutes to research; I'm not booking or paying for care today.",
+        "maxMinutes": 15,
+        "noSpend": false,
+        "localSupport": "unknown",
+        "country": "US"
+      },
+      "snapshot": {
+        "profile": {
+          "schemaVersion": 1,
+          "userId": "fictional-discovery-b",
+          "revision": 1,
+          "updatedAt": "2026-10-11T12:00:00Z",
+          "answers": {
+            "why": "ease",
+            "home": "alone",
+            "focus": "sick",
+            "difficulty": [],
+            "constraints": [],
+            "strengths": [],
+            "hope": [
+              "prepared",
+              "choice"
+            ],
+            "style": "resources",
+            "country": "US"
+          },
+          "interests": [
+            "sick_care"
+          ],
+          "personalizationEnabled": true,
+          "signalsResetAt": null,
+          "elephantName": null
+        },
+        "taskStates": [],
+        "stateVersion": "1"
+      },
+      "history": [],
+      "packet": {
+        "context_version": 1,
+        "current_topic": {
+          "id": "sick_care",
+          "scope": "Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response."
+        },
+        "selected_concerns": [
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          }
+        ],
+        "user_context": {
+          "current_request": "I live alone in the US, don't have health insurance or a regular clinic, and money is tight. Before a future sick day, I want to find out whether there is an affordable way to talk to a clinician online. I'm well now and have 15 minutes to research; I'm not booking or paying for care today.",
+          "explicit_limits": {
+            "max_minutes": 15,
+            "no_spend": false,
+            "nearby_support": "unknown",
+            "country": "US"
+          }
+        },
+        "user_memory": {
+          "personalization_enabled": true,
+          "explicit_preferences": {
+            "household": "alone",
+            "constraints": [],
+            "difficulty": [],
+            "strengths": [],
+            "goals": [
+              "prepared",
+              "choice"
+            ],
+            "preferred_help": "resources",
+            "interests": [
+              "sick_care"
+            ]
+          },
+          "preference_signals": []
+        },
+        "previous_actions": [],
+        "reviewed_guidance": [
+          "Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.",
+          "Prepare before a future sick day. Start with existing supplies; service research is allowed without booking or payment. Respect explicit budget and support limits.",
+          "A directory result is only a research lead. Check eligibility, costs and availability directly; do not promise help.",
+          "Care-contact and travel tasks are administrative preparation for nonurgent appointments, not decisions about when or where to seek urgent care.",
+          "Only suggest pet tasks when the person selects the pet concern. Never assume a pet from living alone.",
+          "Keep chosen concerns in charge. Return fewer useful actions when the library cannot support three distinct fits."
+        ],
+        "eligible_resources": [
+          {
+            "resource_id": "us_hrsa_health_centers_candidate",
+            "name": "HRSA — Find a Health Center",
+            "purpose": "Find community health centers serving people with or without health insurance or ability to pay.",
+            "countries": [
+              "US"
+            ],
+            "cost": "free",
+            "limits": "Directory, not a confirmed appointment or free-care guarantee. Ask the center about new patients, current fees or reduced-fee eligibility, and whether a first visit can be virtual."
+          },
+          {
+            "resource_id": "us_one_medical_ondemand_candidate",
+            "name": "One Medical — On-Demand Care",
+            "purpose": "Research a self-pay one-time virtual-care option when there is no applicable insurance benefit.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "On-Demand Care does not accept insurance; scheduled visits have different billing. Confirm current price, state eligibility, scope and any additional charges directly. Do not promise a prescription, suitability, a lowest price or that a membership covers all care."
+          }
+        ],
+        "supported_concerns": [
+          {
+            "id": "food",
+            "label": "Food & essentials when I’m unwell"
+          },
+          {
+            "id": "check_in",
+            "label": "Someone to check in on me"
+          },
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          },
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          },
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "previous_outcomes": [],
+        "collection_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_03_local_help",
+            "title": "Find one local place to ask for help",
+            "outcome": "A relevant service contact, or your local 211 contact, is saved with a specific question.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_04_remote_check_in",
+            "title": "Make a check-in feel easy to ask for",
+            "outcome": "Your request is sent and clearly marked as agreed or awaiting a reply.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_06_appointment_trip",
+            "title": "Work out a future appointment trip",
+            "outcome": "A possible round trip is saved, or a specific transport question is ready for the clinic.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_08_pet_sitter",
+            "title": "Find a pet sitter worth contacting",
+            "outcome": "One potential sitter and a question are saved, or the care gap is clearly noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_09_pause_chore",
+            "title": "Give one nonessential chore a day off",
+            "outcome": "One nonessential chore is rescheduled or removed from your usual reminder.",
+            "already_shown": false
+          }
+        ]
+      },
+      "baselineCase": null,
+      "resourceSelection": [
+        "us_hrsa_health_centers_candidate",
+        "us_one_medical_ondemand_candidate"
+      ]
+    },
+    {
+      "id": "C",
+      "label": "Care and delivery sorted; new need is cat care",
+      "concerns": [
+        "pets"
+      ],
+      "minutes": 15,
+      "support": "unavailable",
+      "noSpend": false,
+      "style": "resources",
+      "note": "I live alone in the US. I already have a doctor I can contact and have sorted prescription delivery. My cat's feeding instructions are also written down. What I haven't sorted is someone to visit my cat if I get sick; I have no one nearby who can do it. I'm well now, have 15 minutes, and can consider paid help. How can I prepare?",
+      "request": {
+        "topicId": "sick_care",
+        "concernIds": [
+          "pets"
+        ],
+        "note": "I live alone in the US. I already have a doctor I can contact and have sorted prescription delivery. My cat's feeding instructions are also written down. What I haven't sorted is someone to visit my cat if I get sick; I have no one nearby who can do it. I'm well now, have 15 minutes, and can consider paid help. How can I prepare?",
+        "maxMinutes": 15,
+        "noSpend": false,
+        "localSupport": "unavailable",
+        "country": "US"
+      },
+      "snapshot": {
+        "profile": {
+          "schemaVersion": 1,
+          "userId": "fictional-discovery-c",
+          "revision": 1,
+          "updatedAt": "2026-10-11T12:00:00Z",
+          "answers": {
+            "why": "ease",
+            "home": "alone",
+            "focus": "sick",
+            "difficulty": [],
+            "constraints": [],
+            "strengths": [],
+            "hope": [
+              "prepared",
+              "choice"
+            ],
+            "style": "resources",
+            "country": "US"
+          },
+          "interests": [
+            "sick_care"
+          ],
+          "personalizationEnabled": true,
+          "signalsResetAt": null,
+          "elephantName": null
+        },
+        "taskStates": [
+          {
+            "userId": "fictional-discovery-c",
+            "actionKey": "sick_05_care_contact",
+            "contentRef": "sick_05_care_contact@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          },
+          {
+            "userId": "fictional-discovery-c",
+            "actionKey": "sick_07_pet_care_note",
+            "contentRef": "sick_07_pet_care_note@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          }
+        ],
+        "stateVersion": "1"
+      },
+      "history": [
+        {
+          "state": {
+            "userId": "fictional-discovery-c",
+            "actionKey": "sick_05_care_contact",
+            "contentRef": "sick_05_care_contact@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          },
+          "content": {
+            "action_key": "sick_05_care_contact",
+            "concern_ids": [
+              "getting_care"
+            ],
+            "title": "Put appointment details where you’ll find them",
+            "summary": "A little admin now can spare you a search later. Keep a nonurgent appointment contact easy to reach.",
+            "estimated_minutes": 5,
+            "steps": [
+              "Open the official website of a clinic you use or would consider for a future nonurgent appointment.",
+              "Find its appointment phone number or booking page, opening hours, and any new-patient or payment information you need.",
+              "Save those details in your usual contacts or note; mark anything you still need to confirm with the clinic."
+            ],
+            "done_when": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "resources": [],
+            "purchase_checks": [],
+            "no_purchase_option": null
+          }
+        },
+        {
+          "state": {
+            "userId": "fictional-discovery-c",
+            "actionKey": "sick_07_pet_care_note",
+            "contentRef": "sick_07_pet_care_note@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          },
+          "content": {
+            "action_key": "sick_07_pet_care_note",
+            "concern_ids": [
+              "pets"
+            ],
+            "title": "Leave your pet’s routine ready to share",
+            "summary": "Make it easier for a future helper to follow the ordinary routine your pet already knows.",
+            "estimated_minutes": 8,
+            "steps": [
+              "Write your pet’s usual food, feeding times, water routine and everyday needs without changing their existing care.",
+              "Note where the everyday supplies are and add your usual vet’s contact details.",
+              "Save the note privately where you can share it with an agreed helper; leave keys, codes and home-entry details out."
+            ],
+            "done_when": "A private everyday-care note is ready to share with a helper you choose.",
+            "resources": [],
+            "purchase_checks": [],
+            "no_purchase_option": null
+          }
+        }
+      ],
+      "packet": {
+        "context_version": 1,
+        "current_topic": {
+          "id": "sick_care",
+          "scope": "Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response."
+        },
+        "selected_concerns": [
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          }
+        ],
+        "user_context": {
+          "current_request": "I live alone in the US. I already have a doctor I can contact and have sorted prescription delivery. My cat's feeding instructions are also written down. What I haven't sorted is someone to visit my cat if I get sick; I have no one nearby who can do it. I'm well now, have 15 minutes, and can consider paid help. How can I prepare?",
+          "explicit_limits": {
+            "max_minutes": 15,
+            "no_spend": false,
+            "nearby_support": "unavailable",
+            "country": "US"
+          }
+        },
+        "user_memory": {
+          "personalization_enabled": true,
+          "explicit_preferences": {
+            "household": "alone",
+            "constraints": [],
+            "difficulty": [],
+            "strengths": [],
+            "goals": [
+              "prepared",
+              "choice"
+            ],
+            "preferred_help": "resources",
+            "interests": [
+              "sick_care"
+            ]
+          },
+          "preference_signals": [
+            {
+              "action_key": "sick_05_care_contact",
+              "tags": [
+                "care_admin",
+                "prepare",
+                "low_effort"
+              ],
+              "title": "Put appointment details where you’ll find them",
+              "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+              "liked": false,
+              "saved": true,
+              "feedback": null
+            },
+            {
+              "action_key": "sick_07_pet_care_note",
+              "tags": [
+                "pets",
+                "prepare"
+              ],
+              "title": "Leave your pet’s routine ready to share",
+              "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+              "liked": false,
+              "saved": true,
+              "feedback": null
+            }
+          ]
+        },
+        "previous_actions": [
+          {
+            "action_key": "sick_05_care_contact"
+          },
+          {
+            "action_key": "sick_07_pet_care_note"
+          }
+        ],
+        "reviewed_guidance": [
+          "Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.",
+          "Prepare before a future sick day. Start with existing supplies; service research is allowed without booking or payment. Respect explicit budget and support limits.",
+          "A directory result is only a research lead. Check eligibility, costs and availability directly; do not promise help.",
+          "Care-contact and travel tasks are administrative preparation for nonurgent appointments, not decisions about when or where to seek urgent care.",
+          "Only suggest pet tasks when the person selects the pet concern. Never assume a pet from living alone.",
+          "Keep chosen concerns in charge. Return fewer useful actions when the library cannot support three distinct fits."
+        ],
+        "eligible_resources": [
+          {
+            "resource_id": "us_rover_sitting",
+            "name": "Rover — pet sitter research",
+            "purpose": "Compare potential paid drop-in sitters for cats or dogs in your area before you need one.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "Research is free; bookings cost money. Coverage, prices, pet types, experience and dates vary. A listing is not a confirmed booking or guarantee of suitability."
+          },
+          {
+            "resource_id": "us_psi_sitter_candidate",
+            "name": "Pet Sitters International — sitter finder",
+            "purpose": "Find member pet-care businesses to contact about future drop-in care, experience with the pet, notice and an introductory meeting.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "PSI does not inspect or endorse listed businesses. Ask the provider about fees, visit notice, meeting first, and what happens if they cannot attend. A lead or inquiry is not agreed care."
+          }
+        ],
+        "supported_concerns": [
+          {
+            "id": "food",
+            "label": "Food & essentials when I’m unwell"
+          },
+          {
+            "id": "check_in",
+            "label": "Someone to check in on me"
+          },
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          },
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          },
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "previous_outcomes": [
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved."
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose."
+          }
+        ],
+        "collection_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_03_local_help",
+            "title": "Find one local place to ask for help",
+            "outcome": "A relevant service contact, or your local 211 contact, is saved with a specific question.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_04_remote_check_in",
+            "title": "Make a check-in feel easy to ask for",
+            "outcome": "Your request is sent and clearly marked as agreed or awaiting a reply.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "already_shown": true
+          },
+          {
+            "action_key": "sick_06_appointment_trip",
+            "title": "Work out a future appointment trip",
+            "outcome": "A possible round trip is saved, or a specific transport question is ready for the clinic.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+            "already_shown": true
+          },
+          {
+            "action_key": "sick_08_pet_sitter",
+            "title": "Find a pet sitter worth contacting",
+            "outcome": "One potential sitter and a question are saved, or the care gap is clearly noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_09_pause_chore",
+            "title": "Give one nonessential chore a day off",
+            "outcome": "One nonessential chore is rescheduled or removed from your usual reminder.",
+            "already_shown": false
+          }
+        ]
+      },
+      "baselineCase": null,
+      "resourceSelection": [
+        "us_rover_sitting",
+        "us_psi_sitter_candidate"
+      ]
+    }
+  ]
+}

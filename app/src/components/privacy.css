@@ -1,0 +1,6 @@
+.privacy-screen h2{font-size:18px;font-weight:500;margin:30px 0 10px;color:var(--green,#3f5445)}
+.privacy-screen p{font-size:15px;line-height:1.6}
+.privacy-screen a{color:inherit;text-decoration:underline}
+.privacy-screen .danger{color:#814d55}
+.deletion-confirmation label{display:block;font-size:14px;line-height:1.5}
+.deletion-confirmation input{display:block;box-sizing:border-box;width:100%;margin:10px 0 16px;padding:14px;background:#fffdf9;border:1px solid #b6b0c1;border-radius:12px;font:inherit;font-size:16px}

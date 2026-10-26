@@ -1,0 +1,173 @@
+<section id="elephant-journey-mockup" data-initial-state="away" aria-label="Your protector on her thirty-minute journey">
+  <style>
+    #elephant-journey-mockup{--em-paper:light-dark(#faf8f3,#26232a);--em-panel:light-dark(#fffdf9,#342e38);--em-ink:light-dark(#493b4f,#f1e6f3);--em-muted:light-dark(#756c77,#c6b9ca);--em-line:light-dark(#e8e2e7,#534957);--em-sage:light-dark(#526c59,#c1d4b9);--em-on-sage:light-dark(#fffdf8,#26362b);--em-soft:light-dark(#edf1e9,#344339);--em-lilac:light-dark(#eee7f4,#493c54);--em-lilac-soft:light-dark(#f6f1f9,#39323f);--em-scrim:light-dark(rgba(58,47,64,.24),rgba(9,6,12,.55));--em-shadow:light-dark(rgba(52,33,62,.15),rgba(0,0,0,.3));font:400 14px/1.55 Inter,Arial,sans-serif;color:var(--em-ink);max-width:440px;margin:0 auto;text-align:left;isolation:isolate}
+    #elephant-journey-mockup *{box-sizing:border-box}
+    #elephant-journey-mockup .em-caption{display:flex;align-items:baseline;gap:11px;margin:0 0 12px;padding:0 3px;font-size:13px;font-weight:500;color:var(--em-ink)}
+    #elephant-journey-mockup .em-number{font-size:12px;letter-spacing:1px;color:var(--em-muted)}
+    #elephant-journey-mockup .em-app{display:grid;position:relative;background:var(--em-paper);border:1px solid var(--em-line);border-radius:27px;overflow:clip;box-shadow:0 8px 30px color-mix(in srgb,var(--em-shadow) 28%,transparent)}
+    #elephant-journey-mockup .em-underlay,#elephant-journey-mockup .em-overlay{grid-area:1/1;min-width:0}
+    #elephant-journey-mockup .em-underlay{display:flex;flex-direction:column}
+    #elephant-journey-mockup .em-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:24px 24px 19px}
+    #elephant-journey-mockup .em-brand{font:400 29px/1 Georgia,serif;letter-spacing:-1.3px}
+    #elephant-journey-mockup .em-access{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--em-muted)}
+    #elephant-journey-mockup .em-main{padding:10px 24px 24px;flex:1}
+    #elephant-journey-mockup h2,#elephant-journey-mockup h3,#elephant-journey-mockup p{margin:0}
+    #elephant-journey-mockup .em-title{font:400 34px/1.15 Georgia,serif;letter-spacing:-1.2px;margin:0 0 12px}
+    #elephant-journey-mockup .em-kicker{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--em-muted);margin-bottom:9px}
+    #elephant-journey-mockup .em-progress-label{display:flex;justify-content:space-between;gap:14px;color:var(--em-muted);font-size:12px;margin-top:21px}
+    #elephant-journey-mockup .em-progress{height:5px;background:var(--em-soft);border-radius:8px;margin:9px 0 23px}
+    #elephant-journey-mockup .em-progress span{display:block;height:100%;width:30%;background:var(--em-sage);border-radius:8px}
+    #elephant-journey-mockup .em-notice{display:flex;align-items:flex-start;gap:11px;padding:15px 16px;margin:0 0 9px;background:var(--em-soft);border-radius:16px;font-size:13px;line-height:1.5}
+    #elephant-journey-mockup .em-notice p{margin:0}
+    #elephant-journey-mockup .em-notice strong{display:block;font-weight:500}
+    #elephant-journey-mockup .em-notice svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--em-sage)}
+    #elephant-journey-mockup .em-home-elephant{text-align:center;padding:9px 0 23px}
+    #elephant-journey-mockup .em-elephant{display:block;width:170px;height:170px;object-fit:contain;margin:0 auto}
+    #elephant-journey-mockup .em-home-elephant .em-elephant{width:175px;height:175px}
+    #elephant-journey-mockup button{font:inherit;border:0;background:none;color:inherit;min-height:44px;border-radius:16px;padding:10px 14px}
+    #elephant-journey-mockup .em-talk{display:block;margin:0 auto;padding:0 14px;border-radius:24px;transition:transform .18s ease}
+    #elephant-journey-mockup .em-talk:hover{transform:translateY(-3px)}
+    #elephant-journey-mockup .em-tap{font-size:12px;color:var(--em-muted);margin:2px 0 0}
+    #elephant-journey-mockup .em-ready-copy{font:400 23px/1.25 Georgia,serif;margin:2px 0 11px}
+    #elephant-journey-mockup .em-mini-action{font-size:13px;color:var(--em-sage);background:var(--em-soft);border-radius:24px;padding:10px 22px}
+    #elephant-journey-mockup .em-list-head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:500;padding:9px 0 12px;border-bottom:1px solid var(--em-line)}
+    #elephant-journey-mockup .em-list-head span{font-size:11px;color:var(--em-muted);font-weight:400}
+    #elephant-journey-mockup .em-task{display:flex;align-items:flex-start;gap:11px;padding:17px 0 5px;font-size:13px}
+    #elephant-journey-mockup .em-check{display:grid;place-items:center;width:22px;height:22px;flex:none;border-radius:50%;background:var(--em-soft);color:var(--em-sage)}
+    #elephant-journey-mockup .em-check svg{width:14px;height:14px}
+    #elephant-journey-mockup .em-task small{display:block;margin-top:4px;font-size:11px;color:var(--em-muted)}
+    #elephant-journey-mockup .em-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px 16px 15px;border-top:1px solid var(--em-line);background:var(--em-panel)}
+    #elephant-journey-mockup .em-nav-item{display:flex;align-items:center;flex-direction:column;gap:5px;padding:7px 4px;border-radius:14px;color:var(--em-muted);font-size:11px}
+    #elephant-journey-mockup .em-nav-item[aria-current=page]{color:var(--em-sage);background:var(--em-soft)}
+    #elephant-journey-mockup .em-nav-item svg{width:19px;height:19px;stroke-width:1.6}
+    #elephant-journey-mockup .em-overlay{z-index:2;display:flex;align-items:center;justify-content:center;padding:42px 20px;background:var(--em-scrim);backdrop-filter:blur(2px)}
+    #elephant-journey-mockup .em-dialog{position:relative;width:100%;padding:29px 25px 20px;background:var(--em-panel);border-radius:25px;box-shadow:0 14px 45px var(--em-shadow);text-align:center}
+    #elephant-journey-mockup .em-close{position:absolute;right:6px;top:6px;display:grid;place-items:center;width:44px;height:44px;padding:10px;color:var(--em-muted);z-index:1}
+    #elephant-journey-mockup .em-close svg{width:18px;height:18px}
+    #elephant-journey-mockup .em-dialog .em-elephant{width:149px;height:149px;margin:0 auto 9px}
+    #elephant-journey-mockup .em-dialog .em-kicker{font-size:11px;letter-spacing:1.4px;margin-bottom:10px}
+    #elephant-journey-mockup .em-dialog-title{font:400 31px/1.14 Georgia,serif;letter-spacing:-.9px;margin:0 auto 14px;max-width:270px}
+    #elephant-journey-mockup .em-dialog-copy{color:var(--em-muted);font-size:14px;line-height:1.6;margin:0 auto 20px;max-width:280px}
+    #elephant-journey-mockup .em-dialog-copy span{display:block}
+    #elephant-journey-mockup .em-primary{display:block;width:100%;background:var(--em-sage);color:var(--em-on-sage);border-radius:28px;padding:14px 15px;font-size:14px;font-weight:500;min-height:49px}
+    #elephant-journey-mockup .em-primary:hover{filter:brightness(.96)}
+    #elephant-journey-mockup .em-secondary{font-size:13px;color:var(--em-muted);margin-top:4px;padding:10px 24px}
+    #elephant-journey-mockup .em-note{font-size:11px;color:var(--em-muted);margin:11px 0 0}
+    #elephant-journey-mockup .em-time{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 18px;margin:0 auto 23px;border-radius:30px;background:var(--em-lilac-soft);color:var(--em-ink);font-size:13px}
+    #elephant-journey-mockup .em-time svg{width:16px;height:16px}
+    #elephant-journey-mockup [data-countdown]{font-variant-numeric:tabular-nums;letter-spacing:.3px}
+    #elephant-journey-mockup .em-home-timer{font-size:12px;color:var(--em-muted);margin:6px 0 8px}
+    #elephant-journey-mockup .em-speech{position:relative;border-radius:20px;background:var(--em-lilac);padding:24px 20px;margin:19px 0 23px;text-align:left}
+    #elephant-journey-mockup .em-speech::before{content:'';position:absolute;top:-9px;left:calc(50% - 10px);width:20px;height:20px;background:var(--em-lilac);transform:rotate(45deg)}
+    #elephant-journey-mockup .em-affirmation{font:400 29px/1.26 Georgia,serif;letter-spacing:-.5px;position:relative}
+    #elephant-journey-mockup .em-message-dialog .em-elephant{width:145px;height:145px;margin-top:3px;margin-bottom:13px}
+    #elephant-journey-mockup .em-message-dialog .em-kicker{margin:0 0 13px;color:var(--em-muted);font-size:11px}
+    #elephant-journey-mockup[data-popup=sheet] .em-overlay{align-items:flex-end;padding:80px 10px 10px}
+    #elephant-journey-mockup[data-popup=sheet] .em-dialog{border-radius:25px 25px 20px 20px}
+    #elephant-journey-mockup .em-enter{animation:em-arrive .3s ease-out both}
+    #elephant-journey-mockup .em-depart{animation:em-step .8s ease-in-out both}
+    #elephant-journey-mockup .em-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @keyframes em-arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes em-step{0%{transform:translateX(-14px)}40%{transform:translate(0,-5px) rotate(-2deg)}75%{transform:translate(9px,-2px) rotate(2deg)}100%{transform:translateX(0)}}
+    #elephant-journey-mockup[data-motion=false] *{animation:none!important;transition:none!important}
+    @media(prefers-reduced-motion:reduce){#elephant-journey-mockup *{animation:none!important;transition:none!important}}
+    @media(max-width:380px){#elephant-journey-mockup .em-header{padding:21px 19px 17px}#elephant-journey-mockup .em-main{padding:8px 19px 20px}#elephant-journey-mockup .em-overlay{padding:35px 12px}#elephant-journey-mockup .em-dialog{padding:29px 19px 17px}#elephant-journey-mockup .em-dialog-title{font-size:29px}#elephant-journey-mockup .em-affirmation{font-size:27px}#elephant-journey-mockup .em-speech{padding:22px 17px}#elephant-journey-mockup .em-access{font-size:11px}#elephant-journey-mockup .em-caption{font-size:12px}}
+  </style>
+  <div class="em-caption"><span class="em-number">02</span><span>While she is away</span></div>
+  <div class="em-mount"></div>
+  <div class="em-sr" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script>
+    (()=>{
+      const root=document.getElementById('elephant-journey-mockup');
+      const mount=root.querySelector('.em-mount');
+      const live=root.querySelector('[role=status]');
+      const schema=root.id+'-v1';
+      const duration=30*60*1000;
+      const elephantUrl='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+CjxwYXRoIGZpbGw9IiNFQUU1RjIiIGQ9Ik0zNCAxMThDNDMgNDMgMTAzIDE5IDE2NCAzNWM2OCAxOCAxMTkgNjggMTExIDEzNy02IDUxLTU5IDkxLTEzMyA5MUM2NSAyNjMgMjIgMjEzIDM0IDExOFoiLz4KPGVsbGlwc2UgY3g9IjE1MSIgY3k9IjI2NSIgcng9IjEwMyIgcnk9IjE0IiBmaWxsPSIjRERENUU5Ii8+CjxwYXRoIGZpbGw9IiNCREI2RDIiIGQ9Ik05OSAxNjRjLTEwIDI0LTMyIDYwLTIzIDg0IDYgMTYgMzUgMjUgNTkgMTlsMTMtMTkgMTUgMjBjMjYgNCA2MCAwIDY1LTEzIDgtMTgtMTMtMzUtMjctNDVsLTEzLTQ5WiIvPgo8cGF0aCBmaWxsPSIjQURBM0M1IiBkPSJNMTExIDk1Yy0yNi01Ni03Ny01MS04NC0xMy02IDMxIDcgNjggMzQgODQgMTcgMTAgMzUgNCA1NC0xN1oiLz4KPHBhdGggZmlsbD0iI0FEQTNDNSIgZD0iTTE4NyA5NWMyNS01NSA3Ni00OSA4NC0xMiA3IDI5LTQgNjctMzEgODQtMTkgMTAtMzYgMy01NS0xN1oiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTkwIDExOWMwLTUzIDI1LTcwIDU5LTcwIDM1IDAgNjMgMjEgNjIgNjgtMSAzNC0xNyA1OC00MSA2M2wtNDQtMWMtMjMtNi0zNi0yOC0zNi02MFoiLz4KPHBhdGggZmlsbD0iI0M4QzFEOCIgZD0iTTEzNSAxMzdjLTIgMjMgMyA1NCAyNiA2NiAyOSAxNSA1Ni0zIDU5LTIyIDItMTAtMTAtMTUtMTYtNi03IDExLTE2IDEyLTIyIDctNy02LTQtMjMtNi0zNVoiLz4KPHBhdGggZD0iTTE0NiAxNTljOS0zIDE4LTEgMjUgNE0xNDkgMTcyYzgtMiAxNCAwIDIwIDMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0FEQTNDNSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGVsbGlwc2UgY3g9IjExNyIgY3k9IjEyNCIgcng9IjMuNCIgcnk9IjUiIGZpbGw9IiMyNjJCNTAiLz48ZWxsaXBzZSBjeD0iMTgxIiBjeT0iMTI0IiByeD0iMy40IiByeT0iNSIgZmlsbD0iIzI2MkI1MCIvPgo8cGF0aCBkPSJNMTA0IDExM3E1LTUgMTAtM00xODIgMTA5cTYtMSAxMCA0TTExNyAxNDNxMiA4IDcgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI2MkI1MCIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIzIDIwMmMwIDI0IDQgNDAgMTIgNTNNMTg0IDIxMWMxIDE5IDAgMzEtNCA0NSIgc3Ryb2tlPSIjOEU4NUE4IiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGZpbGw9IiNGQUY3RjIiIGQ9Ik05MyAyNjBjLTEtOSA1LTE0IDEwLTdsMyAxMVpNMTA5IDI2NWMtMS0xMCA1LTE1IDExLTdsMiA5Wk0xNDcgMjY0Yy0xLTExIDYtMTYgMTEtNmwxIDEwWk0xNjQgMjY4Yy0xLTExIDYtMTYgMTEtNmwxIDZaTTE5MSAyNjRjMC05IDYtMTQgMTEtNmwyIDRaIi8+CjxwYXRoIGZpbGw9IiNDOTk1NDQiIGQ9Im0yMzcgMzMgNCAxMSAxMSA0LTExIDQtNCAxMS00LTExLTExLTQgMTEtNFoiLz4KPHBhdGggZD0iTTUyIDI1M2MtNS0xNy0xMy0yNy0xOC0zOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQTA5NkJEIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBmaWxsPSIjQkRCNkQyIiBkPSJNMzggMjI2Yy0xNy0xLTIzLTktMjAtMTggMTIgMCAxOCA4IDIwIDE4Wm01IDEyYy00LTE3IDAtMjQgNy0yNSA1IDEyIDMgMjAtNyAyNVoiLz4KPC9zdmc+';
+      const settings={popup:'center',motion:true};
+      const initial=root.dataset.initialState;
+      const defaults=()=>({phase:initial==='invite'?'ready':initial==='away'?'away':'returned',modal:initial==='invite'?'invite':initial==='away'?'away':initial==='message'?'message':null,returnAt:initial==='away'?Date.now()+duration:null,read:initial==='message'});
+      let state=defaults();
+      function restore(snapshot){
+        const saved=snapshot?.privateContent;
+        if(!saved||saved.schema!==schema)return false;
+        const value=saved.state;
+        if(!value||!['ready','away','returned'].includes(value.phase))return false;
+        state={phase:value.phase,modal:['invite','away','message'].includes(value.modal)?value.modal:null,returnAt:Number.isFinite(value.returnAt)?value.returnAt:null,read:!!value.read};
+        if(state.phase==='away'&&state.returnAt===null)state.returnAt=Date.now()+duration;
+        if(state.modal==='message'&&state.phase!=='returned')state.modal=null;
+        settings.popup=saved.settings?.popup==='sheet'?'sheet':'center';
+        settings.motion=saved.settings?.motion!==false;
+        syncTime();return true;
+      }
+      function save(){
+        if(!window.openai?.setWidgetState)return;
+        window.openai.setWidgetState({modelContent:{screen:root.getAttribute('aria-label'),phase:state.phase,conversationOpen:state.modal==='message'},privateContent:{schema,state:{...state},settings:{...settings}}}).catch(()=>{});
+      }
+      function syncTime(){if(state.phase==='away'&&Date.now()>=state.returnAt){state.phase='returned';state.modal=null;state.read=false;return true;}return false;}
+      restore(window.openai?.widgetState);
+      const icon=name=>'<i data-lucide="'+name+'" aria-hidden="true"></i>';
+      const elephant=extra=>'<img class="em-elephant '+(extra||'')+'" src="'+elephantUrl+'" width="300" height="300" alt="Your lavender elephant protector">';
+      const countdown=()=>{const seconds=Math.max(0,Math.ceil(((state.returnAt??Date.now())-Date.now())/1000));return String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');};
+      const action=(label,key,style='em-primary')=>'<button type="button" class="'+style+' cursor-interaction" data-action="'+key+'">'+label+'</button>';
+      function home(){
+        let card='';
+        if(state.phase==='returned'){
+          card='<div class="em-notice">'+icon(state.read?'heart':'bell-ring')+'<p><strong>'+(state.read?'A message to keep close':'Your elephant is back.')+'</strong>'+(state.read?'Your protector’s words are here for you.':'She has something for you.')+'</p></div><div class="em-home-elephant"><button type="button" class="em-talk cursor-interaction" data-action="talk" aria-label="Talk to your elephant">'+elephant()+'</button><p class="em-tap">'+(state.read?'Tap to read her message again':'Tap your elephant')+'</p></div>';
+        }else if(state.phase==='away'){
+          card='<div class="em-home-elephant">'+elephant()+'<p class="em-ready-copy">Your protector is on her way.</p><p class="em-home-timer">Back in <span data-countdown>'+countdown()+'</span></p>'+action('View journey','open-away','em-mini-action')+'</div>';
+        }else{
+          card='<div class="em-home-elephant">'+elephant()+'<p class="em-ready-copy">Your elephant is ready.</p>'+action('Send her on a journey','open-invite','em-mini-action')+'</div>';
+        }
+        return '<div class="em-underlay"'+(state.modal?' inert':'')+'><header class="em-header"><span class="em-brand">my safety</span><span class="em-access">Early access</span></header><main class="em-main"><div class="em-kicker">My list</div><h2 class="em-title">A step for yourself.</h2><div class="em-progress-label"><span>Your first block</span><span>3 / 10 steps</span></div><div class="em-progress" role="progressbar" aria-label="Completed steps" aria-valuemin="0" aria-valuemax="10" aria-valuenow="3"><span></span></div>'+card+'<div class="em-list-head">Your list<span>Completed today</span></div><div class="em-task"><span class="em-check">'+icon('check')+'</span><div>Put appointment details where you’ll find them<small>Completed · Your first step today</small></div></div></main><nav class="em-nav" aria-label="Existing app navigation"><span class="em-nav-item" aria-current="page">'+icon('list-checks')+'My list</span><span class="em-nav-item">'+icon('compass')+'Explore</span><span class="em-nav-item">'+icon('sprout')+'My progress</span></nav></div>';
+      }
+      function popup(animate){
+        if(!state.modal)return '';
+        const heading=root.id+'-dialog-title';
+        let content='';
+        if(state.modal==='invite')content=elephant()+'<div class="em-kicker">Your first step today, done</div><h3 class="em-dialog-title" id="'+heading+'">A little journey<br>for you</h3><p class="em-dialog-copy">Your protector will bring back an affirmation to help you feel steady.</p>'+action('Send your elephant','send')+'<p class="em-note">She’ll be back in 30 minutes.</p>'+action('Later','dismiss','em-secondary');
+        if(state.modal==='away')content=elephant(animate?'em-depart':'')+'<h3 class="em-dialog-title" id="'+heading+'">Your protector<br>is on her way.</h3><p class="em-dialog-copy"><span>Receive an affirmation from your protector.</span><span>Come back in 30 minutes.</span></p><div class="em-time">'+icon('clock-3')+'<span>Back in <span data-countdown>'+countdown()+'</span></span></div>'+action('Continue my day','dismiss')+'<p class="em-note">You can close the app. She’ll keep going.</p>';
+        if(state.modal==='message')content=elephant()+'<div class="em-speech"><h3 class="em-kicker" id="'+heading+'">Your protector</h3><p class="em-affirmation">You can build trust in yourself, one small choice at a time.</p></div>'+action('Close','dismiss');
+        return '<div class="em-overlay"><section class="em-dialog '+(state.modal==='message'?'em-message-dialog ':'')+(animate?'em-enter':'')+'" role="dialog" aria-modal="true" aria-labelledby="'+heading+'"><button type="button" class="em-close cursor-interaction" data-action="dismiss" aria-label="Close popup">'+icon('x')+'</button>'+content+'</section></div>';
+      }
+      function render(animate=false,focus=false){
+        root.dataset.popup=settings.popup;root.dataset.motion=String(settings.motion);
+        mount.innerHTML='<div class="em-app">'+home()+popup(animate)+'</div>';
+        if(globalThis.lucide)globalThis.lucide.createIcons({attrs:{width:18,height:18}});
+        if(focus){const target=state.modal?mount.querySelector('.em-dialog .em-primary'):mount.querySelector('.em-talk,.em-mini-action');target?.focus({preventScroll:true});}
+      }
+      root.addEventListener('click',event=>{
+        const button=event.target.closest('[data-action]');if(!button||!root.contains(button))return;
+        switch(button.dataset.action){
+          case 'send':if(state.phase!=='ready')return;state.phase='away';state.returnAt=Date.now()+duration;state.modal='away';live.textContent='Your protector is on her way. Come back in 30 minutes.';break;
+          case 'dismiss':state.modal=null;break;
+          case 'open-invite':if(state.phase==='ready')state.modal='invite';break;
+          case 'open-away':if(state.phase==='away')state.modal='away';break;
+          case 'talk':if(state.phase!=='returned')return;state.modal='message';state.read=true;break;
+        }
+        render(true,true);save();
+      });
+      root.addEventListener('keydown',event=>{
+        if(!state.modal)return;
+        if(event.key==='Escape'){event.preventDefault();state.modal=null;render(false,true);save();return;}
+        if(event.key!=='Tab')return;
+        const items=Array.from(mount.querySelectorAll('.em-dialog button'));
+        const first=items[0],last=items[items.length-1];
+        if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+        else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+      });
+      const timer=setInterval(()=>{
+        if(!root.isConnected){clearInterval(timer);return;}
+        if(syncTime()){render();save();live.textContent='Your elephant is back. She has something for you.';}
+        else if(state.phase==='away')root.querySelectorAll('[data-countdown]').forEach(element=>element.textContent=countdown());
+      },1000);
+      window.addEventListener('openai:set_globals',event=>{
+        const globals=event.detail?.globals;if(!globals||!Object.hasOwn(globals,'widgetState'))return;
+        const before=JSON.stringify({state,settings});
+        if(restore(globals.widgetState)&&before!==JSON.stringify({state,settings}))render();
+      });
+      render();
+      if(globalThis.Tweak){const tweak=new Tweak({container:root,onChange:()=>{render();save();}});tweak.addSelect(settings,'popup',{label:'Popup style',options:[{label:'Centered popup',value:'center'},{label:'Bottom sheet',value:'sheet'}]});tweak.addToggle(settings,'motion',{label:'Gentle motion'});}
+    })();
+  </script>
+</section>

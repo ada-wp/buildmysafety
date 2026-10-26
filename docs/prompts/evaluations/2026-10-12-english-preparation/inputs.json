@@ -1,0 +1,798 @@
+{
+  "kind": "Synthetic English writing trial; revised instructions and resource coverage, not a prompt-only comparison",
+  "sourceCommit": "b6ba22f",
+  "model": "gpt-6-luna",
+  "reasoning": "low",
+  "promptHash": "ab08b21b6ac4cc2fb4489dea5ba8d1a1b988fa7705f3a62406b12527ccd4fd19",
+  "cases": [
+    {
+      "id": "A",
+      "label": "No nearby help; wants practical services",
+      "concerns": [
+        "daily_tasks"
+      ],
+      "minutes": 15,
+      "support": "unavailable",
+      "noSpend": false,
+      "style": "resources",
+      "note": "I live alone and have no one nearby. I want to find an affordable cleaner or errand helper I could use on a future sick day. Please help me find a real option, not draft a message to a friend.",
+      "request": {
+        "topicId": "sick_care",
+        "concernIds": [
+          "daily_tasks"
+        ],
+        "note": "I live alone and have no one nearby. I want to find an affordable cleaner or errand helper I could use on a future sick day. Please help me find a real option, not draft a message to a friend.",
+        "maxMinutes": 15,
+        "noSpend": false,
+        "localSupport": "unavailable",
+        "country": "US"
+      },
+      "snapshot": {
+        "profile": {
+          "schemaVersion": 1,
+          "userId": "fictional-user-001",
+          "revision": 1,
+          "updatedAt": "2026-10-11T12:00:00Z",
+          "answers": {
+            "why": "ease",
+            "home": "alone",
+            "focus": "sick",
+            "difficulty": [],
+            "constraints": [],
+            "strengths": [],
+            "hope": [
+              "prepared",
+              "choice"
+            ],
+            "style": "resources",
+            "country": "US"
+          },
+          "interests": [
+            "sick_care",
+            "meals_one"
+          ],
+          "personalizationEnabled": true,
+          "signalsResetAt": null,
+          "elephantName": null
+        },
+        "taskStates": [],
+        "stateVersion": "1"
+      },
+      "history": [],
+      "packet": {
+        "context_version": 1,
+        "current_topic": {
+          "id": "sick_care",
+          "scope": "Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response."
+        },
+        "selected_concerns": [
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "user_context": {
+          "current_request": "I live alone and have no one nearby. I want to find an affordable cleaner or errand helper I could use on a future sick day. Please help me find a real option, not draft a message to a friend.",
+          "explicit_limits": {
+            "max_minutes": 15,
+            "no_spend": false,
+            "nearby_support": "unavailable",
+            "country": "US"
+          }
+        },
+        "user_memory": {
+          "personalization_enabled": true,
+          "explicit_preferences": {
+            "household": "alone",
+            "constraints": [],
+            "difficulty": [],
+            "strengths": [],
+            "goals": [
+              "prepared",
+              "choice"
+            ],
+            "preferred_help": "resources",
+            "interests": [
+              "sick_care",
+              "meals_one"
+            ]
+          },
+          "preference_signals": []
+        },
+        "previous_actions": [],
+        "reviewed_guidance": [
+          "Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.",
+          "Prepare before a future sick day. Start with existing supplies; service research is allowed without booking or payment. Respect explicit budget and support limits.",
+          "A directory result is only a research lead. Check eligibility, costs and availability directly; do not promise help.",
+          "Care-contact and travel tasks are administrative preparation for nonurgent appointments, not decisions about when or where to seek urgent care.",
+          "Only suggest pet tasks when the person selects the pet concern. Never assume a pet from living alone.",
+          "Keep chosen concerns in charge. Return fewer useful actions when the library cannot support three distinct fits."
+        ],
+        "eligible_resources": [
+          {
+            "resource_id": "us_211_local",
+            "name": "211 — local community resources",
+            "purpose": "Find your local US 211 to research practical community support, including food and transportation assistance.",
+            "countries": [
+              "US"
+            ],
+            "cost": "free",
+            "limits": "211 provides information and referrals, not a booked service. Eligibility, prices and availability of referred programs vary. No check-in or emergency response is promised."
+          },
+          {
+            "resource_id": "us_rover_sitting",
+            "name": "Rover — pet sitter research",
+            "purpose": "Compare potential paid drop-in sitters for cats or dogs in your area before you need one.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "Research is free; bookings cost money. Coverage, prices, pet types, experience and dates vary. A listing is not a confirmed booking or guarantee of suitability."
+          },
+          {
+            "resource_id": "us_taskrabbit_errands_candidate",
+            "name": "Taskrabbit — shopping and errands",
+            "purpose": "Research paid practical help such as collecting dry cleaning or getting everyday supplies in supported locations.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "Check coverage, included work, total charges and booking notice. No availability or suitability guarantee. Research does not book a service."
+          },
+          {
+            "resource_id": "us_psi_sitter_candidate",
+            "name": "Pet Sitters International — sitter finder",
+            "purpose": "Find member pet-care businesses to contact about future drop-in care, experience with the pet, notice and an introductory meeting.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "PSI does not inspect or endorse listed businesses. Ask the provider about fees, visit notice, meeting first, and what happens if they cannot attend. A lead or inquiry is not agreed care."
+          }
+        ],
+        "supported_concerns": [
+          {
+            "id": "food",
+            "label": "Food & essentials when I’m unwell"
+          },
+          {
+            "id": "check_in",
+            "label": "Someone to check in on me"
+          },
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          },
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          },
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "previous_outcomes": [],
+        "collection_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_03_local_help",
+            "title": "Find one local place to ask for help",
+            "outcome": "A relevant service contact, or your local 211 contact, is saved with a specific question.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_04_remote_check_in",
+            "title": "Make a check-in feel easy to ask for",
+            "outcome": "Your request is sent and clearly marked as agreed or awaiting a reply.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_06_appointment_trip",
+            "title": "Work out a future appointment trip",
+            "outcome": "A possible round trip is saved, or a specific transport question is ready for the clinic.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_08_pet_sitter",
+            "title": "Find a pet sitter worth contacting",
+            "outcome": "One potential sitter and a question are saved, or the care gap is clearly noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_09_pause_chore",
+            "title": "Give one nonessential chore a day off",
+            "outcome": "One nonessential chore is rescheduled or removed from your usual reminder.",
+            "already_shown": false
+          }
+        ]
+      },
+      "baselineCase": "01"
+    },
+    {
+      "id": "B",
+      "label": "Cat care; paid help acceptable",
+      "concerns": [
+        "pets"
+      ],
+      "minutes": 15,
+      "noSpend": false,
+      "support": "unavailable",
+      "style": "resources",
+      "note": "I have a cat and no nearby person who can feed her if I need several days of rest. I want to research a paid drop-in sitter in advance. I already have a feeding note; the missing piece is a suitable person.",
+      "request": {
+        "topicId": "sick_care",
+        "concernIds": [
+          "pets"
+        ],
+        "note": "I have a cat and no nearby person who can feed her if I need several days of rest. I want to research a paid drop-in sitter in advance. I already have a feeding note; the missing piece is a suitable person.",
+        "maxMinutes": 15,
+        "noSpend": false,
+        "localSupport": "unavailable",
+        "country": "US"
+      },
+      "snapshot": {
+        "profile": {
+          "schemaVersion": 1,
+          "userId": "fictional-user-001",
+          "revision": 1,
+          "updatedAt": "2026-10-11T12:00:00Z",
+          "answers": {
+            "why": "ease",
+            "home": "alone",
+            "focus": "sick",
+            "difficulty": [],
+            "constraints": [],
+            "strengths": [],
+            "hope": [
+              "prepared",
+              "choice"
+            ],
+            "style": "resources",
+            "country": "US"
+          },
+          "interests": [
+            "sick_care",
+            "meals_one"
+          ],
+          "personalizationEnabled": true,
+          "signalsResetAt": null,
+          "elephantName": null
+        },
+        "taskStates": [],
+        "stateVersion": "1"
+      },
+      "history": [],
+      "packet": {
+        "context_version": 1,
+        "current_topic": {
+          "id": "sick_care",
+          "scope": "Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response."
+        },
+        "selected_concerns": [
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          }
+        ],
+        "user_context": {
+          "current_request": "I have a cat and no nearby person who can feed her if I need several days of rest. I want to research a paid drop-in sitter in advance. I already have a feeding note; the missing piece is a suitable person.",
+          "explicit_limits": {
+            "max_minutes": 15,
+            "no_spend": false,
+            "nearby_support": "unavailable",
+            "country": "US"
+          }
+        },
+        "user_memory": {
+          "personalization_enabled": true,
+          "explicit_preferences": {
+            "household": "alone",
+            "constraints": [],
+            "difficulty": [],
+            "strengths": [],
+            "goals": [
+              "prepared",
+              "choice"
+            ],
+            "preferred_help": "resources",
+            "interests": [
+              "sick_care",
+              "meals_one"
+            ]
+          },
+          "preference_signals": []
+        },
+        "previous_actions": [],
+        "reviewed_guidance": [
+          "Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.",
+          "Prepare before a future sick day. Start with existing supplies; service research is allowed without booking or payment. Respect explicit budget and support limits.",
+          "A directory result is only a research lead. Check eligibility, costs and availability directly; do not promise help.",
+          "Care-contact and travel tasks are administrative preparation for nonurgent appointments, not decisions about when or where to seek urgent care.",
+          "Only suggest pet tasks when the person selects the pet concern. Never assume a pet from living alone.",
+          "Keep chosen concerns in charge. Return fewer useful actions when the library cannot support three distinct fits."
+        ],
+        "eligible_resources": [
+          {
+            "resource_id": "us_211_local",
+            "name": "211 — local community resources",
+            "purpose": "Find your local US 211 to research practical community support, including food and transportation assistance.",
+            "countries": [
+              "US"
+            ],
+            "cost": "free",
+            "limits": "211 provides information and referrals, not a booked service. Eligibility, prices and availability of referred programs vary. No check-in or emergency response is promised."
+          },
+          {
+            "resource_id": "us_rover_sitting",
+            "name": "Rover — pet sitter research",
+            "purpose": "Compare potential paid drop-in sitters for cats or dogs in your area before you need one.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "Research is free; bookings cost money. Coverage, prices, pet types, experience and dates vary. A listing is not a confirmed booking or guarantee of suitability."
+          },
+          {
+            "resource_id": "us_taskrabbit_errands_candidate",
+            "name": "Taskrabbit — shopping and errands",
+            "purpose": "Research paid practical help such as collecting dry cleaning or getting everyday supplies in supported locations.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "Check coverage, included work, total charges and booking notice. No availability or suitability guarantee. Research does not book a service."
+          },
+          {
+            "resource_id": "us_psi_sitter_candidate",
+            "name": "Pet Sitters International — sitter finder",
+            "purpose": "Find member pet-care businesses to contact about future drop-in care, experience with the pet, notice and an introductory meeting.",
+            "countries": [
+              "US"
+            ],
+            "cost": "paid",
+            "limits": "PSI does not inspect or endorse listed businesses. Ask the provider about fees, visit notice, meeting first, and what happens if they cannot attend. A lead or inquiry is not agreed care."
+          }
+        ],
+        "supported_concerns": [
+          {
+            "id": "food",
+            "label": "Food & essentials when I’m unwell"
+          },
+          {
+            "id": "check_in",
+            "label": "Someone to check in on me"
+          },
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          },
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          },
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "previous_outcomes": [],
+        "collection_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_03_local_help",
+            "title": "Find one local place to ask for help",
+            "outcome": "A relevant service contact, or your local 211 contact, is saved with a specific question.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_04_remote_check_in",
+            "title": "Make a check-in feel easy to ask for",
+            "outcome": "Your request is sent and clearly marked as agreed or awaiting a reply.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_06_appointment_trip",
+            "title": "Work out a future appointment trip",
+            "outcome": "A possible round trip is saved, or a specific transport question is ready for the clinic.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_08_pet_sitter",
+            "title": "Find a pet sitter worth contacting",
+            "outcome": "One potential sitter and a question are saved, or the care gap is clearly noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_09_pause_chore",
+            "title": "Give one nonessential chore a day off",
+            "outcome": "One nonessential chore is rescheduled or removed from your usual reminder.",
+            "already_shown": false
+          }
+        ]
+      },
+      "baselineCase": "05"
+    },
+    {
+      "id": "C",
+      "label": "Returning user wants a useful preparation memo",
+      "concerns": [
+        "daily_tasks"
+      ],
+      "minutes": 8,
+      "noSpend": true,
+      "shown": [
+        "sick_01_easy_food",
+        "sick_02_rest_shelf"
+      ],
+      "note": "I have already sorted easy meals and my resting spot. I also checked my pharmacy delivery process and have its number saved. The information is scattered. Help me prepare one short private sick-day note I can actually use later, with useful headings. Please do not give me another food or shelf task.",
+      "request": {
+        "topicId": "sick_care",
+        "concernIds": [
+          "daily_tasks"
+        ],
+        "note": "I have already sorted easy meals and my resting spot. I also checked my pharmacy delivery process and have its number saved. The information is scattered. Help me prepare one short private sick-day note I can actually use later, with useful headings. Please do not give me another food or shelf task.",
+        "maxMinutes": 8,
+        "noSpend": true,
+        "localSupport": "unknown",
+        "country": "US"
+      },
+      "snapshot": {
+        "profile": {
+          "schemaVersion": 1,
+          "userId": "fictional-user-001",
+          "revision": 1,
+          "updatedAt": "2026-10-11T12:00:00Z",
+          "answers": {
+            "why": "ease",
+            "home": "alone",
+            "focus": "sick",
+            "difficulty": [],
+            "constraints": [],
+            "strengths": [],
+            "hope": [
+              "prepared",
+              "choice"
+            ],
+            "style": "one",
+            "country": "US"
+          },
+          "interests": [
+            "sick_care",
+            "meals_one"
+          ],
+          "personalizationEnabled": true,
+          "signalsResetAt": null,
+          "elephantName": null
+        },
+        "taskStates": [
+          {
+            "userId": "fictional-user-001",
+            "actionKey": "sick_01_easy_food",
+            "contentRef": "sick_01_easy_food@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          },
+          {
+            "userId": "fictional-user-001",
+            "actionKey": "sick_02_rest_shelf",
+            "contentRef": "sick_02_rest_shelf@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          }
+        ],
+        "stateVersion": "1"
+      },
+      "history": [
+        {
+          "content": {
+            "action_key": "sick_01_easy_food",
+            "concern_ids": [
+              "food"
+            ],
+            "title": "Give tomorrow-you two easy food options",
+            "summary": "Pick familiar food you’d actually want, so a low-energy day involves one less decision.",
+            "estimated_minutes": 8,
+            "steps": [
+              "Look over food you already have or usually keep at home.",
+              "Choose two familiar options that take little preparation; note any ingredient missing from what you have.",
+              "Save their names and locations in your usual note, with missing ingredients on your next shopping list."
+            ],
+            "done_when": "Two easy food options are noted, including what you have and anything missing.",
+            "resources": [],
+            "purchase_checks": [],
+            "no_purchase_option": null
+          },
+          "state": {
+            "userId": "fictional-user-001",
+            "actionKey": "sick_01_easy_food",
+            "contentRef": "sick_01_easy_food@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          }
+        },
+        {
+          "content": {
+            "action_key": "sick_02_rest_shelf",
+            "concern_ids": [
+              "food",
+              "daily_tasks"
+            ],
+            "title": "Give your resting spot a little setup",
+            "summary": "Keep everyday comforts close, using a shelf or basket and things you already own.",
+            "estimated_minutes": 10,
+            "steps": [
+              "Choose a reachable shelf or basket near where you like to rest.",
+              "Gather tissues, a charging cable and another everyday comfort you already use; keep the cable out of walking paths.",
+              "Put them together and note any missing item for your next usual shopping trip."
+            ],
+            "done_when": "Your everyday comforts are together, with missing items noted.",
+            "resources": [],
+            "purchase_checks": [],
+            "no_purchase_option": null
+          },
+          "state": {
+            "userId": "fictional-user-001",
+            "actionKey": "sick_02_rest_shelf",
+            "contentRef": "sick_02_rest_shelf@1",
+            "shownAt": "2026-10-11T12:00:00Z",
+            "savedAt": "2026-10-11T13:00:00Z",
+            "removedAt": null,
+            "completedAt": "2026-10-11T14:00:00Z",
+            "likedAt": null,
+            "feedbackCode": null,
+            "feedbackAt": null
+          }
+        }
+      ],
+      "packet": {
+        "context_version": 1,
+        "current_topic": {
+          "id": "sick_care",
+          "scope": "Prepare for ordinary sick days at home: food, everyday comforts, contact, appointment logistics and pet care. No treatment, symptom assessment or urgent response."
+        },
+        "selected_concerns": [
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "user_context": {
+          "current_request": "I have already sorted easy meals and my resting spot. I also checked my pharmacy delivery process and have its number saved. The information is scattered. Help me prepare one short private sick-day note I can actually use later, with useful headings. Please do not give me another food or shelf task.",
+          "explicit_limits": {
+            "max_minutes": 8,
+            "no_spend": true,
+            "nearby_support": "unknown",
+            "country": "US"
+          }
+        },
+        "user_memory": {
+          "personalization_enabled": true,
+          "explicit_preferences": {
+            "household": "alone",
+            "constraints": [],
+            "difficulty": [],
+            "strengths": [],
+            "goals": [
+              "prepared",
+              "choice"
+            ],
+            "preferred_help": "one",
+            "interests": [
+              "sick_care",
+              "meals_one"
+            ]
+          },
+          "preference_signals": [
+            {
+              "action_key": "sick_01_easy_food",
+              "tags": [
+                "food",
+                "prepare",
+                "low_effort"
+              ],
+              "title": "Give tomorrow-you two easy food options",
+              "outcome": "Two easy food options are noted, including what you have and anything missing.",
+              "liked": false,
+              "saved": true,
+              "feedback": null
+            },
+            {
+              "action_key": "sick_02_rest_shelf",
+              "tags": [
+                "supplies",
+                "prepare",
+                "low_effort"
+              ],
+              "title": "Give your resting spot a little setup",
+              "outcome": "Your everyday comforts are together, with missing items noted.",
+              "liked": false,
+              "saved": true,
+              "feedback": null
+            }
+          ]
+        },
+        "previous_actions": [
+          {
+            "action_key": "sick_01_easy_food"
+          },
+          {
+            "action_key": "sick_02_rest_shelf"
+          }
+        ],
+        "reviewed_guidance": [
+          "Prepare useful options in advance. Do not assess symptoms or suggest medication, remedies or delaying care.",
+          "Prepare before a future sick day. Start with existing supplies; service research is allowed without booking or payment. Respect explicit budget and support limits.",
+          "A directory result is only a research lead. Check eligibility, costs and availability directly; do not promise help.",
+          "Care-contact and travel tasks are administrative preparation for nonurgent appointments, not decisions about when or where to seek urgent care.",
+          "Only suggest pet tasks when the person selects the pet concern. Never assume a pet from living alone.",
+          "Keep chosen concerns in charge. Return fewer useful actions when the library cannot support three distinct fits."
+        ],
+        "eligible_resources": [
+          {
+            "resource_id": "us_211_local",
+            "name": "211 — local community resources",
+            "purpose": "Find your local US 211 to research practical community support, including food and transportation assistance.",
+            "countries": [
+              "US"
+            ],
+            "cost": "free",
+            "limits": "211 provides information and referrals, not a booked service. Eligibility, prices and availability of referred programs vary. No check-in or emergency response is promised."
+          }
+        ],
+        "supported_concerns": [
+          {
+            "id": "food",
+            "label": "Food & essentials when I’m unwell"
+          },
+          {
+            "id": "check_in",
+            "label": "Someone to check in on me"
+          },
+          {
+            "id": "getting_care",
+            "label": "Getting to care or appointments"
+          },
+          {
+            "id": "pets",
+            "label": "Pet care while I recover"
+          },
+          {
+            "id": "daily_tasks",
+            "label": "Daily tasks when I need to rest"
+          }
+        ],
+        "previous_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing."
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted."
+          }
+        ],
+        "collection_outcomes": [
+          {
+            "action_key": "sick_01_easy_food",
+            "title": "Give tomorrow-you two easy food options",
+            "outcome": "Two easy food options are noted, including what you have and anything missing.",
+            "already_shown": true
+          },
+          {
+            "action_key": "sick_02_rest_shelf",
+            "title": "Give your resting spot a little setup",
+            "outcome": "Your everyday comforts are together, with missing items noted.",
+            "already_shown": true
+          },
+          {
+            "action_key": "sick_03_local_help",
+            "title": "Find one local place to ask for help",
+            "outcome": "A relevant service contact, or your local 211 contact, is saved with a specific question.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_04_remote_check_in",
+            "title": "Make a check-in feel easy to ask for",
+            "outcome": "Your request is sent and clearly marked as agreed or awaiting a reply.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_05_care_contact",
+            "title": "Put appointment details where you’ll find them",
+            "outcome": "One clinic’s appointment contact and any unanswered practical questions are saved.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_06_appointment_trip",
+            "title": "Work out a future appointment trip",
+            "outcome": "A possible round trip is saved, or a specific transport question is ready for the clinic.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_07_pet_care_note",
+            "title": "Leave your pet’s routine ready to share",
+            "outcome": "A private everyday-care note is ready to share with a helper you choose.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_08_pet_sitter",
+            "title": "Find a pet sitter worth contacting",
+            "outcome": "One potential sitter and a question are saved, or the care gap is clearly noted.",
+            "already_shown": false
+          },
+          {
+            "action_key": "sick_09_pause_chore",
+            "title": "Give one nonessential chore a day off",
+            "outcome": "One nonessential chore is rescheduled or removed from your usual reminder.",
+            "already_shown": false
+          }
+        ]
+      },
+      "baselineCase": null
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "testedAt": "2026-10-14T16:52:56.606Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "evidence": "Actual Clerk/Worker/D1 and one OpenAI request through independent fictional B HTTP session; not browser-button evidence.",
+  "concerns": [
+    {
+      "id": "food",
+      "label": "Food and essentials without going out"
+    },
+    {
+      "id": "getting_care",
+      "label": "Knowing where to get care, and what it costs"
+    },
+    {
+      "id": "daily_tasks",
+      "label": "Help with errands and things at home"
+    },
+    {
+      "id": "check_in",
+      "label": "Someone to check in with"
+    },
+    {
+      "id": "pets",
+      "label": "My pet being cared for"
+    }
+  ],
+  "poolBatches": [
+    {
+      "selected": [
+        "getting_care"
+      ],
+      "tasks": [
+        {
+          "key": "sick_v2_sc01",
+          "title": "Find a care option you can actually start with"
+        }
+      ]
+    },
+    {
+      "selected": [
+        "food",
+        "daily_tasks"
+      ],
+      "tasks": [
+        {
+          "key": "sick_v2_sc10",
+          "title": "See whether groceries can reach your actual door"
+        },
+        {
+          "key": "sick_v2_sc18",
+          "title": "Find help for an errand you can't postpone"
+        }
+      ]
+    },
+    {
+      "selected": [
+        "pets"
+      ],
+      "tasks": [
+        {
+          "key": "sick_v2_sc26",
+          "title": "Discover the pet-care options you could use"
+        }
+      ]
+    }
+  ],
+  "tasks": {
+    "saveReturn": true,
+    "completionReturn": true,
+    "noExtraAwardAfterUndo": true
+  },
+  "ai": {
+    "scenario": "I am uninsured and do not have a regular doctor. Prescription delivery is already arranged. Before a future sick day, I want to understand the total cost of a virtual first visit, including possible follow-up or lab fees, without signing up or booking.",
+    "status": "generated",
+    "metadata": {
+      "responseId": "resp_0054bde55fc00132016acfb382da3887d1a51875a6ccbd8de3",
+      "model": "gpt-6-luna",
+      "inputTokens": 6121,
+      "outputTokens": 263
+    },
+    "batch": {
+      "status": "no_more_ideas",
+      "message": "One new step for what you need now.",
+      "tasks": [
+        {
+          "action_key": "custom_sick_care_sick_self_pay_telehealth_costs",
+          "concern_ids": [
+            "getting_care"
+          ],
+          "title": "Understand the full cost of a first video visit",
+          "summary": "A visit’s advertised price may not include follow-up or tests. Learn what to ask before deciding whether a self-pay virtual provider fits.",
+          "estimated_minutes": 15,
+          "steps": [
+            "Use HHS’s telehealth guide to find a US provider route that may accept new patients; availability depends on location and provider.",
+            "Check the provider’s self-pay terms for the first visit, possible follow-ups, lab charges, and whether labs are billed separately by another facility.",
+            "Use CMS’s guide to understand what a written good-faith estimate may cover and its limits; no signup or booking is needed."
+          ],
+          "done_when": "You understand which charges to check, what an estimate may leave out, and where to investigate a provider’s total cost.",
+          "resources": [
+            {
+              "resource_id": "hhs_find",
+              "why": "Reviewed US starting route for exploring telehealth providers and first-visit access."
+            },
+            {
+              "resource_id": "cms_estimate_guide",
+              "why": "Explains the scope and limits of care estimates for self-pay patients."
+            }
+          ],
+          "purchase_checks": [],
+          "no_purchase_option": null
+        }
+      ]
+    },
+    "replayedWithoutNewCall": true,
+    "savedAndReturnedUnchanged": true
+  },
+  "oldTasksUnchanged": true,
+  "rawRequestAbsentFromLatest": true,
+  "completedOnboardingStillPresent": true,
+  "moreIdeas": {
+    "testedAt": "2026-10-14T16:55:14.035Z",
+    "unchangedChoices": true,
+    "distinctBatches": [
+      [
+        {
+          "key": "sick_v2_sc02",
+          "title": "Know where an in-person visit could start"
+        }
+      ],
+      [
+        {
+          "key": "sick_v2_sc04",
+          "title": "Find a way to an appointment without driving"
+        }
+      ]
+    ],
+    "priorSavedWorkPreserved": true,
+    "latestReadback": true,
+    "aiCalls": 0
+  }
+}

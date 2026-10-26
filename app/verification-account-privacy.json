@@ -1,0 +1,55 @@
+{
+  "testedAt": "2026-10-12T18:03:50.552Z",
+  "host": "https://app-auth-staging.buildmysafety.pages.dev",
+  "evidence": "Actual hosted Clerk/Worker/D1 through an independent HTTP client. No user-browser submission.",
+  "aiCalls": 0,
+  "export": {
+    "fictionalBOnly": true,
+    "profileTasksPrivateContentAwardsIncluded": true,
+    "taskStateUnchanged": true,
+    "deletionAvailable": true,
+    "savedExportToDisk": false
+  },
+  "deletion": {
+    "account": "only approved disposable privacy test account",
+    "providerConfirmed": true,
+    "oldTokenDeniedAppData": true,
+    "recreationBlocked": true,
+    "idempotentRetry": true,
+    "sessionRefreshDenied": true,
+    "fixtureSetup": "Approved disposable account created through Clerk development Users screen; direct signup was incomplete, and no protection settings were changed.",
+    "remainingOwnedRows": {
+      "profiles": 0,
+      "onboarding": 0,
+      "tasks": 0,
+      "privateContent": 0,
+      "awards": 0,
+      "batches": 0,
+      "aiUsage": 0
+    },
+    "minimalReceiptCount": 1
+  },
+  "testedBackendDeployment": "c0a67f2c",
+  "finalDeployment": "3d43f720",
+  "finalClient": "index-B46ZDaPM.js",
+  "automated": {
+    "app": 111,
+    "backend": 142,
+    "typecheck": true,
+    "pagesBuild": true
+  },
+  "ui": {
+    "hosted": true,
+    "privacyCopy": true,
+    "controlsEnabled": true,
+    "confirmationRequired": true,
+    "cancelAndBackNavigation": true,
+    "viewportWidth": 320,
+    "horizontalOverflow": false,
+    "observedErrors": [],
+    "viewportReset": true,
+    "adaAccountWrites": false,
+    "physicalDevice": false,
+    "deletionSubmittedViaBrowser": false
+  }
+}
