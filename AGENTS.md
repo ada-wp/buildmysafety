@@ -9,6 +9,7 @@ Write all new project documents and documentation updates in English, including 
 - For task content/personalization, read `docs/personalization-plan-v0.md`. Keep the approved prompt and candidate calibration revision distinct; their paths and status are recorded in the current product document.
 - Apply its founder-approved “Shared ranking rules — all categories” to every current and future category: research-informed default importance combined with personal fit. Keep individual task ratings and live implementation status separate from framework approval.
 - For interface work, use the relevant existing references under `design/app/` and `design/README.md`. Preserve established screens and interaction choices; do not reopen settled product direction without a concrete reason.
+- Read `UI-DESIGN-LATEST.md` for the current approved UI and Replit/native handoff. Keep this exact filename and update it in place when UI decisions or implementation status change; do not create competing "latest" files.
 - Before connecting or deploying anything, read `docs/technical-status.md`, including the public output/deployment gate. Clickable previews, demo sign-in and authored samples are not evidence of working production features.
 
 Keep decisions in their canonical documents above instead of creating overlapping briefs. Separate confirmed founder decisions, proposed defaults and verified implementation. Do not call a prompt draft a trained model or an authored example an API result.

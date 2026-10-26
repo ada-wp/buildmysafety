@@ -8,6 +8,7 @@ import { createTaskSession } from '../task-session';
 import { activeAiQuota, recommendationFeedback } from '../recommendation-feedback';
 import { Elephant } from './Elephant';
 import { TaskFeedback } from './TaskFeedback';
+import { TaskSteps } from './TaskSteps';
 import { accountIsLeaving } from '../navigation';
 import { SERVICE_COUNTRY } from '../service-market';
 import { useCategoryProgress } from '../use-category-progress';
@@ -143,7 +144,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
         navigate({ page: 'list' });
       }
       else if (event.type === 'undo_complete') { setRecentCompletion(null); setMilestone(null); }
-      else setNotice(event.type === 'save' ? 'Added to your list. It will be here when you return.' : event.type === 'remove' ? 'Removed from your list. You can find it in earlier ideas.' : 'Moved back to your list. Your little win stays with you.');
+      else if (event.type !== 'check_step') setNotice(event.type === 'save' ? 'Added to your list.' : event.type === 'remove' ? 'Removed. You’ll find it in earlier ideas.' : 'Moved back to your list.');
     }
   }
   function startRefining(task: RecommendationTask, from: 'ideas' | 'list') {
@@ -228,7 +229,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       <button className="primary" disabled={!topic} onClick={() => navigate({ page: 'concerns' })}>Explore sick-day care</button>
       <button className="text-button" onClick={() => navigate({ page: 'explore' })}>Back to Explore</button></section>}
     {route.page === 'concerns' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>What would help you feel<br />more prepared?</h1>
-      <p>Choose what matters to you. We’ll put those ideas first, with room for useful discoveries.</p>
+      <p>Choose what matters to you. We’ll put those ideas first.</p>
       <div className="choices">{topic?.concerns.map(c => <label className={`choice${concerns.includes(c.id) ? ' selected' : ''}`} key={c.id}><span>{c.label}</span>
         <input type="checkbox" checked={concerns.includes(c.id)} onChange={() => setConcerns(values => values.includes(c.id) ? values.filter(id => id !== c.id) : [...values, c.id])} /></label>)}</div>
       <details className="more-topics"><summary>Make it fit today</summary>
@@ -247,7 +248,7 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       <p className="hint">For planning ahead. This app doesn’t provide urgent care or medical advice.</p>
     </section>}
     {route.page === 'ideas' && <section><span className="pill">Sick-day care</span><h1 tabIndex={-1}>{state.latest?.result?.adaptation?.newNeed ? batch && batch.tasks.length > 1 ? <>A few ideas for<br />what you need.</> : <>A step for<br />what you need.</> : state.latest?.result?.adaptation?.refinement ? <>A different way<br />to make it work.</> : <>A few small<br />places to start.</>}</h1>
-      <p>Take a look, then add what feels useful. If it’s not quite right, tell us what would fit better.</p>
+      <p>Explore a step. Add what feels useful.</p>
       {batch?.message && <p className="message" role="status">{batch.message}</p>}
       {state.latest?.result?.adaptation?.message && <p className="message" role="status">{state.latest.result.adaptation.message}</p>}
       {batch?.tasks.map(task => card(task))}
@@ -280,20 +281,22 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
     {route.page === 'task' && (current ? <section className="detail"><div className="task-meta"><span className="pill">Sick-day care</span><span>{current.content.estimated_minutes} min</span></div>
       <h1 tabIndex={-1}>{current.content.title}</h1><p className="description">{current.content.summary}</p>
       {current.state.contentRef.startsWith('ai_') && <p className="hint">AI-tailored to your request.</p>}
-      <ol className="steps">{current.content.steps.map((s, i) => <li key={i}><span className="step-number" aria-hidden>{i + 1}</span><p>{s}</p></li>)}</ol>
-      <div className="done-when"><strong>Done when</strong><p>{current.content.done_when}</p></div>
-      {canRefine(current.content) && <button className="text-button" disabled={blocked} onClick={() => startRefining(current.content, origin.current)}>Make this fit me</button>}
-      {current.content.resources.length > 0 && <details className="more-topics"><summary>Helpful links · {current.content.resources.length}</summary>{current.content.resources.map(r => {
+      <TaskSteps key={`${current.state.actionKey}:${current.state.contentRef}`} steps={current.content.steps}
+        checked={current.state.stepChecks} disabled={blocked || current.state.stepChecks === undefined}
+        onCheck={(index, checked) => void act(current.content, { type: 'check_step', index, checked })} />
+      {current.content.resources.length > 0 && <details className="optional-row"><summary>Helpful links · {current.content.resources.length}</summary>{current.content.resources.map(r => {
         const resource = state.catalog?.resources.find(item => item.id === r.resource_id);
         return resource ? <p key={r.resource_id}><a href={resource.url} target="_blank" rel="noopener noreferrer">{resource.name} ↗</a><br />{r.why}<br /><small>{resource.limits}</small></p> : <p key={r.resource_id}>This resource is being checked.</p>;
       })}</details>}
-      {current.content.purchase_checks.length > 0 && <details className="more-topics"><summary>If you’re buying</summary><ul>{current.content.purchase_checks.map(s => <li key={s}>{s}</li>)}</ul>{current.content.no_purchase_option && <p>{current.content.no_purchase_option}</p>}</details>}
+      {current.content.purchase_checks.length > 0 && <details className="optional-row"><summary>If you’re buying</summary><ul>{current.content.purchase_checks.map(s => <li key={s}>{s}</li>)}</ul>{current.content.no_purchase_option && <p>{current.content.no_purchase_option}</p>}</details>}
+      <div className="done-when"><strong>Done when</strong><p>{current.content.done_when}</p></div>
       {!current.state.savedAt ? <button className="primary" disabled={blocked} onClick={() => void act(current.content, { type: 'save' })}>+ Add to my list</button>
         : current.state.completedAt ? <><p className="message">Done, by you.</p><button className="text-button" disabled={blocked} onClick={() => void act(current.content, { type: 'undo_complete' })}>Mark as not done</button></>
           : <button className="primary" disabled={blocked} onClick={() => void act(current.content, { type: 'complete' })}>Mark as done</button>}
-      <button className="text-button" onClick={() => navigate({ page: 'list' })}>View my list</button>
-      <TaskFeedback key={current.state.actionKey} task={current.state} disabled={blocked} enabled={draft.personalizationEnabled}
-        onChange={event => session.act(current.state.actionKey, event)} />
+      {canRefine(current.content) && <button className="text-button" disabled={blocked} onClick={() => startRefining(current.content, origin.current)}>Make this fit me</button>}
+      <details className="optional-row"><summary>Was this useful?</summary>
+        <TaskFeedback key={current.state.actionKey} task={current.state} disabled={blocked} enabled={draft.personalizationEnabled}
+          onChange={event => session.act(current.state.actionKey, event)} /></details>
     </section> : <section><h1 tabIndex={-1}>Let’s find<br />your next step.</h1><p>This task isn’t in your account. Your list is still here.</p><button className="primary" onClick={() => navigate({ page: 'list' })}>Go to my list</button></section>)}
     {route.page === 'list' && <section className={pulse ? 'completion-nudge' : undefined}><header className="list-top"><h1 tabIndex={-1}>My list</h1><span className="pill">Sick days</span></header>
       {sickProgress && <ListProgress progress={sickProgress} label="Sick-day care" elephantName={draft.elephantName} onReplay={replayHug} />}
@@ -305,7 +308,6 @@ export function TaskJourney({ draft, client, active, onIdentityError }: { draft:
       {done.length > 0 && <details className="completed-list"><summary>Completed · {done.length}</summary>{done.map(row)}</details>}
       {saved.length > 0 && <button className="secondary" disabled={blocked} onClick={() => void findIdeas()}>Find more ideas</button>}
       {earlier.length > 0 && <button className="text-button" onClick={() => navigate({ page: 'earlier' })}>Revisit earlier ideas</button>}
-      <p className="hint">Saved to your account. Pick up here on another device.</p>
     </section>}
     {route.page === 'progress' && <section><header className="progress-top"><div><h1 tabIndex={-1}>My progress</h1><p>Look at what you’re building.</p></div><Elephant name={draft.elephantName} /></header>
       {!progress.data && !progress.error && <p role="status">Finding your progress…</p>}

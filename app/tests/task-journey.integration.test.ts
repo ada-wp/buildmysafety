@@ -40,7 +40,7 @@ function setup(t: TestContext, aiEnabled = false, newNeeds = false) {
       } catch (error) { sqlite.exec('ROLLBACK'); throw error; }
     }
   };
-  const identities = new Map([['Bearer alice-test-token', 'journey_alice'], ['Bearer bob-test-token', 'journey_bob']]);
+  const identities = new Map([['Bearer alice-test-token', 'user_journey_alice'], ['Bearer bob-test-token', 'user_journey_bob']]);
   const worker = createAppWorker({ contentReviewHosts: ['journey.integration.invalid'],
     generate: async (body: { input: Array<{ content: Array<{ text: string }> }>; model: string }) => {
       const { target_task: task } = JSON.parse(body.input[0].content[0].text);
@@ -79,6 +79,57 @@ function setup(t: TestContext, aiEnabled = false, newNeeds = false) {
     getAccessToken: async () => `${owner}-test-token`, fetchImpl });
   return { client, calls, sqlite, loseNextResponse(path: string) { dropPath = path; } };
 }
+
+test('step checks persist per account without completing a task or earning growth', async t => {
+  const { client, loseNextResponse } = setup(t);
+  const alice = client(); const bob = client('bob');
+  await alice.createMemory({ interests: ['sick_care'] });
+  await bob.createMemory({ interests: ['sick_care'] });
+  await alice.recommendations({ request: { topicId: 'sick_care', concernIds: ['food', 'daily_tasks'] },
+    requestId: 'step_check_journey_01', expectedStateVersion: '1' });
+  const collection = await alice.getTasks();
+  const item = collection.tasks[0];
+  const actionKey = item.state.actionKey;
+  const checked = await alice.taskAction({ actionKey, expectedStateVersion: collection.stateVersion,
+    event: { type: 'check_step', index: 0, checked: true } });
+  assert.equal(checked.task.stepChecks, 1);
+  assert.equal(checked.task.completedAt, null);
+  assert.equal(checked.task.savedAt, null);
+  assert.equal(checked.earnedCount, 0); assert.equal(checked.awardEarned, false);
+  const replay = await alice.taskAction({ actionKey, expectedStateVersion: checked.stateVersion,
+    event: { type: 'check_step', index: 0, checked: true } });
+  assert.equal(replay.changed, false); assert.equal(replay.stateVersion, checked.stateVersion);
+  const reopened = await client().getTasks();
+  assert.equal(reopened.tasks.find(task => task.state.actionKey === actionKey)?.state.stepChecks, 1);
+  assert.ok(reopened.tasks.filter(task => task.state.actionKey !== actionKey).every(task => task.state.stepChecks === 0));
+  assert.deepEqual(reopened.tasks.find(task => task.state.actionKey === actionKey)?.content, item.content);
+  await assert.rejects(bob.taskAction({ actionKey, expectedStateVersion: '1', event: { type: 'check_step', index: 0, checked: true } }));
+  await assert.rejects(alice.taskAction({ actionKey, expectedStateVersion: collection.stateVersion, event: { type: 'check_step', index: 1, checked: true } }),
+    (error: unknown) => error instanceof SafetyApiError && error.conflict);
+  await assert.rejects(alice.taskAction({ actionKey, expectedStateVersion: checked.stateVersion, event: { type: 'check_step', index: item.content.steps.length, checked: true } }));
+  let version = checked.stateVersion;
+  for (let index = 1; index < item.content.steps.length; index++) {
+    const result = await alice.taskAction({ actionKey, expectedStateVersion: version, event: { type: 'check_step', index, checked: true } });
+    assert.equal(result.earnedCount, 0); assert.equal(result.task.completedAt, null); version = result.stateVersion;
+  }
+  const saved = await alice.taskAction({ actionKey, expectedStateVersion: version, event: { type: 'save' } });
+  const done = await alice.taskAction({ actionKey, expectedStateVersion: saved.stateVersion, event: { type: 'complete' } });
+  assert.equal(done.earnedCount, 1); assert.equal(done.awardEarned, true);
+  const undo = await alice.taskAction({ actionKey, expectedStateVersion: done.stateVersion, event: { type: 'undo_complete' } });
+  assert.equal(undo.task.stepChecks, (1 << item.content.steps.length) - 1);
+  const clear = await alice.taskAction({ actionKey, expectedStateVersion: undo.stateVersion, event: { type: 'check_step', index: 0, checked: false } });
+  assert.equal(clear.task.stepChecks, ((1 << item.content.steps.length) - 1) & ~1);
+  assert.equal(clear.earnedCount, 1); assert.equal(clear.awardEarned, false);
+  const exported = await alice.exportAccount();
+  assert.equal(exported.tasks.find(task => task.action_key === actionKey)?.step_checks, clear.task.stepChecks);
+  loseNextResponse('/api/tasks/action');
+  await assert.rejects(alice.taskAction({ actionKey, expectedStateVersion: clear.stateVersion,
+    event: { type: 'check_step', index: 0, checked: true } }),
+    (error: unknown) => error instanceof SafetyApiError && error.outcomeUnknown);
+  const afterLostResponse = await client().getTasks();
+  assert.equal(afterLostResponse.tasks.find(task => task.state.actionKey === actionKey)?.state.stepChecks, (1 << item.content.steps.length) - 1);
+  assert.equal(afterLostResponse.earnedCount, 1);
+});
 
 test('real client, worker and D1 agree on owned catalog, batch, detail, completion and reload contracts', async t => {
   const { client } = setup(t);
@@ -182,7 +233,9 @@ test('client sends explicit feedback to refine a previously shown unsaved task a
   if (first.source !== 'pool') throw new Error('Expected the initial pool batch.');
   const before = await alice.getTasks();
   const target = before.tasks.find(item => item.state.actionKey === first.batch.tasks[0].action_key)!;
-  const result = await alice.recommendations({ route: 'auto', requestId: 'refinement_client_01', expectedStateVersion: first.stateVersion,
+  const checked = await alice.taskAction({ actionKey: target.state.actionKey, expectedStateVersion: first.stateVersion,
+    event: { type: 'check_step', index: 0, checked: true } });
+  const result = await alice.recommendations({ route: 'auto', requestId: 'refinement_client_01', expectedStateVersion: checked.stateVersion,
     request: { topicId: 'sick_care', concernIds: ['food'], refineActionKey: target.state.actionKey,
       note: 'I have no microwave. Please use food with no cooking.' } });
   assert.equal(result.source, 'mixed'); assert.equal(result.adaptation?.refinement, true);
@@ -192,6 +245,7 @@ test('client sends explicit feedback to refine a previously shown unsaved task a
   const revised = reloaded.tasks.find(item => item.state.actionKey === target.state.actionKey)!;
   assert.equal(revised.content.title, 'Pick two no-cook food options');
   assert.ok(revised.state.contentRef.startsWith('ai_')); assert.equal(revised.state.savedAt, null);
+  assert.equal(revised.state.stepChecks, 0, 'new instructions must not inherit checks from an old version');
   assert.deepEqual((await client().getLatestRecommendation()).result?.batch, result.batch);
 });
 

@@ -179,7 +179,8 @@ export function createHandler({ catalog, verifyIdentity = verifyJwtIdentity, req
       if (route === 'POST /api/tasks/action') {
         const body = await readBody(request);
         fields(body, ['expectedStateVersion', 'actionKey', 'event'], ['expectedStateVersion', 'actionKey', 'event']);
-        fields(body.event, body.event?.type === 'feedback' ? ['type', 'code'] : ['type'], body.event?.type === 'feedback' ? ['type', 'code'] : ['type']);
+        const eventKeys = body.event?.type === 'check_step' ? ['type', 'index', 'checked'] : body.event?.type === 'feedback' ? ['type', 'code'] : ['type'];
+        fields(body.event, eventKeys, eventKeys);
         return json(await store.applyTaskAction(owner, body.expectedStateVersion, body.actionKey, body.event));
       }
       if (route === 'POST /api/recommendations') {

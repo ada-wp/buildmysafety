@@ -61,10 +61,12 @@ export type TaskState = {
   likedAt: string | null;
   feedbackCode: FeedbackCode | null;
   feedbackAt: string | null;
+  /** Four checklist bits; independent of whole-task completion. Absent on older servers. */
+  stepChecks?: number;
 };
 export type MemorySnapshot = { profile: UserProfile; taskStates: TaskState[]; stateVersion: string };
 export type TaskActionEvent = { type: 'save' | 'remove' | 'complete' | 'undo_complete' | 'like' | 'unlike' } |
-  { type: 'feedback'; code: FeedbackCode | null };
+  { type: 'feedback'; code: FeedbackCode | null } | { type: 'check_step'; index: number; checked: boolean };
 export type TaskActionInput = { expectedStateVersion: string; actionKey: string; event: TaskActionEvent };
 export type TaskActionResponse = { task: TaskState; stateVersion: string; changed: boolean; earnedCount?: number; awardEarned?: boolean };
 

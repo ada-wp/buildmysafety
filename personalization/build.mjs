@@ -23,6 +23,7 @@ const taskStateSchema = {
     contentRef: { type: 'string', minLength: 1, maxLength: 128 },
     shownAt: { type: 'string', format: 'date-time' }, savedAt: date, removedAt: date,
     completedAt: date, likedAt: date, feedbackAt: date,
+    stepChecks: { type: 'integer', minimum: 0, maximum: 15 },
     feedbackCode: { enum: [null, 'helpful', 'too_generic', 'too_much_effort', 'too_expensive', 'already_done', 'not_relevant_now'] }
   }
 };

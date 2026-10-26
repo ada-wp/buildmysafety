@@ -1,0 +1,15 @@
+# App typography — Inter trial
+
+**Superseded by mockup-first scope, October 15:** Ada found the type too large and asked for several compact mockups before app changes. The unapproved modifications to `app/` have been restored to the synced baseline, including font dependencies. This standalone trial remains a historical reference; its renderer now reads frozen design-only style snapshots. The newer mockups explore smaller type and compact checkable/expandable task content. They do not modify application code. The implementation and verification paragraphs below describe the earlier trial, not current app status.
+
+October 15, 2026. Ada asked to change the app's font toward Uber's visual style. This trial replaces Instrument Serif headings with compact, bold Inter, while retaining the established ivory/lavender/earthy-green palette, original elephant, layout and journey. It is an Uber-inspired direction using Inter, not Uber Move itself. Visual approval is pending; the change is local and is not deployed.
+
+The maintained implementation is `app/src/style.css`, its shared font/size tokens, `app/src/components/category-progress.css` and `app/src/main.tsx`. Body copy remains Inter 400/500; headings use 700 and key labels/task titles use 600. Welcome headings are 38–46px, page/task headings 32–40px, onboarding questions 29–34px and companion headings 28–32px. Responsive sizes use existing screen geometry. Clerk already uses Inter. No task, navigation, authentication, storage or API behavior changes.
+
+The app self-hosts Latin Inter 400/500/600/700 from the existing pinned Fontsource package with font-display: swap. The unused Instrument Serif dependency is removed. Inter is [open source under the SIL Open Font License](https://github.com/rsms/inter); the standalone preview includes [its license](INTER-LICENSE.txt).
+
+Open [the typography preview](preview.html) to compare My list, Ideas, Task and My progress. It embeds the current app styles and exact existing elephant, with static My home candidate tasks and illustrative progress. This does not activate the home category, save tasks or test app functionality. The outer screen switcher is a review control, not proposed app navigation. Render it again with `node design/app/typography/render-preview.mjs` after installing app dependencies.
+
+Older approved screenshots and clickable prototypes remain historical design references. This trial supersedes only their typography if accepted; it does not redraw them, alter the branding website or add new native-app code.
+
+Verification: `npm --prefix app run build` passed, including TypeScript checking. The four preview views were opened in the browser; headings computed as Inter 700 and none produced horizontal overflow at the available 488px viewport. My list and task detail were visually inspected. This verifies the typography preview, not signed-in functionality, every mobile breakpoint or a hosted deployment. No new automated tests were added for this styling-only change.

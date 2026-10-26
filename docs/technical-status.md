@@ -1,5 +1,39 @@
 # Technical status and next implementation boundary
 
+## October 26 — Option A implementation and app-wide Inter; source release
+
+The current implementation is in `repositories/buildmysafety-app` in the My Safety workspace, on `docs/safety-project-consolidation-20260929`. This continues the original app branch and includes the four newer Protector Interaction design commits through `3f34fe7`. The older Codex checkout remains untouched by this implementation. The separate `repositories/buildmysafety` checkout contains the older website branch; do not mistake it for the current React app source.
+
+### Implemented in this change
+
+- App-wide Inter 400/500/600, locally bundled. Instrument Serif is removed from the active app. Headings are normally 24px, body 14px, and editable fields 16px. Welcome, elephant message and milestone headings use the smaller scale. Existing artwork, palette and routes remain.
+- Reusable `TaskSteps` renders compact checkboxes and expandable full instructions. Short instructions do not repeat themselves inside an unnecessary expander. Links/purchase checks and optional feedback stay available in collapsed rows; canonical task content is unchanged.
+- `check_step` is a new event on the existing authenticated `/api/tasks/action` route. The server checks the actual pinned task content, owner and version, then stores four bits in `memory_task_states.step_checks`. No local-storage user database or AI call is added.
+- Individual checks do not save a task, mark it complete, award growth or change the milestone count. Whole-task completion remains explicit. The bits survive removal/undo/reload and reset only when the unsaved task receives replacement instructions. Account export includes them; existing profile/task cascade deletion removes them.
+- `UI-DESIGN-LATEST.md` at the repository root is the stable design/implementation handoff, including a copyable Replit instruction, exact style values and code paths. Historical type trials remain labeled as superseded; do not use them as the latest visual specification.
+
+### Verification and limits
+
+- The app integration suite uses the actual TypeScript client, Worker handlers, SQL queries and all migrations with disposable SQLite. Coverage includes checked-step persistence across fresh clients, account/task isolation, stale writes, invalid indices, no automatic task completion, one-time awards, content-refinement reset, account export and recovery after a lost write response.
+- Final local verification: **185 backend tests and 131 app tests pass**, with no failures or skipped tests. Strict TypeScript and the Vite production build pass. The allowlisted Pages artifact check/Worker packaging also passes. Packaging required a scoped run outside the filesystem sandbox because esbuild could not traverse Windows path ancestors; no packaging code or deployment safeguards were changed.
+- The real-component local browser harness could start, but the in-app browser returned `ERR_BLOCKED_BY_CLIENT` for the local preview. Therefore this turn does **not** establish a fresh visual/browser interaction pass. Responsive layout, keyboard behavior, screen-reader announcements and real-device review remain release checks.
+- No Clerk account, hosted D1 data, cloud secrets, paid model call, deployed alias, production website or Replit app was changed. The new SQL migration is authored/tested locally, not applied remotely.
+- Dependency installation reported a pre-existing moderate `fast-uri` advisory chain through the pinned `ajv`/`ajv-formats` build dependencies; audit reported no available fix. These validators are compiled to static runtime files rather than shipping Ajv in the browser. Dependency maintenance remains separate from this UI change; do not describe the project as security-audited.
+
+### Deploying this change later
+
+1. Confirm the intended tester project/D1 binding and review current deletion/operational checks using the existing deployment gate.
+2. Apply `personalization/migrations/0007_task_step_checks.sql` to that D1 database before deploying the new backend. Existing rows default to zero; no task instructions, completion timestamps or awards are rewritten.
+3. Build with `npm --prefix app run build:pages` and deploy only `app/dist/client`. Never publish the repository root, `.local` harness or research/documents. Keep `[CF-Pages-Skip]` on GitHub sync commits to prevent an accidental root publication.
+4. Test two approved accounts: checkbox save, navigation/reload, independence, whole-task completion, undo, original milestones, My progress, three suggestions, privacy/export, and account return navigation. Review at 320px and a typical phone width, including enlarged text and reduced-motion preferences.
+5. Record the new deployed version and actual hosted results here. Do not replace the last-known live evidence below with a local build result.
+
+### Outstanding product work, unchanged by this UI pass
+
+The last recorded tester deployment is `a0308d39`; its hosted three-task AI request failed with `unavailable`. The runtime still uses the older compiled writer. The richer shared discovery prompt and sick/home category modules are saved candidates, with a missing supplemental-search-prompt schema/display connection and a recorded false positive in the guarantee-word filter. Diagnose and evaluate those before claiming suggestion quality is solved. My home remains a 56-task research/content candidate package, not a connected category. The Protector Interaction thirty-minute journey/reminder is design-only. A native Replit client must be reviewed/adapted separately; cloud API reuse is possible, but web layouts do not transfer automatically.
+
+Clerk development sign-in and the staging D1 database remain the documented tester architecture. Public launch, fresh external tester sign-in, production account/data separation, real-device QA and hosted capacity verification remain separate gates. Earlier local 200-user runs do not verify hosted concurrent demand.
+
 ## October 14 three-idea update — live test unfinished; work stopped at Ada's request
 
 Deployment `a0308d39` (code `33a7991`, client `index-ok_G4feh.js`) is on the tester alias. New typed requests ask for three distinct private tasks in one model call. Ordinary matching uses the reviewed collection first and generates missing slots when fewer than three remain. See more ideas now uses that automatic path; the explicitly labeled prepared-collection quota fallback remains pool-only. The earlier one-AI-task ceiling no longer applies to new batches. Editing one selected task remains a single-task revision. Resource, category, explicit constraints, duplicate checks, atomic storage, replay and founder-only daily allowance remain.

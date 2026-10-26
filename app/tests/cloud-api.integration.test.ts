@@ -34,6 +34,7 @@ function setup(t: TestContext) {
   sqlite.exec(migration);
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0002_task_journey.sql', import.meta.url), 'utf8'));
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0004_ai_adaptation.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('../../personalization/migrations/0007_task_step_checks.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql: string) {

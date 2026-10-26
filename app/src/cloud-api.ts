@@ -82,7 +82,8 @@ function isProfile(value: unknown) {
 }
 function isTaskState(value: unknown) {
   return record(value) && ['userId', 'actionKey', 'contentRef', 'shownAt'].every(key => text(value[key]) && value[key].length > 0) &&
-    ['savedAt', 'removedAt', 'completedAt', 'likedAt', 'feedbackCode', 'feedbackAt'].every(key => nullableText(value[key]));
+    ['savedAt', 'removedAt', 'completedAt', 'likedAt', 'feedbackCode', 'feedbackAt'].every(key => nullableText(value[key])) &&
+    (value.stepChecks === undefined || (Number.isInteger(value.stepChecks) && (value.stepChecks as number) >= 0 && (value.stepChecks as number) <= 15));
 }
 const isProfileResponse = (value: unknown) => record(value) && isProfile(value.profile);
 const isMemory = (value: unknown) => record(value) && isProfile(value.profile) && version(value.stateVersion) &&
@@ -223,10 +224,13 @@ export function createSafetyClient({ baseUrl, getAccessToken, fetchImpl = global
     taskAction: (action: TaskActionInput, options?: RequestOptions) => {
       input(validFields(action, ['expectedStateVersion', 'actionKey', 'event'], ['expectedStateVersion', 'actionKey', 'event']) &&
         version(action.expectedStateVersion) && text(action.actionKey));
-      input(validFields(action.event, action.event?.type === 'feedback' ? ['type', 'code'] : ['type'],
-        action.event?.type === 'feedback' ? ['type', 'code'] : ['type']));
-      input(['save', 'remove', 'complete', 'undo_complete', 'like', 'unlike', 'feedback'].includes(action.event.type));
-      const event = action.event.type === 'feedback' ? { type: action.event.type, code: action.event.code } : { type: action.event.type };
+      const eventKeys = action.event?.type === 'check_step' ? ['type', 'index', 'checked']
+        : action.event?.type === 'feedback' ? ['type', 'code'] : ['type'];
+      input(validFields(action.event, eventKeys, eventKeys));
+      input(['save', 'remove', 'complete', 'undo_complete', 'like', 'unlike', 'feedback', 'check_step'].includes(action.event.type));
+      const event = action.event.type === 'check_step' ? { type: action.event.type, index: action.event.index, checked: action.event.checked }
+        : action.event.type === 'feedback' ? { type: action.event.type, code: action.event.code } : { type: action.event.type };
+      if (event.type === 'check_step') input(Number.isInteger(event.index) && event.index! >= 0 && event.index! < 4 && typeof event.checked === 'boolean');
       if (event.type === 'feedback') input(nullableText(event.code));
       return call<TaskActionResponse>('/api/tasks/action', 'POST', { expectedStateVersion: action.expectedStateVersion,
         actionKey: action.actionKey, event }, isTaskAction, options);

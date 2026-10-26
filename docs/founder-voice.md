@@ -4,6 +4,12 @@ Use this reference for future My Safety website content. Ada's direct statements
 
 ## Directly supplied by Ada
 
+- October 26: Ada chose “implement option a,” then asked to “rollout the font to all app.” Apply the compact checkable-row treatment and Inter typography across the existing app while preserving its elephant, colors and flow. She requested GitHub synchronization after completion, a detailed project checkpoint, and a consistently named latest-UI file Replit can find. `UI-DESIGN-LATEST.md` is that stable handoff. Her implementation approval supersedes the earlier mockup-only boundary for this chosen direction; it does not change content/category approval or automatically deploy the app.
+
+- October 15, mockups before changes: Ada replaced immediate UI implementation with a few mockups using our current screens. Optimize the existing My Safety design: typography is still too large, reduce disclaimer/explanatory text, and organize useful content into compact checkable/expandable blocks. Preserve the theme, elephant and established flow. Treat smaller-type layouts and abbreviated example copy as proposals until reviewed, not permission to change the application or canonical task pool.
+
+- October 15, typography: Ada is unhappy with the current app font and asked for a direction like Uber. Treat this as permission to explore a clean sans-serif heading system. The local Inter trial is not yet visual approval of a final font choice, and the original elephant, palette and flow remain established.
+
 - October 15, demand and discovery: Ada said the polished home suggestions were much better and requested ranking based on market research, with more solutions for stronger needs. She specifically liked Frontdoor video chats and wants tasks to help people become aware of laws, rights, resources, what to look for and how to prepare. Treat this as a content-development principle; do not invent popularity data or add complexity to the app.
 
 - October 15, My home review: Ada found many suggestions unhelpful, especially under "Knowing where to get help when something breaks," and described the language as formal, general and hard to follow. Her quoted example told users to document a nonurgent fault and contact the "responsible party" without helping them discover whom to contact. Treat this as rejection of the draft's usefulness and voice, not a request for cosmetic synonym changes. Explain real options in everyday language; reporting/documentation belongs where it solves an actual obstacle. The home collection remains under review.

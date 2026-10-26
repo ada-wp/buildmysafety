@@ -53,6 +53,7 @@ function setup(t: TestContext) {
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0004_ai_adaptation.sql', import.meta.url), 'utf8'));
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0003_onboarding.sql', import.meta.url), 'utf8'));
   sqlite.exec(readFileSync(new URL('../../personalization/migrations/0005_account_privacy.sql', import.meta.url), 'utf8'));
+  sqlite.exec(readFileSync(new URL('../../personalization/migrations/0007_task_step_checks.sql', import.meta.url), 'utf8'));
   t.after(() => sqlite.close());
   const db = {
     prepare(sql: string) {

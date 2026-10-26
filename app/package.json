@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@clerk/react": "6.17.8",
-    "@fontsource/instrument-serif": "5.3.0",
     "@fontsource/inter": "5.3.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"

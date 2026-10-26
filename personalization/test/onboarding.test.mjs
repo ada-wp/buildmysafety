@@ -17,7 +17,7 @@ const T1 = '2026-10-11T13:00:00.000Z';
 function fixture(t) {
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys = ON');
-  for (const name of ['0001_user_memory.sql', '0002_task_journey.sql', '0003_onboarding.sql']) {
+  for (const name of ['0001_user_memory.sql', '0002_task_journey.sql', '0003_onboarding.sql', '0007_task_step_checks.sql']) {
     sqlite.exec(readFileSync(new URL(`../migrations/${name}`, import.meta.url), 'utf8'));
   }
   t.after(() => sqlite.close());

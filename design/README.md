@@ -4,6 +4,10 @@ There are two distinct design assets: the approved ivory/lavender app direction 
 
 ## App journey
 
+- [Latest approved UI and Replit handoff](../UI-DESIGN-LATEST.md): October 26 Option A compact checkable rows, with Inter throughout the app. Implemented in source; cloud migration/deployment and fresh visual review remain. This supersedes the historical oversized-font trial below.
+- [Protector Interaction](app/protector-interaction/README.md): separate approved four-screen journey/affirmation design; not yet integrated into the app.
+- [Inter typography trial](app/typography/README.md): historical October 15 font preview, now frozen. Ada found the type too large and requested compact mockups first; unapproved app changes were restored. Preserve the palette, elephant and established flow while reviewing smaller type and checkable/expandable content. Earlier screenshots remain design references.
+
 - [Conversational onboarding](app/onboarding/README.md): the latest clickable entry journey, with eleven choice-led questions, a solo-living text-bubble interest picker, brief answer-based comments, an editable recap, and connected sample tasks. Includes Ada's earthy-green button trial; ivory and lavender remain dominant. Ready for visual review. The [personalization plan](../docs/personalization-plan-v0.md) describes how answers should shape topics and feasible recommendations.
 - [Five V0 flow details](app/v0-flow/README.md): email-code sign-in, removal/Undo, empty/all-done lists, generation recovery and gentle growth. Email sign-in is confirmed; the new screen treatments are ready for review and use synthetic behavior.
 - [Simple navigation proposal](app/navigation/README.md): two main destinations, labeled return paths, and a clickable sample preview; awaiting visual review.

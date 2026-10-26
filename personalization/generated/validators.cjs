@@ -1528,7 +1528,7 @@ return errors === 0;
 validate21.evaluated = {"props":true,"dynamicProps":false,"dynamicItems":false};
 
 exports.validTaskState = validate22;
-const schema33 = {"type":"object","additionalProperties":false,"required":["userId","actionKey","contentRef","shownAt","savedAt","removedAt","completedAt","likedAt","feedbackCode","feedbackAt"],"properties":{"userId":{"type":"string","minLength":1,"maxLength":128},"actionKey":{"type":"string","minLength":1,"maxLength":100,"pattern":"^[a-z0-9][a-z0-9_-]*$"},"contentRef":{"type":"string","minLength":1,"maxLength":128},"shownAt":{"type":"string","format":"date-time"},"savedAt":{"type":["string","null"],"format":"date-time"},"removedAt":{"type":["string","null"],"format":"date-time"},"completedAt":{"type":["string","null"],"format":"date-time"},"likedAt":{"type":["string","null"],"format":"date-time"},"feedbackAt":{"type":["string","null"],"format":"date-time"},"feedbackCode":{"enum":[null,"helpful","too_generic","too_much_effort","too_expensive","already_done","not_relevant_now"]}}};
+const schema33 = {"type":"object","additionalProperties":false,"required":["userId","actionKey","contentRef","shownAt","savedAt","removedAt","completedAt","likedAt","feedbackCode","feedbackAt"],"properties":{"userId":{"type":"string","minLength":1,"maxLength":128},"actionKey":{"type":"string","minLength":1,"maxLength":100,"pattern":"^[a-z0-9][a-z0-9_-]*$"},"contentRef":{"type":"string","minLength":1,"maxLength":128},"shownAt":{"type":"string","format":"date-time"},"savedAt":{"type":["string","null"],"format":"date-time"},"removedAt":{"type":["string","null"],"format":"date-time"},"completedAt":{"type":["string","null"],"format":"date-time"},"likedAt":{"type":["string","null"],"format":"date-time"},"feedbackAt":{"type":["string","null"],"format":"date-time"},"stepChecks":{"type":"integer","minimum":0,"maximum":15},"feedbackCode":{"enum":[null,"helpful","too_generic","too_much_effort","too_expensive","already_done","not_relevant_now"]}}};
 const pattern5 = new RegExp("^[a-z0-9][a-z0-9_-]*$", "u");
 
 function validate22(data, {instancePath="", parentData, parentDataProperty, rootData=data, dynamicAnchors={}}={}){
@@ -1919,10 +1919,10 @@ errors++;
 }
 }
 }
-if(data.feedbackCode !== undefined){
-let data9 = data.feedbackCode;
-if(!(((((((data9 === null) || (data9 === "helpful")) || (data9 === "too_generic")) || (data9 === "too_much_effort")) || (data9 === "too_expensive")) || (data9 === "already_done")) || (data9 === "not_relevant_now"))){
-const err33 = {instancePath:instancePath+"/feedbackCode",schemaPath:"#/properties/feedbackCode/enum",keyword:"enum",params:{allowedValues: schema33.properties.feedbackCode.enum},message:"must be equal to one of the allowed values"};
+if(data.stepChecks !== undefined){
+let data9 = data.stepChecks;
+if(!((typeof data9 == "number") && (!(data9 % 1) && !isNaN(data9)))){
+const err33 = {instancePath:instancePath+"/stepChecks",schemaPath:"#/properties/stepChecks/type",keyword:"type",params:{type: "integer"},message:"must be integer"};
 if(vErrors === null){
 vErrors = [err33];
 }
@@ -1931,15 +1931,50 @@ vErrors.push(err33);
 }
 errors++;
 }
-}
-}
-else {
-const err34 = {instancePath,schemaPath:"#/type",keyword:"type",params:{type: "object"},message:"must be object"};
+if(typeof data9 == "number"){
+if(data9 > 15 || isNaN(data9)){
+const err34 = {instancePath:instancePath+"/stepChecks",schemaPath:"#/properties/stepChecks/maximum",keyword:"maximum",params:{comparison: "<=", limit: 15},message:"must be <= 15"};
 if(vErrors === null){
 vErrors = [err34];
 }
 else {
 vErrors.push(err34);
+}
+errors++;
+}
+if(data9 < 0 || isNaN(data9)){
+const err35 = {instancePath:instancePath+"/stepChecks",schemaPath:"#/properties/stepChecks/minimum",keyword:"minimum",params:{comparison: ">=", limit: 0},message:"must be >= 0"};
+if(vErrors === null){
+vErrors = [err35];
+}
+else {
+vErrors.push(err35);
+}
+errors++;
+}
+}
+}
+if(data.feedbackCode !== undefined){
+let data10 = data.feedbackCode;
+if(!(((((((data10 === null) || (data10 === "helpful")) || (data10 === "too_generic")) || (data10 === "too_much_effort")) || (data10 === "too_expensive")) || (data10 === "already_done")) || (data10 === "not_relevant_now"))){
+const err36 = {instancePath:instancePath+"/feedbackCode",schemaPath:"#/properties/feedbackCode/enum",keyword:"enum",params:{allowedValues: schema33.properties.feedbackCode.enum},message:"must be equal to one of the allowed values"};
+if(vErrors === null){
+vErrors = [err36];
+}
+else {
+vErrors.push(err36);
+}
+errors++;
+}
+}
+}
+else {
+const err37 = {instancePath,schemaPath:"#/type",keyword:"type",params:{type: "object"},message:"must be object"};
+if(vErrors === null){
+vErrors = [err37];
+}
+else {
+vErrors.push(err37);
 }
 errors++;
 }
